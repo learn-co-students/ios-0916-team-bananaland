@@ -6,5 +6,5 @@ Team Members:
 Arvin San Miguel
 Paul Tangen
 Jacqueline
-Joanna
+Joanna No Last Name
 more changes
