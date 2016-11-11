@@ -3,7 +3,7 @@
 hey team!
 
 Team Members:
-Paul
+Paul Tangen
 Arvin
 Jacqueline
 Joanna
