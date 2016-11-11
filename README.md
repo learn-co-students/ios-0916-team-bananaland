@@ -4,6 +4,6 @@ hey team!
 
 Team Members:
 Paul
-Arvin
+Arvin San Miguel
 Jacqueline
 Joanna
