@@ -6,4 +6,4 @@ Team Members:
 Paul
 Arvin
 Jacqueline
-Joanna
+Joanna Huang
