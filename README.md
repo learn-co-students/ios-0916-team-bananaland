@@ -3,7 +3,10 @@
 hey team!
 
 Team Members:
-Paul
-Arvin
+Arvin San Miguel
+Paul Tangen
 Jacqueline
 Joanna Huang
+
+
+
