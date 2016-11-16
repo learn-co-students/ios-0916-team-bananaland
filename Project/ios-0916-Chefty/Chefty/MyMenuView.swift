@@ -9,24 +9,28 @@
 import UIKit
 
 class MyMenuView: UIView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
     
     override init(frame:CGRect){
         super.init(frame: frame)
         
-        // delete appetizer button
-        let deleteApp: UIButton = UIButton()
-        deleteApp.backgroundColor = UIColor.green
-        deleteApp.setTitle("Click Me", for: UIControlState.normal)
+        self.backgroundColor = UIColor.gray
+        
+        // delete appetizer button - initialize
+        let deleteApp: UIButton = UIButton(type: .roundedRect)
+        
+        // configure the button
+        deleteApp.setTitle(Constants.iconLibrary.close.rawValue, for: .normal)
         deleteApp.addTarget(self, action: #selector(MyMenuView.deleteAppAction), for: UIControlEvents.touchUpInside)
+        deleteApp.titleLabel!.font =  UIFont(name: Constants.iconFont.material.rawValue, size: CGFloat(Constants.iconSize.large.rawValue))
+        deleteApp.setTitleColor(UIColor(named: .blue), for: .normal)
+        
+        // add the button
         self.addSubview(deleteApp)
+        
+        // constrain the button
+        deleteApp.topAnchor.constraint(equalTo: self.topAnchor, constant: 100).isActive = true
+        deleteApp.translatesAutoresizingMaskIntoConstraints = false
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,7 +38,7 @@ class MyMenuView: UIView {
     }
     
     func deleteAppAction() {
-        print("delete action")
+        print("delete app")
     }
 
 }

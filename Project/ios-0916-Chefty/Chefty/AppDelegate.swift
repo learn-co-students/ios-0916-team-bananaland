@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // mainStoryboard
-        let mainStoryboard = UIStoryboard(name: "MainStoryboard", bundle: nil)
+        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         
         // rootViewController
         let rootViewController = mainStoryboard.instantiateViewController(withIdentifier: "MyMenuViewController") as? UIViewController
