@@ -60,17 +60,41 @@
 		A7C1E1B51DDCD97300BD8A13 /* Chefty */ = {
 			isa = PBXGroup;
 			children = (
-				A7C1E1B61DDCD97300BD8A13 /* AppDelegate.swift */,
-				01308B061DDCEA6B00A0791A /* IngredientsView.swift */,
-				71E655C31DDCE61700B60E0B /* TraditionalRecipeViewController.swift */,
+				C0252C5F1DDCF96C00046AD0 /* Models */,
+				C0252C5E1DDCF95800046AD0 /* Controllers */,
+				C0252C5D1DDCF93900046AD0 /* Views */,
 				A7C1E1B81DDCD97300BD8A13 /* ViewController.swift */,
 				A7C1E1BA1DDCD97300BD8A13 /* Main.storyboard */,
 				A7C1E1C01DDCD97300BD8A13 /* Assets.xcassets */,
 				A7C1E1C21DDCD97300BD8A13 /* LaunchScreen.storyboard */,
 				A7C1E1C51DDCD97300BD8A13 /* Info.plist */,
 				A7C1E1BD1DDCD97300BD8A13 /* Chefty.xcdatamodeld */,
+				A7C1E1B61DDCD97300BD8A13 /* AppDelegate.swift */,
 			);
 			path = Chefty;
+			sourceTree = "<group>";
+		};
+		C0252C5D1DDCF93900046AD0 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				01308B061DDCEA6B00A0791A /* IngredientsView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		C0252C5E1DDCF95800046AD0 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				71E655C31DDCE61700B60E0B /* TraditionalRecipeViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		C0252C5F1DDCF96C00046AD0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
