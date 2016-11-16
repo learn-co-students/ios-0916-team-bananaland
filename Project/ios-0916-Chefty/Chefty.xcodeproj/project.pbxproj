@@ -15,6 +15,8 @@
 		A7C1E1BF1DDCD97300BD8A13 /* Chefty.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7C1E1BD1DDCD97300BD8A13 /* Chefty.xcdatamodeld */; };
 		A7C1E1C11DDCD97300BD8A13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7C1E1C01DDCD97300BD8A13 /* Assets.xcassets */; };
 		A7C1E1C41DDCD97300BD8A13 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7C1E1C21DDCD97300BD8A13 /* LaunchScreen.storyboard */; };
+		C0252C631DDD16EA00046AD0 /* MyMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0252C621DDD16EA00046AD0 /* MyMenuViewController.swift */; };
+		C0252C651DDD171A00046AD0 /* MyMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0252C641DDD171A00046AD0 /* MyMenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		A7C1E1C01DDCD97300BD8A13 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A7C1E1C31DDCD97300BD8A13 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A7C1E1C51DDCD97300BD8A13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0252C621DDD16EA00046AD0 /* MyMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMenuViewController.swift; sourceTree = "<group>"; };
+		C0252C641DDD171A00046AD0 /* MyMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMenuView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				01308B061DDCEA6B00A0791A /* IngredientsView.swift */,
+				C0252C641DDD171A00046AD0 /* MyMenuView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -86,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				71E655C31DDCE61700B60E0B /* TraditionalRecipeViewController.swift */,
+				C0252C621DDD16EA00046AD0 /* MyMenuViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -170,6 +176,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0252C651DDD171A00046AD0 /* MyMenuView.swift in Sources */,
+				C0252C631DDD16EA00046AD0 /* MyMenuViewController.swift in Sources */,
 				A7C1E1B91DDCD97300BD8A13 /* ViewController.swift in Sources */,
 				A7C1E1B71DDCD97300BD8A13 /* AppDelegate.swift in Sources */,
 				01308B071DDCEA6B00A0791A /* IngredientsView.swift in Sources */,
