@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		71E655C41DDCE61700B60E0B /* TraditionalRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E655C31DDCE61700B60E0B /* TraditionalRecipeViewController.swift */; };
 		A7C1E1B71DDCD97300BD8A13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C1E1B61DDCD97300BD8A13 /* AppDelegate.swift */; };
 		A7C1E1B91DDCD97300BD8A13 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C1E1B81DDCD97300BD8A13 /* ViewController.swift */; };
 		A7C1E1BC1DDCD97300BD8A13 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7C1E1BA1DDCD97300BD8A13 /* Main.storyboard */; };
@@ -16,6 +17,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		71E655C31DDCE61700B60E0B /* TraditionalRecipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TraditionalRecipeViewController.swift; path = ../TraditionalRecipeViewController.swift; sourceTree = "<group>"; };
 		A7C1E1B31DDCD97300BD8A13 /* Chefty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chefty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7C1E1B61DDCD97300BD8A13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A7C1E1B81DDCD97300BD8A13 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 			isa = PBXGroup;
 			children = (
 				A7C1E1B61DDCD97300BD8A13 /* AppDelegate.swift */,
+				71E655C31DDCE61700B60E0B /* TraditionalRecipeViewController.swift */,
 				A7C1E1B81DDCD97300BD8A13 /* ViewController.swift */,
 				A7C1E1BA1DDCD97300BD8A13 /* Main.storyboard */,
 				A7C1E1C01DDCD97300BD8A13 /* Assets.xcassets */,
@@ -142,6 +145,7 @@
 			files = (
 				A7C1E1B91DDCD97300BD8A13 /* ViewController.swift in Sources */,
 				A7C1E1B71DDCD97300BD8A13 /* AppDelegate.swift in Sources */,
+				71E655C41DDCE61700B60E0B /* TraditionalRecipeViewController.swift in Sources */,
 				A7C1E1BF1DDCD97300BD8A13 /* Chefty.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -306,6 +310,7 @@
 				A7C1E1CA1DDCD97300BD8A13 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
