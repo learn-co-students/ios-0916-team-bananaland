@@ -13,26 +13,13 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var initialViewController :UIViewController?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // mainStoryboard
-        let mainStoryboard = UIStoryboard(name: "Main", bundle: nil)
         
-        // rootViewController
-        let rootViewController = mainStoryboard.instantiateViewController(withIdentifier: "MyMenuViewController") as? UIViewController
-        
-        // navigationController
-        let navigationController = UINavigationController(rootViewController: rootViewController!)
-        
-        navigationController.isNavigationBarHidden = true // or not, your choice.
-        
-        // self.window
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        
-        self.window!.rootViewController = navigationController
-        
-        self.window!.makeKeyAndVisible()
+        window = UIWindow(frame: UIScreen.main.bounds)
+        let initialViewController = TempViewController()
+        window?.rootViewController = initialViewController
+        window?.makeKeyAndVisible()
         
         return true
     }

@@ -10,7 +10,7 @@ import UIKit
 
 class MyMenuViewController: UIViewController {
     
-    var MyMenuView1: MyMenuView!
+    var myMenuView1: MyMenuView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +24,8 @@ class MyMenuViewController: UIViewController {
     }
     
     override func loadView(){
-        self.MyMenuView1 = MyMenuView(frame: CGRect.zero)
-        self.view = self.MyMenuView1
+        self.myMenuView1 = MyMenuView(frame: CGRect.zero)
+        self.view = self.myMenuView1
         
     }
 

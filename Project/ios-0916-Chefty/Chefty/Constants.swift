@@ -10,6 +10,13 @@ import Foundation
 import UIKit
 
 struct Constants{
+    
+    enum fontSize: Int {
+        case small = 16
+        case medium = 24
+        case large = 36
+        case xlarge = 48
+    }
 
   
     enum iconLibrary: String {
