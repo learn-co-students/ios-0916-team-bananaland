@@ -27,8 +27,8 @@ class TempView: UIView {
         let pageLabel: UILabel = UILabel()
         
         // configure controls
-        pageLabel.text = "Welcome to the Chefty Temp Page"
-        pageLabel.font =  UIFont(name: "Helvetica", size: CGFloat(Constants.fontSize.medium.rawValue))
+        pageLabel.text = "Choose a view controller to open."
+        pageLabel.font =  UIFont(name: "Helvetica", size: CGFloat(Constants.fontSize.small.rawValue))
         myMenuButton.setTitle("Open MyMenu", for: .normal)
         myMenuButton.addTarget(self, action: #selector(self.myMenuAction), for: UIControlEvents.touchUpInside)
         

@@ -11,11 +11,14 @@ import UIKit
 class MyMenuViewController: UIViewController {
     
     var myMenuView1: MyMenuView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool = false) {
+        self.navigationController?.navigationBar.topItem?.title = "My Menu"
+        self.navigationController?.navigationBar.topItem?.titleView?.backgroundColor = UIColor.blue
     }
 
     override func didReceiveMemoryWarning() {
@@ -26,19 +29,6 @@ class MyMenuViewController: UIViewController {
     override func loadView(){
         self.myMenuView1 = MyMenuView(frame: CGRect.zero)
         self.view = self.myMenuView1
-        
     }
-
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

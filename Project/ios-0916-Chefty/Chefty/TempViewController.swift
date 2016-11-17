@@ -15,6 +15,8 @@ class TempViewController: UIViewController, TempViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         tempView1.delegate = self
+        
+        self.navigationController?.navigationBar.topItem?.title = "Welcome to the Chefty Temp Page"
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,7 +31,8 @@ class TempViewController: UIViewController, TempViewDelegate {
     
     func onPressMyMenuButton(button: UIButton) {
         let myMenuView1 = MyMenuViewController()  // create the destination
-        self.present(myMenuView1, animated: true, completion: nil) // present the destination
+        //self.present(myMenuView1, animated: true, completion: nil) // show destination without nav bar
+        navigationController?.pushViewController(myMenuView1, animated: true) // show destination with nav bar
     }
 
 }
