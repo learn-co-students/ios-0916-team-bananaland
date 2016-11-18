@@ -38,8 +38,6 @@ class TraditionalRecipeView: UIView {
         myScrollView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         myScrollView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         
-        //myScrollView.contentSize = CGSize(width: frame.size.width, height: 1000)
-        
         myScrollView.translatesAutoresizingMaskIntoConstraints = false
         
         // create image
@@ -166,18 +164,12 @@ class TraditionalRecipeView: UIView {
         stepsText.textAlignment = .left
         
         myScrollView.addSubview(stepsText)
-        
-        // constrain textbox
-        let stepsContentSize = stepsText.sizeThatFits(stepsText.bounds.size)
-        var stepsFrame = stepsText.frame
-        stepsFrame.size.height = stepsContentSize.height
-        stepsText.frame = stepsFrame
-        
+
+        //constrain textbox
         stepsText.leftAnchor.constraint(equalTo: myScrollView.leftAnchor, constant: 10).isActive = true
         stepsText.topAnchor.constraint(equalTo: stepsLabel.bottomAnchor).isActive = true
         stepsText.bottomAnchor.constraint(equalTo: myScrollView.bottomAnchor).isActive = true
         stepsText.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true
-        stepsText.heightAnchor.constraint(equalToConstant: ingredientsText.frame.size.height).isActive = true
         
         stepsText.translatesAutoresizingMaskIntoConstraints = false
         stepsText.isScrollEnabled = false
