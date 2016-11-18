@@ -10,9 +10,7 @@ import UIKit
 
 class TraditionalRecipeViewController: UIViewController {
     
-    var traditionalRecipeView1: TraditionalRecipeView!
-    var ingredientsTableView: UITableView  =   UITableView()
-    let ingredients: [String] = ["1/2 cup flour","1/2 cup sugar","1 pound apples"]
+    var traditionalRecipeView: TraditionalRecipeView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,8 +28,8 @@ class TraditionalRecipeViewController: UIViewController {
     }
     
     override func loadView(){
-        self.traditionalRecipeView1 = TraditionalRecipeView(frame: CGRect.zero)
-        self.view = self.traditionalRecipeView1
+        self.traditionalRecipeView = TraditionalRecipeView(frame: CGRect.zero)
+        self.view = self.traditionalRecipeView
     }
 
     
