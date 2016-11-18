@@ -14,8 +14,8 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
     var recipeImages = [#imageLiteral(resourceName: "moroccanChicken"), #imageLiteral(resourceName: "dijonChickenBreasts"), #imageLiteral(resourceName: "sweetPotatoFries"), #imageLiteral(resourceName: "beefBroccoliStirFry"), #imageLiteral(resourceName: "peachCobbler"),
                         #imageLiteral(resourceName: "snickerdoodleCookies"),#imageLiteral(resourceName: "applePie"), #imageLiteral(resourceName: "BarbequedDeviledEggs"), #imageLiteral(resourceName: "AuthenticItalianMeatballs"), #imageLiteral(resourceName: "marinatedCheeseAppetizer"), #imageLiteral(resourceName: "choppedSaladAppetizerShells"), #imageLiteral(resourceName: "balsamicBrusselSprouts"), #imageLiteral(resourceName: "blackBeanCouscousSalad"), #imageLiteral(resourceName: "RoastedGreenBeans"), #imageLiteral(resourceName: "yummyBakedPotatoSkins"), #imageLiteral(resourceName: "marinatedCheeseAppetizer")]
     
-    
-    
+    var recipeName = ["Moroccan Chicken", "Dijon Chicken Breasts", "Sweet Potato Fries", "Beef Broccoli Stir Fry", "Peach Cobbler",
+                      "Snicker Doodle Cookies", "Apple Pie", "Barbequed Devil Eggs", "Authentic Italian Meatballs", "Marinated Cheese Appetizer", "Chopped Salad Appetizer Shells", "Balsamic Brussel Sprouts", "Black Bean Couscous Salad", "Roasted Green Beans", "Yummy Baked Potato Skins", "Marinated Cheese Appetizer"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +44,7 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recipeCell", for: indexPath) as! RecipeCollectionViewCell
         cell.imageView.image = recipeImages[indexPath.row]
+        cell.recipeLabel.text = recipeName[indexPath.row]
         return cell
     }
     
@@ -70,7 +71,5 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         })
         
     }
-   
     
-
 }

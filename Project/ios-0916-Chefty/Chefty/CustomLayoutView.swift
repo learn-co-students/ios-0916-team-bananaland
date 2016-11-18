@@ -58,7 +58,6 @@ class CustomLayoutView: UICollectionViewLayout {
             
         }
         
-        
     }
     
     override var collectionViewContentSize: CGSize {
