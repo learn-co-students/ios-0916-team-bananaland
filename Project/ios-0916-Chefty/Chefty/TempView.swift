@@ -8,14 +8,14 @@
 
 import UIKit
 
-protocol TempViewDelegate {
+protocol TempViewDelegate: class {
     func onPressMyMenuButton(button: UIButton)
 }
 
 
 class TempView: UIView {
     
-    var delegate:TempViewDelegate!
+    weak var delegate:TempViewDelegate!
 
     override init(frame:CGRect){
         super.init(frame: frame)

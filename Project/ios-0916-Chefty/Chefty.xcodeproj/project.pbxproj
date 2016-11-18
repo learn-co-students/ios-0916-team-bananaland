@@ -13,12 +13,16 @@
 		A7C1E1BF1DDCD97300BD8A13 /* Chefty.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7C1E1BD1DDCD97300BD8A13 /* Chefty.xcdatamodeld */; };
 		A7C1E1C11DDCD97300BD8A13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7C1E1C01DDCD97300BD8A13 /* Assets.xcassets */; };
 		A7C1E1C41DDCD97300BD8A13 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7C1E1C21DDCD97300BD8A13 /* LaunchScreen.storyboard */; };
+		C00CEFF51DDF5C82005C4BE5 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00CEFF41DDF5C82005C4BE5 /* Recipe.swift */; };
 		C0252C631DDD16EA00046AD0 /* MyMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0252C621DDD16EA00046AD0 /* MyMenuViewController.swift */; };
 		C0252C651DDD171A00046AD0 /* MyMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0252C641DDD171A00046AD0 /* MyMenuView.swift */; };
 		C0252C681DDD240100046AD0 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7C1E1C51DDCD97300BD8A13 /* Info.plist */; };
 		C0252C6A1DDD243100046AD0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0252C691DDD243100046AD0 /* Constants.swift */; };
 		C0AAB53D1DDDE98F0055DF8B /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB53C1DDDE98F0055DF8B /* TempView.swift */; };
 		C0AAB53F1DDDEA880055DF8B /* TempViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB53E1DDDEA880055DF8B /* TempViewController.swift */; };
+		C0AAB5431DDE64970055DF8B /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB5421DDE64970055DF8B /* DataStore.swift */; };
+		C0AAB5471DDE67300055DF8B /* CheftyAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB5461DDE67300055DF8B /* CheftyAPIClient.swift */; };
+		C0AAB5491DDE677C0055DF8B /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB5481DDE677C0055DF8B /* Secrets.swift */; };
 		C0DBD0611DDD25E800B9B9FF /* MaterialIcons-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C0252C661DDD23AD00046AD0 /* MaterialIcons-Regular.otf */; };
 /* End PBXBuildFile section */
 
@@ -31,12 +35,16 @@
 		A7C1E1C01DDCD97300BD8A13 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A7C1E1C31DDCD97300BD8A13 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A7C1E1C51DDCD97300BD8A13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C00CEFF41DDF5C82005C4BE5 /* Recipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		C0252C621DDD16EA00046AD0 /* MyMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMenuViewController.swift; sourceTree = "<group>"; };
 		C0252C641DDD171A00046AD0 /* MyMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMenuView.swift; sourceTree = "<group>"; };
 		C0252C661DDD23AD00046AD0 /* MaterialIcons-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MaterialIcons-Regular.otf"; sourceTree = "<group>"; };
 		C0252C691DDD243100046AD0 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C0AAB53C1DDDE98F0055DF8B /* TempView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		C0AAB53E1DDDEA880055DF8B /* TempViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempViewController.swift; sourceTree = "<group>"; };
+		C0AAB5421DDE64970055DF8B /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		C0AAB5461DDE67300055DF8B /* CheftyAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheftyAPIClient.swift; sourceTree = "<group>"; };
+		C0AAB5481DDE677C0055DF8B /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +114,10 @@
 		C0252C5F1DDCF96C00046AD0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C0AAB5421DDE64970055DF8B /* DataStore.swift */,
+				C0AAB5461DDE67300055DF8B /* CheftyAPIClient.swift */,
+				C0AAB5481DDE677C0055DF8B /* Secrets.swift */,
+				C00CEFF41DDF5C82005C4BE5 /* Recipe.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -194,12 +206,16 @@
 				C0252C651DDD171A00046AD0 /* MyMenuView.swift in Sources */,
 				C0252C631DDD16EA00046AD0 /* MyMenuViewController.swift in Sources */,
 				A7C1E1B71DDCD97300BD8A13 /* AppDelegate.swift in Sources */,
+				C0AAB5431DDE64970055DF8B /* DataStore.swift in Sources */,
 				01308B071DDCEA6B00A0791A /* IngredientsView.swift in Sources */,
 				71E655C41DDCE61700B60E0B /* TraditionalRecipeViewController.swift in Sources */,
 				C0AAB53F1DDDEA880055DF8B /* TempViewController.swift in Sources */,
 				C0AAB53D1DDDE98F0055DF8B /* TempView.swift in Sources */,
+				C0AAB5471DDE67300055DF8B /* CheftyAPIClient.swift in Sources */,
 				A7C1E1BF1DDCD97300BD8A13 /* Chefty.xcdatamodeld in Sources */,
+				C00CEFF51DDF5C82005C4BE5 /* Recipe.swift in Sources */,
 				C0252C6A1DDD243100046AD0 /* Constants.swift in Sources */,
+				C0AAB5491DDE677C0055DF8B /* Secrets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

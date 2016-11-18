@@ -11,12 +11,20 @@ import UIKit
 class TempViewController: UIViewController, TempViewDelegate {
     
     var tempView1: TempView!
-
+    
+    let store = DataStore.sharedInstance
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tempView1.delegate = self
-        
         self.navigationController?.navigationBar.topItem?.title = "Welcome to the Chefty Temp Page"
+        
+        store.getRecipes {
+//            print("store.recipes.count: \(self.store.recipes.count)")
+//            OperationQueue.main.addOperation({
+//                self.tableView.reloadData()
+//            })
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,9 +38,9 @@ class TempViewController: UIViewController, TempViewDelegate {
     }
     
     func onPressMyMenuButton(button: UIButton) {
-        let myMenuView1 = MyMenuViewController()  // create the destination
-        //self.present(myMenuView1, animated: true, completion: nil) // show destination without nav bar
-        navigationController?.pushViewController(myMenuView1, animated: true) // show destination with nav bar
+        let myMenuViewViewController1 = MyMenuViewController()  // create the destination
+        myMenuViewViewController1.sampleValue = "apple_pie"
+        navigationController?.pushViewController(myMenuViewViewController1, animated: true) // show destination with nav bar
     }
 
 }
