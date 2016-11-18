@@ -10,35 +10,86 @@ import UIKit
 
 class MyMenuView: UIView {
     
+    var sampleValue = String()
+    var recipesSelected = [Recipe]()
+    var recipeNamesTemp = String()
+    var store = DataStore.sharedInstance
+    
     override init(frame:CGRect){
         super.init(frame: frame)
         
+        // set some recipes as selected, this will happen in the revious screen soon
+        for recipe in store.recipes {
+            if recipe.id == "apple-pie"{
+                recipe.selected = true
+            }
+            if recipe.id == "chicken-breasts"{
+                recipe.selected = true
+            }
+            if recipe.id == "black-bean-couscous-salad"{
+                recipe.selected = true
+            }
+            if recipe.id == "yummy-baked-potato-skins"{
+                recipe.selected = true
+            }
+        }
+        
+        // get selected recipes
+        for recipe in store.recipes {
+            if recipe.selected == true {
+                recipesSelected.append(recipe)
+                // create the temp string
+                if self.recipeNamesTemp == "" {
+                    self.recipeNamesTemp = recipe.displayName
+                } else {
+                    self.recipeNamesTemp.append(", " + recipe.displayName)
+                }
+            }
+        }
+        
         self.backgroundColor = UIColor.white
         
-        // delete appetizer button - initialize
+        //initialize
         let deleteApp: UIButton = UIButton(type: .roundedRect)
+        let selectedRecipesTextField: UITextView = UITextView()
+//        let stackView = UIStackView(arrangedSubviews: buttonArray)
         
-        // configure the button
+        // configure controls
         deleteApp.setTitle(Constants.iconLibrary.close.rawValue, for: .normal)
         deleteApp.titleLabel!.font =  UIFont(name: Constants.iconFont.material.rawValue, size: CGFloat(Constants.iconSize.medium.rawValue))
         deleteApp.setTitleColor(UIColor(named: .red), for: .normal)
         deleteApp.addTarget(self, action: #selector(MyMenuView.deleteAppAction), for: UIControlEvents.touchUpInside)
         
+        selectedRecipesTextField.text = recipeNamesTemp
+        selectedRecipesTextField.backgroundColor = UIColor.white
+        print("recipeNamesTemp: \(recipeNamesTemp)")
+        
         // add the button
         self.addSubview(deleteApp)
+        self.addSubview(selectedRecipesTextField)
         
         // constrain the button
         deleteApp.topAnchor.constraint(equalTo: self.topAnchor, constant: 100).isActive = true
         deleteApp.translatesAutoresizingMaskIntoConstraints = false
+        
+        selectedRecipesTextField.topAnchor.constraint(equalTo: self.topAnchor, constant: 200).isActive = true
+        selectedRecipesTextField.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        selectedRecipesTextField.heightAnchor.constraint(equalToConstant: 100).isActive = true
+        selectedRecipesTextField.translatesAutoresizingMaskIntoConstraints = false
+
+//        stackView.axis = .Horizontal
+//        stackView.distribution = .FillEqually
+//        stackView.alignment = .Fill
+//        stackView.spacing = 5
+//        stackView.translatesAutoresizingMaskIntoConstraints = false
+//        view.addSubview(stackView)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     func deleteAppAction() {
         print("delete app")
     }
-
 }

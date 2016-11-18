@@ -11,6 +11,14 @@ import UIKit
 
 struct Constants{
     
+    enum recipeType: String {
+        case main
+        case side
+        case appetizer
+        case dessert
+        case undefined
+    }
+    
     enum fontSize: Int {
         case small = 16
         case medium = 24
