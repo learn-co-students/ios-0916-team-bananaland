@@ -7,5 +7,9 @@
 //
 
 import Foundation
+<<<<<<< HEAD
 
 
+=======
+import UIKit
+>>>>>>> master
