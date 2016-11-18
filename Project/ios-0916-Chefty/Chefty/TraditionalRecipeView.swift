@@ -73,9 +73,7 @@ class TraditionalRecipeView: UIView {
         durationLabel.translatesAutoresizingMaskIntoConstraints = false
         
         
-        //INGREDIENTS 
-        
-        //LABEL
+        //INGREDIENTS LABEL
         //create label
         let ingredientsLabel = UILabel()
         ingredientsLabel.text = "Ingredients"
@@ -91,10 +89,10 @@ class TraditionalRecipeView: UIView {
         ingredientsLabel.translatesAutoresizingMaskIntoConstraints = false
 
         
-        //TEXT BOX
+        //INGREDIENTS TEXT BOX
         //create textbox
         let ingredientsText = UITextView()
-        ingredientsText.text = "Lorem ipsum dolor sit amet \nconsectetur adipiscing elit \nsed do eiusmod tempor \nincididunt ut labore \net dolore magna aliqua"
+        ingredientsText.text = "Lorem ipsum dolor sit amet \nconsectetur adipiscing elit \nsed do eiusmod tempor \nincididunt ut labore \net dolore magna aliqua***Lorem ipsum dolor sit amet \nconsectetur adipiscing elit"
         ingredientsText.font = titleLabel.font.withSize(14)
         ingredientsText.textAlignment = .left
         self.addSubview(ingredientsText)
@@ -110,13 +108,10 @@ class TraditionalRecipeView: UIView {
         ingredientsText.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         ingredientsText.heightAnchor.constraint(equalToConstant: ingredientsText.frame.size.height).isActive = true
         ingredientsText.translatesAutoresizingMaskIntoConstraints = false
-        ingredientsText.isScrollEnabled = false
+        ingredientsText.isScrollEnabled = true
         
         
-        
-        //STEPS 
-        
-        //LABEL
+        //STEPS LABEL
         //create label
         let stepsLabel = UILabel()
         stepsLabel.text = "Steps"
@@ -131,7 +126,8 @@ class TraditionalRecipeView: UIView {
         stepsLabel.heightAnchor.constraint(equalToConstant: 18).isActive = true
         stepsLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        //TEXT BOX
+        
+        //STEPS TEXT BOX
         //create textbox
         let stepsText = UITextView()
         stepsText.text = "Lorem ipsum dolor sit amet \nconsectetur adipiscing elit \nsed do eiusmod tempor \nincididunt ut labore \net dolore magna aliqua\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque \nlaudantium totam rem aperiam eaque ipsa quae ab \nillo inventore veritatis et quasi \narchitecto beatae vitae dicta sunt explicabo\n Nemo enim ipsam voluptatem \nquia voluptas sit aspernatur aut odit aut fugit \nsed quia consequuntur magni \ndolores eos qui ratione voluptatem \nsequi nesciunt \nNeque porro quisquam est \nqui dolorem ipsum quia dolor sit amet \nconsectetur adipisci velit"
@@ -150,7 +146,7 @@ class TraditionalRecipeView: UIView {
         stepsText.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         stepsText.heightAnchor.constraint(equalToConstant: ingredientsText.frame.size.height).isActive = true
         stepsText.translatesAutoresizingMaskIntoConstraints = false
-        stepsText.isScrollEnabled = false
+        stepsText.isScrollEnabled = true
         
 
         
