@@ -16,6 +16,20 @@ class TraditionalRecipeView: UIView {
         
         self.backgroundColor = UIColor.white
         
+        setUpElements()
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    
+    
+    
+    func setUpElements() {
+        
         //SCROLLVIEW
         let myScrollView = UIScrollView()
         self.addSubview(myScrollView)
@@ -23,21 +37,23 @@ class TraditionalRecipeView: UIView {
         myScrollView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         myScrollView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         myScrollView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
-        myScrollView.translatesAutoresizingMaskIntoConstraints = false
-        myScrollView.contentSize = CGSize(width: 375, height: 1500)
         
-        //IMAGE
+        //myScrollView.contentSize = CGSize(width: frame.size.width, height: 1000)
+        
+        myScrollView.translatesAutoresizingMaskIntoConstraints = false
+        
         // create image
         let myImageName = "applePie"
         let myImage = UIImage(named: myImageName)
         let myImageView = UIImageView(image: myImage!)
+       
         myScrollView.addSubview(myImageView)
         
         // constrain the image
         myImageView.topAnchor.constraint(equalTo: myScrollView.topAnchor).isActive = true
         myImageView.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true
         myImageView.translatesAutoresizingMaskIntoConstraints = false
-
+        
         
         //RECIPE TITLE
         //create title label
@@ -45,6 +61,7 @@ class TraditionalRecipeView: UIView {
         titleLabel.text = "Recipe Title"
         titleLabel.font = titleLabel.font.withSize(30)
         titleLabel.textAlignment = .center
+        
         myScrollView.addSubview(titleLabel)
         
         // constrain label
@@ -53,7 +70,7 @@ class TraditionalRecipeView: UIView {
         titleLabel.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
+
         
         //SERVING SIZE AND ESTIMATED TIME INFO
         //create labels
@@ -66,6 +83,7 @@ class TraditionalRecipeView: UIView {
         durationLabel.text = "Estimated Total Time: 26 minutes"
         durationLabel.font = titleLabel.font.withSize(20)
         durationLabel.textAlignment = .left
+        
         myScrollView.addSubview(servingSizeLabel)
         myScrollView.addSubview(durationLabel)
         
@@ -89,6 +107,7 @@ class TraditionalRecipeView: UIView {
         ingredientsLabel.text = "Ingredients"
         ingredientsLabel.font = titleLabel.font.withSize(16)
         ingredientsLabel.textAlignment = .left
+        
         myScrollView.addSubview(ingredientsLabel)
         
         //constrain label
@@ -97,7 +116,7 @@ class TraditionalRecipeView: UIView {
         ingredientsLabel.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true
         ingredientsLabel.heightAnchor.constraint(equalToConstant: 18).isActive = true
         ingredientsLabel.translatesAutoresizingMaskIntoConstraints = false
-
+        
         
         //INGREDIENTS TEXT BOX
         //create textbox
@@ -105,8 +124,6 @@ class TraditionalRecipeView: UIView {
         ingredientsText.text = "Lorem ipsum dolor sit amet \nconsectetur adipiscing elit \nsed do eiusmod tempor \nincididunt ut labore \net dolore magna aliqua***Lorem ipsum dolor sit amet \nconsectetur adipiscing elit"
         ingredientsText.font = titleLabel.font.withSize(14)
         ingredientsText.textAlignment = .left
-        
-        ingredientsText.backgroundColor = UIColor.yellow
         
         myScrollView.addSubview(ingredientsText)
         
@@ -130,6 +147,7 @@ class TraditionalRecipeView: UIView {
         stepsLabel.text = "Steps"
         stepsLabel.font = titleLabel.font.withSize(16)
         stepsLabel.textAlignment = .left
+        
         myScrollView.addSubview(stepsLabel)
         
         //constrain label
@@ -143,9 +161,10 @@ class TraditionalRecipeView: UIView {
         //STEPS TEXT BOX
         //create textbox
         let stepsText = UITextView()
-        stepsText.text = "Lorem ipsum dolor sit amet \nconsectetur adipiscing elit \nsed do eiusmod tempor \nincididunt ut labore \net dolore magna aliqua\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque \nlaudantium totam rem aperiam eaque ipsa quae ab \nillo inventore veritatis et quasi \narchitecto beatae vitae dicta sunt explicabo\n Nemo enim ipsam voluptatem \nquia voluptas sit aspernatur aut odit aut fugit \nsed quia consequuntur magni \ndolores eos qui ratione voluptatem \nsequi nesciunt \nNeque porro quisquam est \nqui dolorem ipsum quia dolor sit amet \nconsectetur adipisci velit"
+        stepsText.text = "Lorem ipsum dolor sit amet \nconsectetur adipiscing elit \nsed do eiusmod tempor \nincididunt ut labore \net dolore magna aliqua\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque \nlaudantium totam rem aperiam eaque ipsa quae ab \nillo inventore veritatis et quasi \narchitecto beatae vitae dicta sunt explicabo\n Nemo enim ipsam voluptatem \nquia voluptas sit aspernatur aut odit aut fugit \nsed quia consequuntur magni \ndolores eos qui ratione voluptatem \nsequi nesciunt \nNeque porro quisquam est \nqui dolorem ipsum quia dolor sit amet \nconsectetur adipisci velitEND IS HERE"
         stepsText.font = titleLabel.font.withSize(14)
         stepsText.textAlignment = .left
+        
         myScrollView.addSubview(stepsText)
         
         // constrain textbox
@@ -156,15 +175,11 @@ class TraditionalRecipeView: UIView {
         
         stepsText.leftAnchor.constraint(equalTo: myScrollView.leftAnchor, constant: 10).isActive = true
         stepsText.topAnchor.constraint(equalTo: stepsLabel.bottomAnchor).isActive = true
+        stepsText.bottomAnchor.constraint(equalTo: myScrollView.bottomAnchor).isActive = true
         stepsText.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true
         stepsText.heightAnchor.constraint(equalToConstant: ingredientsText.frame.size.height).isActive = true
+        
         stepsText.translatesAutoresizingMaskIntoConstraints = false
         stepsText.isScrollEnabled = false
-
     }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
 }

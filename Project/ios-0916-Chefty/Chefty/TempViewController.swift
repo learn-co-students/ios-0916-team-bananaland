@@ -15,7 +15,6 @@ class TempViewController: UIViewController, TempViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         tempView1.delegate = self
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
