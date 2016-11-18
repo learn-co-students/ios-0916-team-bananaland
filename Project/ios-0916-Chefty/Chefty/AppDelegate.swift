@@ -18,9 +18,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         let initialViewController = TempViewController()
+        //let initialViewController = HomePageViewController()
         let navigationController = UINavigationController(rootViewController: initialViewController)
-        self.window?.rootViewController = navigationController
-        window?.makeKeyAndVisible()
+        //window!.rootViewController = HomePageViewController()
+        window!.rootViewController = navigationController
+        window!.backgroundColor = UIColor.white
+        window!.makeKeyAndVisible()
         
         return true
     }

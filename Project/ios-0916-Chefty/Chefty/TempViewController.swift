@@ -17,6 +17,10 @@ class TempViewController: UIViewController, TempViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         tempView1.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+
         self.navigationController?.navigationBar.topItem?.title = "Welcome to the Chefty Temp Page"
         
         store.getRecipes {
@@ -41,6 +45,18 @@ class TempViewController: UIViewController, TempViewDelegate {
         let myMenuViewViewController1 = MyMenuViewController()  // create the destination
         myMenuViewViewController1.sampleValue = "apple_pie"
         navigationController?.pushViewController(myMenuViewViewController1, animated: true) // show destination with nav bar
+    }
+    
+    func onPressIngredientsButton(button: UIButton) {
+        let ingredientsView = IngredientsController()
+        navigationController?.pushViewController(ingredientsView, animated: true)
+        
+    }
+    
+    func onPressTraditionalRecipeButton(button: UIButton) {
+        let traditionalRecipeView1 = TraditionalRecipeViewController()  // create the destination
+        //self.present(myMenuView1, animated: true, completion: nil) // show destination without nav bar
+        navigationController?.pushViewController(traditionalRecipeView1, animated: true) // show destination with nav bar
     }
 
 }

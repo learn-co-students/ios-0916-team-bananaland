@@ -6,4 +6,10 @@
 //  Copyright © 2016 com.AppRising.SML. All rights reserved.
 //
 
-import Foundation
+//import Foundation
+//<<<<<<< HEAD
+//
+//
+//=======
+//import UIKit
+//>>>>>>> master

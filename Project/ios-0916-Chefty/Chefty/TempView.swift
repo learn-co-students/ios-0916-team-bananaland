@@ -10,6 +10,8 @@ import UIKit
 
 protocol TempViewDelegate: class {
     func onPressMyMenuButton(button: UIButton)
+    func onPressTraditionalRecipeButton(button: UIButton)
+    func onPressIngredientsButton(button: UIButton)
 }
 
 
@@ -23,8 +25,13 @@ class TempView: UIView {
         self.backgroundColor = UIColor.yellow
         
         // initialize button
-        let myMenuButton: UIButton = UIButton(type: .roundedRect)
         let pageLabel: UILabel = UILabel()
+        
+        let myMenuButton: UIButton = UIButton(type: .roundedRect)
+        
+        let traditionalRecipeButton = UIButton(type: .roundedRect)
+        
+        let ingredientsButton = UIButton(type: .roundedRect)
         
         // configure controls
         pageLabel.text = "Choose a view controller to open."
@@ -32,18 +39,35 @@ class TempView: UIView {
         myMenuButton.setTitle("Open MyMenu", for: .normal)
         myMenuButton.addTarget(self, action: #selector(self.myMenuAction), for: UIControlEvents.touchUpInside)
         
+        traditionalRecipeButton.setTitle("Open Traditional Recipe", for: .normal)
+        traditionalRecipeButton.addTarget(self, action: #selector(self.traditionalRecipeAction), for: UIControlEvents.touchUpInside)
+        
+        ingredientsButton.setTitle("Ingredients", for: .normal)
+        ingredientsButton.addTarget(self, action: #selector(self.goToIngredients), for: UIControlEvents.touchUpInside)
+        
         // add the object to the view
         self.addSubview(pageLabel)
         self.addSubview(myMenuButton)
+        self.addSubview(traditionalRecipeButton)
+        self.addSubview(ingredientsButton)
         
         // constrain the object
+        pageLabel.translatesAutoresizingMaskIntoConstraints = false
         pageLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 100).isActive = true
         pageLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        pageLabel.translatesAutoresizingMaskIntoConstraints = false
         
+        myMenuButton.translatesAutoresizingMaskIntoConstraints = false
         myMenuButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 200).isActive = true
         myMenuButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 100).isActive = true
-        myMenuButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        traditionalRecipeButton.translatesAutoresizingMaskIntoConstraints = false
+        traditionalRecipeButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 250).isActive = true
+        traditionalRecipeButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 100).isActive = true
+        
+        ingredientsButton.translatesAutoresizingMaskIntoConstraints = false
+        ingredientsButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 300).isActive = true
+        ingredientsButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 100).isActive = true
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -52,6 +76,14 @@ class TempView: UIView {
     
     func myMenuAction(myMenuButton:UIButton) {
         self.delegate.onPressMyMenuButton(button: myMenuButton)
+    }
+    
+    func goToIngredients(ingredientsButton: UIButton) {
+        self.delegate.onPressIngredientsButton(button: ingredientsButton)
+    }
+    
+    func traditionalRecipeAction(traditionalRecipeButton:UIButton) {
+        self.delegate.onPressTraditionalRecipeButton(button: traditionalRecipeButton)
     }
 
 }
