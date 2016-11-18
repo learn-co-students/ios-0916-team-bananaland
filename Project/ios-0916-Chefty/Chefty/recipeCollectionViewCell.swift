@@ -42,10 +42,15 @@ class recipeCollectionViewCell: UICollectionViewCell {
         imageView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
         
         gradientView = UIView()
-        gradientView.frame = self.contentView.frame
         gradientView.layer.cornerRadius = 10.0
         gradientView.layer.masksToBounds = true
         self.contentView.addSubview(gradientView)
+        
+        gradientView.translatesAutoresizingMaskIntoConstraints = false
+        gradientView.topAnchor.constraint(equalTo: self.imageView.topAnchor).isActive = true
+        gradientView.leadingAnchor.constraint(equalTo: self.imageView.leadingAnchor).isActive = true
+        gradientView.trailingAnchor.constraint(equalTo: self.imageView.trailingAnchor).isActive = true
+        gradientView.bottomAnchor.constraint(equalTo: self.imageView.bottomAnchor).isActive = true
         
     }
     
@@ -53,15 +58,15 @@ class recipeCollectionViewCell: UICollectionViewCell {
         
         let gradient = CAGradientLayer()
         let blackColor = UIColor.black.withAlphaComponent(1.0)
-        
-        gradient.frame = self.contentView.frame
+        gradient.cornerRadius = 10.0
+        gradient.masksToBounds = true
         gradient.colors = [UIColor.clear.cgColor, blackColor.cgColor]
         gradient.locations = [0.5, 1.0]
-        gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
-        gradient.endPoint = CGPoint(x: 0.0, y: 1.0)
-        self.gradientView.layer.insertSublayer(gradient, at: 0)
+        gradient.startPoint = CGPoint(x: gradientView.bounds.minX, y: gradientView.bounds.minY)
+        gradient.endPoint = CGPoint(x: gradientView.bounds.minX, y: gradientView.bounds.maxY)
+        gradient.frame = contentView.frame
+        gradientView.layer.addSublayer(gradient)
         
     }
-    
     
 }

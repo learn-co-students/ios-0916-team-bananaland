@@ -44,7 +44,6 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recipeCell", for: indexPath) as! recipeCollectionViewCell
         cell.imageView.image = recipeImages[indexPath.row]
-        cell.backgroundColor = UIColor.white
         return cell
     }
     
