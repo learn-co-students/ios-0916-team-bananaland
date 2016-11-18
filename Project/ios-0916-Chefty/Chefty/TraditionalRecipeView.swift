@@ -24,6 +24,7 @@ class TraditionalRecipeView: UIView {
         myScrollView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         myScrollView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         myScrollView.translatesAutoresizingMaskIntoConstraints = false
+        myScrollView.contentSize = CGSize(width: 375, height: 1500)
         
         //IMAGE
         // create image
