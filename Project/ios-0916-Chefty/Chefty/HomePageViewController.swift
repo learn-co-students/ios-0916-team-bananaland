@@ -19,34 +19,23 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         // Do any additional setup after loading the view.
         
         layoutRecipeCollectionView()
-        
     }
     
-    
-   
-    func layoutRecipeView() -> CGRect {
-        
-        let recipeView = UIView(frame: CGRect(x: view.bounds.minX, y: view.bounds.maxY * 0.25, width: view.bounds.width, height: view.bounds.height))
-        recipeView.layer.cornerRadius = 5.0
-        recipeView.backgroundColor = UIColor.white
-        view.addSubview(recipeView)
-        return recipeView.frame
-        
-    }
     
     func layoutRecipeCollectionView() {
         
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        collectionView = UICollectionView(frame: layoutRecipeView(), collectionViewLayout: layout)
+        let frame = CGRect(x: view.bounds.minX, y: view.bounds.maxY * 0.25, width: view.bounds.width, height: view.bounds.height * 0.75)
+        let layout: UICollectionViewLayout = CustomLayoutView()
+        collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "recipeCell")
-        self.view.addSubview(collectionView)
-        
+        view.addSubview(collectionView)
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return recipeImages.count
+        return 16
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -55,5 +44,6 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
         return cell
     }
    
+    
 
 }

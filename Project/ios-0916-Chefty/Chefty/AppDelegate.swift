@@ -20,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //let initialViewController = HomePageViewController()
         //let navigationController = UINavigationController(rootViewController: initialViewController)
         window!.rootViewController = HomePageViewController()
+        window!.backgroundColor = UIColor.white
         window!.makeKeyAndVisible()
         
         return true
