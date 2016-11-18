@@ -53,5 +53,18 @@ class RecipeCollectionViewCell: UICollectionViewCell {
         gradientView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
         gradientView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
         
+        let recipeFrame = CGRect(x: 0, y: bounds.height * 0.75, width: bounds.width, height: bounds.height * 0.20)
+        recipeLabel = UILabel(frame: recipeFrame)
+        recipeLabel.font = UIFont(name: "GillSans-SemiBold", size: 20)
+        recipeLabel.textAlignment = .center
+        recipeLabel.textColor = UIColor.white
+        recipeLabel.numberOfLines = 0
+        self.contentView.addSubview(recipeLabel)
+        
+        recipeLabel.translatesAutoresizingMaskIntoConstraints = false
+        recipeLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
+        recipeLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
+        recipeLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
+        
     }
 }
