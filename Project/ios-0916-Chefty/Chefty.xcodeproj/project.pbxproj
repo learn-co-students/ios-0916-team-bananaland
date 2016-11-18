@@ -106,11 +106,8 @@
 		C0252C5D1DDCF93900046AD0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				A7C1E22C1DDE579D00BD8A13 /* HomePage */,
 				01308B061DDCEA6B00A0791A /* IngredientsView.swift */,
-=======
->>>>>>> master
 				714EBD5B1DDE340800C0857A /* TraditionalRecipeView.swift */,
 				C0252C641DDD171A00046AD0 /* MyMenuView.swift */,
 				C0AAB53C1DDDE98F0055DF8B /* TempView.swift */,
@@ -124,11 +121,8 @@
 				71E655C31DDCE61700B60E0B /* TraditionalRecipeViewController.swift */,
 				C0252C621DDD16EA00046AD0 /* MyMenuViewController.swift */,
 				C0AAB53E1DDDEA880055DF8B /* TempViewController.swift */,
-<<<<<<< HEAD
 				A7C1E2311DDE5BC200BD8A13 /* HomePageViewController.swift */,
-=======
 				01A830B21DDF82330064B9CE /* IngredientsController.swift */,
->>>>>>> master
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -226,22 +220,16 @@
 				A7C1E2341DDE5D6F00BD8A13 /* CustomLayoutView.swift in Sources */,
 				C0252C631DDD16EA00046AD0 /* MyMenuViewController.swift in Sources */,
 				A7C1E1B71DDCD97300BD8A13 /* AppDelegate.swift in Sources */,
-<<<<<<< HEAD
 				A7C9D3F31DDF849900EA5637 /* GradientView.swift in Sources */,
 				01308B071DDCEA6B00A0791A /* IngredientsView.swift in Sources */,
-=======
->>>>>>> master
 				71E655C41DDCE61700B60E0B /* TraditionalRecipeViewController.swift in Sources */,
 				714EBD5C1DDE340800C0857A /* TraditionalRecipeView.swift in Sources */,
 				C0AAB53F1DDDEA880055DF8B /* TempViewController.swift in Sources */,
 				C0AAB53D1DDDE98F0055DF8B /* TempView.swift in Sources */,
 				A7C1E2361DDE611600BD8A13 /* RecipeCollectionViewCell.swift in Sources */,
 				A7C1E1BF1DDCD97300BD8A13 /* Chefty.xcdatamodeld in Sources */,
-<<<<<<< HEAD
 				A7C1E2321DDE5BC200BD8A13 /* HomePageViewController.swift in Sources */,
-=======
 				01A830B31DDF82330064B9CE /* IngredientsController.swift in Sources */,
->>>>>>> master
 				C0252C6A1DDD243100046AD0 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
