@@ -38,6 +38,12 @@ class TempViewController: UIViewController, TempViewDelegate {
         navigationController?.pushViewController(myMenuView1, animated: true) // show destination with nav bar
     }
     
+    func onPressIngredientsButton(button: UIButton) {
+        let ingredientsView = IngredientsController()
+        navigationController?.pushViewController(ingredientsView, animated: true)
+        
+    }
+    
     func onPressTraditionalRecipeButton(button: UIButton) {
         let traditionalRecipeView1 = TraditionalRecipeViewController()  // create the destination
         //self.present(myMenuView1, animated: true, completion: nil) // show destination without nav bar
