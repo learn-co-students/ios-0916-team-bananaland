@@ -15,32 +15,6 @@ class MyMenuView: UIView {
     var recipeNamesTemp = String()
     var store = DataStore.sharedInstance
     
-    func getImage(recipe: Recipe, imageView: UIImageView) {
-        
-        if recipe.imageData.length == 0 {
-            let imageUrl:URL = URL(string: recipe.imageURL)!
-            // Start background thread so that image loading does not make app unresponsive
-            DispatchQueue.global(qos: .userInitiated).async {
-                recipe.imageData = NSData(contentsOf: imageUrl)!
-                // When from background thread, UI needs to be updated on main_queue
-                DispatchQueue.main.async {
-                    let image = UIImage(data: recipe.imageData as Data)
-                    imageView.image = image
-                    imageView.contentMode = UIViewContentMode.scaleAspectFit
-                    self.addSubview(imageView)
-                    imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 300).isActive = true
-                }
-            }
-        } else {
-            // we already have the image data so create the imageView
-            let image = UIImage(data: recipe.imageData as Data)
-            imageView.image = image
-            imageView.contentMode = UIViewContentMode.scaleAspectFit
-            self.addSubview(imageView)
-            imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 400).isActive = true
-        }
-    }
-    
     override init(frame:CGRect){
         super.init(frame: frame)
         
@@ -65,8 +39,9 @@ class MyMenuView: UIView {
             }
         }
         
+        // get an image for a recipe and adds it to the view
         let imageView1 = UIImageView(frame: CGRect(x:0, y:0, width:200, height:200))
-        getImage(recipe: recipesSelected[0], imageView: imageView1) // gets image data and adds the imageView to the view
+        Recipe.getImage(recipe: recipesSelected[0], imageView: imageView1, view: self) // gets image data and adds the imageView to the view
         imageView1.translatesAutoresizingMaskIntoConstraints = false
         
         self.backgroundColor = UIColor.white
