@@ -16,7 +16,8 @@ class Recipe {
     var servings: String
     var type: Constants.recipeType
     var selected: Bool
-    
+    var imageData: NSData = NSData()
+
     // custom initializer is needed to allow a default value for selected
     init(recipeDict: [String: String]) {
         self.displayName = recipeDict["displayName"] as String!
