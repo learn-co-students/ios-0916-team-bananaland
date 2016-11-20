@@ -18,9 +18,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource {
     override init(frame:CGRect){
         super.init(frame: frame)
         
-
-
-        
         // set some recipes as selected, this will happen in the revious screen soon
         for recipe in store.recipes {
             if recipe.id == "apple-pie"{ recipe.selected = true }
@@ -41,12 +38,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource {
                 }
             }
         }
-        
-        // get an image for a recipe and adds it to the view
-//        let imageView1 = UIImageView(frame: CGRect(x:0, y:0, width:200, height:200))
-//        Recipe.getImage(recipe: recipesSelected[0], imageView: imageView1, view: self) // gets image data and adds the imageView to the view
-//        imageView1.translatesAutoresizingMaskIntoConstraints = false
-        
+
         self.backgroundColor = UIColor.white
         
         //initialize
@@ -66,20 +58,24 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource {
         deleteApp.topAnchor.constraint(equalTo: self.topAnchor, constant: 100).isActive = true
         deleteApp.translatesAutoresizingMaskIntoConstraints = false
         
-        selectedRecipesTextField.topAnchor.constraint(equalTo: self.topAnchor, constant: 200).isActive = true
+        selectedRecipesTextField.topAnchor.constraint(equalTo: self.topAnchor, constant: 62).isActive = true
         selectedRecipesTextField.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         selectedRecipesTextField.heightAnchor.constraint(equalToConstant: 100).isActive = true
         selectedRecipesTextField.translatesAutoresizingMaskIntoConstraints = false
         
         let screenSize = UIScreen.main.bounds
-        let screenHeight = screenSize.height - 200
+        let screenHeight = screenSize.height - 140
         let screenWidth = screenSize.width
         
         // add the tableview
-        let tableView = UITableView(frame: (CGRect(x: 0, y: 300, width: screenWidth, height: screenHeight-200)), style: UITableViewStyle.grouped)
+        let tableView = UITableView(frame: (CGRect(x: 0, y: 100, width: screenWidth, height: screenHeight)), style: UITableViewStyle.plain)
         self.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -91,12 +87,13 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource {
         let cell = MyMenuTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "prototypeCell")
         cell.myLabel1.text = recipesSelected[indexPath.row].displayName
         cell.myLabel2.text = "\(indexPath.row)"
-        Recipe.getImage(recipe: recipesSelected[0], imageView: cell.imageView1, view: cell)
+        Recipe.getImage(recipe: recipesSelected[indexPath.row], imageView: cell.imageView1, view: cell)
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 85
+        let rowHeight = (UIScreen.main.bounds.height-140)/4
+        return rowHeight
     }
     
     required init?(coder aDecoder: NSCoder) {

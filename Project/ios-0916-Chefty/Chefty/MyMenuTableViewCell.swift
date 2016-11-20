@@ -25,7 +25,7 @@ class MyMenuTableViewCell: UITableViewCell {
     var myLabel2: UILabel!
     var myButton1 : UIButton!
     var myButton2 : UIButton!
-    let imageView1 = UIImageView(frame: CGRect(x:0, y:0, width:200, height:200))
+    let imageView1 = UIImageView(frame: CGRect(x:0, y:0, width:200, height:85))
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:)")
@@ -44,17 +44,23 @@ class MyMenuTableViewCell: UITableViewCell {
         contentView.addSubview(imageView1)
         imageView1.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         imageView1.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        imageView1.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         imageView1.translatesAutoresizingMaskIntoConstraints = false
+        //self.sendSubview(toBack: imageView1)
+        //imageView1.layer.zPosition = 0
         
         myLabel1 = UILabel()
         myLabel1.frame = CGRect(x: gap, y: gap, width: labelWidth, height: labelHeight)
         myLabel1.textColor = UIColor.black
         contentView.addSubview(myLabel1)
+        myLabel1.layer.zPosition = 1
         
         myLabel2 = UILabel()
         myLabel2.frame = CGRect(x:gap, y:label2Y, width:labelWidth, height:labelHeight)
         myLabel2.textColor = UIColor.black
         contentView.addSubview(myLabel2)
+        //myLabel2.layer.zPosition = 1
+        
         
         let deleteButton: UIButton = UIButton(type: .roundedRect)
         deleteButton.setTitle(Constants.iconLibrary.close.rawValue, for: .normal)
