@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MyMenuView: UIView {
+class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource {
     
     var sampleValue = String()
     var recipesSelected = [Recipe]()
@@ -17,6 +17,9 @@ class MyMenuView: UIView {
     
     override init(frame:CGRect){
         super.init(frame: frame)
+        
+
+
         
         // set some recipes as selected, this will happen in the revious screen soon
         for recipe in store.recipes {
@@ -40,23 +43,17 @@ class MyMenuView: UIView {
         }
         
         // get an image for a recipe and adds it to the view
-        let imageView1 = UIImageView(frame: CGRect(x:0, y:0, width:200, height:200))
-        Recipe.getImage(recipe: recipesSelected[0], imageView: imageView1, view: self) // gets image data and adds the imageView to the view
-        imageView1.translatesAutoresizingMaskIntoConstraints = false
+//        let imageView1 = UIImageView(frame: CGRect(x:0, y:0, width:200, height:200))
+//        Recipe.getImage(recipe: recipesSelected[0], imageView: imageView1, view: self) // gets image data and adds the imageView to the view
+//        imageView1.translatesAutoresizingMaskIntoConstraints = false
         
         self.backgroundColor = UIColor.white
         
         //initialize
         let deleteApp: UIButton = UIButton(type: .roundedRect)
         let selectedRecipesTextField: UITextView = UITextView()
-//        let stackView = UIStackView(arrangedSubviews: buttonArray)
         
         // configure controls
-        deleteApp.setTitle(Constants.iconLibrary.close.rawValue, for: .normal)
-        deleteApp.titleLabel!.font =  UIFont(name: Constants.iconFont.material.rawValue, size: CGFloat(Constants.iconSize.medium.rawValue))
-        deleteApp.setTitleColor(UIColor(named: .red), for: .normal)
-        deleteApp.addTarget(self, action: #selector(MyMenuView.deleteAppAction), for: UIControlEvents.touchUpInside)
-        
         selectedRecipesTextField.text = recipeNamesTemp
         selectedRecipesTextField.backgroundColor = UIColor.white
         print("recipeNamesTemp: \(recipeNamesTemp)")
@@ -73,20 +70,37 @@ class MyMenuView: UIView {
         selectedRecipesTextField.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         selectedRecipesTextField.heightAnchor.constraint(equalToConstant: 100).isActive = true
         selectedRecipesTextField.translatesAutoresizingMaskIntoConstraints = false
-
-//        stackView.axis = .Horizontal
-//        stackView.distribution = .FillEqually
-//        stackView.alignment = .Fill
-//        stackView.spacing = 5
-//        stackView.translatesAutoresizingMaskIntoConstraints = false
-//        view.addSubview(stackView)
+        
+        let screenSize = UIScreen.main.bounds
+        let screenHeight = screenSize.height - 200
+        let screenWidth = screenSize.width
+        
+        // add the tableview
+        let tableView = UITableView(frame: (CGRect(x: 0, y: 300, width: screenWidth, height: screenHeight-200)), style: UITableViewStyle.grouped)
+        self.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return recipesSelected.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        // set the custom cell
+        let cell = MyMenuTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "prototypeCell")
+        cell.myLabel1.text = recipesSelected[indexPath.row].displayName
+        cell.myLabel2.text = "\(indexPath.row)"
+        Recipe.getImage(recipe: recipesSelected[0], imageView: cell.imageView1, view: cell)
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 85
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func deleteAppAction() {
-        print("delete app")
-    }
 }

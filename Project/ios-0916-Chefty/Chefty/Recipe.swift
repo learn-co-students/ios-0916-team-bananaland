@@ -60,7 +60,6 @@ class Recipe {
                     imageView.image = recipe.image
                     imageView.contentMode = UIViewContentMode.scaleAspectFit
                     view.addSubview(imageView)
-                    imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 300).isActive = true
                 }
             }
         } else {
@@ -68,7 +67,6 @@ class Recipe {
             imageView.image = recipe.image
             imageView.contentMode = UIViewContentMode.scaleAspectFit
             view.addSubview(imageView)
-            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 400).isActive = true
         }
     }
 }
