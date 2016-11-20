@@ -36,7 +36,7 @@ class MyMenuTableViewCell: UITableViewCell {
         
         let gap : CGFloat = 10
         let labelHeight: CGFloat = 30
-        let labelWidth: CGFloat = 150
+        let labelWidth: CGFloat = 250
         let lineGap : CGFloat = 5
         let label2Y : CGFloat = gap + labelHeight + lineGap
         let imageSize : CGFloat = 30
@@ -51,13 +51,13 @@ class MyMenuTableViewCell: UITableViewCell {
         
         myLabel1 = UILabel()
         myLabel1.frame = CGRect(x: gap, y: gap, width: labelWidth, height: labelHeight)
-        myLabel1.textColor = UIColor.black
+        myLabel1.textColor = UIColor.white
         contentView.addSubview(myLabel1)
         myLabel1.layer.zPosition = 1
         
         myLabel2 = UILabel()
         myLabel2.frame = CGRect(x:gap, y:label2Y, width:labelWidth, height:labelHeight)
-        myLabel2.textColor = UIColor.black
+        myLabel2.textColor = UIColor.white
         contentView.addSubview(myLabel2)
         //myLabel2.layer.zPosition = 1
         
@@ -65,7 +65,7 @@ class MyMenuTableViewCell: UITableViewCell {
         let deleteButton: UIButton = UIButton(type: .roundedRect)
         deleteButton.setTitle(Constants.iconLibrary.close.rawValue, for: .normal)
         deleteButton.titleLabel!.font =  UIFont(name: Constants.iconFont.material.rawValue, size: CGFloat(Constants.iconSize.small.rawValue))
-        deleteButton.setTitleColor(UIColor(named: .red), for: .normal)
+        deleteButton.setTitleColor(UIColor(named: .white), for: .normal)
         deleteButton.addTarget(self, action: #selector(MyMenuTableViewCell.deleteAction), for: UIControlEvents.touchUpInside)
         contentView.addSubview(deleteButton)
         deleteButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true

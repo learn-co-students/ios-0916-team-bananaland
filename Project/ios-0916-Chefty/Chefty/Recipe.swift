@@ -17,7 +17,7 @@ class Recipe {
     var servings: String
     var type: Constants.recipeType
     var selected: Bool
-    var imageData: NSData = NSData()
+    var imageData: Data = Data()
     var image: UIImage = UIImage()
 
     // custom initializer is needed to allow a default value for selected
@@ -47,7 +47,7 @@ class Recipe {
         }
     }
     
-    class func getImage(recipe: Recipe, imageView: UIImageView, view: UIView) {
+    class func getImage(recipe: Recipe, imageView: UIImageView, view: UIView, background: Bool) {
         
         if recipe.image.cgImage?.bitmapInfo == nil {
             let imageUrl:URL = URL(string: recipe.imageURL)!
@@ -56,17 +56,27 @@ class Recipe {
                 let imageData = NSData(contentsOf: imageUrl)!
                 // When from background thread, UI needs to be updated on main_queue
                 DispatchQueue.main.async {
-                    recipe.image = UIImage(data: imageData as Data)!
-                    imageView.image = recipe.image
-                    imageView.contentMode = UIViewContentMode.scaleAspectFit
+                    recipe.imageData = imageData as Data
+                    recipe.image = UIImage(data: recipe.imageData)!
+                    if background == true {
+                        imageView.backgroundColor = UIColor(patternImage: UIImage(data: recipe.imageData)!)
+                    } else {
+                        imageView.image = recipe.image
+                        imageView.contentMode = UIViewContentMode.scaleAspectFit
+                    }
                     view.addSubview(imageView)
+                    view.sendSubview(toBack: imageView)
                 }
             }
         } else {
-            // the instance has the image so create the imageView
-            imageView.image = recipe.image
-            imageView.contentMode = UIViewContentMode.scaleAspectFit
+            if background == true {
+                imageView.backgroundColor = UIColor(patternImage: UIImage(data: recipe.imageData)!)
+            } else {
+                imageView.image = recipe.image
+                imageView.contentMode = UIViewContentMode.scaleAspectFit
+            }
             view.addSubview(imageView)
+            view.sendSubview(toBack: imageView)
         }
     }
 }

@@ -30,12 +30,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource {
         for recipe in store.recipes {
             if recipe.selected == true {
                 recipesSelected.append(recipe)
-                // create the temp string
-                if self.recipeNamesTemp == "" {
-                    self.recipeNamesTemp = recipe.displayName
-                } else {
-                    self.recipeNamesTemp.append(", " + recipe.displayName)
-                }
             }
         }
 
@@ -57,11 +51,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource {
         // constrain the button
         deleteApp.topAnchor.constraint(equalTo: self.topAnchor, constant: 100).isActive = true
         deleteApp.translatesAutoresizingMaskIntoConstraints = false
-        
-        selectedRecipesTextField.topAnchor.constraint(equalTo: self.topAnchor, constant: 62).isActive = true
-        selectedRecipesTextField.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        selectedRecipesTextField.heightAnchor.constraint(equalToConstant: 100).isActive = true
-        selectedRecipesTextField.translatesAutoresizingMaskIntoConstraints = false
         
         let screenSize = UIScreen.main.bounds
         let screenHeight = screenSize.height - 140
@@ -87,7 +76,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource {
         let cell = MyMenuTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "prototypeCell")
         cell.myLabel1.text = recipesSelected[indexPath.row].displayName
         cell.myLabel2.text = "\(indexPath.row)"
-        Recipe.getImage(recipe: recipesSelected[indexPath.row], imageView: cell.imageView1, view: cell)
+        Recipe.getImage(recipe: recipesSelected[indexPath.row], imageView: cell.imageView1, view: cell, background: true)
         return cell
     }
     
