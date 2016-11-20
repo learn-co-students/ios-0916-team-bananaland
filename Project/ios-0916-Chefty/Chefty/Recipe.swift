@@ -17,6 +17,7 @@ class Recipe {
     var servings: String
     var type: Constants.recipeType
     var selected: Bool
+    var startTime: Date = Date()
     var imageData: Data = Data()
     var image: UIImage = UIImage()
 

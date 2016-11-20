@@ -52,13 +52,15 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource {
         deleteApp.topAnchor.constraint(equalTo: self.topAnchor, constant: 100).isActive = true
         deleteApp.translatesAutoresizingMaskIntoConstraints = false
         
-        let screenSize = UIScreen.main.bounds
-        let screenHeight = screenSize.height - 140
-        let screenWidth = screenSize.width
         
         // add the tableview
-        let tableView = UITableView(frame: (CGRect(x: 0, y: 100, width: screenWidth, height: screenHeight)), style: UITableViewStyle.plain)
+        let tableView = UITableView() //frame: (CGRect(x: 0, y: 100, width: screenWidth, height: screenHeight)), style: UITableViewStyle.plain)
         self.addSubview(tableView)
+        tableView.topAnchor.constraint(equalTo: self.topAnchor, constant: 65).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        tableView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -74,14 +76,18 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // set the custom cell
         let cell = MyMenuTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "prototypeCell")
-        cell.myLabel1.text = recipesSelected[indexPath.row].displayName
-        cell.myLabel2.text = "\(indexPath.row)"
+        
+        let cellLabelStartTime = "?"
+        
+        let cellLabel = "\(recipesSelected[indexPath.row].type.rawValue) @ \(cellLabelStartTime) : \(recipesSelected[indexPath.row].displayName)"
+        
+        cell.cellLabel1.text = cellLabel
         Recipe.getImage(recipe: recipesSelected[indexPath.row], imageView: cell.imageView1, view: cell, background: true)
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let rowHeight = (UIScreen.main.bounds.height-140)/4
+        let rowHeight = (tableView.bounds.height)/CGFloat(self.recipesSelected.count)
         return rowHeight
     }
     

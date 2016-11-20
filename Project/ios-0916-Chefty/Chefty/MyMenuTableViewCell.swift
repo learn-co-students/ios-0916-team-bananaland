@@ -21,11 +21,8 @@ class MyMenuTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    var myLabel1: UILabel!
-    var myLabel2: UILabel!
-    var myButton1 : UIButton!
-    var myButton2 : UIButton!
-    let imageView1 = UIImageView(frame: CGRect(x:0, y:0, width:200, height:85))
+    var cellLabel1:UILabel = UILabel()
+    let imageView1:UIImageView = UIImageView()
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:)")
@@ -34,52 +31,61 @@ class MyMenuTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        let gap : CGFloat = 10
-        let labelHeight: CGFloat = 30
-        let labelWidth: CGFloat = 250
-        let lineGap : CGFloat = 5
-        let label2Y : CGFloat = gap + labelHeight + lineGap
-        let imageSize : CGFloat = 30
-        
+        // background image
         contentView.addSubview(imageView1)
         imageView1.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         imageView1.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         imageView1.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         imageView1.translatesAutoresizingMaskIntoConstraints = false
-        //self.sendSubview(toBack: imageView1)
-        //imageView1.layer.zPosition = 0
         
-        myLabel1 = UILabel()
-        myLabel1.frame = CGRect(x: gap, y: gap, width: labelWidth, height: labelHeight)
-        myLabel1.textColor = UIColor.white
-        contentView.addSubview(myLabel1)
-        myLabel1.layer.zPosition = 1
+        // cell label
+        self.cellLabel1.textColor = UIColor.white
+        self.cellLabel1.font =  UIFont(name: Constants.appFont.bold.rawValue, size: CGFloat(Constants.fontSize.medium.rawValue))
+        contentView.addSubview(self.cellLabel1)
+        self.cellLabel1.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
+        self.cellLabel1.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
+        self.cellLabel1.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
+        self.cellLabel1.translatesAutoresizingMaskIntoConstraints = false
         
-        myLabel2 = UILabel()
-        myLabel2.frame = CGRect(x:gap, y:label2Y, width:labelWidth, height:labelHeight)
-        myLabel2.textColor = UIColor.white
-        contentView.addSubview(myLabel2)
-        //myLabel2.layer.zPosition = 1
-        
-        
+        // delete button
         let deleteButton: UIButton = UIButton(type: .roundedRect)
         deleteButton.setTitle(Constants.iconLibrary.close.rawValue, for: .normal)
         deleteButton.titleLabel!.font =  UIFont(name: Constants.iconFont.material.rawValue, size: CGFloat(Constants.iconSize.small.rawValue))
         deleteButton.setTitleColor(UIColor(named: .white), for: .normal)
         deleteButton.addTarget(self, action: #selector(MyMenuTableViewCell.deleteAction), for: UIControlEvents.touchUpInside)
         contentView.addSubview(deleteButton)
-        deleteButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
+        deleteButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -30).isActive = true
         deleteButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         
-        myButton2 = UIButton()
-        myButton2.frame = CGRect(x:bounds.width-imageSize - gap, y:label2Y, width:imageSize, height:imageSize)
-        myButton2.setImage(UIImage(named: "telephone.png"), for: UIControlState.normal)
-        contentView.addSubview(myButton2)
+        // set tiem button
+        let timeButton: UIButton = UIButton(type: .roundedRect)
+        timeButton.setTitle(Constants.iconLibrary.access_time.rawValue, for: .normal)
+        timeButton.titleLabel!.font =  UIFont(name: Constants.iconFont.material.rawValue, size: CGFloat(Constants.iconSize.small.rawValue))
+        timeButton.setTitleColor(UIColor(named: .white), for: .normal)
+        timeButton.addTarget(self, action: #selector(MyMenuTableViewCell.setTimeAction), for: UIControlEvents.touchUpInside)
+        contentView.addSubview(timeButton)
+        timeButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
+        timeButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
+        timeButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        let fontFamilyNames = UIFont.familyNames
+        for familyName in fontFamilyNames {
+            print("------------------------------")
+            print("Font Family Name = [\(familyName)]")
+            let names = UIFont.fontNames(forFamilyName: familyName )
+            print("Font Names = [\(names)]")
+        }
+
     }
     
     func deleteAction() {
         print("delete item")
+    }
+    
+    func setTimeAction() {
+        print("set time")
     }
 
 }
