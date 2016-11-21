@@ -8,9 +8,18 @@
 
 import UIKit
 
-struct Recipe {
+struct Recipe2 {
     var recipeName: String!
-    var recipeIngredients: [String]!
+//    var recipeIngredients: [String]!
+    var recipeIngredients = [(String, Bool)]()
+    
+    init(name: String, ingredients: [String]) {
+        self.recipeName = name
+        for ingredient in ingredients {
+            
+            self.recipeIngredients.append((ingredient, false))
+        }
+    }
 }
 
 
@@ -26,7 +35,7 @@ class IngredientsController: UIViewController, UITableViewDelegate, UITableViewD
     ]
     
     
-    var recipeArray = [Recipe]()
+    var recipeArray = [Recipe2]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +47,8 @@ class IngredientsController: UIViewController, UITableViewDelegate, UITableViewD
         self.view.addSubview(self.ingredientsTableView)
         
         for (key, value) in recipeIngredients {
-            recipeArray.append(Recipe(recipeName: key, recipeIngredients: value))
+//            recipeArray.append(Recipe2(recipeName: key, recipeIngredients: value))
+            recipeArray.append(Recipe2(name: key, ingredients: value))
         }
         
         self.ingredientsTableView.translatesAutoresizingMaskIntoConstraints = false
@@ -61,10 +71,18 @@ class IngredientsController: UIViewController, UITableViewDelegate, UITableViewD
         return recipeArray[section].recipeName
     }
     
-    //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-    //
-    //        return label
-    //    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+        header.contentView.backgroundColor = UIColor(red: 0/255, green: 240/255, blue: 80/255, alpha: 1.0)
+        header.textLabel?.textColor = UIColor(red: 0/255, green: 30/255, blue: 255/255, alpha: 1.0)
+        header.alpha = 0.8
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        tableView.allowsMultipleSelection = true
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return recipeArray.count
@@ -77,12 +95,49 @@ class IngredientsController: UIViewController, UITableViewDelegate, UITableViewD
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath)
         
+        cell.selectionStyle = .none
         let recipe = recipeArray[indexPath.section]
-        let ingredients = recipe.recipeIngredients as! [String]
-        cell.textLabel?.text = ingredients[indexPath.row]
+        let ingredient = recipe.recipeIngredients[indexPath.row]
+        cell.textLabel?.text = ingredient.0
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        print("\n\ndid select row at index path\n\n")
+        
+        let cell = tableView.cellForRow(at: indexPath)
+        let recipe = recipeArray[indexPath.section]
+        var ingredient = recipe.recipeIngredients[indexPath.row]
+        let isChecked = ingredient.1
+    
+        if !isChecked {
+            cell?.accessoryType = UITableViewCellAccessoryType.checkmark
+            ingredient.1 = true
+            print("checked ingredient")
+        } else {
+            cell?.accessoryType = UITableViewCellAccessoryType.none
+            ingredient.1 = false
+            print("unchecked ingredient")
+        }
+    }
+    
+//    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+//        
+//        print("\n\ndid DEselect row at index path\n\n")
+//        
+//        let cell = tableView.cellForRow(at: indexPath)
+//        let ingredients = recipeArray[indexPath.section].checked
+//        
+//        
+//        if ingredients {
+//            
+//        }
+//        
+//    }
+    
     
     
 }
