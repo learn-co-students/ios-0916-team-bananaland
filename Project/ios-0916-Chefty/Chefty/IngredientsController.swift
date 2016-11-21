@@ -104,41 +104,41 @@ class IngredientsController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
+ //       tableView.deselectRow(at: indexPath, animated: true)
         
         print("\n\ndid select row at index path\n\n")
         
         let cell = tableView.cellForRow(at: indexPath)
         let recipe = recipeArray[indexPath.section]
-        var ingredient = recipe.recipeIngredients[indexPath.row]
-        let isChecked = ingredient.1
+        let ingredient = recipe.recipeIngredients[indexPath.row]
+        var isChecked = ingredient.1
     
-        if !isChecked {
-            cell?.accessoryType = UITableViewCellAccessoryType.checkmark
-            ingredient.1 = true
-            print("checked ingredient")
-        } else {
-            cell?.accessoryType = UITableViewCellAccessoryType.none
-            ingredient.1 = false
-            print("unchecked ingredient")
-        }
+        cell?.accessoryType = UITableViewCellAccessoryType.checkmark
+        isChecked = true
+//        if !isChecked {
+//            cell?.accessoryType = UITableViewCellAccessoryType.checkmark
+//            ingredient.1 = true
+//            print("checked ingredient")
+//        } else {
+//            cell?.accessoryType = UITableViewCellAccessoryType.none
+//            ingredient.1 = false
+//            print("unchecked ingredient")
+//        }
     }
     
-//    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-//        
-//        print("\n\ndid DEselect row at index path\n\n")
-//        
-//        let cell = tableView.cellForRow(at: indexPath)
-//        let ingredients = recipeArray[indexPath.section].checked
-//        
-//        
-//        if ingredients {
-//            
-//        }
-//        
-//    }
-    
-    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        
+        print("\n\ndid DEselect row at index path\n\n")
+        
+        let deselectedCell = tableView.cellForRow(at: indexPath)!
+        let recipe = recipeArray[indexPath.section]
+        let ingredient = recipe.recipeIngredients[indexPath.row]
+        var isChecked = ingredient.1
+
+        deselectedCell.accessoryType = UITableViewCellAccessoryType.none
+        isChecked = false
+
+    }
     
 }
 
