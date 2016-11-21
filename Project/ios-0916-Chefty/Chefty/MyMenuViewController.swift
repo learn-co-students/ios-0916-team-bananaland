@@ -11,6 +11,7 @@ import UIKit
 class MyMenuViewController: UIViewController {
     
     var sampleValue = String()
+    var store = DataStore.sharedInstance
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,7 @@ class MyMenuViewController: UIViewController {
         
         myMenuView1.sampleValue = self.sampleValue
         print(myMenuView1.sampleValue)
+        
     }
 
 }

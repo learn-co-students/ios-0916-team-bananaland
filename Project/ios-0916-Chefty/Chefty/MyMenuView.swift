@@ -12,66 +12,53 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource {
     
     var sampleValue = String()
     var recipesSelected = [Recipe]()
-    var recipeNamesTemp = String()
     var store = DataStore.sharedInstance
     
     override init(frame:CGRect){
         super.init(frame: frame)
         
-        // set some recipes as selected, this will happen in the revious screen soon
+        // set some recipes as selected, this will happen in the previous screen soon
         for recipe in store.recipes {
-            if recipe.id == "apple-pie"{ recipe.selected = true }
-            if recipe.id == "chicken-breasts"{ recipe.selected = true }
-            if recipe.id == "black-bean-couscous-salad"{ recipe.selected = true }
-            if recipe.id == "yummy-baked-potato-skins"{ recipe.selected = true }
+            recipe.id == "apple-pie" ? recipe.selected = true : ()
+            recipe.id == "chicken-breasts" ? recipe.selected = true : ()
+            recipe.id == "black-bean-couscous-salad" ? recipe.selected = true : ()
+            //recipe.id == "yummy-baked-potato-skins" ? recipe.selected = true : ()
         }
 
         // get selected recipes
         for recipe in store.recipes {
-            if recipe.selected == true {
-                recipesSelected.append(recipe)
-            }
+            recipe.selected ? recipesSelected.append(recipe) : ()
         }
-
-        self.backgroundColor = UIColor.white
         
         //initialize
-        let deleteApp: UIButton = UIButton(type: .roundedRect)
-        let selectedRecipesTextField: UITextView = UITextView()
+        let tableView = UITableView()
+        let toolbar = UIToolbar()
         
         // configure controls
-        selectedRecipesTextField.text = recipeNamesTemp
-        selectedRecipesTextField.backgroundColor = UIColor.white
-        print("recipeNamesTemp: \(recipeNamesTemp)")
+        tableView.delegate = self
+        tableView.dataSource = self
         
-        // add the button
-        self.addSubview(deleteApp)
-        self.addSubview(selectedRecipesTextField)
-        
-        // constrain the button
-        deleteApp.topAnchor.constraint(equalTo: self.topAnchor, constant: 100).isActive = true
-        deleteApp.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        // add the tableview
-        let tableView = UITableView() //frame: (CGRect(x: 0, y: 100, width: screenWidth, height: screenHeight)), style: UITableViewStyle.plain)
+        // add the controls to the view
         self.addSubview(tableView)
+        self.addSubview(toolbar)
+        
+        // constrain the controls
         tableView.topAnchor.constraint(equalTo: self.topAnchor, constant: 65).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 60).isActive = true
         tableView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        tableView.delegate = self
-        tableView.dataSource = self
+        //toolbar.topAnchor.constraint(equalTo: self.topAnchor, constant: 65).isActive = true
+        toolbar.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        toolbar.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        toolbar.translatesAutoresizingMaskIntoConstraints = false
+
+
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+    func numberOfSections(in tableView: UITableView) -> Int { return 1 }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recipesSelected.count
-    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return recipesSelected.count }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // set the custom cell
@@ -87,12 +74,20 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        // the tableview cells are divided up to always fill the page
         let rowHeight = (tableView.bounds.height)/CGFloat(self.recipesSelected.count)
         return rowHeight
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        
+        print(recipesSelected[indexPath.row].displayName)
+        //self.delegate.onPressTraditionalRecipeButton(button: traditionalRecipeButton)
+        
     }
     
 }

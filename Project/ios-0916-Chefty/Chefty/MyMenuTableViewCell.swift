@@ -68,15 +68,6 @@ class MyMenuTableViewCell: UITableViewCell {
         timeButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
         timeButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         timeButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        
-        let fontFamilyNames = UIFont.familyNames
-        for familyName in fontFamilyNames {
-            print("------------------------------")
-            print("Font Family Name = [\(familyName)]")
-            let names = UIFont.fontNames(forFamilyName: familyName )
-            print("Font Names = [\(names)]")
-        }
 
     }
     
