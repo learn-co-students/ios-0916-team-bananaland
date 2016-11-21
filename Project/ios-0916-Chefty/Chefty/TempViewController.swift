@@ -58,5 +58,11 @@ class TempViewController: UIViewController, TempViewDelegate {
         //self.present(myMenuView1, animated: true, completion: nil) // show destination without nav bar
         navigationController?.pushViewController(traditionalRecipeView1, animated: true) // show destination with nav bar
     }
-
+    
+    func onPressHomePageButton(button: UIButton) {
+        let homePageView = HomePageViewController()
+        navigationController?.pushViewController(homePageView, animated: true)
+    }
+    
+    
 }
