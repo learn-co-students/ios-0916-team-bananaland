@@ -10,17 +10,16 @@ import UIKit
 
 class TraditionalRecipeViewController: UIViewController {
     
-     var traditionalRecipeView1: TraditionalRecipeView!
+    var traditionalRecipeView: TraditionalRecipeView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
         self.title = "Traditional Recipe Page"
         //self.navigationController?.navigationBar.barTintColor = UIColor.blue
-
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -29,9 +28,10 @@ class TraditionalRecipeViewController: UIViewController {
     }
     
     override func loadView(){
-        self.traditionalRecipeView1 = TraditionalRecipeView(frame: CGRect.zero)
-        self.view = self.traditionalRecipeView1
+        self.traditionalRecipeView = TraditionalRecipeView(frame: CGRect.zero)
+        self.view = self.traditionalRecipeView
     }
+
     
     
 }

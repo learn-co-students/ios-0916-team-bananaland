@@ -17,9 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow(frame: UIScreen.main.bounds)
+        let initialViewController = TempViewController()
         //let initialViewController = HomePageViewController()
-        //let navigationController = UINavigationController(rootViewController: initialViewController)
-        window!.rootViewController = HomePageViewController()
+        let navigationController = UINavigationController(rootViewController: initialViewController)
+        //window!.rootViewController = HomePageViewController()
+        window!.rootViewController = navigationController
         window!.backgroundColor = UIColor.white
         window!.makeKeyAndVisible()
         

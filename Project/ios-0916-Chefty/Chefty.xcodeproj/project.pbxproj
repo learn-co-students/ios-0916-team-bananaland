@@ -11,19 +11,24 @@
 		714EBD5C1DDE340800C0857A /* TraditionalRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714EBD5B1DDE340800C0857A /* TraditionalRecipeView.swift */; };
 		71E655C41DDCE61700B60E0B /* TraditionalRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E655C31DDCE61700B60E0B /* TraditionalRecipeViewController.swift */; };
 		A7C1E1B71DDCD97300BD8A13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C1E1B61DDCD97300BD8A13 /* AppDelegate.swift */; };
-		A7C1E1BF1DDCD97300BD8A13 /* Chefty.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A7C1E1BD1DDCD97300BD8A13 /* Chefty.xcdatamodeld */; };
 		A7C1E1C11DDCD97300BD8A13 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A7C1E1C01DDCD97300BD8A13 /* Assets.xcassets */; };
 		A7C1E1C41DDCD97300BD8A13 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7C1E1C21DDCD97300BD8A13 /* LaunchScreen.storyboard */; };
 		A7C1E2321DDE5BC200BD8A13 /* HomePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C1E2311DDE5BC200BD8A13 /* HomePageViewController.swift */; };
 		A7C1E2341DDE5D6F00BD8A13 /* CustomLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C1E2331DDE5D6F00BD8A13 /* CustomLayoutView.swift */; };
 		A7C1E2361DDE611600BD8A13 /* RecipeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C1E2351DDE611600BD8A13 /* RecipeCollectionViewCell.swift */; };
 		A7C9D3F31DDF849900EA5637 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C9D3F21DDF849900EA5637 /* GradientView.swift */; };
+		C00CEFF51DDF5C82005C4BE5 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00CEFF41DDF5C82005C4BE5 /* Recipe.swift */; };
 		C0252C631DDD16EA00046AD0 /* MyMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0252C621DDD16EA00046AD0 /* MyMenuViewController.swift */; };
 		C0252C651DDD171A00046AD0 /* MyMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0252C641DDD171A00046AD0 /* MyMenuView.swift */; };
 		C0252C681DDD240100046AD0 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7C1E1C51DDCD97300BD8A13 /* Info.plist */; };
 		C0252C6A1DDD243100046AD0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0252C691DDD243100046AD0 /* Constants.swift */; };
+		C054B2A01DE1185C00F4DEB1 /* MyMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C054B29F1DE1185C00F4DEB1 /* MyMenuTableViewCell.swift */; };
 		C0AAB53D1DDDE98F0055DF8B /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB53C1DDDE98F0055DF8B /* TempView.swift */; };
 		C0AAB53F1DDDEA880055DF8B /* TempViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB53E1DDDEA880055DF8B /* TempViewController.swift */; };
+		C0AAB5431DDE64970055DF8B /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB5421DDE64970055DF8B /* DataStore.swift */; };
+		C0AAB5471DDE67300055DF8B /* CheftyAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB5461DDE67300055DF8B /* CheftyAPIClient.swift */; };
+		C0AAB5491DDE677C0055DF8B /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB5481DDE677C0055DF8B /* Secrets.swift */; };
+		C0ADCBA11DE3405B005A0651 /* Chefty.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C0ADCB9F1DE3405B005A0651 /* Chefty.xcdatamodeld */; };
 		C0DBD0611DDD25E800B9B9FF /* MaterialIcons-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C0252C661DDD23AD00046AD0 /* MaterialIcons-Regular.otf */; };
 /* End PBXBuildFile section */
 
@@ -33,7 +38,6 @@
 		71E655C31DDCE61700B60E0B /* TraditionalRecipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TraditionalRecipeViewController.swift; path = ../TraditionalRecipeViewController.swift; sourceTree = "<group>"; };
 		A7C1E1B31DDCD97300BD8A13 /* Chefty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chefty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7C1E1B61DDCD97300BD8A13 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A7C1E1BE1DDCD97300BD8A13 /* Chefty.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Chefty.xcdatamodel; sourceTree = "<group>"; };
 		A7C1E1C01DDCD97300BD8A13 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A7C1E1C31DDCD97300BD8A13 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A7C1E1C51DDCD97300BD8A13 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -41,12 +45,18 @@
 		A7C1E2331DDE5D6F00BD8A13 /* CustomLayoutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLayoutView.swift; sourceTree = "<group>"; };
 		A7C1E2351DDE611600BD8A13 /* RecipeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCollectionViewCell.swift; sourceTree = "<group>"; };
 		A7C9D3F21DDF849900EA5637 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		C00CEFF41DDF5C82005C4BE5 /* Recipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		C0252C621DDD16EA00046AD0 /* MyMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMenuViewController.swift; sourceTree = "<group>"; };
 		C0252C641DDD171A00046AD0 /* MyMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMenuView.swift; sourceTree = "<group>"; };
 		C0252C661DDD23AD00046AD0 /* MaterialIcons-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MaterialIcons-Regular.otf"; sourceTree = "<group>"; };
 		C0252C691DDD243100046AD0 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		C054B29F1DE1185C00F4DEB1 /* MyMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMenuTableViewCell.swift; sourceTree = "<group>"; };
 		C0AAB53C1DDDE98F0055DF8B /* TempView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		C0AAB53E1DDDEA880055DF8B /* TempViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempViewController.swift; sourceTree = "<group>"; };
+		C0AAB5421DDE64970055DF8B /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		C0AAB5461DDE67300055DF8B /* CheftyAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheftyAPIClient.swift; sourceTree = "<group>"; };
+		C0AAB5481DDE677C0055DF8B /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		C0ADCBA01DE3405B005A0651 /* Chefty.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Chefty.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +98,7 @@
 				A7C1E1C51DDCD97300BD8A13 /* Info.plist */,
 				C0252C691DDD243100046AD0 /* Constants.swift */,
 				A7C1E1B61DDCD97300BD8A13 /* AppDelegate.swift */,
-				A7C1E1BD1DDCD97300BD8A13 /* Chefty.xcdatamodeld */,
+				C0ADCB9F1DE3405B005A0651 /* Chefty.xcdatamodeld */,
 			);
 			path = Chefty;
 			sourceTree = "<group>";
@@ -108,7 +118,7 @@
 			children = (
 				A7C1E22C1DDE579D00BD8A13 /* HomePage */,
 				714EBD5B1DDE340800C0857A /* TraditionalRecipeView.swift */,
-				C0252C641DDD171A00046AD0 /* MyMenuView.swift */,
+				C054B2A11DE11C4A00F4DEB1 /* MyMenu */,
 				C0AAB53C1DDDE98F0055DF8B /* TempView.swift */,
 			);
 			name = Views;
@@ -129,6 +139,10 @@
 		C0252C5F1DDCF96C00046AD0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C0AAB5421DDE64970055DF8B /* DataStore.swift */,
+				C0AAB5461DDE67300055DF8B /* CheftyAPIClient.swift */,
+				C0AAB5481DDE677C0055DF8B /* Secrets.swift */,
+				C00CEFF41DDF5C82005C4BE5 /* Recipe.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -139,6 +153,15 @@
 				C0252C661DDD23AD00046AD0 /* MaterialIcons-Regular.otf */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		C054B2A11DE11C4A00F4DEB1 /* MyMenu */ = {
+			isa = PBXGroup;
+			children = (
+				C0252C641DDD171A00046AD0 /* MyMenuView.swift */,
+				C054B29F1DE1185C00F4DEB1 /* MyMenuTableViewCell.swift */,
+			);
+			name = MyMenu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,7 +196,6 @@
 				TargetAttributes = {
 					A7C1E1B21DDCD97300BD8A13 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = CJ24M7DKLZ;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -216,19 +238,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0252C651DDD171A00046AD0 /* MyMenuView.swift in Sources */,
+				C0ADCBA11DE3405B005A0651 /* Chefty.xcdatamodeld in Sources */,
 				A7C1E2341DDE5D6F00BD8A13 /* CustomLayoutView.swift in Sources */,
+				C054B2A01DE1185C00F4DEB1 /* MyMenuTableViewCell.swift in Sources */,
 				C0252C631DDD16EA00046AD0 /* MyMenuViewController.swift in Sources */,
 				A7C1E1B71DDCD97300BD8A13 /* AppDelegate.swift in Sources */,
+				C0AAB5431DDE64970055DF8B /* DataStore.swift in Sources */,
 				A7C9D3F31DDF849900EA5637 /* GradientView.swift in Sources */,
 				71E655C41DDCE61700B60E0B /* TraditionalRecipeViewController.swift in Sources */,
 				714EBD5C1DDE340800C0857A /* TraditionalRecipeView.swift in Sources */,
 				C0AAB53F1DDDEA880055DF8B /* TempViewController.swift in Sources */,
 				C0AAB53D1DDDE98F0055DF8B /* TempView.swift in Sources */,
+				C0AAB5471DDE67300055DF8B /* CheftyAPIClient.swift in Sources */,
+				C00CEFF51DDF5C82005C4BE5 /* Recipe.swift in Sources */,
 				A7C1E2361DDE611600BD8A13 /* RecipeCollectionViewCell.swift in Sources */,
-				A7C1E1BF1DDCD97300BD8A13 /* Chefty.xcdatamodeld in Sources */,
 				A7C1E2321DDE5BC200BD8A13 /* HomePageViewController.swift in Sources */,
 				01A830B31DDF82330064B9CE /* IngredientsController.swift in Sources */,
 				C0252C6A1DDD243100046AD0 /* Constants.swift in Sources */,
+				C0AAB5491DDE677C0055DF8B /* Secrets.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,7 +370,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = CJ24M7DKLZ;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Chefty/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -357,7 +384,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = CJ24M7DKLZ;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Chefty/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -391,12 +418,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		A7C1E1BD1DDCD97300BD8A13 /* Chefty.xcdatamodeld */ = {
+		C0ADCB9F1DE3405B005A0651 /* Chefty.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				A7C1E1BE1DDCD97300BD8A13 /* Chefty.xcdatamodel */,
+				C0ADCBA01DE3405B005A0651 /* Chefty.xcdatamodel */,
 			);
-			currentVersion = A7C1E1BE1DDCD97300BD8A13 /* Chefty.xcdatamodel */;
+			currentVersion = C0ADCBA01DE3405B005A0651 /* Chefty.xcdatamodel */;
 			path = Chefty.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct Recipe {
+struct Recipe2 {
     var recipeName: String!
     var recipeIngredients: [String]!
 }
@@ -26,7 +26,7 @@ class IngredientsController: UIViewController, UITableViewDelegate, UITableViewD
     ]
     
     
-    var recipeArray = [Recipe]()
+    var recipeArray = [Recipe2]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +38,7 @@ class IngredientsController: UIViewController, UITableViewDelegate, UITableViewD
         self.view.addSubview(self.ingredientsTableView)
         
         for (key, value) in recipeIngredients {
-            recipeArray.append(Recipe(recipeName: key, recipeIngredients: value))
+            recipeArray.append(Recipe2(recipeName: key, recipeIngredients: value))
         }
         
         self.ingredientsTableView.translatesAutoresizingMaskIntoConstraints = false
