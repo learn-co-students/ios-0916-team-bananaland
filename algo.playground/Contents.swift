@@ -18,9 +18,11 @@ struct RecipeStep: CustomStringConvertible {
 let potatoes1 = RecipeStep(recipeName: "potatoes", duration: 10, timeToStart: -100, attentionRequired: false)
 let chicken1 = RecipeStep(recipeName: "chicken", duration: 5, timeToStart: -100, attentionRequired: true)
 
-//same start, same attention --> pick shorter duration, add duration to total time
+//same start, same attention = true --> pick shorter duration, add duration to total time
 let potatoes2 = RecipeStep(recipeName: "potatoes", duration: 5, timeToStart: -80, attentionRequired: true)
 let chicken2 = RecipeStep(recipeName: "chicken", duration: 10, timeToStart: -80, attentionRequired: true)
+
+//TODO same start, same attention = false --> pick shorter duration, add duration to total time
 
 //overlap duration, 1st attentionNeeded = false --> do first, then second
 let potatoes3 = RecipeStep(recipeName: "potatoes", duration: 10, timeToStart: -50, attentionRequired: false)
@@ -108,5 +110,9 @@ sortSteps()
 
  */
 
+
+//account for interruptible tasks happening at/during start time unmoveable tasks (ex: cutting chicken is interruptible, in the middle of it you need to put pie in the oven, which is unmovebale because must be ready at 7pm) assume all tasks are interruptible.
+
+//if full attention not required and moveable, move it! defer to giving user one task at a time without interruptions.
 
 
