@@ -69,7 +69,7 @@ class WelcomeView: UIView {
     }
     
     func countDown1(){
-        appDesc.text = "Receive a set of steps to prepare dinner after choosing several dishes. \n\nStart in 1 seconds."
+        appDesc.text = "Receive a set of steps to prepare dinner after choosing several dishes. \n\nStart in 1 second."
         self.perform(#selector(showHome), with: nil, afterDelay: 1)
     }
     
