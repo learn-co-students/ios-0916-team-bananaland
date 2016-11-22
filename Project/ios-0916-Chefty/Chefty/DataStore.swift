@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 class DataStore {
     static let sharedInstance = DataStore()
@@ -15,6 +16,7 @@ class DataStore {
 
     var recipes:[Recipe] = []  // the datastore contains an array of dictionaries
     var selectedRecipes:[SelectedRecipe] = []
+    var images: [UIImage] = []
     
     func getRecipes(completion: @escaping () -> ()) {
         
@@ -23,6 +25,16 @@ class DataStore {
             completion() // call back to onViewDidLoad
         }
     }
+    
+    func getImages(completion: @escaping () -> ()) {
+       
+        for recipe in recipes {
+            let url = URL(string: recipe.imageURL)
+            CheftyAPIClient.fetchImage(url!, recipe: recipe, completion: { _ in completion() })
+        }
+        
+    }
+    
     
     lazy var persistentContainer: NSPersistentContainer = {
         

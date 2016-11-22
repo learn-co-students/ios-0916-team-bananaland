@@ -196,6 +196,7 @@
 				TargetAttributes = {
 					A7C1E1B21DDCD97300BD8A13 = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = CJ24M7DKLZ;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -370,9 +371,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = CJ24M7DKLZ;
 				INFOPLIST_FILE = Chefty/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AppRising.SML.Chefty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -384,9 +385,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = CJ24M7DKLZ;
 				INFOPLIST_FILE = Chefty/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AppRising.SML.Chefty;
 				PRODUCT_NAME = "$(TARGET_NAME)";

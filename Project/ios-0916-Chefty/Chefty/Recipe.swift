@@ -80,4 +80,41 @@ class Recipe {
             view.sendSubview(toBack: imageView)
         }
     }
+    
+    class func getImageForHome(recipe: Recipe, imageView: UIImageView, view: UIView, background: Bool) {
+        
+        if recipe.image.cgImage?.bitmapInfo == nil {
+            let imageUrl:URL = URL(string: recipe.imageURL)!
+            // Start background thread so that image loading does not make app unresponsive
+            DispatchQueue.global(qos: .userInitiated).async {
+                let imageData = NSData(contentsOf: imageUrl)!
+                // When from background thread, UI needs to be updated on main_queue
+                DispatchQueue.main.async {
+                    recipe.imageData = imageData as Data
+                    recipe.image = UIImage(data: recipe.imageData)!
+                    if background == true {
+                        imageView.backgroundColor = UIColor(patternImage: UIImage(data: recipe.imageData)!)
+                    } else {
+                        imageView.image = recipe.image
+                        imageView.contentMode = UIViewContentMode.scaleAspectFit
+                    }
+                    view.addSubview(imageView)
+                    view.sendSubview(toBack: imageView)
+                }
+            }
+        } else {
+            if background == true {
+                imageView.backgroundColor = UIColor(patternImage: UIImage(data: recipe.imageData)!)
+            } else {
+                imageView.image = recipe.image
+                imageView.contentMode = UIViewContentMode.scaleAspectFit
+            }
+            view.addSubview(imageView)
+            view.sendSubview(toBack: imageView)
+        }
+    }
+    
+    
+    
+    
 }

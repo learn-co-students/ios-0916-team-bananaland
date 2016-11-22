@@ -17,18 +17,21 @@ class TempViewController: UIViewController, TempViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         tempView1.delegate = self
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
 
         self.navigationController?.navigationBar.topItem?.title = "Welcome to the Chefty Temp Page"
+       
+//        ASM : Moved to AppDelegate
+//        store.getRecipes {
+//            //            print("store.recipes.count: \(self.store.recipes.count)")
+//            //            OperationQueue.main.addOperation({
+//            //                self.tableView.reloadData()
+//            //            })
+//        }
         
-        store.getRecipes {
-//            print("store.recipes.count: \(self.store.recipes.count)")
-//            OperationQueue.main.addOperation({
-//                self.tableView.reloadData()
-//            })
-        }
     }
 
     override func didReceiveMemoryWarning() {

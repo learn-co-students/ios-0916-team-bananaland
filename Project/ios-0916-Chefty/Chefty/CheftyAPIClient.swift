@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class CheftyAPIClient {
 
@@ -21,7 +22,6 @@ class CheftyAPIClient {
                 if let unwrappedData = data {
                     do {
                         let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: String]]
-                        
                         for recipeDict in responseJSON {
                             //print("recipe: \(recipe)")
                             let recipeInst = Recipe(recipeDict: recipeDict)
@@ -36,4 +36,21 @@ class CheftyAPIClient {
             task.resume()
         }
     }
+        
+   class func fetchImage(_ url: URL, recipe: Recipe, completion: @escaping () -> Void) {
+        let store = DataStore.sharedInstance
+        let session = URLSession.shared
+        let task = session.dataTask(with: url) { (data, response, error) in
+            
+            guard let imageData = try? Data(contentsOf: url) else { fatalError() }
+            let image = UIImage(data: imageData)
+            store.images.append(image!)
+            OperationQueue.main.addOperation {
+                completion()
+            }
+        }
+        task.resume()
+    }
+    
+    
 }
