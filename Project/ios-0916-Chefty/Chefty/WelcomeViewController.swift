@@ -17,7 +17,7 @@ class WelcomeViewController: UIViewController, WelcomeViewDelegate {
         welcomeView1.delegate = self
         
         self.navigationController?.setNavigationBarHidden(true, animated: .init(true))
-        self.view.backgroundColor = UIColor(named: .beige)
+        self.view.backgroundColor = UIColor(named: .white)
 
         // Do any additional setup after loading the view.
     }
@@ -32,9 +32,9 @@ class WelcomeViewController: UIViewController, WelcomeViewDelegate {
         self.view = self.welcomeView1
     }
     
-    func goToHome(button: UIButton) {
+    func goToHome() {
         let homePageViewController1 = HomePageViewController()
-        navigationController?.pushViewController(homePageViewController1, animated: true)
+        navigationController?.pushViewController(homePageViewController1, animated: false)
     }
 
 }
