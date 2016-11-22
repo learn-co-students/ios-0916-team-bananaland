@@ -8,7 +8,14 @@
 
 import UIKit
 
+protocol MyMenuTableViewCellDelegate: class {
+    func updateTableViewNow()
+}
+
 class MyMenuTableViewCell: UITableViewCell {
+    
+    var store = DataStore.sharedInstance
+    weak var delegate: MyMenuTableViewCellDelegate?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -17,12 +24,12 @@ class MyMenuTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     
     var cellLabel1:UILabel = UILabel()
     let imageView1:UIImageView = UIImageView()
+    let deleteButton: UIButton = UIButton(type: .roundedRect)
     
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:)")
@@ -52,7 +59,7 @@ class MyMenuTableViewCell: UITableViewCell {
         deleteButton.setTitle(Constants.iconLibrary.close.rawValue, for: .normal)
         deleteButton.titleLabel!.font =  UIFont(name: Constants.iconFont.material.rawValue, size: CGFloat(Constants.iconSize.small.rawValue))
         deleteButton.setTitleColor(UIColor(named: .white), for: .normal)
-        deleteButton.addTarget(self, action: #selector(MyMenuTableViewCell.deleteAction), for: UIControlEvents.touchUpInside)
+        deleteButton.addTarget(self, action: #selector(MyMenuTableViewCell.onClickDeleteAction), for: UIControlEvents.touchUpInside)
         contentView.addSubview(deleteButton)
         deleteButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -30).isActive = true
         deleteButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
@@ -68,11 +75,20 @@ class MyMenuTableViewCell: UITableViewCell {
         timeButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
         timeButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         timeButton.translatesAutoresizingMaskIntoConstraints = false
-
     }
     
-    func deleteAction() {
-        print("delete item")
+    func onClickDeleteAction() {
+        if let currentRowString = self.deleteButton.accessibilityLabel {
+            if let currentRow = Int(currentRowString) {
+                let context = store.persistentContainer.viewContext
+                context.delete(store.recipesSelected[currentRow])
+                store.recipesSelected.remove(at: currentRow)
+                do {
+                    try context.save()
+                } catch _ { print("Error deleting item.")}
+                self.delegate?.updateTableViewNow()
+            }
+        }
     }
     
     func setTimeAction() {

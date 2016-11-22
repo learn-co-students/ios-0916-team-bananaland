@@ -8,18 +8,19 @@
 
 import UIKit
 
-class MyMenuViewController: UIViewController {
+class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     
     var sampleValue = String()
     var store = DataStore.sharedInstance
+    let myMenuView1 = MyMenuView(frame: CGRect.zero)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        myMenuView1.delegate = self
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
         self.title = "My Menu"
-        //self.navigationController?.navigationBar.barTintColor = UIColor.blue
     }
 
     override func didReceiveMemoryWarning() {
@@ -28,12 +29,14 @@ class MyMenuViewController: UIViewController {
     }
     
     override func loadView(){
-        let myMenuView1 = MyMenuView(frame: CGRect.zero)
+        
         self.view = myMenuView1
-        
-        myMenuView1.sampleValue = self.sampleValue
-        print(myMenuView1.sampleValue)
-        
+        //myMenuView1.sampleValue = self.sampleValue
+    }
+    
+    func openIngredients() {
+        let ingredientsView = IngredientsController()
+        navigationController?.pushViewController(ingredientsView, animated: true)
     }
 
 }

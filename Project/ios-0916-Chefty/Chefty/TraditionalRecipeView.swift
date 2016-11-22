@@ -11,6 +11,9 @@ import UIKit
 
 class TraditionalRecipeView: UIView {
     
+    var store = DataStore.sharedInstance
+    var recipe: Recipe?
+    
     override init(frame:CGRect){
         super.init(frame: frame)
         
@@ -18,7 +21,12 @@ class TraditionalRecipeView: UIView {
         
         setUpElements()
         
+        if recipe == nil {
+            recipe = store.recipes[0]
+        }
     }
+    
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -30,6 +38,8 @@ class TraditionalRecipeView: UIView {
     
     func setUpElements() {
         
+        var recipe = store.recipes[0]
+    
         //SCROLLVIEW
         let myScrollView = UIScrollView()
         self.addSubview(myScrollView)
