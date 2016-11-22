@@ -15,10 +15,10 @@ class Recipe {
     var id: String
     var imageURL: String
     var servings: String
-    var type: Constants.recipeType
-    var selected: Bool
-    var startTime: Date = Date()
+    var type: String
+    var servingTime: Date = Date()
     var imageData: Data = Data()
+    var selected: Bool = false
     var image: UIImage = UIImage()
 
     // custom initializer is needed to allow a default value for selected
@@ -28,27 +28,10 @@ class Recipe {
         self.imageURL = recipeDict["imageURL"] as String!
         self.servings = recipeDict["servings"] as String!
         self.selected = false
-        self.type = .undefined // xcode requires this...
-        
-        // set type per the recipeType enum
-        if let typeString = recipeDict["type"] as String! {
-            
-            switch typeString {
-            case "main":
-                self.type = .main
-            case "side":
-                self.type = .side
-            case "appetizer":
-                self.type = .appetizer
-            case "dessert":
-                self.type = .dessert
-            default:
-                self.type = .undefined
-            }
-        }
+        self.type = recipeDict["type"] as String!
     }
     
-    class func getImage(recipe: Recipe, imageView: UIImageView, view: UIView, background: Bool) {
+    class func getImage(recipe: Recipe, imageView: UIImageView, view: UIView, backgroundImage: Bool) {
         
         if recipe.image.cgImage?.bitmapInfo == nil {
             let imageUrl:URL = URL(string: recipe.imageURL)!
@@ -59,7 +42,7 @@ class Recipe {
                 DispatchQueue.main.async {
                     recipe.imageData = imageData as Data
                     recipe.image = UIImage(data: recipe.imageData)!
-                    if background == true {
+                    if backgroundImage == true {
                         imageView.backgroundColor = UIColor(patternImage: UIImage(data: recipe.imageData)!)
                     } else {
                         imageView.image = recipe.image
@@ -70,7 +53,7 @@ class Recipe {
                 }
             }
         } else {
-            if background == true {
+            if backgroundImage == true {
                 imageView.backgroundColor = UIColor(patternImage: UIImage(data: recipe.imageData)!)
             } else {
                 imageView.image = recipe.image
@@ -80,4 +63,5 @@ class Recipe {
             view.sendSubview(toBack: imageView)
         }
     }
+    
 }

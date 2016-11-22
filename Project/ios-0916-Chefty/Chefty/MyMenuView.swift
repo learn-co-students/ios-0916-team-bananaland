@@ -7,75 +7,84 @@
 //
 
 import UIKit
+import CoreData
 
-class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource {
+protocol MyMenuViewDelegate: class {
+    func openIngredients()
+}
+
+
+class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTableViewCellDelegate {
     
+    weak var delegate:MyMenuViewDelegate!
     var sampleValue = String()
     var recipesSelected = [Recipe]()
     var store = DataStore.sharedInstance
+    let tableView = UITableView()
+    let toolbar = UIToolbar()
     
     override init(frame:CGRect){
         super.init(frame: frame)
         
-        // set some recipes as selected, this will happen in the previous screen soon
-        for recipe in store.recipes {
-            recipe.id == "apple-pie" ? recipe.selected = true : ()
-            recipe.id == "chicken-breasts" ? recipe.selected = true : ()
-            recipe.id == "black-bean-couscous-salad" ? recipe.selected = true : ()
-            //recipe.id == "yummy-baked-potato-skins" ? recipe.selected = true : ()
-        }
-
-        // get selected recipes
-        for recipe in store.recipes {
-            recipe.selected ? recipesSelected.append(recipe) : ()
-        }
-        
-        //initialize
-        let tableView = UITableView()
-        let toolbar = UIToolbar()
+        // load sample data
+        store.fetchRecipeSelected()
         
         // configure controls
-        tableView.delegate = self
-        tableView.dataSource = self
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
         
         // add the controls to the view
         self.addSubview(tableView)
         self.addSubview(toolbar)
         
         // constrain the controls
-        tableView.topAnchor.constraint(equalTo: self.topAnchor, constant: 65).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 60).isActive = true
-        tableView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        tableView.translatesAutoresizingMaskIntoConstraints = false
+        self.toolbar.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        self.toolbar.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        self.toolbar.translatesAutoresizingMaskIntoConstraints = false
         
-        //toolbar.topAnchor.constraint(equalTo: self.topAnchor, constant: 65).isActive = true
-        toolbar.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        toolbar.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        toolbar.translatesAutoresizingMaskIntoConstraints = false
+        // toolbar buttons
+        let ingredientsButton: UIBarButtonItem = UIBarButtonItem(title: "Ingredients", style: .plain , target: self, action: #selector(clickIngredients))
+        let clearAllButton: UIBarButtonItem = UIBarButtonItem(title: "Clear All", style: .plain , target: self, action: #selector(clearAllRecipes))
+        let openStep1Button: UIBarButtonItem = UIBarButtonItem(title: "Open Step 1", style: .plain , target: self, action: #selector(openStep1))
+        let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 
+        let toolbarButtons = [ingredientsButton, spacer, clearAllButton, spacer, openStep1Button]
+        self.toolbar.setItems(toolbarButtons, animated: false)
+        
+        // tableview
+        self.tableView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
+        self.tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -44).isActive = true
+        self.tableView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        self.tableView.translatesAutoresizingMaskIntoConstraints = false
 
     }
     
     func numberOfSections(in tableView: UITableView) -> Int { return 1 }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return recipesSelected.count }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return store.recipesSelected.count }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // set the custom cell
         let cell = MyMenuTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "prototypeCell")
-        
+        cell.delegate = self
         let cellLabelStartTime = "?"
-        
-        let cellLabel = "\(recipesSelected[indexPath.row].type.rawValue) @ \(cellLabelStartTime) : \(recipesSelected[indexPath.row].displayName)"
-        
+        var cellLabel = String()
+        if let type = store.recipesSelected[indexPath.row].type {
+            if let displayName = store.recipesSelected[indexPath.row].displayName {
+                cellLabel = "\(type.capitalized) @ \(cellLabelStartTime) : \(displayName)"
+            }
+        }
         cell.cellLabel1.text = cellLabel
-        Recipe.getImage(recipe: recipesSelected[indexPath.row], imageView: cell.imageView1, view: cell, background: true)
+        cell.deleteButton.accessibilityLabel = String(indexPath.row)
+        let relatedRecipe = self.getRelatedRecipe(recipeSelected: store.recipesSelected[indexPath.row])
+        Recipe.getImage(recipe: relatedRecipe, imageView: cell.imageView1, view: cell, backgroundImage: true)
         return cell
     }
+
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         // the tableview cells are divided up to always fill the page
-        let rowHeight = (tableView.bounds.height)/CGFloat(self.recipesSelected.count)
+        let rowHeight = (tableView.bounds.height-60)/CGFloat(store.recipesSelected.count)
         return rowHeight
     }
     
@@ -84,10 +93,46 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        
-        print(recipesSelected[indexPath.row].displayName)
-        //self.delegate.onPressTraditionalRecipeButton(button: traditionalRecipeButton)
-        
+        print("didSelectRowAt: \(store.recipesSelected[indexPath.row].displayName)")
+    }
+    
+    func updateTableViewNow() {
+        print("updateTableViewNow")
+        self.tableView.reloadData()
+    }
+    
+    func clickIngredients() {
+        print("clickIngredients")
+        self.delegate.openIngredients()
+    }
+    
+    func clearAllRecipes() {
+        print("clearAllRecipes")
+        let context = store.persistentContainer.viewContext
+        for _ in store.recipesSelected {
+            context.delete(store.recipesSelected[0])
+            store.recipesSelected.remove(at: 0)
+        }
+        do {
+            try context.save()
+        } catch _ { print("Error deleting item.")}
+        self.tableView.reloadData()
+    }
+    
+    func openStep1() {
+        print("openStep1")
+    }
+    
+    // given a RecipeSelected, return the the related recipe - we need the related to fetch the images with the function in the Recipe class
+    func getRelatedRecipe(recipeSelected: RecipeSelected) -> Recipe {
+        var results = store.recipes[0]
+        for recipe in store.recipes {
+            if recipe.id == recipeSelected.id {
+                results = recipe
+                break;
+            }
+        }
+        return results
     }
     
 }
