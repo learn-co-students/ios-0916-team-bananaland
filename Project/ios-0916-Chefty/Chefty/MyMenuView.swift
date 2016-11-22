@@ -18,16 +18,12 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     weak var delegate:MyMenuViewDelegate!
     var sampleValue = String()
-    var recipesSelected = [Recipe]()
     var store = DataStore.sharedInstance
     let tableView = UITableView()
     let toolbar = UIToolbar()
     
     override init(frame:CGRect){
         super.init(frame: frame)
-        
-//        // load sample data
-//        store.fetchRecipeSelected()
         
         // configure controls
         self.tableView.delegate = self
@@ -92,8 +88,13 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         fatalError("init(coder:) has not been implemented")
     }
     
+    // onClick table cell go to recipe
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        print("didSelectRowAt: \(store.recipesSelected[indexPath.row].displayName)")
+        let recipe = getRelatedRecipe(recipeSelected: store.recipesSelected[indexPath.row])
+        print("didSelectRowAt: \(recipe.displayName)")
+        let traditionalRecipeViewController1 = TraditionalRecipeViewController()  // create the destination
+        traditionalRecipeViewController1.recipe = recipe
+        navigationController?.pushViewController(traditionalRecipeViewController1, animated: true) // show destination with nav bar
     }
     
     func updateTableViewNow() {
