@@ -40,8 +40,6 @@ class WelcomeView: UIView {
         self.addSubview(logoImageView)
         
         // constrain the object
-
-        
         logoImageView.translatesAutoresizingMaskIntoConstraints = false
         logoImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: -80).isActive = true
         logoImageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier:0.6).isActive = true
