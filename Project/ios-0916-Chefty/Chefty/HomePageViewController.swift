@@ -8,9 +8,11 @@
 
 import UIKit
 
-class HomePageViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class HomePageViewController: UIViewController {
     
-    var collectionView: UICollectionView!
+    //var collectionView: UICollectionView!
+    var scrollView: UIScrollView!
+    
     var recipeImages = [#imageLiteral(resourceName: "moroccanChicken"), #imageLiteral(resourceName: "dijonChickenBreasts"), #imageLiteral(resourceName: "sweetPotatoFries"), #imageLiteral(resourceName: "beefBroccoliStirFry"), #imageLiteral(resourceName: "peachCobbler"),
                         #imageLiteral(resourceName: "snickerdoodleCookies"),#imageLiteral(resourceName: "applePie"), #imageLiteral(resourceName: "BarbequedDeviledEggs"), #imageLiteral(resourceName: "AuthenticItalianMeatballs"), #imageLiteral(resourceName: "marinatedCheeseAppetizer"), #imageLiteral(resourceName: "choppedSaladAppetizerShells"), #imageLiteral(resourceName: "balsamicBrusselSprouts"), #imageLiteral(resourceName: "blackBeanCouscousSalad"), #imageLiteral(resourceName: "RoastedGreenBeans"), #imageLiteral(resourceName: "yummyBakedPotatoSkins"), #imageLiteral(resourceName: "marinatedCheeseAppetizer")]
     
@@ -20,21 +22,47 @@ class HomePageViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        setupScrollView()
         
-        layoutRecipeCollectionView()
-        collectionView.reloadData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupRecipeCollectionViews()
+    }
     
-    func layoutRecipeCollectionView() {
+}
+
+extension HomePageViewController : UICollectionViewDelegate, UICollectionViewDataSource  {
+    
+    func setupScrollView() {
+        
         let frame = CGRect(x: view.bounds.minX, y: view.bounds.maxY * 0.25, width: view.bounds.width, height: view.bounds.height * 0.75)
-        let layout: UICollectionViewLayout = CustomLayoutView()
-        collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.backgroundColor = UIColor.clear
-        collectionView.register(RecipeCollectionViewCell.self, forCellWithReuseIdentifier: "recipeCell")
-        view.addSubview(collectionView)
+        scrollView = UIScrollView(frame: frame)
+        scrollView.isScrollEnabled = true
+        scrollView.isPagingEnabled = true
+        scrollView.backgroundColor = UIColor.white
+        view.addSubview(scrollView)
+        
+    }
+    
+    func setupRecipeCollectionViews() {
+        
+        for i in 0...3 {
+            
+            let xPos = self.scrollView.frame.width * CGFloat(i)
+            let frame = CGRect(x: xPos, y: 0.0, width: self.scrollView.frame.width, height: self.scrollView.frame.height)
+            let layout : UICollectionViewLayout = CustomLayoutView()
+            let view = UICollectionView(frame: frame, collectionViewLayout: layout)
+            view.register(RecipeCollectionViewCell.self, forCellWithReuseIdentifier: "recipeCell")
+            view.delegate = self
+            view.dataSource = self
+            view.backgroundColor = UIColor.white
+            scrollView.contentSize.width = scrollView.frame.width * CGFloat(i + 1)
+            scrollView.addSubview(view)
+            
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

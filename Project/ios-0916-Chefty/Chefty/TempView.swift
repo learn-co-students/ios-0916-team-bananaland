@@ -40,7 +40,7 @@ class TempView: UIView {
         traditionalRecipeButton.setTitle("Open Traditional Recipe", for: .normal)
         traditionalRecipeButton.addTarget(self, action: #selector(self.traditionalRecipeAction), for: UIControlEvents.touchUpInside)
         
-        ingredientsButton.setTitle("Ingredients", for: .normal)
+        ingredientsButton.setTitle("Open List of Ingredients", for: .normal)
         ingredientsButton.addTarget(self, action: #selector(self.goToIngredients), for: UIControlEvents.touchUpInside)
         
         // add the object to the view
