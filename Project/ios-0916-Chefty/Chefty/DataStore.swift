@@ -7,18 +7,89 @@
 //
 
 import Foundation
+import CoreData
 
 class DataStore {
     static let sharedInstance = DataStore()
     fileprivate init() {}
 
-    var recipes:[Recipe] = []  // the datastore contains an array of dictionaries
-
+    var recipes:[Recipe] = []
+    var recipesSelected:[RecipeSelected] = []
+    
     func getRecipes(completion: @escaping () -> ()) {
         
         CheftyAPIClient.getRecipies {_ in 
-            //dump(self.recipes)
             completion() // call back to onViewDidLoad
         }
+    }
+    
+    lazy var persistentContainer: NSPersistentContainer = {
+        
+        let container = NSPersistentContainer(name: "Chefty") // name must match model file
+        container.loadPersistentStores(completionHandler: { (storeDescription, error) in
+            if let error = error as NSError? {
+                fatalError("Unresolved error \(error), \(error.userInfo)")
+            }
+        })
+        return container
+    }()
+    
+    func saveRecipeSelectedContext () {
+        let context = persistentContainer.viewContext
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nserror = error as NSError
+                fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
+    }
+    
+    func fetchRecipeSelected() {
+        
+        let context = persistentContainer.viewContext
+        let recipeRequest: NSFetchRequest<RecipeSelected> = RecipeSelected.fetchRequest()
+        
+        do {
+            self.recipesSelected = try context.fetch(recipeRequest)
+        } catch let error {
+            print("Error fetching data: \(error)")
+        }
+        
+        // generate the test recipesSelected if needed
+        if recipesSelected.count == 0 {
+            self.addTestRecipesSelected()
+        }
+    }
+    
+    func addTestRecipesSelected(){
+        // set some recipes as selected, this will happen in the previous screen soon
+        for recipe in self.recipes {
+            recipe.id == "apple-pie" ? addRecipeSelected(recipe: recipe) : ()
+            recipe.id == "chicken-breasts" ? addRecipeSelected(recipe: recipe) : ()
+            recipe.id == "black-bean-couscous-salad" ? addRecipeSelected(recipe: recipe) : ()
+            recipe.id == "yummy-baked-potato-skins" ? addRecipeSelected(recipe: recipe) : ()
+        }
+    }
+    
+    func addRecipeSelected(recipe: Recipe) {
+        let context = persistentContainer.viewContext
+        
+        // define recipesSelected
+        let recipeSelected1: RecipeSelected = NSEntityDescription.insertNewObject(forEntityName: "RecipeSelected", into: context) as! RecipeSelected
+        recipeSelected1.displayName = recipe.displayName
+        recipeSelected1.id = recipe.id
+        recipeSelected1.imageURL = recipe.imageURL
+        recipeSelected1.servings = recipe.servings
+        recipeSelected1.type = recipe.type
+        recipeSelected1.servingTime = recipe.servingTime as NSDate?
+        recipeSelected1.imageData = recipe.imageData as NSObject?
+        recipeSelected1.image = recipe.image
+        
+        self.saveRecipeSelectedContext()
+        self.fetchRecipeSelected()
     }
 }

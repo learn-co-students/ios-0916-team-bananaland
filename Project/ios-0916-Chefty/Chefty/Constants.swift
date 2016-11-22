@@ -1,6 +1,6 @@
 //
 //  Constants.swift
-//  YarnCafe
+//  Chefty
 //
 //  Created by Paul Tangen on 10/23/16.
 //  Copyright © 2016 Paul Tangen. All rights reserved.
@@ -11,19 +11,12 @@ import UIKit
 
 struct Constants{
     
-    enum recipeType: String {
-        case main
-        case side
-        case appetizer
-        case dessert
-        case undefined
-    }
-    
     enum fontSize: Int {
-        case small = 16
-        case medium = 24
-        case large = 36
-        case xlarge = 48
+        case xsmall =       12
+        case small =        16
+        case medium =       18
+        case large =        24
+        case xlarge =       36
     }
 
   
@@ -31,6 +24,7 @@ struct Constants{
         case chevron_left =     "\u{E5CB}"
         case chevron_right =    "\u{E5CC}"
         case close =            "\u{E5CD}"
+        case access_time =      "\u{E192}"
     }
     
     enum iconSize: Int {
@@ -42,6 +36,11 @@ struct Constants{
     
     enum iconFont: String {
         case material = "MaterialIcons-Regular"
+    }
+    
+    enum appFont: String {
+        case regular =  "HelveticaNeue"
+        case bold =     "HelveticaNeue-Bold"
     }
 }
 

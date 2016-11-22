@@ -17,18 +17,21 @@ class TempViewController: UIViewController, TempViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         tempView1.delegate = self
+        
+        store.getRecipes {
+            
+            // load sample data
+            self.store.fetchRecipeSelected()
+            
+            // print("store.recipes.count: \(self.store.recipes.count)")
+            // OperationQueue.main.addOperation({
+            //     self.tableView.reloadData()
+            // })
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
-
         self.navigationController?.navigationBar.topItem?.title = "Welcome to the Chefty Temp Page"
-        
-        store.getRecipes {
-//            print("store.recipes.count: \(self.store.recipes.count)")
-//            OperationQueue.main.addOperation({
-//                self.tableView.reloadData()
-//            })
-        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -50,12 +53,10 @@ class TempViewController: UIViewController, TempViewDelegate {
     func onPressIngredientsButton(button: UIButton) {
         let ingredientsView = IngredientsController()
         navigationController?.pushViewController(ingredientsView, animated: true)
-        
     }
     
     func onPressTraditionalRecipeButton(button: UIButton) {
         let traditionalRecipeView1 = TraditionalRecipeViewController()  // create the destination
-        //self.present(myMenuView1, animated: true, completion: nil) // show destination without nav bar
         navigationController?.pushViewController(traditionalRecipeView1, animated: true) // show destination with nav bar
     }
 

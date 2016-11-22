@@ -9,7 +9,7 @@
 import Foundation
 
 class CheftyAPIClient {
-    
+
     class func getRecipies(completion: @escaping () -> Void) {
         let store = DataStore.sharedInstance
         let urlString = "\(Secrets.cheftyAPIURL)/getRecipes.php?key=\(Secrets.cheftyKey)"
@@ -24,7 +24,7 @@ class CheftyAPIClient {
                         
                         for recipeDict in responseJSON {
                             //print("recipe: \(recipe)")
-                            var recipeInst = Recipe(recipeDict: recipeDict)
+                            let recipeInst = Recipe(recipeDict: recipeDict)
                             store.recipes.append(recipeInst) // add to recipes in datastore
                         }
                         completion()
