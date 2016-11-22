@@ -72,6 +72,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         }
         cell.cellLabel1.text = cellLabel
         cell.deleteButton.accessibilityLabel = String(indexPath.row)
+        cell.selectionStyle = .none
         let relatedRecipe = self.getRelatedRecipe(recipeSelected: store.recipesSelected[indexPath.row])
         Recipe.getImage(recipe: relatedRecipe, imageView: cell.imageView1, view: cell, backgroundImage: true)
         return cell
@@ -93,8 +94,8 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         let recipe = getRelatedRecipe(recipeSelected: store.recipesSelected[indexPath.row])
         print("didSelectRowAt: \(recipe.displayName)")
         let traditionalRecipeViewController1 = TraditionalRecipeViewController()  // create the destination
-        traditionalRecipeViewController1.recipe = recipe
-        navigationController?.pushViewController(traditionalRecipeViewController1, animated: true) // show destination with nav bar
+        //traditionalRecipeViewController1.recipe = recipe
+        //navigationController?.pushViewController(traditionalRecipeViewController1, animated: true) // show destination with nav bar
     }
     
     func updateTableViewNow() {

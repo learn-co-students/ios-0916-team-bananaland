@@ -24,6 +24,8 @@
 		C0252C6A1DDD243100046AD0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0252C691DDD243100046AD0 /* Constants.swift */; };
 		C054B2A01DE1185C00F4DEB1 /* MyMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C054B29F1DE1185C00F4DEB1 /* MyMenuTableViewCell.swift */; };
 		C08F8B941DE34A940092144F /* Chefty.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C08F8B921DE34A940092144F /* Chefty.xcdatamodeld */; };
+		C08FBF3D1DE4B13C00699D9C /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08FBF3C1DE4B13C00699D9C /* WelcomeViewController.swift */; };
+		C08FBF3F1DE4B38100699D9C /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08FBF3E1DE4B38100699D9C /* WelcomeView.swift */; };
 		C0AAB53D1DDDE98F0055DF8B /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB53C1DDDE98F0055DF8B /* TempView.swift */; };
 		C0AAB53F1DDDEA880055DF8B /* TempViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB53E1DDDEA880055DF8B /* TempViewController.swift */; };
 		C0AAB5431DDE64970055DF8B /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB5421DDE64970055DF8B /* DataStore.swift */; };
@@ -52,6 +54,8 @@
 		C0252C691DDD243100046AD0 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C054B29F1DE1185C00F4DEB1 /* MyMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMenuTableViewCell.swift; sourceTree = "<group>"; };
 		C08F8B931DE34A940092144F /* Chefty.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Chefty.xcdatamodel; sourceTree = "<group>"; };
+		C08FBF3C1DE4B13C00699D9C /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		C08FBF3E1DE4B38100699D9C /* WelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		C0AAB53C1DDDE98F0055DF8B /* TempView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		C0AAB53E1DDDEA880055DF8B /* TempViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempViewController.swift; sourceTree = "<group>"; };
 		C0AAB5421DDE64970055DF8B /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
@@ -120,6 +124,7 @@
 				714EBD5B1DDE340800C0857A /* TraditionalRecipeView.swift */,
 				C054B2A11DE11C4A00F4DEB1 /* MyMenu */,
 				C0AAB53C1DDDE98F0055DF8B /* TempView.swift */,
+				C08FBF3E1DE4B38100699D9C /* WelcomeView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -132,6 +137,7 @@
 				C0AAB53E1DDDEA880055DF8B /* TempViewController.swift */,
 				A7C1E2311DDE5BC200BD8A13 /* HomePageViewController.swift */,
 				01A830B21DDF82330064B9CE /* IngredientsController.swift */,
+				C08FBF3C1DE4B13C00699D9C /* WelcomeViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -238,6 +244,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0252C651DDD171A00046AD0 /* MyMenuView.swift in Sources */,
+				C08FBF3D1DE4B13C00699D9C /* WelcomeViewController.swift in Sources */,
 				C08F8B941DE34A940092144F /* Chefty.xcdatamodeld in Sources */,
 				A7C1E2341DDE5D6F00BD8A13 /* CustomLayoutView.swift in Sources */,
 				C054B2A01DE1185C00F4DEB1 /* MyMenuTableViewCell.swift in Sources */,
@@ -249,6 +256,7 @@
 				714EBD5C1DDE340800C0857A /* TraditionalRecipeView.swift in Sources */,
 				C0AAB53F1DDDEA880055DF8B /* TempViewController.swift in Sources */,
 				C0AAB53D1DDDE98F0055DF8B /* TempView.swift in Sources */,
+				C08FBF3F1DE4B38100699D9C /* WelcomeView.swift in Sources */,
 				C0AAB5471DDE67300055DF8B /* CheftyAPIClient.swift in Sources */,
 				C00CEFF51DDF5C82005C4BE5 /* Recipe.swift in Sources */,
 				A7C1E2361DDE611600BD8A13 /* RecipeCollectionViewCell.swift in Sources */,
