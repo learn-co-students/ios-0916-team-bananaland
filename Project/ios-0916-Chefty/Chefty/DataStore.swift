@@ -59,8 +59,6 @@ class DataStore {
             print("Error fetching data: \(error)")
         }
         
-        print("recipesSelected.count \(recipesSelected.count)")
-        
         // generate the test recipesSelected if needed
         if recipesSelected.count == 0 {
             self.addTestRecipesSelected()

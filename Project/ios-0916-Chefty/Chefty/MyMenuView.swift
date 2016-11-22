@@ -26,8 +26,8 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     override init(frame:CGRect){
         super.init(frame: frame)
         
-        // load sample data
-        store.fetchRecipeSelected()
+//        // load sample data
+//        store.fetchRecipeSelected()
         
         // configure controls
         self.tableView.delegate = self
@@ -97,17 +97,14 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     }
     
     func updateTableViewNow() {
-        print("updateTableViewNow")
         self.tableView.reloadData()
     }
     
     func clickIngredients() {
-        print("clickIngredients")
         self.delegate.openIngredients()
     }
     
     func clearAllRecipes() {
-        print("clearAllRecipes")
         let context = store.persistentContainer.viewContext
         for _ in store.recipesSelected {
             context.delete(store.recipesSelected[0])
@@ -120,7 +117,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     }
     
     func openStep1() {
-        print("openStep1")
+        print("openStep1 needs a segue")
     }
     
     // given a RecipeSelected, return the the related recipe - we need the related to fetch the images with the function in the Recipe class

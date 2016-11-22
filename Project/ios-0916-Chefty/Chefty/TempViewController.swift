@@ -20,6 +20,9 @@ class TempViewController: UIViewController, TempViewDelegate {
         
         store.getRecipes {
             
+            // load sample data
+            self.store.fetchRecipeSelected()
+            
             // print("store.recipes.count: \(self.store.recipes.count)")
             // OperationQueue.main.addOperation({
             //     self.tableView.reloadData()

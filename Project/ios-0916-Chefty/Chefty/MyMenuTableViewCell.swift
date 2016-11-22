@@ -15,7 +15,6 @@ protocol MyMenuTableViewCellDelegate: class {
 class MyMenuTableViewCell: UITableViewCell {
     
     var store = DataStore.sharedInstance
-    
     weak var delegate: MyMenuTableViewCellDelegate?
 
     override func awakeFromNib() {
@@ -25,7 +24,6 @@ class MyMenuTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     
@@ -80,7 +78,6 @@ class MyMenuTableViewCell: UITableViewCell {
     }
     
     func onClickDeleteAction() {
-        print("delete item")
         if let currentRowString = self.deleteButton.accessibilityLabel {
             if let currentRow = Int(currentRowString) {
                 let context = store.persistentContainer.viewContext

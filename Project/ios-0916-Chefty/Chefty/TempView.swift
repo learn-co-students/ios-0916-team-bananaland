@@ -22,8 +22,6 @@ class TempView: UIView {
     override init(frame:CGRect){
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.yellow
-        
         // initialize button
         let pageLabel: UILabel = UILabel()
         
