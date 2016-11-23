@@ -13,19 +13,17 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    let store = DataStore.sharedInstance
+    var queue = OperationQueue()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let initialViewController = TempViewController()
-        //let initialViewController = HomePageViewController()
-        let navigationController = UINavigationController(rootViewController: initialViewController)
-        //window!.rootViewController = HomePageViewController()
-        window!.rootViewController = navigationController
-        window!.backgroundColor = UIColor.white
-        window!.makeKeyAndVisible()
-        
-        return true
+            window = UIWindow(frame: UIScreen.main.bounds)
+            let initialViewController = WelcomeViewController()
+            let navigationController = UINavigationController(rootViewController: initialViewController)
+            window!.rootViewController = navigationController
+            window!.backgroundColor = UIColor.white
+            window!.makeKeyAndVisible()
+            return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

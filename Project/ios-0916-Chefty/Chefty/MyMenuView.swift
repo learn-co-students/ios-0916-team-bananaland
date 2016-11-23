@@ -10,13 +10,14 @@ import UIKit
 import CoreData
 
 protocol MyMenuViewDelegate: class {
-    func openIngredients()
+    func goToRecipe()
+    func goToIngredients()
 }
 
 
 class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTableViewCellDelegate {
     
-    weak var delegate:MyMenuViewDelegate!
+    weak var delegate: MyMenuViewDelegate?
     var sampleValue = String()
     var store = DataStore.sharedInstance
     let tableView = UITableView()
@@ -92,10 +93,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     // onClick table cell go to recipe
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         let recipe = getRelatedRecipe(recipeSelected: store.recipesSelected[indexPath.row])
-        print("didSelectRowAt: \(recipe.displayName)")
-        let traditionalRecipeViewController1 = TraditionalRecipeViewController()  // create the destination
-        //traditionalRecipeViewController1.recipe = recipe
-        //navigationController?.pushViewController(traditionalRecipeViewController1, animated: true) // show destination with nav bar
+        self.delegate?.goToRecipe()
     }
     
     func updateTableViewNow() {
@@ -103,7 +101,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     }
     
     func clickIngredients() {
-        self.delegate.openIngredients()
+        self.delegate?.goToIngredients()
     }
     
     func clearAllRecipes() {
