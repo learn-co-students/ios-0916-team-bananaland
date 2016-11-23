@@ -57,6 +57,7 @@ class TempViewController: UIViewController, TempViewDelegate {
     
     func onPressTraditionalRecipeButton(button: UIButton) {
         let traditionalRecipeView1 = TraditionalRecipeViewController()  // create the destination
+        traditionalRecipeView1.recipe = store.recipes[0]
         navigationController?.pushViewController(traditionalRecipeView1, animated: true) // show destination with nav bar
     }
 

@@ -116,8 +116,8 @@
 		C0252C5D1DDCF93900046AD0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				A7C1E22C1DDE579D00BD8A13 /* HomePage */,
 				714EBD5B1DDE340800C0857A /* TraditionalRecipeView.swift */,
+				A7C1E22C1DDE579D00BD8A13 /* HomePage */,
 				C054B2A11DE11C4A00F4DEB1 /* MyMenu */,
 				C0AAB53C1DDDE98F0055DF8B /* TempView.swift */,
 			);

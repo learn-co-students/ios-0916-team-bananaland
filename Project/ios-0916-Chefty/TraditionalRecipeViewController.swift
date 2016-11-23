@@ -11,14 +11,22 @@ import UIKit
 class TraditionalRecipeViewController: UIViewController {
     
     var traditionalRecipeView: TraditionalRecipeView!
+    var recipe: Recipe?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("view did load called")
+        
+        guard let recipe = recipe else { return }
+        self.traditionalRecipeView.recipe = self.recipe
+
+        self.traditionalRecipeView.setUpElements()
+        
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
         self.title = "Traditional Recipe Page"
-        //self.navigationController?.navigationBar.barTintColor = UIColor.blue
+
         
     }
     
@@ -31,6 +39,7 @@ class TraditionalRecipeViewController: UIViewController {
         self.traditionalRecipeView = TraditionalRecipeView(frame: CGRect.zero)
         self.view = self.traditionalRecipeView
     }
+
 
     
     

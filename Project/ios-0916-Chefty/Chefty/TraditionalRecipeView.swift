@@ -10,8 +10,7 @@
 import UIKit
 
 class TraditionalRecipeView: UIView {
-    
-    var store = DataStore.sharedInstance
+
     var recipe: Recipe?
     
     override init(frame:CGRect){
@@ -19,27 +18,18 @@ class TraditionalRecipeView: UIView {
         
         self.backgroundColor = UIColor.white
         
-        setUpElements()
-        
-        if recipe == nil {
-            recipe = store.recipes[0]
-        }
     }
-    
-    
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    
-    
-    
+
     func setUpElements() {
-        
-        var recipe = store.recipes[0]
     
+        guard let recipe = recipe else { return }
+
+        
         //SCROLLVIEW
         let myScrollView = UIScrollView()
         self.addSubview(myScrollView)
@@ -50,10 +40,11 @@ class TraditionalRecipeView: UIView {
         
         myScrollView.translatesAutoresizingMaskIntoConstraints = false
         
+        //IMAGE
         // create image
-        let myImageName = "applePie"
-        let myImage = UIImage(named: myImageName)
-        let myImageView = UIImageView(image: myImage!)
+        let myImageView = UIImageView()
+        
+        Recipe.getImage(recipe: recipe, imageView: myImageView, view: self, backgroundImage: false)
        
         myScrollView.addSubview(myImageView)
         
@@ -66,7 +57,7 @@ class TraditionalRecipeView: UIView {
         //RECIPE TITLE
         //create title label
         let titleLabel = UILabel()
-        titleLabel.text = "Recipe Title"
+        titleLabel.text = recipe.displayName
         titleLabel.font = titleLabel.font.withSize(30)
         titleLabel.textAlignment = .center
         
@@ -83,7 +74,7 @@ class TraditionalRecipeView: UIView {
         //SERVING SIZE AND ESTIMATED TIME INFO
         //create labels
         let servingSizeLabel = UILabel()
-        servingSizeLabel.text = "Serving Size: 4-6"
+        servingSizeLabel.text = "Serving Size: \(recipe.servings)"
         servingSizeLabel.font = titleLabel.font.withSize(20)
         servingSizeLabel.textAlignment = .left
         
@@ -183,5 +174,19 @@ class TraditionalRecipeView: UIView {
         
         stepsText.translatesAutoresizingMaskIntoConstraints = false
         stepsText.isScrollEnabled = false
+        
+        
+        //ADD BUTTON
+        let addButton: UIButton = UIButton(type: .roundedRect)
+        addButton.setTitle(Constants.iconLibrary.close.rawValue, for: .normal)
+        addButton.titleLabel!.font =  UIFont(name: Constants.iconFont.material.rawValue, size: CGFloat(Constants.iconSize.small.rawValue))
+        addButton.backgroundColor = UIColor.blue
+        self.addSubview(addButton)
+        addButton.bringSubview(toFront: myScrollView)
+        addButton.setTitleColor(UIColor(named: .white), for: .normal)
+        //        addButton.addTarget(self, action: #selector(MyMenuTableViewCell.onClickAddAction), for: UIControlEvents.touchUpInside)
+        addButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -30).isActive = true
+        addButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
+        addButton.translatesAutoresizingMaskIntoConstraints = false
     }
 }
