@@ -10,10 +10,15 @@ import UIKit
 
 class TraditionalRecipeViewController: UIViewController {
     
-    var traditionalRecipeView: TraditionalRecipeView!
+    var traditionalRecipeView: TraditionalRecipeView?
+    var recipe: Recipe?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let recipe = recipe {
+            self.traditionalRecipeView = TraditionalRecipeView(frame: CGRect.zero, recipe: recipe)
+        }
+        self.view = self.traditionalRecipeView
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
@@ -28,8 +33,7 @@ class TraditionalRecipeViewController: UIViewController {
     }
     
     override func loadView(){
-        self.traditionalRecipeView = TraditionalRecipeView(frame: CGRect.zero)
-        self.view = self.traditionalRecipeView
+     
     }
 
     

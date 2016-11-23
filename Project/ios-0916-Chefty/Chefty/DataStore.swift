@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 //DispatchQueue.main.async {
 //
@@ -21,12 +22,19 @@ class DataStore {
     static let sharedInstance = DataStore()
     fileprivate init() {}
 
+
     var recipes:[Recipe] = []
     var recipesSelected:[RecipeSelected] = []
+    var images: [UIImage] = []
+    
+    var main: [Recipe] = []
+    var appetizer : [Recipe] = []
+    var sides : [Recipe] = []
+    var desserts: [Recipe] = []
     
     func getRecipes(completion: @escaping () -> ()) {
         
-        CheftyAPIClient.getRecipies {_ in 
+        CheftyAPIClient.getRecipies {_ in
             completion() // call back to onViewDidLoad
         }
     }

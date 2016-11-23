@@ -10,9 +10,9 @@ import UIKit
 
 class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     
-    var sampleValue = String()
     var store = DataStore.sharedInstance
     let myMenuView1 = MyMenuView(frame: CGRect.zero)
+    var sampleValue = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +56,12 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     
     func goToRecipe(){
         let traditionalRecipeViewController1 = TraditionalRecipeViewController()
-        //traditionalRecipeViewController1.recipe = recipe
+        traditionalRecipeViewController1.recipe = self.myMenuView1.recipeForTraditionalRecipeView
+//        traditionalRecipeViewController1.traditionalRecipeView
+//        print(self.myMenuView1.recipeForTraditionalRecipeView)
+//        if let recipe1 = self.myMenuView1.recipeForTraditionalRecipeView {
+//            traditionalRecipeViewController1.traditionalRecipeView?.recipe = recipe1
+//        }
         navigationController?.pushViewController(traditionalRecipeViewController1, animated: true) // show destination with nav bar
     }
 

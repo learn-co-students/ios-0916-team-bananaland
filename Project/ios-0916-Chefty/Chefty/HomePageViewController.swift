@@ -8,41 +8,37 @@
 
 import UIKit
 
-class HomePageViewController: UIViewController {
+class HomePageViewController: UIViewController, UIScrollViewDelegate {
     
-    //var collectionView: UICollectionView!
-    var scrollView: UIScrollView!
-    
-    var recipeImages = [#imageLiteral(resourceName: "moroccanChicken"), #imageLiteral(resourceName: "dijonChickenBreasts"), #imageLiteral(resourceName: "sweetPotatoFries"), #imageLiteral(resourceName: "beefBroccoliStirFry"), #imageLiteral(resourceName: "peachCobbler"),
-                        #imageLiteral(resourceName: "snickerdoodleCookies"),#imageLiteral(resourceName: "applePie"), #imageLiteral(resourceName: "BarbequedDeviledEggs"), #imageLiteral(resourceName: "AuthenticItalianMeatballs"), #imageLiteral(resourceName: "marinatedCheeseAppetizer"), #imageLiteral(resourceName: "choppedSaladAppetizerShells"), #imageLiteral(resourceName: "balsamicBrusselSprouts"), #imageLiteral(resourceName: "blackBeanCouscousSalad"), #imageLiteral(resourceName: "RoastedGreenBeans"), #imageLiteral(resourceName: "yummyBakedPotatoSkins"), #imageLiteral(resourceName: "marinatedCheeseAppetizer")]
-    
-    var recipeName = ["Moroccan Chicken", "Dijon Chicken Breasts", "Sweet Potato Fries", "Beef Broccoli Stir Fry", "Peach Cobbler",
-                      "Snicker Doodle Cookies", "Apple Pie", "Barbequed Devil Eggs", "Authentic Italian Meatballs", "Marinated Cheese Appetizer", "Chopped Salad Appetizer Shells", "Balsamic Brussel Sprouts", "Black Bean Couscous Salad", "Roasted Green Beans", "Yummy Baked Potato Skins", "Marinated Cheese Appetizer"]
+    var recipeScrollView: UIScrollView!
+    var store = DataStore.sharedInstance
+    var currentPage: Int { return Int(self.recipeScrollView.contentOffset.x / self.recipeScrollView.frame.width ) }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupScrollView()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupRecipeCollectionViews()
+        recipeScrollView.reloadInputViews()
     }
     
 }
 
 extension HomePageViewController : UICollectionViewDelegate, UICollectionViewDataSource  {
     
+
     func setupScrollView() {
         
         let frame = CGRect(x: view.bounds.minX, y: view.bounds.maxY * 0.25, width: view.bounds.width, height: view.bounds.height * 0.75)
-        scrollView = UIScrollView(frame: frame)
-        scrollView.isScrollEnabled = true
-        scrollView.isPagingEnabled = true
-        scrollView.backgroundColor = UIColor.white
-        view.addSubview(scrollView)
+        recipeScrollView = UIScrollView(frame: frame)
+        recipeScrollView.isScrollEnabled = true
+        recipeScrollView.isPagingEnabled = true
+        recipeScrollView.backgroundColor = UIColor.white
+        view.addSubview(recipeScrollView)
         
     }
     
@@ -50,29 +46,32 @@ extension HomePageViewController : UICollectionViewDelegate, UICollectionViewDat
         
         for i in 0...3 {
             
-            let xPos = self.scrollView.frame.width * CGFloat(i)
-            let frame = CGRect(x: xPos, y: 0.0, width: self.scrollView.frame.width, height: self.scrollView.frame.height)
+            let xPos = self.recipeScrollView.frame.width * CGFloat(i)
+            let frame = CGRect(x: xPos, y: 0.0, width: self.recipeScrollView.frame.width, height: self.recipeScrollView.frame.height)
             let layout : UICollectionViewLayout = CustomLayoutView()
             let view = UICollectionView(frame: frame, collectionViewLayout: layout)
             view.register(RecipeCollectionViewCell.self, forCellWithReuseIdentifier: "recipeCell")
             view.delegate = self
             view.dataSource = self
             view.backgroundColor = UIColor.white
-            scrollView.contentSize.width = scrollView.frame.width * CGFloat(i + 1)
-            scrollView.addSubview(view)
+            recipeScrollView.contentSize.width = recipeScrollView.frame.width * CGFloat(i + 1)
+            recipeScrollView.addSubview(view)
             
         }
         
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return recipeImages.count
+        
+        return store.recipes.count
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recipeCell", for: indexPath) as! RecipeCollectionViewCell
-        cell.imageView.image = recipeImages[indexPath.row]
-        cell.recipeLabel.text = recipeName[indexPath.row]
+        let url = URL(string: store.recipes[indexPath.row].imageURL)
+        cell.recipeLabel.text = store.recipes[indexPath.row].displayName
+        cell.imageView.sd_setImage(with: url!)
         return cell
     }
     
@@ -97,7 +96,8 @@ extension HomePageViewController : UICollectionViewDelegate, UICollectionViewDat
             cell.alpha = 1.0
             cell.center.y -= 20
         })
-        
+       
     }
+    
     
 }

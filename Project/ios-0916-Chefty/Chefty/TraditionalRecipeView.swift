@@ -12,21 +12,24 @@ import UIKit
 class TraditionalRecipeView: UIView {
     
     var store = DataStore.sharedInstance
-    var recipe: Recipe?
+    //var recipe: Recipe
     
-    override init(frame:CGRect){
+    init(frame:CGRect, recipe: Recipe){
         super.init(frame: frame)
         
         self.backgroundColor = UIColor.white
         
-        setUpElements()
+        print(recipe.displayName)
         
-        if recipe == nil {
-            recipe = store.recipes[0]
-        }
+        setUpElements(recipe: recipe)
+        
+//        if recipe == nil {
+//            recipe = store.recipes[0]
+//            print("*********nil*********")
+//        } else {
+//            print("*********\(recipe!.displayName)***********")
+//        }
     }
-    
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -36,9 +39,9 @@ class TraditionalRecipeView: UIView {
     
     
     
-    func setUpElements() {
-        
-        var recipe = store.recipes[0]
+    func setUpElements(recipe: Recipe) {
+//         print("*********\(self.recipe.displayName)***********")
+//        var recipe = store.recipes[0]
     
         //SCROLLVIEW
         let myScrollView = UIScrollView()

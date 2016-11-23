@@ -22,6 +22,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     var store = DataStore.sharedInstance
     let tableView = UITableView()
     let toolbar = UIToolbar()
+    var recipeForTraditionalRecipeView: Recipe?
     
     override init(frame:CGRect){
         super.init(frame: frame)
@@ -92,7 +93,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     // onClick table cell go to recipe
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        let recipe = getRelatedRecipe(recipeSelected: store.recipesSelected[indexPath.row])
+        self.recipeForTraditionalRecipeView = getRelatedRecipe(recipeSelected: store.recipesSelected[indexPath.row])
         self.delegate?.goToRecipe()
     }
     
