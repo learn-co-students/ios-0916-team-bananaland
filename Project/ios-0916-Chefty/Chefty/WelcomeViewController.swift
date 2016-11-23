@@ -31,7 +31,6 @@ class WelcomeViewController: UIViewController, WelcomeViewDelegate {
         self.store.fetchRecipeSelected()
         store.getRecipes {
             // generate the test recipesSelected if needed
-            print("recipesSelected.count: \(self.store.recipesSelected.count)")
             if self.store.recipesSelected.count == 0 {
                 // set some recipes as selected, this will happen in the previous screen soon
                 for recipe in self.store.recipes {
@@ -40,7 +39,6 @@ class WelcomeViewController: UIViewController, WelcomeViewDelegate {
                     recipe.id == "black-bean-couscous-salad" ? self.store.addRecipeSelected(recipe: recipe) : ()
                     recipe.id == "yummy-baked-potato-skins" ? self.store.addRecipeSelected(recipe: recipe) : ()
                 }
-                print("self.addTestRecipesSelected()")
             }}
         self.view = self.welcomeView1
     }

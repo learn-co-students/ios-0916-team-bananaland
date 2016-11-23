@@ -57,7 +57,6 @@ class DataStore {
     }
     
     func fetchRecipeSelected() {
-        print("fetchRecipeSelected()")
         let context = persistentContainer.viewContext
         let recipeRequest: NSFetchRequest<RecipeSelected> = RecipeSelected.fetchRequest()
         
@@ -66,8 +65,6 @@ class DataStore {
         } catch let error {
             print("Error fetching data: \(error)")
         }
-        
-  
     }
     
     func addRecipeSelected(recipe: Recipe) {
@@ -86,6 +83,5 @@ class DataStore {
         
         self.saveRecipeSelectedContext()
         self.fetchRecipeSelected()
-        print("addRecipeSelected()")
     }
 }
