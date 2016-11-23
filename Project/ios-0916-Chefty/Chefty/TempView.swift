@@ -12,11 +12,8 @@ protocol TempViewDelegate: class {
     func onPressMyMenuButton(button: UIButton)
     func onPressTraditionalRecipeButton(button: UIButton)
     func onPressIngredientsButton(button: UIButton)
-<<<<<<< HEAD
     func onPressHomePageButton(button: UIButton)
-=======
     func onPressWelcome(button: UIButton)
->>>>>>> master
 }
 
 
