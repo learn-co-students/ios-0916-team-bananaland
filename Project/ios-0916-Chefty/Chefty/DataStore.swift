@@ -13,11 +13,11 @@ class DataStore {
     static let sharedInstance = DataStore()
     fileprivate init() {}
     
-    var newingredients: [Ingredient] = []
+//    var newingredients: [Ingredient] = []
 
     var recipes:[Recipe] = []  // the datastore contains an array of dictionaries
     var selectedRecipes:[SelectedRecipe] = []
-    var recipeingredients:[Ingredients] = []
+    //var recipeingredients:[Ingredients] = []
     
     func getRecipes(completion: @escaping () -> ()) {
        

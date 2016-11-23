@@ -37,10 +37,9 @@ class CheftyAPIClient {
         }
     }
     
-    class func getIngredients(completion: @escaping (Bool, [FoodItem]?) -> Void) {
+    class func getIngredients(completion: @escaping (Bool, Ingredients?) -> Void) {
         print("getting ingredients")
-        
-        let store = DataStore.sharedInstance
+    
         let urlString = "http://api.ptangen.com/getIngredients.php?key=flatiron0916&recipe1=chicken-breasts&recipe2=sweet-potato-fries&recipe3=peach-cobbler&recipe4=beef-broccoli-stir-fry"
         guard let url = URL(string: urlString) else { completion(false, nil); return }
         
@@ -57,20 +56,7 @@ class CheftyAPIClient {
                     
                     else { completion(false, nil); return }
                 
-                let allKeys = responseJSON.map { $0.key }
-                
-                var newItems = [FoodItem]()
-                
-                for name in allKeys {
-                    
-                    let ingredients = responseJSON[name]!
-                    
-                    let foodItem = FoodItem(name: name, ingredients: ingredients)
-                    
-                    newItems.append(foodItem)
-                }
-                
-                completion(true, newItems)
+                completion(true, Ingredients(json: responseJSON))
                 
             }
             
