@@ -22,7 +22,7 @@ class SidesViewController: UIViewController {
         collectionView.register(RecipeCollectionViewCell.self, forCellWithReuseIdentifier: "recipeCell")
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = UIColor.black
+        collectionView.backgroundColor = UIColor.white
         view.addSubview(collectionView)
     }
     

@@ -22,7 +22,7 @@ class MainDishViewController: UIViewController {
         collectionView.register(RecipeCollectionViewCell.self, forCellWithReuseIdentifier: "recipeCell")
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = UIColor.black
+        collectionView.backgroundColor = UIColor.white
         view.addSubview(collectionView)
     }
     
@@ -46,6 +46,9 @@ extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recipeCell", for: indexPath) as! RecipeCollectionViewCell
         let url = URL(string: store.main[indexPath.row].imageURL)
         cell.recipeLabel.text = store.main[indexPath.row].displayName
+        cell.layer.cornerRadius = 10.0
+        cell.layer.borderColor = UIColor.black.cgColor
+        cell.layer.borderWidth = 2.0
         cell.imageView.sd_setImage(with: url!)
         return cell
     }
@@ -72,6 +75,18 @@ extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDat
             cell.center.y -= 20
         })
         
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! RecipeCollectionViewCell
+        cell.layer.cornerRadius = 10.0
+        cell.layer.borderWidth = 2.0
+        cell.layer.borderColor = UIColor.red.cgColor
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as! RecipeCollectionViewCell
+        cell.layer.borderColor = UIColor.clear.cgColor
     }
     
     

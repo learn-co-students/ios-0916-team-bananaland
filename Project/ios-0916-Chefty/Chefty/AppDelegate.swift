@@ -26,11 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
        
         store.getRecipes(completion: { _ in
         
-            print("MAINS: \(self.store.main.count)")
-            print("DESSERT: \(self.store.desserts.count)")
-            print("SIDES: \(self.store.sides.count)")
-            print("APPETIZER: \(self.store.appetizer.count)")
-        
         })
         
         store.getRecipes(completion: { _ in
