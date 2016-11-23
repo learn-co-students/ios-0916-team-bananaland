@@ -23,8 +23,6 @@ class TraditionalRecipeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool = false) {
         self.title = "Traditional Recipe Page"
-        //self.navigationController?.navigationBar.barTintColor = UIColor.blue
-        
     }
     
     override func didReceiveMemoryWarning() {

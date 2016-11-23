@@ -25,7 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window!.backgroundColor = UIColor.white
             window!.makeKeyAndVisible()
             return true
-
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

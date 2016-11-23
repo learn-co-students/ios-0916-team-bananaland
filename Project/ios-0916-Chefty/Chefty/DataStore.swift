@@ -86,8 +86,8 @@ class DataStore {
         recipeSelected1.servings = recipe.servings
         recipeSelected1.type = recipe.type
         recipeSelected1.servingTime = recipe.servingTime as NSDate?
-        recipeSelected1.imageData = recipe.imageData as NSObject?
-        recipeSelected1.image = recipe.image
+        //recipeSelected1.imageData = recipe.imageData as NSObject?
+        //recipeSelected1.image = recipe.image
         
         self.saveRecipeSelectedContext()
         self.fetchRecipeSelected()

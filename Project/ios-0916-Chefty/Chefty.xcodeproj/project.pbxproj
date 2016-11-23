@@ -37,6 +37,7 @@
 		C08FBF451DE4C33600699D9C /* iTunesArtwork@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C08FBF421DE4C33600699D9C /* iTunesArtwork@1x.png */; };
 		C08FBF461DE4C33600699D9C /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C08FBF431DE4C33600699D9C /* iTunesArtwork@2x.png */; };
 		C08FBF471DE4C33600699D9C /* iTunesArtwork@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C08FBF441DE4C33600699D9C /* iTunesArtwork@3x.png */; };
+		C08FBF881DE6329300699D9C /* GradientViewLeftToRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08FBF871DE6329300699D9C /* GradientViewLeftToRight.swift */; };
 		C0AAB53D1DDDE98F0055DF8B /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB53C1DDDE98F0055DF8B /* TempView.swift */; };
 		C0AAB53F1DDDEA880055DF8B /* TempViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB53E1DDDEA880055DF8B /* TempViewController.swift */; };
 		C0AAB5431DDE64970055DF8B /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB5421DDE64970055DF8B /* DataStore.swift */; };
@@ -80,6 +81,7 @@
 		C08FBF421DE4C33600699D9C /* iTunesArtwork@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@1x.png"; sourceTree = "<group>"; };
 		C08FBF431DE4C33600699D9C /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
 		C08FBF441DE4C33600699D9C /* iTunesArtwork@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@3x.png"; sourceTree = "<group>"; };
+		C08FBF871DE6329300699D9C /* GradientViewLeftToRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientViewLeftToRight.swift; sourceTree = "<group>"; };
 		C0AAB53C1DDDE98F0055DF8B /* TempView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		C0AAB53E1DDDEA880055DF8B /* TempViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempViewController.swift; sourceTree = "<group>"; };
 		C0AAB5421DDE64970055DF8B /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
@@ -201,7 +203,6 @@
 			children = (
 				71E655C31DDCE61700B60E0B /* TraditionalRecipeViewController.swift */,
 				C0252C621DDD16EA00046AD0 /* MyMenuViewController.swift */,
-				01A830B21DDF82330064B9CE /* IngredientsController.swift */,
 				C0AAB53E1DDDEA880055DF8B /* TempViewController.swift */,
 				A7C1E2311DDE5BC200BD8A13 /* HomePageViewController.swift */,
 				A7C0B4561DE4ECE10091E80C /* RecipeTabViewController.swift */,
@@ -239,6 +240,7 @@
 			children = (
 				C0252C641DDD171A00046AD0 /* MyMenuView.swift */,
 				C054B29F1DE1185C00F4DEB1 /* MyMenuTableViewCell.swift */,
+				C08FBF871DE6329300699D9C /* GradientViewLeftToRight.swift */,
 			);
 			name = MyMenu;
 			sourceTree = "<group>";
@@ -392,6 +394,7 @@
 				C08FBF3F1DE4B38100699D9C /* WelcomeView.swift in Sources */,
 				C0AAB5471DDE67300055DF8B /* CheftyAPIClient.swift in Sources */,
 				C00CEFF51DDF5C82005C4BE5 /* Recipe.swift in Sources */,
+				C08FBF881DE6329300699D9C /* GradientViewLeftToRight.swift in Sources */,
 				A7C0B4571DE4ECE10091E80C /* RecipeTabViewController.swift in Sources */,
 				A7C1E2361DDE611600BD8A13 /* RecipeCollectionViewCell.swift in Sources */,
 				A7C1E2321DDE5BC200BD8A13 /* HomePageViewController.swift in Sources */,

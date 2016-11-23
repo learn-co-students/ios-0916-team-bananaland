@@ -65,19 +65,94 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         // set the custom cell
         let cell = MyMenuTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "prototypeCell")
         cell.delegate = self
-        let cellLabelStartTime = "?"
+        var myImageView: UIImageView?
+        
+        // format the time
+        let myFormatter = DateFormatter()
+        myFormatter.timeStyle = .short
+        
+        var cellLabelStartTime = "?"
+        if let servingTime = store.recipesSelected[indexPath.row].servingTime {
+            cellLabelStartTime = myFormatter.string(from: servingTime as Date)
+        }
+
         var cellLabel = String()
         if let type = store.recipesSelected[indexPath.row].type {
             if let displayName = store.recipesSelected[indexPath.row].displayName {
-                cellLabel = "\(type.capitalized) @ \(cellLabelStartTime) : \(displayName)"
+                cellLabel = "\(type.capitalized) @ \(cellLabelStartTime): \(displayName)"
             }
         }
         cell.cellLabel1.text = cellLabel
         cell.deleteButton.accessibilityLabel = String(indexPath.row)
         cell.selectionStyle = .none
-        let relatedRecipe = self.getRelatedRecipe(recipeSelected: store.recipesSelected[indexPath.row])
-        Recipe.getImage(recipe: relatedRecipe, imageView: cell.imageView1, view: cell, backgroundImage: true)
+        
+        let url = URL(string: store.recipesSelected[indexPath.row].imageURL!)
+        
+//        print("Hello")
+//        
+//        if let myImageViewUnWrapped = myImageView {
+//        
+//        myImageViewUnWrapped.sd_setImage(with: url!, completed: { (image, error , cacheType , imageURL) in
+//            print(imageURL)
+//            self.printMe()
+//            //cell.imageView1.image = self.cropToBounds(image: (myImageView?.image!)!, width: 100, height: 300)
+//            cell.imageView1.image = image
+//        }
+//        )
+//        }
+        
+        cell.imageView1.sd_setImage(with: url!)
+        
+//        if let myImageViewUnwrapped = myImageView {
+//            self.printMe()
+//            cell.imageView1.image = cropToBounds(image: myImageViewUnwrapped.image!, width: 100, height: 300)
+//        }
+        
+       
+        //cell.imageView1.clipsToBounds = true
+        //cell.imageView1.contentMode = UIViewContentMode.scaleAspectFit
         return cell
+    }
+    
+    func printMe(){
+        print("printMe")
+    }
+    
+    func cropToBounds(image: UIImage, width: Double, height: Double) -> UIImage {
+        
+        print("in crop to bounds")
+        
+        let contextImage: UIImage = UIImage(cgImage: image.cgImage!)
+        
+        let contextSize: CGSize = contextImage.size
+        
+        var posX: CGFloat = 0.0
+        var posY: CGFloat = 0.0
+        var cgwidth: CGFloat = CGFloat(width)
+        var cgheight: CGFloat = CGFloat(height)
+        
+        // See what size is longer and create the center off of that
+        if contextSize.width > contextSize.height {
+            posX = ((contextSize.width - contextSize.height) / 2)
+            posY = 0
+            cgwidth = contextSize.height
+            cgheight = contextSize.height
+        } else {
+            posX = 0
+            posY = ((contextSize.height - contextSize.width) / 2)
+            cgwidth = contextSize.width
+            cgheight = contextSize.width
+        }
+        
+        let rect: CGRect = CGRect(x:posX, y:posY, width:cgwidth, height:cgheight)
+        
+        // Create bitmap image from context using the rect
+        let imageRef: CGImage = contextImage.cgImage!.cropping(to: rect)!
+        
+        // Create a new image based on the imageRef and rotate back to the original orientation
+        let image: UIImage = UIImage(cgImage: imageRef, scale: image.scale, orientation: image.imageOrientation)
+        
+        return image
     }
 
     
