@@ -35,8 +35,7 @@ class CheftyAPIClient {
                             default: break
                                 
                             }
-                            
-                            //store.recipes.append(recipeInst) // add to recipes in datastore
+                            store.recipes.append(recipeInst) // add to recipes in datastore
                         }
                         completion()
                     } catch {

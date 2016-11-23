@@ -25,6 +25,9 @@
 		A7C1E2341DDE5D6F00BD8A13 /* CustomLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C1E2331DDE5D6F00BD8A13 /* CustomLayoutView.swift */; };
 		A7C1E2361DDE611600BD8A13 /* RecipeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C1E2351DDE611600BD8A13 /* RecipeCollectionViewCell.swift */; };
 		A7C9D3F31DDF849900EA5637 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C9D3F21DDF849900EA5637 /* GradientView.swift */; };
+		A7DCBF731DE5FAD100AA7629 /* TestTraditionalRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DCBF721DE5FAD100AA7629 /* TestTraditionalRecipeView.swift */; };
+		A7DCBF751DE5FD1700AA7629 /* TestTraditionalRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DCBF741DE5FD1700AA7629 /* TestTraditionalRecipeViewController.swift */; };
+		A7DCBF771DE64E9600AA7629 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DCBF761DE64E9600AA7629 /* ContainerViewController.swift */; };
 		C00CEFF51DDF5C82005C4BE5 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00CEFF41DDF5C82005C4BE5 /* Recipe.swift */; };
 		C0252C631DDD16EA00046AD0 /* MyMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0252C621DDD16EA00046AD0 /* MyMenuViewController.swift */; };
 		C0252C651DDD171A00046AD0 /* MyMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0252C641DDD171A00046AD0 /* MyMenuView.swift */; };
@@ -67,6 +70,9 @@
 		A7C1E2331DDE5D6F00BD8A13 /* CustomLayoutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLayoutView.swift; sourceTree = "<group>"; };
 		A7C1E2351DDE611600BD8A13 /* RecipeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCollectionViewCell.swift; sourceTree = "<group>"; };
 		A7C9D3F21DDF849900EA5637 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		A7DCBF721DE5FAD100AA7629 /* TestTraditionalRecipeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTraditionalRecipeView.swift; sourceTree = "<group>"; };
+		A7DCBF741DE5FD1700AA7629 /* TestTraditionalRecipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTraditionalRecipeViewController.swift; sourceTree = "<group>"; };
+		A7DCBF761DE64E9600AA7629 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		A9984F50016543896BA81B7F /* Pods-Chefty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chefty.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chefty/Pods-Chefty.release.xcconfig"; sourceTree = "<group>"; };
 		C00CEFF41DDF5C82005C4BE5 /* Recipe.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
 		C0252C621DDD16EA00046AD0 /* MyMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMenuViewController.swift; sourceTree = "<group>"; };
@@ -192,6 +198,7 @@
 				C0AAB53C1DDDE98F0055DF8B /* TempView.swift */,
 				714EBD5B1DDE340800C0857A /* TraditionalRecipeView.swift */,
 				C08FBF3E1DE4B38100699D9C /* WelcomeView.swift */,
+				A7DCBF721DE5FAD100AA7629 /* TestTraditionalRecipeView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -199,15 +206,16 @@
 		C0252C5E1DDCF95800046AD0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				A7DCBF741DE5FD1700AA7629 /* TestTraditionalRecipeViewController.swift */,
 				71E655C31DDCE61700B60E0B /* TraditionalRecipeViewController.swift */,
 				C0252C621DDD16EA00046AD0 /* MyMenuViewController.swift */,
-				01A830B21DDF82330064B9CE /* IngredientsController.swift */,
 				C0AAB53E1DDDEA880055DF8B /* TempViewController.swift */,
 				A7C1E2311DDE5BC200BD8A13 /* HomePageViewController.swift */,
 				A7C0B4561DE4ECE10091E80C /* RecipeTabViewController.swift */,
 				A7C0B4551DE4ECBA0091E80C /* Recipe Categories */,
 				01A830B21DDF82330064B9CE /* IngredientsController.swift */,
 				C08FBF3C1DE4B13C00699D9C /* WelcomeViewController.swift */,
+				A7DCBF761DE64E9600AA7629 /* ContainerViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -376,12 +384,14 @@
 			files = (
 				C0252C651DDD171A00046AD0 /* MyMenuView.swift in Sources */,
 				C08FBF3D1DE4B13C00699D9C /* WelcomeViewController.swift in Sources */,
+				A7DCBF751DE5FD1700AA7629 /* TestTraditionalRecipeViewController.swift in Sources */,
 				C08F8B941DE34A940092144F /* Chefty.xcdatamodeld in Sources */,
 				A7C1E2341DDE5D6F00BD8A13 /* CustomLayoutView.swift in Sources */,
 				C054B2A01DE1185C00F4DEB1 /* MyMenuTableViewCell.swift in Sources */,
 				C0252C631DDD16EA00046AD0 /* MyMenuViewController.swift in Sources */,
 				A7C1E1B71DDCD97300BD8A13 /* AppDelegate.swift in Sources */,
 				C0AAB5431DDE64970055DF8B /* DataStore.swift in Sources */,
+				A7DCBF731DE5FAD100AA7629 /* TestTraditionalRecipeView.swift in Sources */,
 				A7C9D3F31DDF849900EA5637 /* GradientView.swift in Sources */,
 				71E655C41DDCE61700B60E0B /* TraditionalRecipeViewController.swift in Sources */,
 				A72DBEAD1DE4DB0400867C86 /* AppetizerViewController.swift in Sources */,
@@ -392,6 +402,7 @@
 				C08FBF3F1DE4B38100699D9C /* WelcomeView.swift in Sources */,
 				C0AAB5471DDE67300055DF8B /* CheftyAPIClient.swift in Sources */,
 				C00CEFF51DDF5C82005C4BE5 /* Recipe.swift in Sources */,
+				A7DCBF771DE64E9600AA7629 /* ContainerViewController.swift in Sources */,
 				A7C0B4571DE4ECE10091E80C /* RecipeTabViewController.swift in Sources */,
 				A7C1E2361DDE611600BD8A13 /* RecipeCollectionViewCell.swift in Sources */,
 				A7C1E2321DDE5BC200BD8A13 /* HomePageViewController.swift in Sources */,

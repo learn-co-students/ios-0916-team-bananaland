@@ -63,6 +63,7 @@ extension SidesViewController : UICollectionViewDelegate, UICollectionViewDataSo
             })
         }
         
+        
         cell.alpha = 0.0
         cell.center.y = cell.center.y + 20
         
@@ -73,5 +74,12 @@ extension SidesViewController : UICollectionViewDelegate, UICollectionViewDataSo
         
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let testView = TestTraditionalRecipeViewController()
+        testView.recipe = store.sides[indexPath.row]
+        present(testView, animated: true, completion: nil)
+        
+    }
     
 }

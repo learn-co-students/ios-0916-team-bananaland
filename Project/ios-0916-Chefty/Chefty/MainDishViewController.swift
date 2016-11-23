@@ -8,10 +8,18 @@
 
 import UIKit
 
+
+protocol MainDishViewControllerDelegate {
+    func recipeSent(_ recipe: Recipe)
+}
+
+
 class MainDishViewController: UIViewController {
 
     var store = DataStore.sharedInstance
     var collectionView : UICollectionView!
+    var delegate : MainDishViewControllerDelegate?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +43,7 @@ class MainDishViewController: UIViewController {
 }
 
 extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDataSource  {
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
@@ -78,16 +87,11 @@ extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! RecipeCollectionViewCell
-        cell.layer.cornerRadius = 10.0
-        cell.layer.borderWidth = 2.0
-        cell.layer.borderColor = UIColor.red.cgColor
+        
+        let testView = TestTraditionalRecipeViewController()
+        testView.recipe = store.main[indexPath.row]
+        present(testView, animated: true, completion: nil)
+        
     }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! RecipeCollectionViewCell
-        cell.layer.borderColor = UIColor.clear.cgColor
-    }
-    
     
 }

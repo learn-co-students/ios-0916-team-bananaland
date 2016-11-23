@@ -11,7 +11,7 @@ import UIKit
 class RecipeTabViewController: UITabBarController {
 
     var store = DataStore.sharedInstance
-    var testView : UIView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,4 +25,8 @@ class RecipeTabViewController: UITabBarController {
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.reloadInputViews()
+    }
 }

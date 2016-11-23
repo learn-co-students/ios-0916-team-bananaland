@@ -23,13 +23,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window!.rootViewController = navigationController
 //        window!.backgroundColor = UIColor.white
 //        window!.makeKeyAndVisible()
-       
-        store.getRecipes(completion: { _ in
-        
-        })
+//       
         
         store.getRecipes(completion: { _ in
             
+        })
+        
+        store.getRecipes(completion: { _ in
+           
+            print("TOTAL: \(self.store.recipes.count)")
             print("MAINS: \(self.store.main.count)")
             print("DESSERT: \(self.store.desserts.count)")
             print("SIDES: \(self.store.sides.count)")
