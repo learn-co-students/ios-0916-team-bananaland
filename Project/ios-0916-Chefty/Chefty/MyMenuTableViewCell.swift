@@ -65,7 +65,7 @@ class MyMenuTableViewCell: UITableViewCell {
         deleteButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         
-        // set tiem button
+        // set time button
         let timeButton: UIButton = UIButton(type: .roundedRect)
         timeButton.setTitle(Constants.iconLibrary.access_time.rawValue, for: .normal)
         timeButton.titleLabel!.font =  UIFont(name: Constants.iconFont.material.rawValue, size: CGFloat(Constants.iconSize.small.rawValue))

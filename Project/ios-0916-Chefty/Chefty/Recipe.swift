@@ -63,5 +63,9 @@ class Recipe {
             view.sendSubview(toBack: imageView)
         }
     }
+// here is an example of getting data from a UIImage object
+//    if let img = UIImage(named: "hallo.png") {
+//        let data = UIImagePNGRepresentation(img) as NSData?
+//    }
     
 }

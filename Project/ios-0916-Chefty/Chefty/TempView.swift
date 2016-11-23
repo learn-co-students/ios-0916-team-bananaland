@@ -12,7 +12,11 @@ protocol TempViewDelegate: class {
     func onPressMyMenuButton(button: UIButton)
     func onPressTraditionalRecipeButton(button: UIButton)
     func onPressIngredientsButton(button: UIButton)
+<<<<<<< HEAD
     func onPressHomePageButton(button: UIButton)
+=======
+    func onPressWelcome(button: UIButton)
+>>>>>>> master
 }
 
 
@@ -33,6 +37,8 @@ class TempView: UIView {
         let ingredientsButton = UIButton(type: .roundedRect)
         
         let homepageButton = UIButton(type: .roundedRect)
+
+        let welcomeButton = UIButton(type: .roundedRect)
         
         // configure controls
         pageLabel.text = "Choose a view controller to open."
@@ -48,6 +54,9 @@ class TempView: UIView {
         
         homepageButton.setTitle("Homepage", for: .normal)
         homepageButton.addTarget(self, action: #selector(self.goToHomepage), for: UIControlEvents.touchUpInside)
+
+        welcomeButton.setTitle("Welcome to Chefty", for: .normal)
+        welcomeButton.addTarget(self, action: #selector(self.goToWelcome), for: UIControlEvents.touchUpInside)
         
         // add the object to the view
         self.addSubview(pageLabel)
@@ -55,6 +64,7 @@ class TempView: UIView {
         self.addSubview(traditionalRecipeButton)
         self.addSubview(ingredientsButton)
         self.addSubview(homepageButton)
+        self.addSubview(welcomeButton)
         
         // constrain the object
         pageLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -77,6 +87,11 @@ class TempView: UIView {
         homepageButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 350).isActive = true
         homepageButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 100).isActive = true
         
+        welcomeButton.translatesAutoresizingMaskIntoConstraints = false
+        welcomeButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 350).isActive = true
+        welcomeButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 100).isActive = true
+
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -93,6 +108,10 @@ class TempView: UIView {
     
     func traditionalRecipeAction(traditionalRecipeButton:UIButton) {
         self.delegate.onPressTraditionalRecipeButton(button: traditionalRecipeButton)
+    }
+    
+    func goToWelcome(welcomeButton:UIButton) {
+        self.delegate.onPressWelcome(button: welcomeButton)
     }
 
     func goToHomepage(homepageButton: UIButton) {

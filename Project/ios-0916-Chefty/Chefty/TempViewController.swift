@@ -68,4 +68,9 @@ class TempViewController: UIViewController, TempViewDelegate {
     }
     
     
+    func onPressWelcome(button: UIButton) {
+        let welcomeView1 = WelcomeViewController()  // create the destination
+        navigationController?.pushViewController(welcomeView1, animated: false) // show destination with nav bar
+    }
+
 }
