@@ -18,16 +18,16 @@ class TempViewController: UIViewController, TempViewDelegate {
         super.viewDidLoad()
         tempView1.delegate = self
         
-        store.getRecipes {
-            
-            // load sample data
-            self.store.fetchRecipeSelected()
-            
-            // print("store.recipes.count: \(self.store.recipes.count)")
-            // OperationQueue.main.addOperation({
-            //     self.tableView.reloadData()
-            // })
-        }
+//        store.getRecipes {
+//            
+//            // load sample data
+//            self.store.fetchRecipeSelected()
+//            
+//            // print("store.recipes.count: \(self.store.recipes.count)")
+//            // OperationQueue.main.addOperation({
+//            //     self.tableView.reloadData()
+//            // })
+//        }
 
     }
     

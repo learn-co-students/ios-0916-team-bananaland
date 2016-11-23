@@ -17,19 +17,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let initialViewController = TempViewController()
-        let navigationController = UINavigationController(rootViewController: initialViewController)
-        window!.rootViewController = navigationController
-        window!.backgroundColor = UIColor.white
-        window!.makeKeyAndVisible()
-        
+//        window = UIWindow(frame: UIScreen.main.bounds)
+//        let initialViewController = TempViewController()
+//        let navigationController = UINavigationController(rootViewController: initialViewController)
+//        window!.rootViewController = navigationController
+//        window!.backgroundColor = UIColor.white
+//        window!.makeKeyAndVisible()
        
-        store.getRecipes(completion: { _ in  for recipe in self.store.recipes {
-            print(recipe.imageURL) }
+        store.getRecipes(completion: { _ in
+        
+            print("MAINS: \(self.store.main.count)")
+            print("DESSERT: \(self.store.desserts.count)")
+            print("SIDES: \(self.store.sides.count)")
+            print("APPETIZER: \(self.store.appetizer.count)")
+        
         })
         
-        
+        store.getRecipes(completion: { _ in
+            
+            print("MAINS: \(self.store.main.count)")
+            print("DESSERT: \(self.store.desserts.count)")
+            print("SIDES: \(self.store.sides.count)")
+            print("APPETIZER: \(self.store.appetizer.count)")
+            
+        })
         
         return true
     }

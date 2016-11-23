@@ -25,7 +25,18 @@ class CheftyAPIClient {
                         for recipeDict in responseJSON {
                             //print("recipe: \(recipe)")
                             let recipeInst = Recipe(recipeDict: recipeDict)
-                            store.recipes.append(recipeInst) // add to recipes in datastore
+                            store.recipes.append(recipeInst)
+                            switch recipeInst.type {
+                                
+                            case "main" : store.main.append(recipeInst)
+                            case "appetizer" : store.appetizer.append(recipeInst)
+                            case "side" : store.sides.append(recipeInst)
+                            case "dessert" : store.desserts.append(recipeInst)
+                            default: break
+                                
+                            }
+                            
+                            //store.recipes.append(recipeInst) // add to recipes in datastore
                         }
                         completion()
                     } catch {

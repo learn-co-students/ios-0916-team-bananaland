@@ -17,6 +17,12 @@ class DataStore {
 
     var recipes:[Recipe] = []
     var recipesSelected:[RecipeSelected] = []
+    var images: [UIImage] = []
+    
+    var main: [Recipe] = []
+    var appetizer : [Recipe] = []
+    var sides : [Recipe] = []
+    var desserts: [Recipe] = []
     
     func getRecipes(completion: @escaping () -> ()) {
         
