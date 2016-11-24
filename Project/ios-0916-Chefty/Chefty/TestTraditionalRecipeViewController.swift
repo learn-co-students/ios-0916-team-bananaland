@@ -43,9 +43,6 @@ class TestTraditionalRecipeViewController: UIViewController {
     override func loadView() {
         self.view = TestTraditionalRecipeView(recipe: recipe!)
     }
-    
-//    func recipeSent(_ recipe: Recipe) {
-//        self.recipe = recipe
-//    }
+
     
 }
