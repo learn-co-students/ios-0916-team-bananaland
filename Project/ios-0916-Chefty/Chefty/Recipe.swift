@@ -17,7 +17,7 @@ class Recipe {
     var servings: String
     var type: String
     var servingTime: Date = Date()
-    var imageData: Data = Data()
+    var imageData: NSData = NSData()
     var selected: Bool = false
 
     // custom initializer is needed to allow a default value for selected
@@ -34,9 +34,9 @@ class Recipe {
     // The tableview cells crop images nicely when they are background images. This function gets a background image, stores it in the object and then sets it on the imageView that was passed in.
         if let imageURL = recipeSelected.imageURL {
             // cant find a image data property to evaluate to determine in the field is populated
-            //print(recipeSelected.imageData?.description)
-            //if recipeSelected.imageData == nil {
-                print("no image data found in object")
+            //print(recipeSelected.imageData?. )
+            //if let imageDate = recipeSelected.imageData {
+                //print("no image data found in object")
                 let imageUrl:URL = URL(string: imageURL)!
                 // Start background thread so that image loading does not make app unresponsive
                 DispatchQueue.global(qos: .userInitiated).async {

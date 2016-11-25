@@ -7,5 +7,6 @@ target 'Chefty' do
 
   # Pods for Chefty
 	pod ‘SDWebImage’
+    pod 'GTNotification', '>= 1.4'
 
 end
