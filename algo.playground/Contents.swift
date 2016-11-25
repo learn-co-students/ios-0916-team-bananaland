@@ -53,7 +53,7 @@ var steps = [chicken1, chicken2, chicken3, chicken4, chicken5, chicken6, potatoe
 var steps2 = [chicken1, potatoes1, chicken2, potatoes2, chicken3, potatoes3, chicken4, potatoes4, chicken5, potatoes5, chicken6, potatoes6]
 
 
-func sortSteps() {
+func sortSteps() -> [RecipeStep] {
     var addedTime = 0
     
     steps = steps.sorted { (step1: RecipeStep, step2: RecipeStep) -> Bool in
@@ -108,6 +108,7 @@ func sortSteps() {
     
     print(addedTime)
     print(steps)
+    return(steps)
 }
 
 sortSteps()
