@@ -45,13 +45,13 @@ class WelcomeView: UIView {
         
         // configure controls
         appDesc.text = descriptionOfState
-        appDesc.font =  UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xlarge.rawValue))
+        appDesc.font =  UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.large.rawValue))
         appDesc.isScrollEnabled = false
         appDesc.isEditable = false
         appDesc.textContainer.lineBreakMode = NSLineBreakMode.byWordWrapping
         
         messageTimerLabel.text = messageTimer
-        messageTimerLabel.font =  UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xlarge.rawValue))
+        messageTimerLabel.font =  UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.large.rawValue))
         
         // add the object to the view
         self.addSubview(appDesc)
@@ -71,7 +71,7 @@ class WelcomeView: UIView {
         appDesc.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -50).isActive = true
 
         messageTimerLabel.translatesAutoresizingMaskIntoConstraints = false
-        messageTimerLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 200).isActive = true
+        messageTimerLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 160).isActive = true
         messageTimerLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 50).isActive = true
         messageTimerLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -50).isActive = true
         

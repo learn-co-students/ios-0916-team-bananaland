@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import AudioToolbox
+import LNRSimpleNotifications
 
 class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     
@@ -14,7 +16,10 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     let myMenuView1 = MyMenuView(frame: CGRect.zero)
     var sampleValue = String()
     
+    let notificationManager1 = LNRNotificationManager()
+    
     override func viewDidLoad() {
+        print("viewDidLoad")
         super.viewDidLoad()
         myMenuView1.delegate = self
         self.navigationController?.setNavigationBarHidden(false, animated: .init(true))
@@ -28,6 +33,35 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
                                         size: CGFloat(Constants.fontSize.small.rawValue))!
         ]
         menuButton.setTitleTextAttributes(menuButtonAttributes, for: .normal)
+        
+        
+        notificationManager1.notificationsPosition = LNRNotificationPosition.top
+        notificationManager1.notificationsBackgroundColor = UIColor.white
+        notificationManager1.notificationsTitleTextColor = UIColor.black
+        notificationManager1.notificationsBodyTextColor = UIColor.darkGray
+        notificationManager1.notificationsSeperatorColor = UIColor.gray
+        notificationManager1.notificationsIcon = UIImage(named: "Icon-App-72x72")
+        
+//        let alertSoundURL: URL? = Bundle.main.url(forResource: "click", withExtension: "wav")
+//        if let _ = alertSoundURL {
+//            var mySound: SystemSoundID = 0
+//            AudioServicesCreateSystemSoundID(alertSoundURL! as CFURL, &mySound)
+//            notificationManager1.notificationSound = mySound
+//        }
+        
+        var notificationMessage = String()
+        if store.recipesSelected.count == 1 {
+            notificationMessage = "Last time you were here, you selected one recipe, lets review it."
+        } else if store.recipesSelected.count > 1 {
+            notificationMessage = "Last time you were here, you selected \(store.recipesSelected.count) recipes, lets review them."
+        }
+        
+        notificationManager1.showNotification(title: "Welcome Back to Chefty", body: notificationMessage, onTap: { () -> Void in
+            let _ = self.notificationManager1.dismissActiveNotification(completion: { () -> Void in
+                print("Notification dismissed")
+            })
+        })
+        
     }
     
     override func viewWillAppear(_ animated: Bool = false) {

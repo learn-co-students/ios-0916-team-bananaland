@@ -83,7 +83,7 @@ class MyMenuTableViewCell: UITableViewCell {
         // delete button
         let deleteButton: UIButton = UIButton(type: .roundedRect)
         deleteButton.setTitle(Constants.iconLibrary.close.rawValue, for: .normal)
-        deleteButton.titleLabel!.font =  UIFont(name: Constants.iconFont.material.rawValue, size: CGFloat(Constants.iconSize.small.rawValue))
+        deleteButton.titleLabel!.font =  UIFont(name: Constants.iconFont.material.rawValue, size: CGFloat(Constants.iconSize.xsmall.rawValue))
         deleteButton.setTitleColor(UIColor(named: .white), for: .normal)
         deleteButton.addTarget(self, action: #selector(MyMenuTableViewCell.onClickDeleteAction), for: UIControlEvents.touchUpInside)
         contentView.addSubview(deleteButton)
@@ -94,7 +94,7 @@ class MyMenuTableViewCell: UITableViewCell {
         // set time button
         let timeButton: UIButton = UIButton(type: .roundedRect)
         timeButton.setTitle(Constants.iconLibrary.access_time.rawValue, for: .normal)
-        timeButton.titleLabel!.font =  UIFont(name: Constants.iconFont.material.rawValue, size: CGFloat(Constants.iconSize.small.rawValue))
+        timeButton.titleLabel!.font =  UIFont(name: Constants.iconFont.material.rawValue, size: CGFloat(Constants.iconSize.xsmall.rawValue))
         timeButton.setTitleColor(UIColor(named: .white), for: .normal)
         timeButton.addTarget(self, action: #selector(MyMenuTableViewCell.onClickTimeAction), for: UIControlEvents.touchUpInside)
         contentView.addSubview(timeButton)

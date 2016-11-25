@@ -24,9 +24,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     let toolbar = UIToolbar()
     var recipeForTraditionalRecipeView: Recipe?
     
+    
     override init(frame:CGRect){
         super.init(frame: frame)
-        
+
         // configure controls
         self.tableView.delegate = self
         self.tableView.dataSource = self
