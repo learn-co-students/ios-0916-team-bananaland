@@ -15,7 +15,7 @@ protocol MyMenuViewDelegate: class {
 }
 
 
-class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTableViewCellDelegate, UIPickerViewDelegate {
+class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTableViewCellDelegate, UIPickerViewDelegate, UITextFieldDelegate {
     
     weak var delegate: MyMenuViewDelegate?
     var sampleValue = String()
@@ -23,9 +23,8 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     let tableView = UITableView()
     let toolbar = UIToolbar()
     var recipeForTraditionalRecipeView: Recipe?
-    let timePicker1: UIDatePicker = UIDatePicker()
-    
-    
+    var timePicker1: UIDatePicker = UIDatePicker()
+    var tempTimeField: UITextField = UITextField()
     
     override init(frame:CGRect){
         super.init(frame: frame)
@@ -37,10 +36,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         // add the controls to the view
         self.addSubview(tableView)
         self.addSubview(toolbar)
-        self.addSubview(self.timePicker1)
+        self.addSubview(tempTimeField)
         
         // constrain the controls
-        self.toolbar.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        self.toolbar.topAnchor.constraint(equalTo: tableView.bottomAnchor).isActive = true
         self.toolbar.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         self.toolbar.translatesAutoresizingMaskIntoConstraints = false
         
@@ -52,39 +51,62 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
 
         let toolbarButtons = [ingredientsButton, spacer, clearAllButton, spacer, openStep1Button]
         self.toolbar.setItems(toolbarButtons, animated: false)
+        self.toolbar.isUserInteractionEnabled = true
         
         // tableview
         self.tableView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
-        self.tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -44).isActive = true
+        self.tableView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -284).isActive = true  //was 44
         self.tableView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         
         // timepicker
-        //self.timePicker1.center = self.center
-        self.timePicker1.frame = CGRect(x: 0, y: 50, width: self.frame.width, height: 200)
         self.timePicker1.backgroundColor = UIColor.white
-        self.timePicker1.layer.cornerRadius = 5.0
         self.timePicker1.layer.shadowOpacity = 0.5
-        //self.timePicker1.layer. = 1000
         self.timePicker1.datePickerMode = .time
-        self.timePicker1.addTarget(self, action: #selector(donePickingTimeClick), for: .valueChanged)
+        self.timePicker1.minimumDate = Date()
+        self.timePicker1.minuteInterval = 15
+        
+        // tempTimeField
+        self.tempTimeField.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -44).isActive = true
+        self.tempTimeField.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        self.tempTimeField.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        self.tempTimeField.translatesAutoresizingMaskIntoConstraints = false
+        self.tempTimeField.delegate = self
+        self.tempTimeField.inputView = self.timePicker1
+        self.tempTimeField.inputAccessoryView = self.createPickerToolBar()
+        self.tempTimeField.backgroundColor = UIColor.blue
+    }
+
+    
+    func doneClick() {
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.dateStyle = .none
+        dateFormatter1.timeStyle = .short
+        self.tempTimeField.text = dateFormatter1.string(from: self.timePicker1.date)
+        self.tempTimeField.resignFirstResponder()
     }
     
-    func donePickingTimeClick() {
-        let dateFormatter1 = DateFormatter()
-        dateFormatter1.timeStyle = .medium
-        //textField_Date.text = dateFormatter1.stringFromDate(datePicker.date)
-        //self.cell.timeButton.resignFirstResponder()
-    }
     func cancelClick() {
-        //self.cell.timeButton.resignFirstResponder()
+        self.tempTimeField.resignFirstResponder()
     }
+    
+    func createPickerToolBar() -> UIToolbar {
+        let toolbar = UIToolbar()
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(MyMenuView.doneClick))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancelClick))
+        doneButton.accessibilityLabel = "DoneToolbar"
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        toolbar.isTranslucent = false
+        toolbar.sizeToFit()
+        toolbar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        toolbar.isUserInteractionEnabled = true
+        return toolbar
+    }
+
     
     func numberOfSections(in tableView: UITableView) -> Int { return 1 }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return store.recipesSelected.count
-    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return store.recipesSelected.count }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // set the custom cell

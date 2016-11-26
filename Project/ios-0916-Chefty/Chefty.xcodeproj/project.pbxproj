@@ -28,7 +28,6 @@
 		C00CEFF51DDF5C82005C4BE5 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00CEFF41DDF5C82005C4BE5 /* Recipe.swift */; };
 		C0252C631DDD16EA00046AD0 /* MyMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0252C621DDD16EA00046AD0 /* MyMenuViewController.swift */; };
 		C0252C651DDD171A00046AD0 /* MyMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0252C641DDD171A00046AD0 /* MyMenuView.swift */; };
-		C0252C681DDD240100046AD0 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7C1E1C51DDCD97300BD8A13 /* Info.plist */; };
 		C0252C6A1DDD243100046AD0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0252C691DDD243100046AD0 /* Constants.swift */; };
 		C054B2A01DE1185C00F4DEB1 /* MyMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C054B29F1DE1185C00F4DEB1 /* MyMenuTableViewCell.swift */; };
 		C08F8B941DE34A940092144F /* Chefty.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C08F8B921DE34A940092144F /* Chefty.xcdatamodeld */; };
@@ -316,7 +315,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7C0B4591DE4F7540091E80C /* bg.png in Resources */,
-				C0252C681DDD240100046AD0 /* Info.plist in Resources */,
 				C0A59D021DE9BE76002CD413 /* analogclock.ttf in Resources */,
 				A72DBEA71DE4D72E00867C86 /* Main.storyboard in Resources */,
 				C08FBF471DE4C33600699D9C /* iTunesArtwork@3x.png in Resources */,
@@ -446,6 +444,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -496,6 +495,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -525,6 +525,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 45466194089BC863FFF4F44A /* Pods-Chefty.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = CJ24M7DKLZ;
@@ -543,6 +544,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A9984F50016543896BA81B7F /* Pods-Chefty.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = CJ24M7DKLZ;
