@@ -14,15 +14,17 @@ class DataStore {
     fileprivate init() {}
 
     var recipes:[Recipe] = []
+    var recipeSteps: [RecipeStep] = []
     var recipesSelected:[RecipeSelected] = []
     
     func getRecipes(completion: @escaping () -> ()) {
         
-        CheftyAPIClient.getRecipies {_ in 
+        CheftyAPIClient.getRecipes {_ in 
             completion() // call back to onViewDidLoad
         }
     }
     
+
     lazy var persistentContainer: NSPersistentContainer = {
         
         let container = NSPersistentContainer(name: "Chefty") // name must match model file

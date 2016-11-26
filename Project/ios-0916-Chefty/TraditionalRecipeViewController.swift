@@ -10,8 +10,10 @@ import UIKit
 
 class TraditionalRecipeViewController: UIViewController {
     
+    var store = DataStore.sharedInstance
     var traditionalRecipeView: TraditionalRecipeView!
     var recipe: Recipe?
+    var step: RecipeStep?
     
     override func viewDidLoad() {
         super.viewDidLoad()
