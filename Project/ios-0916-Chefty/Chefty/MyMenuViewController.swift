@@ -19,7 +19,6 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     let notificationManager1 = LNRNotificationManager()
     
     override func viewDidLoad() {
-        print("viewDidLoad")
         super.viewDidLoad()
         myMenuView1.delegate = self
         self.navigationController?.setNavigationBarHidden(false, animated: .init(true))
@@ -34,7 +33,7 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         ]
         menuButton.setTitleTextAttributes(menuButtonAttributes, for: .normal)
         
-        
+        // notification
         notificationManager1.notificationsPosition = LNRNotificationPosition.top
         notificationManager1.notificationsBackgroundColor = UIColor.white
         notificationManager1.notificationsTitleTextColor = UIColor.black

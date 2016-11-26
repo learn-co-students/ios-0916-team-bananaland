@@ -39,6 +39,7 @@
 		C08FBF471DE4C33600699D9C /* iTunesArtwork@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C08FBF441DE4C33600699D9C /* iTunesArtwork@3x.png */; };
 		C08FBF881DE6329300699D9C /* GradientViewLeftToRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08FBF871DE6329300699D9C /* GradientViewLeftToRight.swift */; };
 		C0A59D001DE8DB63002CD413 /* Icon-App-72x72@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0A59CFF1DE8DB63002CD413 /* Icon-App-72x72@1x.png */; };
+		C0A59D021DE9BE76002CD413 /* analogclock.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0A59D011DE9BE76002CD413 /* analogclock.ttf */; };
 		C0AAB53D1DDDE98F0055DF8B /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB53C1DDDE98F0055DF8B /* TempView.swift */; };
 		C0AAB53F1DDDEA880055DF8B /* TempViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB53E1DDDEA880055DF8B /* TempViewController.swift */; };
 		C0AAB5431DDE64970055DF8B /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB5421DDE64970055DF8B /* DataStore.swift */; };
@@ -84,6 +85,7 @@
 		C08FBF441DE4C33600699D9C /* iTunesArtwork@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@3x.png"; sourceTree = "<group>"; };
 		C08FBF871DE6329300699D9C /* GradientViewLeftToRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientViewLeftToRight.swift; sourceTree = "<group>"; };
 		C0A59CFF1DE8DB63002CD413 /* Icon-App-72x72@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-72x72@1x.png"; sourceTree = "<group>"; };
+		C0A59D011DE9BE76002CD413 /* analogclock.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = analogclock.ttf; sourceTree = "<group>"; };
 		C0AAB53C1DDDE98F0055DF8B /* TempView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		C0AAB53E1DDDEA880055DF8B /* TempViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempViewController.swift; sourceTree = "<group>"; };
 		C0AAB5421DDE64970055DF8B /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				C0252C661DDD23AD00046AD0 /* MaterialIcons-Regular.otf */,
+				C0A59D011DE9BE76002CD413 /* analogclock.ttf */,
 				C08FBF421DE4C33600699D9C /* iTunesArtwork@1x.png */,
 				C08FBF431DE4C33600699D9C /* iTunesArtwork@2x.png */,
 				C08FBF441DE4C33600699D9C /* iTunesArtwork@3x.png */,
@@ -314,6 +317,7 @@
 			files = (
 				A7C0B4591DE4F7540091E80C /* bg.png in Resources */,
 				C0252C681DDD240100046AD0 /* Info.plist in Resources */,
+				C0A59D021DE9BE76002CD413 /* analogclock.ttf in Resources */,
 				A72DBEA71DE4D72E00867C86 /* Main.storyboard in Resources */,
 				C08FBF471DE4C33600699D9C /* iTunesArtwork@3x.png in Resources */,
 				C08FBF461DE4C33600699D9C /* iTunesArtwork@2x.png in Resources */,

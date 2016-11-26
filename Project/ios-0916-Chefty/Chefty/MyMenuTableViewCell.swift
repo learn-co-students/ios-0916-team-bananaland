@@ -18,6 +18,11 @@ class MyMenuTableViewCell: UITableViewCell {
     weak var delegate: MyMenuTableViewCellDelegate?
     var gradientView: GradientView!
     var gradientViewLeftToRight: GradientViewLeftToRight!
+    var cellLabel1:UILabel = UILabel()
+    var hourLabel1:UILabel = UILabel()
+    let timeButton: UIButton = UIButton(type: .roundedRect)
+    var imageView1:UIImageView = UIImageView()
+    let deleteButton: UIButton = UIButton(type: .roundedRect)
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,11 +33,7 @@ class MyMenuTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
         // Configure the view for the selected state
     }
-    
-    var cellLabel1:UILabel = UILabel()
-    var imageView1:UIImageView = UIImageView()
-    let deleteButton: UIButton = UIButton(type: .roundedRect)
-    
+
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:)")
     }
@@ -87,18 +88,24 @@ class MyMenuTableViewCell: UITableViewCell {
         deleteButton.setTitleColor(UIColor(named: .white), for: .normal)
         deleteButton.addTarget(self, action: #selector(MyMenuTableViewCell.onClickDeleteAction), for: UIControlEvents.touchUpInside)
         contentView.addSubview(deleteButton)
-        deleteButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -30).isActive = true
+        deleteButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
         deleteButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
         
-        // set time button
-        let timeButton: UIButton = UIButton(type: .roundedRect)
-        timeButton.setTitle(Constants.iconLibrary.access_time.rawValue, for: .normal)
-        timeButton.titleLabel!.font =  UIFont(name: Constants.iconFont.material.rawValue, size: CGFloat(Constants.iconSize.xsmall.rawValue))
+        // hour label
+        self.hourLabel1.textColor = UIColor.white
+        self.hourLabel1.font =  UIFont(name: Constants.iconFont.clock.rawValue, size: CGFloat(Constants.iconSize.xxsmall.rawValue))
+        contentView.addSubview(self.hourLabel1)
+        self.hourLabel1.bottomAnchor.constraint(equalTo: cellLabel1.topAnchor, constant: -6).isActive = true
+        self.hourLabel1.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
+        self.hourLabel1.translatesAutoresizingMaskIntoConstraints = false
+        
+        // time button displays minutes
+        timeButton.titleLabel!.font =  UIFont(name: Constants.iconFont.clock.rawValue, size: CGFloat(Constants.iconSize.xxsmall.rawValue))
         timeButton.setTitleColor(UIColor(named: .white), for: .normal)
         timeButton.addTarget(self, action: #selector(MyMenuTableViewCell.onClickTimeAction), for: UIControlEvents.touchUpInside)
         contentView.addSubview(timeButton)
-        timeButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
+        timeButton.bottomAnchor.constraint(equalTo: cellLabel1.topAnchor, constant: 0).isActive = true
         timeButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         timeButton.translatesAutoresizingMaskIntoConstraints = false
     }
@@ -118,22 +125,8 @@ class MyMenuTableViewCell: UITableViewCell {
     }
     
     func onClickTimeAction() {
-        if let currentRowString = self.deleteButton.accessibilityLabel {
-            if let currentRow = Int(currentRowString) {
-                let context = store.persistentContainer.viewContext
-                //let currentTime = NSDate()
-                //store.recipesSelected[currentRow].servingTime = currentTime
-                do {
-                    try context.save()
-                } catch _ { print("Error setting time on recipeSelected.")}
-                
-                self.delegate?.updateTableViewNow()
-            }
-        }
-    }
-    
-    func setTimeAction() {
         print("set time")
+        
     }
 
 }
