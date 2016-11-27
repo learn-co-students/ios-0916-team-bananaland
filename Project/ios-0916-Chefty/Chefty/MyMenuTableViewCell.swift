@@ -20,24 +20,14 @@ class MyMenuTableViewCell: UITableViewCell {
     var gradientViewLeftToRight: GradientViewLeftToRight!
     var servingTimeField:UITextField = UITextField()
     var recipeDescField:UITextField = UITextField()
-    var hourLabel1:UILabel = UILabel()
-    let timeButton: UIButton = UIButton(type: .roundedRect)
     var imageView1:UIImageView = UIImageView()
     let deleteButton: UIButton = UIButton(type: .roundedRect)
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
+    override func awakeFromNib() { super.awakeFromNib() }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
-    }
+    override func setSelected(_ selected: Bool, animated: Bool) { super.setSelected(selected, animated: animated) }
 
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:)")
-    }
+    required init(coder aDecoder: NSCoder) { fatalError("init(coder:)") }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -103,23 +93,6 @@ class MyMenuTableViewCell: UITableViewCell {
         deleteButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
         deleteButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        // hour label
-        self.hourLabel1.textColor = UIColor.white
-        self.hourLabel1.font =  UIFont(name: Constants.iconFont.clock.rawValue, size: CGFloat(Constants.iconSize.xxsmall.rawValue))
-        contentView.addSubview(self.hourLabel1)
-        self.hourLabel1.bottomAnchor.constraint(equalTo: servingTimeField.topAnchor, constant: -6).isActive = true
-        self.hourLabel1.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
-        self.hourLabel1.translatesAutoresizingMaskIntoConstraints = false
-        
-        // time button displays minutes
-        timeButton.titleLabel!.font =  UIFont(name: Constants.iconFont.clock.rawValue, size: CGFloat(Constants.iconSize.xxsmall.rawValue))
-        timeButton.setTitleColor(UIColor(named: .white), for: .normal)
-        timeButton.addTarget(self, action: #selector(MyMenuTableViewCell.onClickTimeAction), for: UIControlEvents.touchUpInside)
-        contentView.addSubview(timeButton)
-        timeButton.bottomAnchor.constraint(equalTo: servingTimeField.topAnchor, constant: 0).isActive = true
-        timeButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
-        timeButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func onClickDeleteAction() {
@@ -132,14 +105,6 @@ class MyMenuTableViewCell: UITableViewCell {
                     try context.save()
                 } catch _ { print("Error deleting item.")}
                 self.delegate?.updateTableViewNow()
-            }
-        }
-    }
-    
-    func onClickTimeAction() {
-        if let currentRowString = self.timeButton.accessibilityLabel {
-            if let currentRow = Int(currentRowString) {
-                print("TODO: set time for recipe: \(store.recipesSelected[currentRow].displayName)")
             }
         }
     }

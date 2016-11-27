@@ -23,6 +23,7 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         myMenuView1.delegate = self
         self.navigationController?.setNavigationBarHidden(false, animated: .init(true))
         self.view.backgroundColor = UIColor(named: .white)
+       // print(Recipe.getServingTime(hours: 19, minutes: 0))
         
         // add the menu button to the nav bar
         let menuButton = UIBarButtonItem(title: "Select Recipes", style: .plain, target: self, action: #selector(goToHome))

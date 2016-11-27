@@ -16,9 +16,21 @@ class Recipe {
     var imageURL: String
     var servings: String
     var type: String
-    var servingTime: Date = Date()
+    var servingTime: Date {
+        let calendarInst = Calendar(identifier: .gregorian)
+        var componentsServingTime = DateComponents()
+        componentsServingTime.year = calendarInst.component(.year, from: Date())
+        componentsServingTime.month = calendarInst.component(.month, from: Date())
+        componentsServingTime.day = calendarInst.component(.day, from: Date())
+        componentsServingTime.hour = 19
+        componentsServingTime.minute = 00
+        componentsServingTime.second = 00
+        let servingTime = calendarInst.date(from: componentsServingTime)!
+        return servingTime
+    }
     var imageData: NSData = NSData()
     var selected: Bool = false
+    var sortValue: Int
 
     // custom initializer is needed to allow a default value for selected
     init(recipeDict: [String: String]) {
@@ -26,8 +38,23 @@ class Recipe {
         self.id = recipeDict["id"] as String!
         self.imageURL = recipeDict["imageURL"] as String!
         self.servings = recipeDict["servings"] as String!
-        self.selected = false
         self.type = recipeDict["type"] as String!
+        self.selected = false
+        let sortValueString = recipeDict["sortValue"] as String!
+        self.sortValue = Int(sortValueString!)!
+    }
+    
+    func getServingTime(hours: Int, minutes: Int) -> Date {
+        let calendarInst = Calendar(identifier: .gregorian)
+        var componentsServingTime = DateComponents()
+        componentsServingTime.year = calendarInst.component(.year, from: Date())
+        componentsServingTime.month = calendarInst.component(.month, from: Date())
+        componentsServingTime.day = calendarInst.component(.day, from: Date())
+        componentsServingTime.hour = hours
+        componentsServingTime.minute = minutes
+        componentsServingTime.second = 00
+        let servingTime = calendarInst.date(from: componentsServingTime)!
+        return servingTime
     }
 
     class func getBackgroundImage(recipeSelected: RecipeSelected, imageView: UIImageView, view: UIView) {

@@ -27,10 +27,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if self.store.recipesSelected.count == 0 {
                     // set some recipes as selected, this will happen in the previous screen soon
                     for recipe in self.store.recipes {
-                        recipe.id == "apple-pie" ? self.store.addRecipeSelected(recipe: recipe) : ()
+                        recipe.id == "yummy-baked-potato-skins" ? self.store.addRecipeSelected(recipe: recipe) : ()
                         recipe.id == "chicken-breasts" ? self.store.addRecipeSelected(recipe: recipe) : ()
                         recipe.id == "black-bean-couscous-salad" ? self.store.addRecipeSelected(recipe: recipe) : ()
-                        recipe.id == "yummy-baked-potato-skins" ? self.store.addRecipeSelected(recipe: recipe) : ()
+                        recipe.id == "apple-pie" ? self.store.addRecipeSelected(recipe: recipe) : ()
                     }
                 }
             }
