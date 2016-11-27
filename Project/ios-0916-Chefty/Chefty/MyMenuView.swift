@@ -10,17 +10,19 @@ import UIKit
 import CoreData
 
 protocol MyMenuViewDelegate: class {
-    func openIngredients()
+    func goToRecipe()
+    func goToIngredients()
 }
 
 
 class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTableViewCellDelegate {
     
-    weak var delegate:MyMenuViewDelegate!
+    weak var delegate: MyMenuViewDelegate?
     var sampleValue = String()
     var store = DataStore.sharedInstance
     let tableView = UITableView()
     let toolbar = UIToolbar()
+    var recipeForTraditionalRecipeView: Recipe?
     
     override init(frame:CGRect){
         super.init(frame: frame)
@@ -63,21 +65,33 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         // set the custom cell
         let cell = MyMenuTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "prototypeCell")
         cell.delegate = self
-        let cellLabelStartTime = "?"
+        
+        // format the time
+        let myFormatter = DateFormatter()
+        myFormatter.timeStyle = .short
+        
+        var cellLabelStartTime = "?"
+        if let servingTime = store.recipesSelected[indexPath.row].servingTime {
+            cellLabelStartTime = myFormatter.string(from: servingTime as Date)
+        }
+
         var cellLabel = String()
         if let type = store.recipesSelected[indexPath.row].type {
             if let displayName = store.recipesSelected[indexPath.row].displayName {
-                cellLabel = "\(type.capitalized) @ \(cellLabelStartTime) : \(displayName)"
+                cellLabel = "\(type.capitalized) @ \(cellLabelStartTime): \(displayName)"
             }
         }
         cell.cellLabel1.text = cellLabel
         cell.deleteButton.accessibilityLabel = String(indexPath.row)
         cell.selectionStyle = .none
-        let relatedRecipe = self.getRelatedRecipe(recipeSelected: store.recipesSelected[indexPath.row])
-        Recipe.getImage(recipe: relatedRecipe, imageView: cell.imageView1, view: cell, backgroundImage: true)
+        Recipe.getBackgroundImage(recipeSelected: self.store.recipesSelected[indexPath.row], imageView: cell.imageView1, view: cell)
+
         return cell
     }
-
+    
+    func printMe(){
+        print("printMe")
+    }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         // the tableview cells are divided up to always fill the page
@@ -91,11 +105,8 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     // onClick table cell go to recipe
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        let recipe = getRelatedRecipe(recipeSelected: store.recipesSelected[indexPath.row])
-        print("didSelectRowAt: \(recipe.displayName)")
-        let traditionalRecipeViewController1 = TraditionalRecipeViewController()  // create the destination
-        //traditionalRecipeViewController1.recipe = recipe
-        //navigationController?.pushViewController(traditionalRecipeViewController1, animated: true) // show destination with nav bar
+        self.recipeForTraditionalRecipeView = getRelatedRecipe(recipeSelected: store.recipesSelected[indexPath.row])
+        self.delegate?.goToRecipe()
     }
     
     func updateTableViewNow() {
@@ -103,7 +114,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     }
     
     func clickIngredients() {
-        self.delegate.openIngredients()
+        self.delegate?.goToIngredients()
     }
     
     func clearAllRecipes() {

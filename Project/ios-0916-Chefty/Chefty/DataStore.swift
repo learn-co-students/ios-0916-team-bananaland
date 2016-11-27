@@ -10,6 +10,14 @@ import Foundation
 import CoreData
 import UIKit
 
+//DispatchQueue.main.async {
+//
+//}
+//
+//OperationQueue.main.addOperation {
+//
+//}
+
 class DataStore {
     static let sharedInstance = DataStore()
     fileprivate init() {}
@@ -57,7 +65,6 @@ class DataStore {
     }
     
     func fetchRecipeSelected() {
-        
         let context = persistentContainer.viewContext
         let recipeRequest: NSFetchRequest<RecipeSelected> = RecipeSelected.fetchRequest()
         
@@ -65,21 +72,6 @@ class DataStore {
             self.recipesSelected = try context.fetch(recipeRequest)
         } catch let error {
             print("Error fetching data: \(error)")
-        }
-        
-        // generate the test recipesSelected if needed
-        if recipesSelected.count == 0 {
-            self.addTestRecipesSelected()
-        }
-    }
-    
-    func addTestRecipesSelected(){
-        // set some recipes as selected, this will happen in the previous screen soon
-        for recipe in self.recipes {
-            recipe.id == "apple-pie" ? addRecipeSelected(recipe: recipe) : ()
-            recipe.id == "chicken-breasts" ? addRecipeSelected(recipe: recipe) : ()
-            recipe.id == "black-bean-couscous-salad" ? addRecipeSelected(recipe: recipe) : ()
-            recipe.id == "yummy-baked-potato-skins" ? addRecipeSelected(recipe: recipe) : ()
         }
     }
     
@@ -94,8 +86,8 @@ class DataStore {
         recipeSelected1.servings = recipe.servings
         recipeSelected1.type = recipe.type
         recipeSelected1.servingTime = recipe.servingTime as NSDate?
-        recipeSelected1.imageData = recipe.imageData as NSObject?
-        recipeSelected1.image = recipe.image
+        //recipeSelected1.imageData = recipe.imageData as NSObject?
+        //recipeSelected1.image = recipe.image
         
         self.saveRecipeSelectedContext()
         self.fetchRecipeSelected()

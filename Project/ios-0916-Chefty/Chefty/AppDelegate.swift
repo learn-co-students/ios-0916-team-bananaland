@@ -13,17 +13,19 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var store = DataStore.sharedInstance
-    
+
+    let store = DataStore.sharedInstance
+    var queue = OperationQueue()
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-//        window = UIWindow(frame: UIScreen.main.bounds)
-//        let initialViewController = TempViewController()
-//        let navigationController = UINavigationController(rootViewController: initialViewController)
-//        window!.rootViewController = navigationController
-//        window!.backgroundColor = UIColor.white
-//        window!.makeKeyAndVisible()
-//       
+        window = UIWindow(frame: UIScreen.main.bounds)
+        let initialViewController = WelcomeViewController()
+        let navigationController = UINavigationController(rootViewController: initialViewController)
+        window!.rootViewController = navigationController
+        window!.backgroundColor = UIColor.white
+        window!.makeKeyAndVisible()
+       
         
         store.getRecipes(completion: { _ in
             
@@ -40,6 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         
         return true
+        
     }
     
     func applicationWillResignActive(_ application: UIApplication) {
