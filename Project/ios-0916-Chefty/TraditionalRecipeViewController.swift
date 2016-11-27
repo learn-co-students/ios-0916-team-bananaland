@@ -10,7 +10,6 @@ import UIKit
 
 class TraditionalRecipeViewController: UIViewController {
     
-    var store = DataStore.sharedInstance
     var traditionalRecipeView: TraditionalRecipeView!
     var recipe: Recipe?
     var step: RecipeStep?
@@ -20,6 +19,7 @@ class TraditionalRecipeViewController: UIViewController {
         print("view did load called")
         
         guard let recipe = recipe else { return }
+        
         self.traditionalRecipeView.recipe = self.recipe
 
         self.traditionalRecipeView.setUpElements()
@@ -34,7 +34,6 @@ class TraditionalRecipeViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func loadView(){

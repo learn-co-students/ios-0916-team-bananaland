@@ -38,28 +38,26 @@ class CheftyAPIClient {
         }
     }
     
- 
     class func getRecipeSteps(with completion: @escaping ()-> Void) {
         let store = DataStore.sharedInstance
         let recipeID = "apple-pie"
-        let urlString = "\(Secrets.cheftyAPIURL)/getRecipeSteps.php?key=\(Secrets.cheftyKey)=\(recipeID)"
+        //let urlString = "\(Secrets.cheftyAPIURL)/getRecipeSteps.php?key=\(Secrets.cheftyKey)=\(recipeID)"
+        let urlString = "http://api.ptangen.com/getRecipeSteps.php?key=flatiron0916&recipe=apple-pie"
         let url = URL(string: urlString)
         
         if let unwrappedUrl = url{
             let session = URLSession.shared
             let task = session.dataTask(with: unwrappedUrl) { (data, response, error) in
-                
                 if let unwrappedData = data {
                     do {
-                        let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [String: [String : Any]]
-                        
+                        let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String:Any]]
+
                         for stepDict in responseJSON {
-                            let newStep = RecipeStep(stepDict: stepDict)
-                            store.recipeSteps.append(newStep)
+                            let step = RecipeStep(dict: stepDict)
+                            store.recipeSteps.append(step)
                         }
                         
                         completion()
-                        print(responseJSON)
                     } catch {
                         print("An error occured when creating responseJSON")
                     }

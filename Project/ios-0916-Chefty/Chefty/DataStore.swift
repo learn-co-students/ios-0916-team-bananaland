@@ -24,6 +24,13 @@ class DataStore {
         }
     }
     
+    func getRecipeSteps(completion: @escaping () -> ()) {
+        
+        CheftyAPIClient.getRecipeSteps {_ in
+            completion()
+        }
+    }
+    
 
     lazy var persistentContainer: NSPersistentContainer = {
         

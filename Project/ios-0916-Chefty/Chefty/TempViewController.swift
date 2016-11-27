@@ -28,6 +28,7 @@ class TempViewController: UIViewController, TempViewDelegate {
             //     self.tableView.reloadData()
             // })
         }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

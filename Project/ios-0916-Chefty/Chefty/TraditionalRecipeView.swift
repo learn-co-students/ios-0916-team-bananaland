@@ -11,12 +11,40 @@ import UIKit
 
 class TraditionalRecipeView: UIView {
 
+    var store = DataStore.sharedInstance
     var recipe: Recipe?
+    var combinedSteps: String = ""
     
     override init(frame:CGRect){
         super.init(frame: frame)
         
         self.backgroundColor = UIColor.white
+        /*{
+        "recipe": "apple-pie",
+        "step": "2",
+        "duration": "60:00",
+        "fullAttentionRequired": "false",
+        "ingredients": [],
+        "stepTitle": "Chill dough",
+        "procedure": "Form the dough into a disk, wrap in plastic wrap and refrigerate until thoroughly chilled, at least 1 hour.",
+        "timeToStart": "-03:38:00"
+    },
+ */
+    
+    
+        store.getRecipeSteps {
+            
+            //combine all steps for selected recipe
+            var combinedStepsArray: [String] = []
+            
+            for dictionary in self.store.recipeSteps {
+                let step = dictionary.procedure
+                combinedStepsArray.append(step)
+            }
+            
+            self.combinedSteps = combinedStepsArray.joined(separator: "\n")
+            print(self.combinedSteps)
+        }
         
     }
 
@@ -160,7 +188,9 @@ class TraditionalRecipeView: UIView {
         //STEPS TEXT BOX
         //create textbox
         let stepsText = UITextView()
-        stepsText.text = "Lorem ipsum dolor sit amet \nconsectetur adipiscing elit \nsed do eiusmod tempor \nincididunt ut labore \net dolore magna aliqua\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque \nlaudantium totam rem aperiam eaque ipsa quae ab \nillo inventore veritatis et quasi \narchitecto beatae vitae dicta sunt explicabo\n Nemo enim ipsam voluptatem \nquia voluptas sit aspernatur aut odit aut fugit \nsed quia consequuntur magni \ndolores eos qui ratione voluptatem \nsequi nesciunt \nNeque porro quisquam est \nqui dolorem ipsum quia dolor sit amet \nconsectetur adipisci velitEND IS HERE"
+        stepsText.text = combinedSteps
+        
+        //"Lorem ipsum dolor sit amet \nconsectetur adipiscing elit \nsed do eiusmod tempor \nincididunt ut labore \net dolore magna aliqua\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque \nlaudantium totam rem aperiam eaque ipsa quae ab \nillo inventore veritatis et quasi \narchitecto beatae vitae dicta sunt explicabo\n Nemo enim ipsam voluptatem \nquia voluptas sit aspernatur aut odit aut fugit \nsed quia consequuntur magni \ndolores eos qui ratione voluptatem \nsequi nesciunt \nNeque porro quisquam est \nqui dolorem ipsum quia dolor sit amet \nconsectetur adipisci velitEND IS HERE"
         stepsText.font = titleLabel.font.withSize(14)
         stepsText.textAlignment = .left
         
