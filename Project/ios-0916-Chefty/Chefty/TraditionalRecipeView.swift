@@ -13,26 +13,25 @@ class TraditionalRecipeView: UIView {
 
     var store = DataStore.sharedInstance
     var recipe: Recipe?
-    var combinedSteps: String = ""
+    var combinedSteps = String()
     
     override init(frame:CGRect){
         super.init(frame: frame)
         
         self.backgroundColor = UIColor.white
-        /*{
-        "recipe": "apple-pie",
-        "step": "2",
-        "duration": "60:00",
-        "fullAttentionRequired": "false",
-        "ingredients": [],
-        "stepTitle": "Chill dough",
-        "procedure": "Form the dough into a disk, wrap in plastic wrap and refrigerate until thoroughly chilled, at least 1 hour.",
-        "timeToStart": "-03:38:00"
-    },
- */
+    
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     
+    func setUpElements() {
+        
         store.getRecipeSteps {
+        
+            print("1")
             
             //combine all steps for selected recipe
             var combinedStepsArray: [String] = []
@@ -43,20 +42,11 @@ class TraditionalRecipeView: UIView {
             }
             
             self.combinedSteps = combinedStepsArray.joined(separator: "\n")
-            print(self.combinedSteps)
+            
         }
-        
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-
-    func setUpElements() {
     
         guard let recipe = recipe else { return }
-
+        print("2")
         
         //SCROLLVIEW
         let myScrollView = UIScrollView()
@@ -188,9 +178,9 @@ class TraditionalRecipeView: UIView {
         //STEPS TEXT BOX
         //create textbox
         let stepsText = UITextView()
-        stepsText.text = combinedSteps
-        
-        //"Lorem ipsum dolor sit amet \nconsectetur adipiscing elit \nsed do eiusmod tempor \nincididunt ut labore \net dolore magna aliqua\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque \nlaudantium totam rem aperiam eaque ipsa quae ab \nillo inventore veritatis et quasi \narchitecto beatae vitae dicta sunt explicabo\n Nemo enim ipsam voluptatem \nquia voluptas sit aspernatur aut odit aut fugit \nsed quia consequuntur magni \ndolores eos qui ratione voluptatem \nsequi nesciunt \nNeque porro quisquam est \nqui dolorem ipsum quia dolor sit amet \nconsectetur adipisci velitEND IS HERE"
+        print("3")
+        stepsText.text = "here are the steps: \(combinedSteps)"
+        print("here are the steps: \(combinedSteps)")
         stepsText.font = titleLabel.font.withSize(14)
         stepsText.textAlignment = .left
         
@@ -218,5 +208,9 @@ class TraditionalRecipeView: UIView {
         addButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -30).isActive = true
         addButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         addButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        print("4")
+        
     }
+    
 }

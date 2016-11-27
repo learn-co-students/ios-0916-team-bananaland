@@ -23,13 +23,10 @@ class TraditionalRecipeViewController: UIViewController {
         self.traditionalRecipeView.recipe = self.recipe
 
         self.traditionalRecipeView.setUpElements()
-        
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
         self.title = "Traditional Recipe Page"
-
-        
     }
     
     override func didReceiveMemoryWarning() {
