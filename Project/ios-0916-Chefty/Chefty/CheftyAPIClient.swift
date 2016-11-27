@@ -51,7 +51,7 @@ class CheftyAPIClient {
                 
                 if let unwrappedData = data {
                     do {
-                        let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [String: [[String : Any]]]
+                        let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [String: [String : Any]]
                         
                         for stepDict in responseJSON {
                             let newStep = RecipeStep(stepDict: stepDict)
