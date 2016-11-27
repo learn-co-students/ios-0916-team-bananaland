@@ -43,19 +43,6 @@ class Recipe {
         let sortValueString = recipeDict["sortValue"] as String!
         self.sortValue = Int(sortValueString!)!
     }
-    
-    func getServingTime(hours: Int, minutes: Int) -> Date {
-        let calendarInst = Calendar(identifier: .gregorian)
-        var componentsServingTime = DateComponents()
-        componentsServingTime.year = calendarInst.component(.year, from: Date())
-        componentsServingTime.month = calendarInst.component(.month, from: Date())
-        componentsServingTime.day = calendarInst.component(.day, from: Date())
-        componentsServingTime.hour = hours
-        componentsServingTime.minute = minutes
-        componentsServingTime.second = 00
-        let servingTime = calendarInst.date(from: componentsServingTime)!
-        return servingTime
-    }
 
     class func getBackgroundImage(recipeSelected: RecipeSelected, imageView: UIImageView, view: UIView) {
     // The tableview cells crop images nicely when they are background images. This function gets a background image, stores it in the object and then sets it on the imageView that was passed in.

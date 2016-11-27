@@ -53,6 +53,7 @@ class DataStore {
     func saveRecipeSelectedContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
+            print("context.hasChanges")
             do {
                 try context.save()
             } catch {

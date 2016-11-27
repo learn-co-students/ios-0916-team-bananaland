@@ -91,6 +91,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     }
     
     func doneClickTimePicker0() {
+        // save new serving time to core data
+        store.recipesSelected[0].servingTime = self.timePicker0.date as NSDate?
+        self.store.saveRecipeSelectedContext()
+        // update field
         let dateFormatterInst = DateFormatter()
         dateFormatterInst.dateStyle = .none
         dateFormatterInst.timeStyle = .short
@@ -100,6 +104,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     }
     
     func doneClickTimePicker1() {
+        // save new serving time to core data
+        store.recipesSelected[1].servingTime = self.timePicker1.date as NSDate?
+        self.store.saveRecipeSelectedContext()
+        // update field
         let dateFormatterInst = DateFormatter()
         dateFormatterInst.dateStyle = .none
         dateFormatterInst.timeStyle = .short
@@ -109,6 +117,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     }
     
     func doneClickTimePicker2() {
+        // save new serving time to core data
+        store.recipesSelected[2].servingTime = self.timePicker2.date as NSDate?
+        self.store.saveRecipeSelectedContext()
+        // update field
         let dateFormatterInst = DateFormatter()
         dateFormatterInst.dateStyle = .none
         dateFormatterInst.timeStyle = .short
@@ -118,6 +130,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     }
     
     func doneClickTimePicker3() {
+        // save new serving time to core data
+        store.recipesSelected[3].servingTime = self.timePicker3.date as NSDate?
+        self.store.saveRecipeSelectedContext()
+        // update field
         let dateFormatterInst = DateFormatter()
         dateFormatterInst.dateStyle = .none
         dateFormatterInst.timeStyle = .short
@@ -256,7 +272,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     }
     
     func openStep1() {
-        print("openStep1 needs a segue")
+        print("openStep1, needs a segue")
     }
     
     // given a RecipeSelected, return the the related recipe - we need the related recipe to fetch the images with the function in the Recipe class
