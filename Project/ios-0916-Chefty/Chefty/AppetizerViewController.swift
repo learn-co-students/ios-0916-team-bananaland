@@ -74,5 +74,13 @@ extension AppetizerViewController : UICollectionViewDelegate, UICollectionViewDa
         
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let testView = TestTraditionalRecipeViewController()
+        testView.recipe = store.appetizer[indexPath.row]
+        present(testView, animated: true, completion: nil)
+        
+    }
+    
     
 }

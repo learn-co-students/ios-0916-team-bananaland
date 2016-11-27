@@ -1,45 +1,49 @@
 //
-//  TraditionalRecipeView.swift
+//  TestTraditionalRecipeView.swift
 //  Chefty
 //
-//  Created by Jacqueline Minneman on 11/17/16.
+//  Created by Arvin San Miguel on 11/23/16.
 //  Copyright © 2016 com.AppRising.SML. All rights reserved.
 //
 
+import Foundation
 
 import UIKit
 
-class TraditionalRecipeView: UIView {
+class TestTraditionalRecipeView: UIView {
     
     var store = DataStore.sharedInstance
-    //var recipe: Recipe
+    var recipe: Recipe!
     
-    init(frame:CGRect, recipe: Recipe){
-        super.init(frame: frame)
-        
+//    override init(frame:CGRect){
+//        super.init(frame: frame)
+//        
+//        self.backgroundColor = UIColor.white
+//        
+//        setUpElements()
+//        
+//        if recipe == nil {
+//            recipe = store.recipes[0]
+//        }
+//    }
+    
+    init(recipe: Recipe) {
+        super.init(frame: UIScreen.main.bounds)
         self.backgroundColor = UIColor.white
-        
-        print(recipe.displayName)
-        
-        setUpElements(recipe: recipe)
-        
-        //        if recipe == nil {
-        //            recipe = store.recipes[0]
-        //            print("*********nil*********")
-        //        } else {
-        //            print("*********\(recipe!.displayName)***********")
-        //        }
+        self.recipe = recipe
+        setUpElements()
     }
+    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
     
-    func setUpElements(recipe: Recipe) {
-        //         print("*********\(self.recipe.displayName)***********")
-        //        var recipe = store.recipes[0]
     
+    func setUpElements() {
+        
+        
         //SCROLLVIEW
         let myScrollView = UIScrollView()
         self.addSubview(myScrollView)
@@ -51,10 +55,10 @@ class TraditionalRecipeView: UIView {
         myScrollView.translatesAutoresizingMaskIntoConstraints = false
         
         // create image
-        let myImageName = "applePie"
-        let myImage = UIImage(named: myImageName)
-        let myImageView = UIImageView(image: myImage!)
-       
+        let myImageView = UIImageView()
+        let url = URL(string: (recipe.imageURL))
+        myImageView.contentMode = .scaleAspectFit
+        myImageView.sd_setImage(with: url!)
         myScrollView.addSubview(myImageView)
         
         // constrain the image
@@ -66,8 +70,8 @@ class TraditionalRecipeView: UIView {
         //RECIPE TITLE
         //create title label
         let titleLabel = UILabel()
-        titleLabel.text = "Recipe Title"
-        titleLabel.font = titleLabel.font.withSize(30)
+        titleLabel.text = recipe.displayName
+        titleLabel.font = UIFont(name: "GillSans-SemiBold", size: 30)
         titleLabel.textAlignment = .center
         
         myScrollView.addSubview(titleLabel)
@@ -79,22 +83,21 @@ class TraditionalRecipeView: UIView {
         titleLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
 
-        
-        //SERVING SIZE AND ESTIMATED TIME INFO
-        //create labels
+//        //SERVING SIZE AND ESTIMATED TIME INFO
+//        //create labels
         let servingSizeLabel = UILabel()
-        servingSizeLabel.text = "Serving Size: 4-6"
-        servingSizeLabel.font = titleLabel.font.withSize(20)
+        servingSizeLabel.text = recipe.servings
+        servingSizeLabel.font = UIFont(name: "GillSans-SemiBold", size: 20)
         servingSizeLabel.textAlignment = .left
         
         let durationLabel = UILabel()
-        durationLabel.text = "Estimated Total Time: 26 minutes"
-        durationLabel.font = titleLabel.font.withSize(20)
+        durationLabel.text = "TO BE UPDATED"
+        durationLabel.font = UIFont(name: "GillSans-SemiBold", size: 20)
         durationLabel.textAlignment = .left
         
         myScrollView.addSubview(servingSizeLabel)
         myScrollView.addSubview(durationLabel)
-        
+
         // constrain labels
         servingSizeLabel.leftAnchor.constraint(equalTo: myScrollView.leftAnchor, constant: 10).isActive = true
         servingSizeLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor).isActive = true
@@ -107,13 +110,12 @@ class TraditionalRecipeView: UIView {
         durationLabel.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true
         durationLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
         durationLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        
+
         //INGREDIENTS LABEL
         //create label
         let ingredientsLabel = UILabel()
         ingredientsLabel.text = "Ingredients"
-        ingredientsLabel.font = titleLabel.font.withSize(16)
+        ingredientsLabel.font = UIFont(name: "GillSans-SemiBold", size: 16)
         ingredientsLabel.textAlignment = .left
         
         myScrollView.addSubview(ingredientsLabel)
@@ -130,7 +132,8 @@ class TraditionalRecipeView: UIView {
         //create textbox
         let ingredientsText = UITextView()
         ingredientsText.text = "Lorem ipsum dolor sit amet \nconsectetur adipiscing elit \nsed do eiusmod tempor \nincididunt ut labore \net dolore magna aliqua***Lorem ipsum dolor sit amet \nconsectetur adipiscing elit"
-        ingredientsText.font = titleLabel.font.withSize(14)
+        ingredientsText.font = UIFont(name: "GillSans-SemiBold", size: 14)
+        //ingredientsText.font = titleLabel.font.withSize(14)
         ingredientsText.textAlignment = .left
         
         myScrollView.addSubview(ingredientsText)
@@ -170,11 +173,12 @@ class TraditionalRecipeView: UIView {
         //create textbox
         let stepsText = UITextView()
         stepsText.text = "Lorem ipsum dolor sit amet \nconsectetur adipiscing elit \nsed do eiusmod tempor \nincididunt ut labore \net dolore magna aliqua\nSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque \nlaudantium totam rem aperiam eaque ipsa quae ab \nillo inventore veritatis et quasi \narchitecto beatae vitae dicta sunt explicabo\n Nemo enim ipsam voluptatem \nquia voluptas sit aspernatur aut odit aut fugit \nsed quia consequuntur magni \ndolores eos qui ratione voluptatem \nsequi nesciunt \nNeque porro quisquam est \nqui dolorem ipsum quia dolor sit amet \nconsectetur adipisci velitEND IS HERE"
-        stepsText.font = titleLabel.font.withSize(14)
+        stepsText.font = UIFont(name: "GillSans-SemiBold", size: 20)
+        //stepsText.font = titleLabel.font.withSize(14)
         stepsText.textAlignment = .left
         
         myScrollView.addSubview(stepsText)
-
+        
         //constrain textbox
         stepsText.leftAnchor.constraint(equalTo: myScrollView.leftAnchor, constant: 10).isActive = true
         stepsText.topAnchor.constraint(equalTo: stepsLabel.bottomAnchor).isActive = true

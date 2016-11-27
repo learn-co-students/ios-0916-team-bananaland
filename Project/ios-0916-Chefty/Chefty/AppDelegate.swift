@@ -20,34 +20,48 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-            // load data from core data
-            self.store.fetchRecipeSelected()
-            store.getRecipes {
-                // generate the test recipesSelected if needed
-                if self.store.recipesSelected.count == 0 {
-                    // set some recipes as selected, this will happen in the previous screen soon
-                    for recipe in self.store.recipes {
-                        recipe.id == "yummy-baked-potato-skins" ? self.store.addRecipeSelected(recipe: recipe) : ()
-                        recipe.id == "chicken-breasts" ? self.store.addRecipeSelected(recipe: recipe) : ()
-                        recipe.id == "black-bean-couscous-salad" ? self.store.addRecipeSelected(recipe: recipe) : ()
-                        recipe.id == "apple-pie" ? self.store.addRecipeSelected(recipe: recipe) : ()
-                    }
+        // load data from core data
+        self.store.fetchRecipeSelected()
+        store.getRecipes {
+            // generate the test recipesSelected if needed
+            if self.store.recipesSelected.count == 0 {
+                // set some recipes as selected, this will happen in the previous screen soon
+                for recipe in self.store.recipes {
+                    recipe.id == "yummy-baked-potato-skins" ? self.store.addRecipeSelected(recipe: recipe) : ()
+                    recipe.id == "chicken-breasts" ? self.store.addRecipeSelected(recipe: recipe) : ()
+                    recipe.id == "black-bean-couscous-salad" ? self.store.addRecipeSelected(recipe: recipe) : ()
+                    recipe.id == "apple-pie" ? self.store.addRecipeSelected(recipe: recipe) : ()
                 }
             }
+        }
         
-            if self.store.recipesSelected.count == 0 {
-                self.initialViewController = HomePageViewController()
-            } else {
-                self.initialViewController = MyMenuViewController()
-            }
-        
-            self.window = UIWindow(frame: UIScreen.main.bounds)
-            let navigationController = UINavigationController(rootViewController: self.initialViewController)
-            self.window!.rootViewController = navigationController
-            self.window!.backgroundColor = UIColor.white
-            self.window!.makeKeyAndVisible()
+        if self.store.recipesSelected.count == 0 {
+            self.initialViewController = HomePageViewController()
+        } else {
+            self.initialViewController = MyMenuViewController()
+        }
+    
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let navigationController = UINavigationController(rootViewController: self.initialViewController)
+        self.window!.rootViewController = navigationController
+        self.window!.backgroundColor = UIColor.white
+        self.window!.makeKeyAndVisible()
 
-            return true
+        store.getRecipes(completion: { _ in
+            
+        })
+        
+        store.getRecipes(completion: { _ in
+           
+            print("TOTAL: \(self.store.recipes.count)")
+            print("MAINS: \(self.store.main.count)")
+            print("DESSERT: \(self.store.desserts.count)")
+            print("SIDES: \(self.store.sides.count)")
+            print("APPETIZER: \(self.store.appetizer.count)")
+            
+        })
+        
+        return true
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

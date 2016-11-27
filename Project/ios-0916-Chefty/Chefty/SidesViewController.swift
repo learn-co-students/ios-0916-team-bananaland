@@ -41,6 +41,8 @@ extension SidesViewController : UICollectionViewDelegate, UICollectionViewDataSo
         
     }
     
+    
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recipeCell", for: indexPath) as! RecipeCollectionViewCell
         let url = URL(string: store.sides[indexPath.row].imageURL)
@@ -63,6 +65,7 @@ extension SidesViewController : UICollectionViewDelegate, UICollectionViewDataSo
             })
         }
         
+        
         cell.alpha = 0.0
         cell.center.y = cell.center.y + 20
         
@@ -73,5 +76,12 @@ extension SidesViewController : UICollectionViewDelegate, UICollectionViewDataSo
         
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let testView = TestTraditionalRecipeViewController()
+        testView.recipe = store.sides[indexPath.row]
+        present(testView, animated: true, completion: nil)
+        
+    }
     
 }

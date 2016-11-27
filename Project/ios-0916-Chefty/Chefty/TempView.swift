@@ -77,7 +77,7 @@ class TempView: UIView {
         ingredientsButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 100).isActive = true
         
         homepageButton.translatesAutoresizingMaskIntoConstraints = false
-        homepageButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 350).isActive = true
+        homepageButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 400).isActive = true
         homepageButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 100).isActive = true
         
         welcomeButton.translatesAutoresizingMaskIntoConstraints = false

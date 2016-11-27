@@ -8,10 +8,18 @@
 
 import UIKit
 
+
+protocol MainDishViewControllerDelegate {
+    func recipeSent(_ recipe: Recipe)
+}
+
+
 class MainDishViewController: UIViewController {
 
     var store = DataStore.sharedInstance
     var collectionView : UICollectionView!
+    var delegate : MainDishViewControllerDelegate?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +44,7 @@ class MainDishViewController: UIViewController {
 
 extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDataSource  {
     
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         return store.main.count
@@ -46,9 +55,6 @@ extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recipeCell", for: indexPath) as! RecipeCollectionViewCell
         let url = URL(string: store.main[indexPath.row].imageURL)
         cell.recipeLabel.text = store.main[indexPath.row].displayName
-        cell.layer.cornerRadius = 10.0
-        cell.layer.borderColor = UIColor.black.cgColor
-        cell.layer.borderWidth = 2.0
         cell.imageView.sd_setImage(with: url!)
         return cell
     }
@@ -78,15 +84,22 @@ extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! RecipeCollectionViewCell
-        cell.layer.cornerRadius = 10.0
-        cell.layer.borderWidth = 2.0
-        cell.layer.borderColor = UIColor.red.cgColor
+        
+//        let testView = TestTraditionalRecipeViewController()
+//        testView.recipe = store.main[indexPath.row]
+//        present(testView, animated: true, completion: nil)
+        
+        //store.recipesSelected.append(store.main[indexPath.row]) // Paul commented out this line, it caused a fatal error for some reason. The other method also updates Core Data.
+        store.addRecipeSelected(recipe: store.main[indexPath.row])  // Paul used this method to append recipe to selected array
+        print("selected: \(store.main[indexPath.row].displayName)")
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! RecipeCollectionViewCell
-        cell.layer.borderColor = UIColor.clear.cgColor
+        
+        print("Deselected: \(store.main[indexPath.row].displayName)")
+        
+        
     }
     
     

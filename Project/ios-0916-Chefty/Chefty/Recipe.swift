@@ -54,14 +54,15 @@ class Recipe {
                 let imageUrl:URL = URL(string: imageURL)!
                 // Start background thread so that image loading does not make app unresponsive
                 DispatchQueue.global(qos: .userInitiated).async {
-                    let imageData = NSData(contentsOf: imageUrl)!
-                    // When from background thread, UI needs to be updated on main_queue
-                    DispatchQueue.main.async {
-                        recipeSelected.imageData = imageData
-                        //print(recipe.imageData)
-                        imageView.backgroundColor = UIColor(patternImage: UIImage(data: recipeSelected.imageData as! Data)!)
-                        view.addSubview(imageView)
-                        view.sendSubview(toBack: imageView)
+                    if let imageData = NSData(contentsOf: imageUrl) {
+                        // When from background thread, UI needs to be updated on main_queue
+                        DispatchQueue.main.async {
+                            recipeSelected.imageData = imageData
+                            //print(recipe.imageData)
+                            imageView.backgroundColor = UIColor(patternImage: UIImage(data: recipeSelected.imageData as! Data)!)
+                            view.addSubview(imageView)
+                            view.sendSubview(toBack: imageView)
+                        }
                     }
                 }
            // } else {

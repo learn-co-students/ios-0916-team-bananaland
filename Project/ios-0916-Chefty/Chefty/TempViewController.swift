@@ -31,7 +31,7 @@ class TempViewController: UIViewController, TempViewDelegate {
     
     override func loadView(){
         self.tempView1 = TempView(frame: CGRect.zero)
-        self.view = self.tempView1
+        self.view = self.tempView1	
     }
     
     func onPressMyMenuButton(button: UIButton) {
@@ -51,8 +51,8 @@ class TempViewController: UIViewController, TempViewDelegate {
     }
     
     func onPressHomePageButton(button: UIButton) {
-        let homePageView = HomePageViewController()
-        navigationController?.pushViewController(homePageView, animated: true)
+        let recipeTabView = RecipeTabViewController()
+        navigationController?.pushViewController(recipeTabView, animated: true)
     }
     
     

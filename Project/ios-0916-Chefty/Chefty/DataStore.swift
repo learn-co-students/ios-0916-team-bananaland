@@ -53,7 +53,6 @@ class DataStore {
     func saveRecipeSelectedContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
-            print("context.hasChanges")
             do {
                 try context.save()
             } catch {
@@ -80,15 +79,14 @@ class DataStore {
         let context = persistentContainer.viewContext
         
         // define recipesSelected
-        let recipeSelected1: RecipeSelected = NSEntityDescription.insertNewObject(forEntityName: "RecipeSelected", into: context) as! RecipeSelected
-        recipeSelected1.displayName = recipe.displayName
-        recipeSelected1.id = recipe.id
-        recipeSelected1.imageURL = recipe.imageURL
-        recipeSelected1.servings = recipe.servings
-        recipeSelected1.type = recipe.type
-        recipeSelected1.servingTime = recipe.servingTime as NSDate?
-        //recipeSelected1.imageData = recipe.imageData as NSObject?
-        //recipeSelected1.image = recipe.image
+        let recipeSelectedInst: RecipeSelected = NSEntityDescription.insertNewObject(forEntityName: "RecipeSelected", into: context) as! RecipeSelected
+        recipeSelectedInst.displayName = recipe.displayName
+        recipeSelectedInst.id = recipe.id
+        recipeSelectedInst.imageURL = recipe.imageURL
+        recipeSelectedInst.servings = recipe.servings
+        recipeSelectedInst.type = recipe.type
+        recipeSelectedInst.servingTime = recipe.servingTime as NSDate?
+        recipeSelectedInst.sortValue = Int16(recipe.sortValue)
         
         self.saveRecipeSelectedContext()
         self.fetchRecipeSelected()
