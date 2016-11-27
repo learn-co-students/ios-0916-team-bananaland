@@ -55,9 +55,6 @@ extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recipeCell", for: indexPath) as! RecipeCollectionViewCell
         let url = URL(string: store.main[indexPath.row].imageURL)
         cell.recipeLabel.text = store.main[indexPath.row].displayName
-        cell.layer.cornerRadius = 10.0
-        cell.layer.borderColor = UIColor.black.cgColor
-        cell.layer.borderWidth = 2.0
         cell.imageView.sd_setImage(with: url!)
         return cell
     }
@@ -88,10 +85,21 @@ extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let testView = TestTraditionalRecipeViewController()
-        testView.recipe = store.main[indexPath.row]
-        present(testView, animated: true, completion: nil)
+//        let testView = TestTraditionalRecipeViewController()
+//        testView.recipe = store.main[indexPath.row]
+//        present(testView, animated: true, completion: nil)
+        
+        store.recipesSelected.append(store.main[indexPath.row])
+        print("selected: \(store.main[indexPath.row].displayName)")
         
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        
+        print("Deselected: \(store.main[indexPath.row].displayName)")
+        
+        
+    }
+    
     
 }

@@ -14,7 +14,7 @@ class TestTraditionalRecipeView: UIView {
     
     var store = DataStore.sharedInstance
     var recipe: Recipe!
-//    
+    
 //    override init(frame:CGRect){
 //        super.init(frame: frame)
 //        
