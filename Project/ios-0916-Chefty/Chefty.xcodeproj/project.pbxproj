@@ -69,6 +69,8 @@
 		C0D2E50E1DEC6C7700070E78 /* Icon-App-83.5x83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4F71DEC6C7700070E78 /* Icon-App-83.5x83.5@2x.png */; };
 		C0D2E50F1DEC6C7700070E78 /* Icon-Small-50x50@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4F81DEC6C7700070E78 /* Icon-Small-50x50@1x.png */; };
 		C0D2E5101DEC6C7700070E78 /* Icon-Small-50x50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4F91DEC6C7700070E78 /* Icon-Small-50x50@2x.png */; };
+		C0D2E5121DEC779500070E78 /* SingleStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2E5111DEC779500070E78 /* SingleStepViewController.swift */; };
+		C0D2E5141DEC77D200070E78 /* SingleStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2E5131DEC77D200070E78 /* SingleStepView.swift */; };
 		C0DBD0611DDD25E800B9B9FF /* MaterialIcons-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C0252C661DDD23AD00046AD0 /* MaterialIcons-Regular.otf */; };
 /* End PBXBuildFile section */
 
@@ -140,6 +142,8 @@
 		C0D2E4F71DEC6C7700070E78 /* Icon-App-83.5x83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-83.5x83.5@2x.png"; sourceTree = "<group>"; };
 		C0D2E4F81DEC6C7700070E78 /* Icon-Small-50x50@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50x50@1x.png"; sourceTree = "<group>"; };
 		C0D2E4F91DEC6C7700070E78 /* Icon-Small-50x50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50x50@2x.png"; sourceTree = "<group>"; };
+		C0D2E5111DEC779500070E78 /* SingleStepViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleStepViewController.swift; sourceTree = "<group>"; };
+		C0D2E5131DEC77D200070E78 /* SingleStepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleStepView.swift; sourceTree = "<group>"; };
 		F99EB0E7E4778030CC432A72 /* Pods_Chefty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chefty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -248,6 +252,7 @@
 				C0AAB53C1DDDE98F0055DF8B /* TempView.swift */,
 				714EBD5B1DDE340800C0857A /* TraditionalRecipeView.swift */,
 				A7DCBF721DE5FAD100AA7629 /* TestTraditionalRecipeView.swift */,
+				C0D2E5131DEC77D200070E78 /* SingleStepView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -258,6 +263,7 @@
 				A7DCBF741DE5FD1700AA7629 /* TestTraditionalRecipeViewController.swift */,
 				71E655C31DDCE61700B60E0B /* TraditionalRecipeViewController.swift */,
 				C0252C621DDD16EA00046AD0 /* MyMenuViewController.swift */,
+				C0D2E5111DEC779500070E78 /* SingleStepViewController.swift */,
 				C0AAB53E1DDDEA880055DF8B /* TempViewController.swift */,
 				A7C1E2311DDE5BC200BD8A13 /* HomePageViewController.swift */,
 				A7C0B4561DE4ECE10091E80C /* RecipeTabViewController.swift */,
@@ -499,7 +505,9 @@
 				A7DCBF731DE5FAD100AA7629 /* TestTraditionalRecipeView.swift in Sources */,
 				A7C9D3F31DDF849900EA5637 /* GradientView.swift in Sources */,
 				71E655C41DDCE61700B60E0B /* TraditionalRecipeViewController.swift in Sources */,
+				C0D2E5141DEC77D200070E78 /* SingleStepView.swift in Sources */,
 				A72DBEAD1DE4DB0400867C86 /* AppetizerViewController.swift in Sources */,
+				C0D2E5121DEC779500070E78 /* SingleStepViewController.swift in Sources */,
 				714EBD5C1DDE340800C0857A /* TraditionalRecipeView.swift in Sources */,
 				C0AAB53F1DDDEA880055DF8B /* TempViewController.swift in Sources */,
 				C0AAB53D1DDDE98F0055DF8B /* TempView.swift in Sources */,

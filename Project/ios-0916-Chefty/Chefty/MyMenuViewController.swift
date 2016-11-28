@@ -92,5 +92,10 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         traditionalRecipeViewController1.recipe = self.myMenuView1.recipeForTraditionalRecipeView
         navigationController?.pushViewController(traditionalRecipeViewController1, animated: true) // show destination with nav bar
     }
+    
+    func goToSingleStep(){
+        let singleStepViewControllerInst = SingleStepViewController()
+        navigationController?.pushViewController(singleStepViewControllerInst, animated: false) // show destination with nav bar
+    }
 
 }

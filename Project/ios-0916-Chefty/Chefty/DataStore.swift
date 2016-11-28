@@ -32,8 +32,10 @@ class DataStore {
     var sides : [Recipe] = []
     var desserts: [Recipe] = []
     
+    var stepCurrent: Int = 1
+    var stepTotal: Int = 12
+    
     func getRecipes(completion: @escaping () -> ()) {
-        
         CheftyAPIClient.getRecipies {_ in
             completion() // call back to onViewDidLoad
         }

@@ -12,6 +12,7 @@ import CoreData
 protocol MyMenuViewDelegate: class {
     func goToRecipe()
     func goToIngredients()
+    func goToSingleStep()
 }
 
 
@@ -84,7 +85,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         // toolbar buttons
         let ingredientsButton: UIBarButtonItem = UIBarButtonItem(title: "Ingredients", style: .plain , target: self, action: #selector(clickIngredients))
         let clearAllButton: UIBarButtonItem = UIBarButtonItem(title: "Clear All", style: .plain , target: self, action: #selector(clearAllRecipes))
-        let openStep1Button: UIBarButtonItem = UIBarButtonItem(title: "Open Step 1", style: .plain , target: self, action: #selector(openStep1))
+        let openStep1Button: UIBarButtonItem = UIBarButtonItem(title: "Open Step \(store.stepCurrent)", style: .plain , target: self, action: #selector(clickOpenStep))
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let toolbarButtons = [ingredientsButton, spacer, clearAllButton, spacer, openStep1Button]
         self.toolbar.setItems(toolbarButtons, animated: false)
@@ -271,8 +272,8 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.tableView.reloadData()
     }
     
-    func openStep1() {
-        print("openStep1, needs a segue")
+    func clickOpenStep() {
+        self.delegate?.goToSingleStep()
     }
     
     // given a RecipeSelected, return the the related recipe - we need the related recipe to fetch the images with the function in the Recipe class
@@ -286,5 +287,4 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         }
         return results
     }
-
 }
