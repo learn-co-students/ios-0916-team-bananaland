@@ -20,31 +20,51 @@ class IngredientsController: UIViewController, UITableViewDelegate, UITableViewD
         print("calling API")
         
         CheftyAPIClient.getIngredients { ingredients in
-//            guard let copy = success else { return }
-            //print("\n\n\(copy.description)\n\n")
-            //self.ingredients = copy.
             
             OperationQueue.main.addOperation {
                 print("reload data")
-                //self.ingredientsList = ingredients
                 self.ingredientsTableView.reloadData()
             }
             
-            var setOfSectionLabels = Set<String>()
-            
+            var setOfSectionIDs = Set<String>()
             for ingredient in self.store.ingredientsArray {
-                print("getting IDs")
-                print(self.store.recipes.count)
+
                 for recipe in self.store.recipes {
-                    print(recipe.displayName)
                     if recipe.id == ingredient.recipeID {
-                        setOfSectionLabels.insert(recipe.displayName)
-                        print("displayName")
+                        setOfSectionIDs.insert(recipe.id)
                     }
                 }
             }
-        
-            print(setOfSectionLabels)
+            
+            let arrayOfSectionIDs = Array(setOfSectionIDs)
+            var arrayOfIngredients = [[String]](repeating: [], count: arrayOfSectionIDs.count)
+            
+            for (n,sectionID) in arrayOfSectionIDs.enumerated() {
+                for ingredient in self.store.ingredientsArray {
+                    if ingredient.recipeID == sectionID {
+                        arrayOfIngredients[n].append(ingredient.description)
+                    }
+                }
+            }
+            
+            var arrayOfSectionLabels = [String]()
+            print(arrayOfSectionIDs.count)
+            
+            var lastID = String()
+            for sectionID in arrayOfSectionIDs {
+                for recipe in self.store.recipes {
+                    
+                    if recipe.id == sectionID && recipe.id != lastID {
+                        
+                        arrayOfSectionLabels.append(recipe.displayName)
+                        lastID = recipe.id
+                    }
+                }
+            }
+            
+            dump(arrayOfSectionLabels)
+            dump(arrayOfIngredients)
+            
         }
         
         ingredientsTableView.delegate = self
@@ -70,6 +90,7 @@ class IngredientsController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    
         return store.ingredientsArray[section].recipeID
     }
     

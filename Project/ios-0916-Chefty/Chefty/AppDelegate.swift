@@ -16,17 +16,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     let store = DataStore.sharedInstance
     var queue = OperationQueue()
+    var initialViewController = UIViewController()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        window = UIWindow(frame: UIScreen.main.bounds)
-        let initialViewController = WelcomeViewController()
-        let navigationController = UINavigationController(rootViewController: initialViewController)
-        window!.rootViewController = navigationController
-        window!.backgroundColor = UIColor.white
-        window!.makeKeyAndVisible()
-       
+        // load data from core data
+        self.store.fetchRecipeSelected()
+        store.getRecipes {
+            // generate the test recipesSelected if needed
+            if self.store.recipesSelected.count == 0 {
+                // set some recipes as selected, this will happen in the previous screen soon
+                for recipe in self.store.recipes {
+                    recipe.id == "yummy-baked-potato-skins" ? self.store.addRecipeSelected(recipe: recipe) : ()
+                    recipe.id == "chicken-breasts" ? self.store.addRecipeSelected(recipe: recipe) : ()
+                    recipe.id == "black-bean-couscous-salad" ? self.store.addRecipeSelected(recipe: recipe) : ()
+                    recipe.id == "apple-pie" ? self.store.addRecipeSelected(recipe: recipe) : ()
+                }
+            }
+        }
         
+        if self.store.recipesSelected.count == 0 {
+            self.initialViewController = HomePageViewController()
+        } else {
+            self.initialViewController = MyMenuViewController()
+        }
+    
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let navigationController = UINavigationController(rootViewController: self.initialViewController)
+        self.window!.rootViewController = navigationController
+        self.window!.backgroundColor = UIColor.white
+        self.window!.makeKeyAndVisible()
+
         store.getRecipes(completion: { _ in
             
         })
@@ -42,7 +62,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         
         return true
-        
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

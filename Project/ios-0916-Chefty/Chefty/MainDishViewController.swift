@@ -88,8 +88,8 @@ extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDat
 //        let testView = TestTraditionalRecipeViewController()
 //        testView.recipe = store.main[indexPath.row]
 //        present(testView, animated: true, completion: nil)
-        
-        store.recipesSelected.append(store.main[indexPath.row])
+
+        store.addRecipeSelected(recipe: store.main[indexPath.row])
         print("selected: \(store.main[indexPath.row].displayName)")
         
     }

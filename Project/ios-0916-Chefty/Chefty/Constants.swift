@@ -19,7 +19,6 @@ struct Constants{
         case xlarge =       36
     }
 
-  
     enum iconLibrary: String {
         case chevron_left =     "\u{E5CB}"
         case chevron_right =    "\u{E5CC}"

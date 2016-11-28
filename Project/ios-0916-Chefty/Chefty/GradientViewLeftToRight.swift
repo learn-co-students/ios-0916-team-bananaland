@@ -1,7 +1,7 @@
 //
 //  GradientViewLeftToRight.swift
 //  Chefty
-//
+//  
 //  Created by Paul Tangen on 11/23/16.
 //  Copyright © 2016 com.AppRising.SML. All rights reserved.
 //
