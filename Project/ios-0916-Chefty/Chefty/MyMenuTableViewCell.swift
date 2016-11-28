@@ -20,7 +20,7 @@ class MyMenuTableViewCell: UITableViewCell {
     var gradientViewLeftToRight: GradientViewLeftToRight!
     var servingTimeField:UITextField = UITextField()
     var recipeDescField:UITextField = UITextField()
-    var imageView1:UIImageView = UIImageView()
+    var imageViewInst:UIImageView = UIImageView()
     let deleteButton: UIButton = UIButton(type: .roundedRect)
 
     override func awakeFromNib() { super.awakeFromNib() }
@@ -33,13 +33,13 @@ class MyMenuTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         // background image
-        contentView.addSubview(imageView1)
-        imageView1.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        imageView1.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        imageView1.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        contentView.addSubview(imageViewInst)
+        imageViewInst.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        imageViewInst.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        imageViewInst.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         
         //layout GradientView
-        gradientView = GradientView(frame: imageView1.frame)
+        gradientView = GradientView(frame: imageViewInst.frame)
         gradientView.layer.cornerRadius = 10.0
         gradientView.layer.masksToBounds = true
         self.contentView.addSubview(gradientView)
@@ -50,7 +50,7 @@ class MyMenuTableViewCell: UITableViewCell {
         gradientView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
         gradientView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
         
-        gradientViewLeftToRight = GradientViewLeftToRight(frame: imageView1.frame)
+        gradientViewLeftToRight = GradientViewLeftToRight(frame: imageViewInst.frame)
         gradientViewLeftToRight.layer.cornerRadius = 10.0
         gradientViewLeftToRight.layer.masksToBounds = true
         self.contentView.addSubview(gradientViewLeftToRight)
@@ -61,7 +61,7 @@ class MyMenuTableViewCell: UITableViewCell {
         gradientViewLeftToRight.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
         gradientViewLeftToRight.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
         
-        imageView1.translatesAutoresizingMaskIntoConstraints = false
+        imageViewInst.translatesAutoresizingMaskIntoConstraints = false
         
         // cell label
         self.servingTimeField.textColor = UIColor.white

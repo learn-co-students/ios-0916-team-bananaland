@@ -214,7 +214,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         cell.servingTimeField.text = "@ \(cellLabelStartTime)"
         cell.deleteButton.accessibilityLabel = String(indexPath.row)
         cell.selectionStyle = .none
-        Recipe.getBackgroundImage(recipeSelected: self.store.recipesSelected[indexPath.row], imageView: cell.imageView1, view: cell)
+        Recipe.getBackgroundImage(recipeSelected: self.store.recipesSelected[indexPath.row], imageView: cell.imageViewInst, view: cell)
         cell.servingTimeField.delegate = self
         
         // give the text field in each cell a unique timepicker so the timepicker can return the results to the proper text field

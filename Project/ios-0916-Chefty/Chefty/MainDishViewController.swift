@@ -88,9 +88,8 @@ extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDat
 //        let testView = TestTraditionalRecipeViewController()
 //        testView.recipe = store.main[indexPath.row]
 //        present(testView, animated: true, completion: nil)
-        
-        //store.recipesSelected.append(store.main[indexPath.row]) // Paul commented out this line, it caused a fatal error for some reason. The other method also updates Core Data.
-        store.addRecipeSelected(recipe: store.main[indexPath.row])  // Paul used this method to append recipe to selected array
+
+        store.addRecipeSelected(recipe: store.main[indexPath.row])
         print("selected: \(store.main[indexPath.row].displayName)")
         
     }
