@@ -40,6 +40,7 @@ class CheftyAPIClient {
     
     class func getRecipeSteps(with completion: @escaping ()-> Void) {
         let store = DataStore.sharedInstance
+        //TODO: change recipeID to handle all selected recipes
         let recipeID = "apple-pie"
         //let urlString = "\(Secrets.cheftyAPIURL)/getRecipeSteps.php?key=\(Secrets.cheftyKey)=\(recipeID)"
         let urlString = "http://api.ptangen.com/getRecipeSteps.php?key=flatiron0916&recipe=apple-pie"
