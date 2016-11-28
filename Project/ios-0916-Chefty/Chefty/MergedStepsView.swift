@@ -18,10 +18,30 @@ class MergedStepsView: UIView {
         super.init(frame: frame)
         
         self.backgroundColor = UIColor.white
+        
+        setUpElements()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    func setUpElements() {
+        
+        let myTextBox = UILabel()
+        myTextBox.text = "HELLO THERE!!!!!"
+        myTextBox.textAlignment = .center
+        
+        self.addSubview(myTextBox)
+        
+        myTextBox.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        myTextBox.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        myTextBox.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        myTextBox.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        myTextBox.translatesAutoresizingMaskIntoConstraints = false
+        
+        
     }
 
     
