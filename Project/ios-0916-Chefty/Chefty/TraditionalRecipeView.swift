@@ -11,13 +11,24 @@ import UIKit
 
 class TraditionalRecipeView: UIView {
     
-    override init(frame:CGRect){
+    var store = DataStore.sharedInstance
+    //var recipe: Recipe
+    
+    init(frame:CGRect, recipe: Recipe){
         super.init(frame: frame)
         
         self.backgroundColor = UIColor.white
         
-        setUpElements()
+        print(recipe.displayName)
         
+        setUpElements(recipe: recipe)
+        
+        //        if recipe == nil {
+        //            recipe = store.recipes[0]
+        //            print("*********nil*********")
+        //        } else {
+        //            print("*********\(recipe!.displayName)***********")
+        //        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -25,11 +36,10 @@ class TraditionalRecipeView: UIView {
     }
     
     
+    func setUpElements(recipe: Recipe) {
+        //         print("*********\(self.recipe.displayName)***********")
+        //        var recipe = store.recipes[0]
     
-    
-    
-    func setUpElements() {
-        
         //SCROLLVIEW
         let myScrollView = UIScrollView()
         self.addSubview(myScrollView)

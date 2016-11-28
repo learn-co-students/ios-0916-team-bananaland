@@ -38,7 +38,7 @@ class CustomLayoutView: UICollectionViewLayout {
             let smallCell = (self.collectionView?.frame.height)! * 0.33
             let mediumCell = (self.collectionView?.frame.height)! * 0.44
             let largeCell = (self.collectionView?.frame.height)! * 0.55
-
+            
             var photoHeight : [CGFloat] = [smallCell, mediumCell, largeCell]
             var arr = 0
             
@@ -59,6 +59,7 @@ class CustomLayoutView: UICollectionViewLayout {
                 
                 column = column >= (numberOfColumns - 1) ? 0 : 1
                 if arr == 2 { arr = 0 } else { arr += 1 }
+                
             }
             
         }
