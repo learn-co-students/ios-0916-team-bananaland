@@ -12,16 +12,13 @@ import CoreData
 class DataStore {
     static let sharedInstance = DataStore()
     fileprivate init() {}
-    
-//    var newingredients: [Ingredient] = []
 
     var recipes:[Recipe] = []  // the datastore contains an array of dictionaries
     var selectedRecipes:[SelectedRecipe] = []
-    //var recipeingredients:[Ingredients] = []
+    var ingredientsArray: [Ingredient] = []
+
     
     func getRecipes(completion: @escaping () -> ()) {
-       
-        
        
     }
     

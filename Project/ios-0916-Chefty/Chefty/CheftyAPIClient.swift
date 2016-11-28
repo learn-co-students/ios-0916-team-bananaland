@@ -37,30 +37,34 @@ class CheftyAPIClient {
         }
     }
     
-    class func getIngredients(completion: @escaping (Bool, Ingredients?) -> Void) {
-        print("getting ingredients")
+    class func getIngredients(completion: @escaping () -> Void){
     
-        let urlString = "http://api.ptangen.com/getIngredients.php?key=flatiron0916&recipe1=chicken-breasts&recipe2=sweet-potato-fries&recipe3=peach-cobbler&recipe4=beef-broccoli-stir-fry"
-        guard let url = URL(string: urlString) else { completion(false, nil); return }
+        print("getting ingredients")
+        let store = DataStore.sharedInstance
+        let urlString = "\(Secrets.cheftyAPIURL)/getIngredients.php?key=\(Secrets.cheftyKey)&recipe1=chicken-breasts&recipe2=sweet-potato-fries&recipe3=peach-cobbler&recipe4=beef-broccoli-stir-fry"
+        
+        guard let url = URL(string: urlString) else { return }
         
         let session = URLSession.shared
-        
-        session.dataTask(with: url) { (data, response, error) in
-            
-            DispatchQueue.main.async {
-                
-                guard let unwrappedData = data
-                    else { completion(false, nil);  return }
-                
-                guard let responseJSON = try? JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [String : [[String : String]]]
+    
+        let task = session.dataTask(with: url) { (data, response, error) in
+            if let unwrappedData = data {
+                do {
+                    let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: String]]
                     
-                    else { completion(false, nil); return }
-                
-                completion(true, Ingredients(json: responseJSON))
-                
+                    for ingredientDict in responseJSON {
+                        let ingredientInst = Ingredient(ingredientDict: ingredientDict)
+                        store.ingredientsArray.append(ingredientInst) // add to ingredientsArray in datastore
+                    }
+                    completion()
+                } catch {
+                    print("An error occured when creating responseJSON")
+                }
             }
-            
-            }.resume()
+        }
+        task.resume()
+
+
         
     }
     
