@@ -16,12 +16,11 @@ class TraditionalRecipeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("view did load called")
         
         guard let recipe = recipe else { return }
         //TODO: button to access on previous page only available if recipe selected, thus no unwrapping here of optional
         
-        self.traditionalRecipeView.recipe = self.recipe
+        self.traditionalRecipeView.recipe = self.recipe 
 
         self.traditionalRecipeView.getAPIInfo {
             DispatchQueue.main.async {

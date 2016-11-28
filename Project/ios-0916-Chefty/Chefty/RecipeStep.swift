@@ -48,8 +48,8 @@ class RecipeStep {
     
     var recipeID: String?
     var stepNumber: String?
-    var duration: Int?
-    var timeToStart: Int?
+    var duration: Int?//NSTimeInterval?
+    var timeToStart: Int?//NSTimeInterval?
     var fullAttentionRequired: Bool?
     var stepTitle: String?
     var procedure: String?

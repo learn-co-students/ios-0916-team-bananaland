@@ -34,13 +34,10 @@ class TraditionalRecipeView: UIView {
             //TODO: fix: steps duplicates each time the view loads
             //steps
             var combinedStepsArray: [String] = []
-            var counter = 0
             
             for dictionary in self.store.recipeSteps {
                 guard let step = dictionary.procedure else { return }
                 combinedStepsArray.append(step)
-                counter += 1
-                print(counter)
             }
             
             self.combinedSteps = combinedStepsArray.joined(separator: "\n\n")
