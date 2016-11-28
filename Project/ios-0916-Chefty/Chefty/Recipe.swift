@@ -31,6 +31,8 @@ class Recipe {
     var imageData: NSData = NSData()
     var selected: Bool = false
     var sortValue: Int
+    var ingredient: [Ingredient] = []
+    
 
     // custom initializer is needed to allow a default value for selected
     init(recipeDict: [String: String]) {

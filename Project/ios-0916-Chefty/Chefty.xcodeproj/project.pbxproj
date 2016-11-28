@@ -8,8 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		01A830B31DDF82330064B9CE /* IngredientsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A830B21DDF82330064B9CE /* IngredientsController.swift */; };
-
-		01B49A541DE4E7CC0019F278 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B49A531DE4E7CC0019F278 /* Ingredient.swift */; };
+		01B49A541DE4E7CC0019F278 /* IngredientsOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B49A531DE4E7CC0019F278 /* IngredientsOld.swift */; };
 		6E4E91AA419B90E48D983D4C /* Pods_Chefty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F99EB0E7E4778030CC432A72 /* Pods_Chefty.framework */; };
 		714EBD5C1DDE340800C0857A /* TraditionalRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714EBD5B1DDE340800C0857A /* TraditionalRecipeView.swift */; };
 		71E655C41DDCE61700B60E0B /* TraditionalRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E655C31DDCE61700B60E0B /* TraditionalRecipeViewController.swift */; };
@@ -78,7 +77,7 @@
 
 /* Begin PBXFileReference section */
 		01A830B21DDF82330064B9CE /* IngredientsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsController.swift; sourceTree = "<group>"; };
-		01B49A531DE4E7CC0019F278 /* Ingredient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
+		01B49A531DE4E7CC0019F278 /* IngredientsOld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsOld.swift; sourceTree = "<group>"; };
 		45466194089BC863FFF4F44A /* Pods-Chefty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chefty.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chefty/Pods-Chefty.debug.xcconfig"; sourceTree = "<group>"; };
 		714EBD5B1DDE340800C0857A /* TraditionalRecipeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraditionalRecipeView.swift; sourceTree = "<group>"; };
 		71E655C31DDCE61700B60E0B /* TraditionalRecipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TraditionalRecipeViewController.swift; path = ../TraditionalRecipeViewController.swift; sourceTree = "<group>"; };
@@ -284,7 +283,7 @@
 				C0AAB5461DDE67300055DF8B /* CheftyAPIClient.swift */,
 				C0AAB5481DDE677C0055DF8B /* Secrets.swift */,
 				C00CEFF41DDF5C82005C4BE5 /* Recipe.swift */,
-				01B49A531DE4E7CC0019F278 /* Ingredient.swift */,
+				01B49A531DE4E7CC0019F278 /* IngredientsOld.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -506,7 +505,7 @@
 				C0252C631DDD16EA00046AD0 /* MyMenuViewController.swift in Sources */,
 				A7C1E1B71DDCD97300BD8A13 /* AppDelegate.swift in Sources */,
 				C0AAB5431DDE64970055DF8B /* DataStore.swift in Sources */,
-				01B49A541DE4E7CC0019F278 /* Ingredient.swift in Sources */,
+				01B49A541DE4E7CC0019F278 /* IngredientsOld.swift in Sources */,
 				A7DCBF731DE5FAD100AA7629 /* TestTraditionalRecipeView.swift in Sources */,
 				A7C9D3F31DDF849900EA5637 /* GradientView.swift in Sources */,
 				71E655C41DDCE61700B60E0B /* TraditionalRecipeViewController.swift in Sources */,

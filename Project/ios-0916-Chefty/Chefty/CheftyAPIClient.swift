@@ -64,8 +64,19 @@ class CheftyAPIClient {
                     let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: String]]
                     
                     for ingredientDict in responseJSON {
-                        let ingredientInst = Ingredient(ingredientDict: ingredientDict)
-                        store.ingredientsArray.append(ingredientInst) // add to ingredientsArray in datastore
+                        let context = store.persistentContainer.viewContext
+                        let ingredientInst = Ingredient(context: context)
+                        ingredientInst.recipeID = ingredientDict["recipeID"] as String!
+                        ingredientInst.recipeDescription = ingredientDict["description"] as String!
+                        ingredientInst.isChecked = false
+                        
+                        for recipeSelected in store.recipesSelected {
+                            if recipeSelected.id == ingredientInst.recipeID {
+                                recipeSelected.addToIngredient(ingredientInst)
+                            }
+                        }
+                        
+                        store.saveRecipeSelectedContext()
                     }
                     completion()
                 } catch {

@@ -25,7 +25,6 @@ class DataStore {
     var recipes:[Recipe] = []
     var recipesSelected:[RecipeSelected] = []
     var images: [UIImage] = []
-    var ingredientsArray: [Ingredient] = []
     
     var main: [Recipe] = []
     var appetizer : [Recipe] = []
