@@ -13,6 +13,7 @@ class MergedStepsView: UIView {
 
     var store = DataStore.sharedInstance
     var steps = [RecipeStep]()
+    var mergedStepsVC: MergedStepsViewController!
     
     override init(frame:CGRect){
         super.init(frame: frame)
@@ -28,9 +29,11 @@ class MergedStepsView: UIView {
     
     
     func setUpElements() {
+
         
-        let myTextBox = UILabel()
-        myTextBox.text = "HELLO THERE!!!!!"
+        //textbox
+        let myTextBox = UITextView()
+        myTextBox.text = "hi"
         myTextBox.textAlignment = .center
         
         self.addSubview(myTextBox)

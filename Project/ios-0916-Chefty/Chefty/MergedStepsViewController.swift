@@ -18,8 +18,6 @@ class MergedStepsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
         getAPIInfo(){
             self.mergeRecipeSteps()
             print("inside ViewDidLoad closure")
