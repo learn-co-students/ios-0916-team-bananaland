@@ -10,7 +10,7 @@
 import UIKit
 
 class TraditionalRecipeView: UIView {
-
+    
     var store = DataStore.sharedInstance
     var recipe: Recipe?
     var combinedSteps = String()
@@ -19,34 +19,37 @@ class TraditionalRecipeView: UIView {
         super.init(frame: frame)
         
         self.backgroundColor = UIColor.white
-    
+        
     }
-
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    func setUpElements() {
-        
+    func getAPIInfo(with completion: @escaping () -> ()) {
         store.getRecipeSteps {
-        
-            print("1")
             
-            //combine all steps for selected recipe
+            //steps
             var combinedStepsArray: [String] = []
             
             for dictionary in self.store.recipeSteps {
-                let step = dictionary.procedure
+                guard let step = dictionary.procedure else { return }
                 combinedStepsArray.append(step)
             }
             
             self.combinedSteps = combinedStepsArray.joined(separator: "\n")
+
+            completion()
             
         }
+ 
+    }
     
-        guard let recipe = recipe else { return }
-        print("2")
+    
+    
+    func setUpElements() {
+        
+        guard let recipe = self.recipe else { return }
         
         //SCROLLVIEW
         let myScrollView = UIScrollView()
@@ -63,7 +66,7 @@ class TraditionalRecipeView: UIView {
         let myImageView = UIImageView()
         
         Recipe.getImage(recipe: recipe, imageView: myImageView, view: self, backgroundImage: false)
-       
+        
         myScrollView.addSubview(myImageView)
         
         // constrain the image
@@ -87,7 +90,7 @@ class TraditionalRecipeView: UIView {
         titleLabel.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
-
+        
         
         //SERVING SIZE AND ESTIMATED TIME INFO
         //create labels
@@ -178,14 +181,12 @@ class TraditionalRecipeView: UIView {
         //STEPS TEXT BOX
         //create textbox
         let stepsText = UITextView()
-        print("3")
-        stepsText.text = "here are the steps: \(combinedSteps)"
-        print("here are the steps: \(combinedSteps)")
+        stepsText.text = combinedSteps
         stepsText.font = titleLabel.font.withSize(14)
         stepsText.textAlignment = .left
         
         myScrollView.addSubview(stepsText)
-
+        
         //constrain textbox
         stepsText.leftAnchor.constraint(equalTo: myScrollView.leftAnchor, constant: 10).isActive = true
         stepsText.topAnchor.constraint(equalTo: stepsLabel.bottomAnchor).isActive = true
@@ -208,8 +209,7 @@ class TraditionalRecipeView: UIView {
         addButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -30).isActive = true
         addButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         addButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        print("4")
+
         
     }
     

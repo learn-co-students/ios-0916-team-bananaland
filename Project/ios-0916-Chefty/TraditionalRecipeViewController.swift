@@ -19,10 +19,15 @@ class TraditionalRecipeViewController: UIViewController {
         print("view did load called")
         
         guard let recipe = recipe else { return }
+        //button to access on previous page only available if recipe selected, thus no unwrapping here of optional
         
         self.traditionalRecipeView.recipe = self.recipe
 
-        self.traditionalRecipeView.setUpElements()
+        self.traditionalRecipeView.getAPIInfo {
+            DispatchQueue.main.async {
+                self.traditionalRecipeView.setUpElements()
+            }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
