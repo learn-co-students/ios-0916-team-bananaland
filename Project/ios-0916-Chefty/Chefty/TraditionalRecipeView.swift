@@ -14,6 +14,7 @@ class TraditionalRecipeView: UIView {
     var store = DataStore.sharedInstance
     var recipe: Recipe?
     var combinedSteps = String()
+    var combinedIngredients = String()
     
     override init(frame:CGRect){
         super.init(frame: frame)
@@ -26,23 +27,35 @@ class TraditionalRecipeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     func getAPIInfo(with completion: @escaping () -> ()) {
         store.getRecipeSteps {
             
+            //TODO: fix: steps duplicates each time the view loads
             //steps
             var combinedStepsArray: [String] = []
+            var counter = 0
             
             for dictionary in self.store.recipeSteps {
                 guard let step = dictionary.procedure else { return }
                 combinedStepsArray.append(step)
+                counter += 1
+                print(counter)
             }
             
-            self.combinedSteps = combinedStepsArray.joined(separator: "\n")
-
-            completion()
+            self.combinedSteps = combinedStepsArray.joined(separator: "\n\n")
+            
+            //ingredients
+            for dict in self.store.recipeSteps {
+                guard let ingredients = dict.ingredients else { return }
+                //if ingredients != [] {
+                self.combinedIngredients.append(ingredients.joined(separator: "\n"))
+            }
+        
+        completion()
             
         }
- 
+        
     }
     
     
@@ -141,7 +154,7 @@ class TraditionalRecipeView: UIView {
         //INGREDIENTS TEXT BOX
         //create textbox
         let ingredientsText = UITextView()
-        ingredientsText.text = "Lorem ipsum dolor sit amet \nconsectetur adipiscing elit \nsed do eiusmod tempor \nincididunt ut labore \net dolore magna aliqua***Lorem ipsum dolor sit amet \nconsectetur adipiscing elit"
+        ingredientsText.text = combinedIngredients
         ingredientsText.font = titleLabel.font.withSize(14)
         ingredientsText.textAlignment = .left
         
@@ -209,7 +222,7 @@ class TraditionalRecipeView: UIView {
         addButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -30).isActive = true
         addButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         addButton.translatesAutoresizingMaskIntoConstraints = false
-
+        
         
     }
     
