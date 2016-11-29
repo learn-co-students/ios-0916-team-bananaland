@@ -65,12 +65,6 @@ class Recipe {
                         }
                     }
                 }
-           // } else {
-//                print("image data was found in object")
-//                imageView.backgroundColor = UIColor(patternImage: UIImage(data: recipeSelected.imageData as! Data)!)
-//                view.addSubview(imageView)
-//                view.sendSubview(toBack: imageView)
-//            }
         }
     }
 
