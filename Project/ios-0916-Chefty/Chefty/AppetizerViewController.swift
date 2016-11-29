@@ -22,7 +22,7 @@ class AppetizerViewController: UIViewController {
         collectionView.register(RecipeCollectionViewCell.self, forCellWithReuseIdentifier: "recipeCell")
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = UIColor.white
+        collectionView.backgroundColor = UIColor.black
         view.addSubview(collectionView)
     }
     
@@ -45,6 +45,7 @@ extension AppetizerViewController : UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recipeCell", for: indexPath) as! RecipeCollectionViewCell
         let url = URL(string: store.appetizer[indexPath.row].imageURL)
+        cell.recipe = store.appetizer[indexPath.row]
         cell.recipeLabel.text = store.appetizer[indexPath.row].displayName
         cell.imageView.sd_setImage(with: url!)
         return cell
@@ -78,6 +79,7 @@ extension AppetizerViewController : UICollectionViewDelegate, UICollectionViewDa
         
         let testView = TestTraditionalRecipeViewController()
         testView.recipe = store.appetizer[indexPath.row]
+        testView.modalTransitionStyle = .crossDissolve
         present(testView, animated: true, completion: nil)
         
     }

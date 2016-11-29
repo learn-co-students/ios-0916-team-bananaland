@@ -40,19 +40,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             self.initialViewController = MyMenuViewController()
         }
-    
+        
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let navigationController = UINavigationController(rootViewController: self.initialViewController)
         self.window!.rootViewController = navigationController
         self.window!.backgroundColor = UIColor.white
         self.window!.makeKeyAndVisible()
-
+        
         store.getRecipes(completion: { _ in
             
         })
         
         store.getRecipes(completion: { _ in
-           
+            
             print("TOTAL: \(self.store.recipes.count)")
             print("MAINS: \(self.store.main.count)")
             print("DESSERT: \(self.store.desserts.count)")

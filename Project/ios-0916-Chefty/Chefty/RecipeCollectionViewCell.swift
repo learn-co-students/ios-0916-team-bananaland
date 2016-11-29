@@ -17,6 +17,8 @@ class RecipeCollectionViewCell: UICollectionViewCell {
     var recipeLabel : UILabel!
     var selectButton : SelectedRecipeButton!
     var isButtonPressed = false
+    var recipe : Recipe?
+    var store = DataStore.sharedInstance
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -82,16 +84,23 @@ class RecipeCollectionViewCell: UICollectionViewCell {
     
     func selectBtnTapped(sender: UIButton) {
         
+        guard let recipe = recipe else { return }
+        
         if !isButtonPressed {
             sender.isHighlighted = true
             selectButton.roundFillColor = UIColor(red: 66/255.0, green: 151/255.0, blue: 254/255.0, alpha: 1.0)
             selectButton.setNeedsDisplay()
             isButtonPressed = true
+            store.addRecipeSelected(recipe: recipe)
+            print("SELECTED: \(store.recipesSelected.count)")
+            
         } else {
             sender.isHighlighted = false
             selectButton.roundFillColor = UIColor.gray.withAlphaComponent(0.8)
             selectButton.setNeedsDisplay()
             isButtonPressed = false
+            store.deselectRecipe()
+            print("REMAINING: \(store.recipesSelected.count)")
         }
         
     }

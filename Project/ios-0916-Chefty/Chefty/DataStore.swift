@@ -87,9 +87,25 @@ class DataStore {
         recipeSelectedInst.servings = recipe.servings
         recipeSelectedInst.type = recipe.type
         recipeSelectedInst.servingTime = recipe.servingTime as NSDate?
-        recipeSelectedInst.sortValue = Int16(recipe.sortValue)
+        //recipeSelectedInst.sortValue = Int16(recipe.sortValue)
         
         self.saveRecipeSelectedContext()
         self.fetchRecipeSelected()
+        //print(recipesSelected.count)
     }
+    
+    func deselectRecipe() {
+        let context = persistentContainer.viewContext
+        if !recipesSelected.isEmpty {
+            context.delete(recipesSelected.last!)
+            self.recipesSelected.remove(at: recipesSelected.count - 1)
+            do {
+                try! context.save()
+            } catch { fatalError() }
+        } else if recipesSelected.count == 1 {
+            recipesSelected = []
+        }
+        
+    }
+
 }

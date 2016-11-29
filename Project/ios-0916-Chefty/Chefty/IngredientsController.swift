@@ -84,10 +84,13 @@ class IngredientsController: UIViewController, UITableViewDelegate, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath)
         
         cell.selectionStyle = .none
+
         let ingredientSet = store.recipesSelected[0].ingredient! as Set
         let ingredientsArray = Array(ingredientSet)
         
             print(ingredientsArray)
+
+
 
 
         

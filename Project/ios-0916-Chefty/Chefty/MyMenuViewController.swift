@@ -13,14 +13,13 @@ import LNRSimpleNotifications
 class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     
     var store = DataStore.sharedInstance
-    let myMenuView1 = MyMenuView(frame: CGRect.zero)
+    let myMenuViewInst = MyMenuView(frame: CGRect.zero)
     var sampleValue = String()
-    
-    let notificationManager1 = LNRNotificationManager()
+    let notificationManagerInst = LNRNotificationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        myMenuView1.delegate = self
+        myMenuViewInst.delegate = self
         self.navigationController?.setNavigationBarHidden(false, animated: .init(true))
         self.view.backgroundColor = UIColor(named: .white)
         
@@ -34,12 +33,12 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         menuButton.setTitleTextAttributes(menuButtonAttributes, for: .normal)
         
         // notification
-        notificationManager1.notificationsPosition = LNRNotificationPosition.top
-        notificationManager1.notificationsBackgroundColor = UIColor.white
-        notificationManager1.notificationsTitleTextColor = UIColor.black
-        notificationManager1.notificationsBodyTextColor = UIColor.darkGray
-        notificationManager1.notificationsSeperatorColor = UIColor.gray
-        notificationManager1.notificationsIcon = UIImage(named: "Icon-App-72x72")
+        notificationManagerInst.notificationsPosition = LNRNotificationPosition.top
+        notificationManagerInst.notificationsBackgroundColor = UIColor.white
+        notificationManagerInst.notificationsTitleTextColor = UIColor.black
+        notificationManagerInst.notificationsBodyTextColor = UIColor.darkGray
+        notificationManagerInst.notificationsSeperatorColor = UIColor.gray
+        notificationManagerInst.notificationsIcon = UIImage(named: "Icon-App-76x76")
         
 //        let alertSoundURL: URL? = Bundle.main.url(forResource: "click", withExtension: "wav")
 //        if let _ = alertSoundURL {
@@ -55,27 +54,19 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
             notificationMessage = "Last time you were here, you selected \(store.recipesSelected.count) recipes, lets review them."
         }
         
-        notificationManager1.showNotification(title: "Welcome Back to Chefty", body: notificationMessage, onTap: { () -> Void in
-            let _ = self.notificationManager1.dismissActiveNotification(completion: { () -> Void in
+        notificationManagerInst.showNotification(title: "Welcome Back to Chefty", body: notificationMessage, onTap: { () -> Void in
+            let _ = self.notificationManagerInst.dismissActiveNotification(completion: { () -> Void in
                 print("Notification dismissed")
             })
         })
         
     }
     
-    override func viewWillAppear(_ animated: Bool = false) {
-        self.title = "My Menu"
-    }
+    override func viewWillAppear(_ animated: Bool = false) { self.title = "My Menu" }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+    override func didReceiveMemoryWarning() { super.didReceiveMemoryWarning() }
     
-    override func loadView(){
-        self.view = myMenuView1
-        //myMenuView1.sampleValue = self.sampleValue
-    }
+    override func loadView(){ self.view = myMenuViewInst }
     
     func goToIngredients() {
         let ingredientsView = IngredientsController()
@@ -89,7 +80,7 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     
     func goToRecipe(){
         let traditionalRecipeViewController1 = TraditionalRecipeViewController()
-        traditionalRecipeViewController1.recipe = self.myMenuView1.recipeForTraditionalRecipeView
+        traditionalRecipeViewController1.recipe = self.myMenuViewInst.recipeForTraditionalRecipeView
         navigationController?.pushViewController(traditionalRecipeViewController1, animated: true) // show destination with nav bar
     }
     
@@ -97,5 +88,4 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         let singleStepViewControllerInst = SingleStepViewController()
         navigationController?.pushViewController(singleStepViewControllerInst, animated: false) // show destination with nav bar
     }
-
 }

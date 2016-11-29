@@ -15,7 +15,6 @@ protocol MyMenuViewDelegate: class {
     func goToSingleStep()
 }
 
-
 class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTableViewCellDelegate, UIPickerViewDelegate, UITextFieldDelegate {
     
     weak var delegate: MyMenuViewDelegate?
@@ -24,16 +23,13 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     let tableView = UITableView()
     let toolbar = UIToolbar()
     var recipeForTraditionalRecipeView: Recipe?
+    var textFieldBeingEdited: UITextField = UITextField()
     
-    var timePicker0: UIDatePicker = UIDatePicker()
-    var timePicker1: UIDatePicker = UIDatePicker()
-    var timePicker2: UIDatePicker = UIDatePicker()
-    var timePicker3: UIDatePicker = UIDatePicker()
-    
-    var textField0: UITextField = UITextField()
-    var textField1: UITextField = UITextField()
-    var textField2: UITextField = UITextField()
-    var textField3: UITextField = UITextField()
+    // TRY: date picker with constraints
+    let datePickerContainerView = UIView()
+    var datePickerContainerViewOffScreenConstraint = NSLayoutConstraint()
+    var datePickerContainerViewOnScreenConstraint = NSLayoutConstraint()
+    let datePicker = UIDatePicker()
     
     override init(frame:CGRect){
         super.init(frame: frame)
@@ -57,31 +53,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.tableView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        // timepicker
-        self.timePicker0.backgroundColor = UIColor.white
-        self.timePicker0.layer.shadowOpacity = 0.5
-        self.timePicker0.datePickerMode = .time
-        self.timePicker0.minimumDate = Date()
-        self.timePicker0.minuteInterval = 15
-        
-        self.timePicker1.backgroundColor = UIColor.white
-        self.timePicker1.layer.shadowOpacity = 0.5
-        self.timePicker1.datePickerMode = .time
-        self.timePicker1.minimumDate = Date()
-        self.timePicker1.minuteInterval = 15
-        
-        self.timePicker2.backgroundColor = UIColor.white
-        self.timePicker2.layer.shadowOpacity = 0.5
-        self.timePicker2.datePickerMode = .time
-        self.timePicker2.minimumDate = Date()
-        self.timePicker2.minuteInterval = 15
-        
-        self.timePicker3.backgroundColor = UIColor.white
-        self.timePicker3.layer.shadowOpacity = 0.5
-        self.timePicker3.datePickerMode = .time
-        self.timePicker3.minimumDate = Date()
-        self.timePicker3.minuteInterval = 15
-        
         // toolbar buttons
         let ingredientsButton: UIBarButtonItem = UIBarButtonItem(title: "Ingredients", style: .plain , target: self, action: #selector(clickIngredients))
         let clearAllButton: UIBarButtonItem = UIBarButtonItem(title: "Clear All", style: .plain , target: self, action: #selector(clearAllRecipes))
@@ -89,107 +60,80 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let toolbarButtons = [ingredientsButton, spacer, clearAllButton, spacer, openStep1Button]
         self.toolbar.setItems(toolbarButtons, animated: false)
+        
+        // define the timePicker container view
+        self.addSubview(datePickerContainerView)
+        datePickerContainerView.translatesAutoresizingMaskIntoConstraints = false
+        datePickerContainerView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        datePickerContainerView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.33).isActive = true
+        datePickerContainerView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        datePickerContainerViewOffScreenConstraint = datePickerContainerView.topAnchor.constraint(equalTo: self.bottomAnchor)
+        datePickerContainerViewOffScreenConstraint.isActive = true
+        datePickerContainerViewOnScreenConstraint = datePickerContainerView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+        datePickerContainerViewOnScreenConstraint.isActive = false
+        
+        // create the done/cancel toolbar for the time picker
+        let pickerToolbar = UIToolbar()
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(self.doneClickTimePicker))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancelClickTimePicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        pickerToolbar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        datePickerContainerView.addSubview(pickerToolbar)
+        pickerToolbar.translatesAutoresizingMaskIntoConstraints = false
+        pickerToolbar.leadingAnchor.constraint(equalTo: datePickerContainerView.leadingAnchor).isActive = true
+        pickerToolbar.topAnchor.constraint(equalTo: datePickerContainerView.topAnchor).isActive = true
+        pickerToolbar.widthAnchor.constraint(equalTo: datePickerContainerView.widthAnchor).isActive = true
+        pickerToolbar.heightAnchor.constraint(equalTo: datePickerContainerView.heightAnchor, multiplier: 0.2).isActive = true
+        datePickerContainerView.addSubview(pickerToolbar)
+        
+        // define datePicker
+        datePicker.backgroundColor = UIColor.white
+        datePicker.layer.shadowOpacity = 0.5
+        datePicker.datePickerMode = .time
+        datePicker.minimumDate = Date()
+        datePicker.minuteInterval = 15
+        datePickerContainerView.addSubview(datePicker)
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.leadingAnchor.constraint(equalTo: datePickerContainerView.leadingAnchor).isActive = true
+        datePicker.topAnchor.constraint(equalTo: pickerToolbar.bottomAnchor).isActive = true
+        datePicker.bottomAnchor.constraint(equalTo: datePickerContainerView.bottomAnchor).isActive = true
+        datePicker.widthAnchor.constraint(equalTo: datePickerContainerView.widthAnchor).isActive = true
     }
     
-    func doneClickTimePicker0() {
+    func doneClickTimePicker() {
         // save new serving time to core data
-        store.recipesSelected[0].servingTime = self.timePicker0.date as NSDate?
+        store.recipesSelected[0].servingTime = self.datePicker.date as NSDate?
         self.store.saveRecipeSelectedContext()
         // update field
         let dateFormatterInst = DateFormatter()
         dateFormatterInst.dateStyle = .none
         dateFormatterInst.timeStyle = .short
-        self.textField0.text = dateFormatterInst.string(from: self.timePicker0.date)
-        if let cellLabel = self.textField0.text { self.textField0.text = "@ \(cellLabel)" }
-        self.textField0.resignFirstResponder()
+        self.textFieldBeingEdited.text = dateFormatterInst.string(from: self.datePicker.date)
+        if let cellLabel = self.textFieldBeingEdited.text { self.textFieldBeingEdited.text = "@ \(cellLabel)" }
+        self.textFieldBeingEdited.resignFirstResponder()
+        // hide the time picker
+        UIView.animate(withDuration: 0.3, animations: {
+            
+            self.datePickerContainerViewOffScreenConstraint.isActive = true
+            self.datePickerContainerViewOnScreenConstraint.isActive = false
+            self.layoutIfNeeded()
+            
+        })
     }
     
-    func doneClickTimePicker1() {
-        // save new serving time to core data
-        store.recipesSelected[1].servingTime = self.timePicker1.date as NSDate?
-        self.store.saveRecipeSelectedContext()
-        // update field
-        let dateFormatterInst = DateFormatter()
-        dateFormatterInst.dateStyle = .none
-        dateFormatterInst.timeStyle = .short
-        self.textField1.text = dateFormatterInst.string(from: self.timePicker1.date)
-        if let cellLabel = self.textField1.text { self.textField1.text = "@ \(cellLabel)" }
-        self.textField1.resignFirstResponder()
-    }
-    
-    func doneClickTimePicker2() {
-        // save new serving time to core data
-        store.recipesSelected[2].servingTime = self.timePicker2.date as NSDate?
-        self.store.saveRecipeSelectedContext()
-        // update field
-        let dateFormatterInst = DateFormatter()
-        dateFormatterInst.dateStyle = .none
-        dateFormatterInst.timeStyle = .short
-        self.textField2.text = dateFormatterInst.string(from: self.timePicker2.date)
-        if let cellLabel = self.textField2.text { self.textField2.text = "@ \(cellLabel)" }
-        self.textField2.resignFirstResponder()
-    }
-    
-    func doneClickTimePicker3() {
-        // save new serving time to core data
-        store.recipesSelected[3].servingTime = self.timePicker3.date as NSDate?
-        self.store.saveRecipeSelectedContext()
-        // update field
-        let dateFormatterInst = DateFormatter()
-        dateFormatterInst.dateStyle = .none
-        dateFormatterInst.timeStyle = .short
-        self.textField3.text = dateFormatterInst.string(from: self.timePicker3.date)
-        if let cellLabel = self.textField3.text { self.textField3.text = "@ \(cellLabel)" }
-        self.textField3.resignFirstResponder()
-    }
-    
-    func cancelClickTimePicker0() { self.textField0.resignFirstResponder() }
-    func cancelClickTimePicker1() { self.textField1.resignFirstResponder() }
-    func cancelClickTimePicker2() { self.textField2.resignFirstResponder() }
-    func cancelClickTimePicker3() { self.textField3.resignFirstResponder() }
-    
-    func createPickerToolBar0() -> UIToolbar {
-        let toolbar0 = UIToolbar()
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(self.doneClickTimePicker0))
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancelClickTimePicker0))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        toolbar0.sizeToFit()
-        toolbar0.setItems([cancelButton, spaceButton, doneButton], animated: false)
-        return toolbar0
-    }
-    
-    func createPickerToolBar1() -> UIToolbar {
-        let toolbar1 = UIToolbar()
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(self.doneClickTimePicker1))
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancelClickTimePicker1))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        toolbar1.sizeToFit()
-        toolbar1.setItems([cancelButton, spaceButton, doneButton], animated: false)
-        return toolbar1
-    }
-    
-    func createPickerToolBar2() -> UIToolbar {
-        let toolbar2 = UIToolbar()
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(self.doneClickTimePicker2))
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancelClickTimePicker2))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        toolbar2.sizeToFit()
-        toolbar2.setItems([cancelButton, spaceButton, doneButton], animated: false)
-        return toolbar2
-    }
-    
-    func createPickerToolBar3() -> UIToolbar {
-        let toolbar3 = UIToolbar()
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(self.doneClickTimePicker3))
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancelClickTimePicker3))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        toolbar3.sizeToFit()
-        toolbar3.setItems([cancelButton, spaceButton, doneButton], animated: false)
-        return toolbar3
+    func cancelClickTimePicker() {
+        self.textFieldBeingEdited.resignFirstResponder()
+        // hide the time picker
+        UIView.animate(withDuration: 0.3, animations: {
+            
+            self.datePickerContainerViewOffScreenConstraint.isActive = true
+            self.datePickerContainerViewOnScreenConstraint.isActive = false
+            self.layoutIfNeeded()
+            
+        })
     }
 
     // setup tableview
-    
     func numberOfSections(in tableView: UITableView) -> Int { return 1 }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return store.recipesSelected.count }
@@ -198,45 +142,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         // set the custom cell
         let cell = MyMenuTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "prototypeCell")
         cell.delegate = self
-        
-        // format the time
-        let myFormatter = DateFormatter()
-        myFormatter.timeStyle = .short
-        
-        var cellLabelStartTime = "?"
-        if let servingTime = store.recipesSelected[indexPath.row].servingTime {
-            cellLabelStartTime = myFormatter.string(from: servingTime as Date)
-        }
-
-        // set displayName and serving time
-        if let displayNameUnwrapped = store.recipesSelected[indexPath.row].displayName {
-            cell.recipeDescField.text = "\(displayNameUnwrapped)                                  " // extra space pushes label left
-        }
-        cell.servingTimeField.text = "@ \(cellLabelStartTime)"
+        cell.recipeSelected = store.recipesSelected[indexPath.row]
         cell.deleteButton.accessibilityLabel = String(indexPath.row)
         cell.selectionStyle = .none
         Recipe.getBackgroundImage(recipeSelected: self.store.recipesSelected[indexPath.row], imageView: cell.imageViewInst, view: cell)
-        cell.servingTimeField.delegate = self
-        
-        // give the text field in each cell a unique timepicker so the timepicker can return the results to the proper text field
-        switch indexPath.row {
-        case 1:
-            self.textField1 = cell.servingTimeField
-            self.textField1.inputView = self.timePicker1
-            self.textField1.inputAccessoryView = self.createPickerToolBar1()
-        case 2:
-            self.textField2 = cell.servingTimeField
-            self.textField2.inputView = self.timePicker2
-            self.textField2.inputAccessoryView = self.createPickerToolBar2()
-        case 3:
-            self.textField3 = cell.servingTimeField
-            self.textField3.inputView = self.timePicker3
-            self.textField3.inputAccessoryView = self.createPickerToolBar3()
-        default:
-            self.textField0 = cell.servingTimeField
-            self.textField0.inputView = self.timePicker0
-            self.textField0.inputAccessoryView = self.createPickerToolBar0()
-        }
         return cell
     }
     
@@ -258,6 +167,23 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     func updateTableViewNow() { self.tableView.reloadData() }
     
+    // serving time field selected delegate method
+    func servingTimeFieldSelected(_ sender: UITextField) {
+        
+        self.textFieldBeingEdited = sender
+        
+        sender.isUserInteractionEnabled = false
+        
+        // present date picker
+        UIView.animate(withDuration: 0.3, animations: {
+            
+            self.datePickerContainerViewOffScreenConstraint.isActive = false
+            self.datePickerContainerViewOnScreenConstraint.isActive = true
+            self.layoutIfNeeded()
+        
+        })
+    }
+    
     func clickIngredients() { self.delegate?.goToIngredients() }
     
     func clearAllRecipes() {
@@ -276,7 +202,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.delegate?.goToSingleStep()
     }
     
-    // given a RecipeSelected, return the the related recipe - we need the related recipe to fetch the images with the function in the Recipe class
+    // given a RecipeSelected, return the the related recipe - 
     func getRelatedRecipe(recipeSelected: RecipeSelected) -> Recipe {
         var results = store.recipes[0]
         for recipe in store.recipes {
