@@ -118,6 +118,7 @@ class MergedStepsViewController: UIViewController {
             
         }
         
+        //eventually change this to procedure, so merged steps will appear. will need array of strings to fill tableview
         for step in recipeSteps {
             stepsForDisplayArray.append(step.stepNumber!)
         }
