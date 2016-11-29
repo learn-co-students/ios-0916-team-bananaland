@@ -16,7 +16,6 @@ class TestTraditionalRecipeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         let back = UITapGestureRecognizer(target: self, action: #selector(self.handleSwipes(sender:)))
         back.numberOfTapsRequired = 1
         self.view.isUserInteractionEnabled = true
@@ -33,11 +32,6 @@ class TestTraditionalRecipeViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool = false) {
         self.title = "Test Traditional Recipe Page"
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func loadView() {

@@ -22,7 +22,7 @@ class SidesViewController: UIViewController {
         collectionView.register(RecipeCollectionViewCell.self, forCellWithReuseIdentifier: "recipeCell")
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = UIColor.white
+        collectionView.backgroundColor = UIColor.black
         view.addSubview(collectionView)
     }
     
@@ -46,6 +46,7 @@ extension SidesViewController : UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recipeCell", for: indexPath) as! RecipeCollectionViewCell
         let url = URL(string: store.sides[indexPath.row].imageURL)
+        cell.recipe = store.sides[indexPath.row]
         cell.recipeLabel.text = store.sides[indexPath.row].displayName
         cell.imageView.sd_setImage(with: url!)
         return cell
@@ -80,6 +81,7 @@ extension SidesViewController : UICollectionViewDelegate, UICollectionViewDataSo
         
         let testView = TestTraditionalRecipeViewController()
         testView.recipe = store.sides[indexPath.row]
+        testView.modalTransitionStyle = .crossDissolve
         present(testView, animated: true, completion: nil)
         
     }
