@@ -102,8 +102,8 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     func doneClickTimePicker() {
         // save new serving time to core data
-        store.recipesSelected[0].servingTime = self.datePicker.date as NSDate?
-        self.store.saveRecipeSelectedContext()
+        store.recipes[0].servingTime = self.datePicker.date as NSDate?
+        self.store.saveRecipesContext()
         // update field
         let dateFormatterInst = DateFormatter()
         dateFormatterInst.dateStyle = .none
@@ -136,16 +136,16 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     // setup tableview
     func numberOfSections(in tableView: UITableView) -> Int { return 1 }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return store.recipesSelected.count }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return store.recipesSelected.count}
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // set the custom cell
         let cell = MyMenuTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "prototypeCell")
         cell.delegate = self
-        cell.recipeSelected = store.recipesSelected[indexPath.row]
+        cell.recipe = store.recipesSelected[indexPath.row]
         cell.deleteButton.accessibilityLabel = String(indexPath.row)
         cell.selectionStyle = .none
-        Recipe.getBackgroundImage(recipeSelected: self.store.recipesSelected[indexPath.row], imageView: cell.imageViewInst, view: cell)
+        self.getBackgroundImage(recipe: self.store.recipesSelected[indexPath.row], imageView: cell.imageViewInst, view: cell)
         return cell
     }
     
@@ -161,7 +161,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     // onClick table cell go to recipe
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        self.recipeForTraditionalRecipeView = getRelatedRecipe(recipeSelected: store.recipesSelected[indexPath.row])
+        self.recipeForTraditionalRecipeView = getRelatedRecipe(recipeSelected: store.recipes[indexPath.row])
         self.delegate?.goToRecipe()
     }
     
@@ -188,9 +188,9 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     func clearAllRecipes() {
         let context = store.persistentContainer.viewContext
-        for _ in store.recipesSelected {
-            context.delete(store.recipesSelected[0])
-            store.recipesSelected.remove(at: 0)
+        for _ in store.recipes {
+            context.delete(store.recipes[0])
+            store.recipes.remove(at: 0)
         }
         do {
             try context.save()
@@ -202,8 +202,9 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.delegate?.goToSingleStep()
     }
     
+    //TODO: DELETE THIS FUNCTION!
     // given a RecipeSelected, return the the related recipe - 
-    func getRelatedRecipe(recipeSelected: RecipeSelected) -> Recipe {
+    func getRelatedRecipe(recipeSelected: Recipe) -> Recipe {
         var results = store.recipes[0]
         for recipe in store.recipes {
             if recipe.id == recipeSelected.id {
@@ -211,6 +212,24 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
                 break;
             }
         }
-        return results
+        return recipeSelected
+    }
+    
+    func getBackgroundImage(recipe: Recipe, imageView: UIImageView, view: UIView) {
+        // The tableview cells crop images nicely when they are background images. This function gets a background image, stores it in the object and then sets it on the imageView that was passed in.
+        if let imageURL = recipe.imageURL {
+            let imageUrl:URL = URL(string: imageURL)!
+            // Start background thread so that image loading does not make app unresponsive
+            DispatchQueue.global(qos: .userInitiated).async {
+                if let imageData = NSData(contentsOf: imageUrl) {
+                    // When from background thread, UI needs to be updated on main_queue
+                    DispatchQueue.main.async {
+                        imageView.backgroundColor = UIColor(patternImage: UIImage(data: imageData as Data)!)
+                        view.addSubview(imageView)
+                        view.sendSubview(toBack: imageView)
+                    }
+                }
+            }
+        }
     }
 }

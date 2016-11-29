@@ -24,20 +24,20 @@ class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
     var imageViewInst:UIImageView = UIImageView()
     let deleteButton: UIButton = UIButton(type: .roundedRect)
     
-    var recipeSelected: RecipeSelected? {
+    var recipe: Recipe? {
         didSet {
             // set serving time
             let myFormatter = DateFormatter()
             myFormatter.timeStyle = .short
             
             var cellLabelStartTime = String()
-            if let servingTime = recipeSelected?.servingTime {
+            if let servingTime = recipe?.servingTime {
                 cellLabelStartTime = myFormatter.string(from: servingTime as Date)
             }
             self.servingTimeField.text = "@ \(cellLabelStartTime)"
             
             // set displayName
-            if let displayNameUnwrapped = recipeSelected?.displayName {
+            if let displayNameUnwrapped = recipe?.displayName {
                 self.recipeDescField.text = "\(displayNameUnwrapped)                                  " // extra space pushes label left
             }
         }
@@ -126,12 +126,14 @@ class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
     func onClickDeleteAction() {
         if let currentRowString = self.deleteButton.accessibilityLabel {
             if let currentRow = Int(currentRowString) {
-                let context = store.persistentContainer.viewContext
-                context.delete(store.recipesSelected[currentRow])
-                store.recipesSelected.remove(at: currentRow)
-                do {
-                    try context.save()
-                } catch _ { print("Error deleting item.")}
+                print(currentRow)
+                store.setRecipeUnselected(recipe: store.recipesSelected[currentRow])
+                
+//                context.delete(store.recipesSelected[currentRow])
+//                store.recipes.remove(at: currentRow)
+//                do {
+//                    try context.save()
+//                } catch _ { print("Error deleting item.")}
                 self.delegate?.updateTableViewNow()
             }
         }

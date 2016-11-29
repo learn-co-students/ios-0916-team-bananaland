@@ -56,7 +56,7 @@ class TestTraditionalRecipeView: UIView {
         
         // create image
         let myImageView = UIImageView()
-        let url = URL(string: (recipe.imageURL))
+        let url = URL(string: (recipe.imageURL)!)
         myImageView.contentMode = .scaleAspectFit
         myImageView.sd_setImage(with: url!)
         myScrollView.addSubview(myImageView)

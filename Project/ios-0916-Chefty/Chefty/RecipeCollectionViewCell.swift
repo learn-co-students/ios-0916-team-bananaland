@@ -91,7 +91,7 @@ class RecipeCollectionViewCell: UICollectionViewCell {
             selectButton.roundFillColor = UIColor(red: 66/255.0, green: 151/255.0, blue: 254/255.0, alpha: 1.0)
             selectButton.setNeedsDisplay()
             isButtonPressed = true
-            store.addRecipeSelected(recipe: recipe)
+            store.setRecipeSelected(recipe: recipe)
             print("SELECTED: \(store.recipesSelected.count)")
             
         } else {
@@ -99,7 +99,7 @@ class RecipeCollectionViewCell: UICollectionViewCell {
             selectButton.roundFillColor = UIColor.gray.withAlphaComponent(0.8)
             selectButton.setNeedsDisplay()
             isButtonPressed = false
-            store.deselectRecipe()
+            store.setRecipeUnselected(recipe: recipe)
             print("REMAINING: \(store.recipesSelected.count)")
         }
         

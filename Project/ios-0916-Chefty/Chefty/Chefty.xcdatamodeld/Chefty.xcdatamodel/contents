@@ -4,22 +4,32 @@
         <attribute name="isChecked" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="recipeDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="recipeID" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="recipeSelected" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="RecipeSelected" inverseName="ingredient" inverseEntity="RecipeSelected" syncable="YES"/>
+        <relationship name="step" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Steps" inverseName="ingredient" inverseEntity="Steps" syncable="YES"/>
     </entity>
-    <entity name="RecipeSelected" representedClassName="RecipeSelected" syncable="YES" codeGenerationType="class">
+    <entity name="Recipe" representedClassName="Recipe" syncable="YES" codeGenerationType="class">
         <attribute name="displayName" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="id" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="imageData" optional="YES" attributeType="Transformable" syncable="YES"/>
         <attribute name="imageURL" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="selected" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="servings" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="servingTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="sortValue" optional="YES" attributeType="Integer 16" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="sortValue" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="ingredient" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ingredient" inverseName="recipeSelected" inverseEntity="Ingredient" syncable="YES"/>
+        <relationship name="steps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Steps" inverseName="recipe" inverseEntity="Steps" syncable="YES"/>
+    </entity>
+    <entity name="Steps" representedClassName="Steps" syncable="YES" codeGenerationType="class">
+        <attribute name="duration" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="fullAttentionRequired" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="procedure" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="stepNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="stepTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeToStart" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="ingredient" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ingredient" inverseName="step" inverseEntity="Ingredient" syncable="YES"/>
+        <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Recipe" inverseName="steps" inverseEntity="Recipe" syncable="YES"/>
     </entity>
     <elements>
-        <element name="RecipeSelected" positionX="-63" positionY="-18" width="128" height="195"/>
         <element name="Ingredient" positionX="-63" positionY="54" width="128" height="105"/>
+        <element name="Recipe" positionX="-45" positionY="72" width="128" height="180"/>
+        <element name="Steps" positionX="-27" positionY="153" width="128" height="165"/>
     </elements>
 </model>

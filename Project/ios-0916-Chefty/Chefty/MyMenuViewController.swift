@@ -19,6 +19,9 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //dump(store.recipes)
+        
         myMenuViewInst.delegate = self
         self.navigationController?.setNavigationBarHidden(false, animated: .init(true))
         self.view.backgroundColor = UIColor(named: .white)
@@ -47,6 +50,7 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
 //            notificationManager1.notificationSound = mySound
 //        }
         
+        //TODO: calculate recipeSelected instead of HARD-CODE
         var notificationMessage = String()
         if store.recipesSelected.count == 1 {
             notificationMessage = "Last time you were here, you selected one recipe, lets review it."

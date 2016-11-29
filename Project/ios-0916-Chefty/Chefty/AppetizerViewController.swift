@@ -44,7 +44,7 @@ extension AppetizerViewController : UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recipeCell", for: indexPath) as! RecipeCollectionViewCell
-        let url = URL(string: store.appetizer[indexPath.row].imageURL)
+        let url = URL(string: store.appetizer[indexPath.row].imageURL!)
         cell.recipe = store.appetizer[indexPath.row]
         cell.recipeLabel.text = store.appetizer[indexPath.row].displayName
         cell.imageView.sd_setImage(with: url!)

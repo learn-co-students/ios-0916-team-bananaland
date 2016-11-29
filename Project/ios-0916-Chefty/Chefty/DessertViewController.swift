@@ -43,7 +43,7 @@ extension DessertViewController : UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recipeCell", for: indexPath) as! RecipeCollectionViewCell
-        let url = URL(string: store.desserts[indexPath.row].imageURL)
+        let url = URL(string: store.desserts[indexPath.row].imageURL!)
         cell.recipe = store.desserts[indexPath.row]
         cell.recipeLabel.text = store.desserts[indexPath.row].displayName
         cell.imageView.sd_setImage(with: url!)

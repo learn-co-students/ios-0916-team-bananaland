@@ -56,8 +56,9 @@ class IngredientsController: UIViewController, UITableViewDelegate, UITableViewD
         return store.recipesSelected.count
     }
 
+    //TODO: GETTING WRONG RECIPE: FIXXXXXX
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return store.recipesSelected[section].displayName
+        return store.recipes[section].displayName
     }
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
@@ -75,7 +76,8 @@ class IngredientsController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return store.recipesSelected[section].ingredient!.count
+        return 1
+//            return store.recipes[section].ingredients.count
 
     }
     
@@ -85,10 +87,10 @@ class IngredientsController: UIViewController, UITableViewDelegate, UITableViewD
         
         cell.selectionStyle = .none
 
-        let ingredientSet = store.recipesSelected[0].ingredient! as Set
-        let ingredientsArray = Array(ingredientSet)
+//        let ingredientSet = store.recipes.ingredient! as Set
+//        let ingredientsArray = Array(ingredientSet)
         
-            print(ingredientsArray)
+//            print(ingredientsArray)
 
 
 

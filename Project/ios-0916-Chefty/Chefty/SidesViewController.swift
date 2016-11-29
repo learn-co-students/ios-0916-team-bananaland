@@ -45,7 +45,7 @@ extension SidesViewController : UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recipeCell", for: indexPath) as! RecipeCollectionViewCell
-        let url = URL(string: store.sides[indexPath.row].imageURL)
+        let url = URL(string: store.sides[indexPath.row].imageURL!)
         cell.recipe = store.sides[indexPath.row]
         cell.recipeLabel.text = store.sides[indexPath.row].displayName
         cell.imageView.sd_setImage(with: url!)

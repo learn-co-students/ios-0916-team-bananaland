@@ -69,7 +69,7 @@ extension HomePageViewController : UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recipeCell", for: indexPath) as! RecipeCollectionViewCell
-        let url = URL(string: store.recipes[indexPath.row].imageURL)
+        let url = URL(string: store.recipes[indexPath.row].imageURL!)
         cell.recipeLabel.text = store.recipes[indexPath.row].displayName
         cell.imageView.sd_setImage(with: url!)
         return cell

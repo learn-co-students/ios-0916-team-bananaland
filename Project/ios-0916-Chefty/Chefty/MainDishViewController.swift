@@ -42,7 +42,7 @@ extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recipeCell", for: indexPath) as! RecipeCollectionViewCell
-        let url = URL(string: store.main[indexPath.row].imageURL)
+        let url = URL(string: store.main[indexPath.row].imageURL!)
         cell.recipe = store.main[indexPath.row]
         cell.recipeLabel.text = store.main[indexPath.row].displayName
         cell.imageView.sd_setImage(with: url!)
