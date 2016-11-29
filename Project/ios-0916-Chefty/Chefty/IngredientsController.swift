@@ -98,6 +98,7 @@ class IngredientsController: UIViewController, UITableViewDelegate, UITableViewD
         cell.selectionStyle = .none
         let recipe = recipeArray[indexPath.section]
         let ingredient = recipe.recipeIngredients[indexPath.row]
+        
         cell.textLabel?.text = ingredient.0
         if ingredient.1 {
             cell.accessoryType = UITableViewCellAccessoryType.checkmark

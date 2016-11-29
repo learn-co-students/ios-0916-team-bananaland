@@ -10,9 +10,10 @@ import UIKit
 
 protocol MyMenuTableViewCellDelegate: class {
     func updateTableViewNow()
+    func servingTimeFieldSelected(_ sender: UITextField)
 }
 
-class MyMenuTableViewCell: UITableViewCell {
+class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
     
     var store = DataStore.sharedInstance
     weak var delegate: MyMenuTableViewCellDelegate?
@@ -22,6 +23,25 @@ class MyMenuTableViewCell: UITableViewCell {
     var recipeDescField:UITextField = UITextField()
     var imageViewInst:UIImageView = UIImageView()
     let deleteButton: UIButton = UIButton(type: .roundedRect)
+    
+    var recipeSelected: RecipeSelected? {
+        didSet {
+            // set serving time
+            let myFormatter = DateFormatter()
+            myFormatter.timeStyle = .short
+            
+            var cellLabelStartTime = String()
+            if let servingTime = recipeSelected?.servingTime {
+                cellLabelStartTime = myFormatter.string(from: servingTime as Date)
+            }
+            self.servingTimeField.text = "@ \(cellLabelStartTime)"
+            
+            // set displayName
+            if let displayNameUnwrapped = recipeSelected?.displayName {
+                self.recipeDescField.text = "\(displayNameUnwrapped)                                  " // extra space pushes label left
+            }
+        }
+    }
 
     override func awakeFromNib() { super.awakeFromNib() }
 
@@ -64,16 +84,18 @@ class MyMenuTableViewCell: UITableViewCell {
         imageViewInst.translatesAutoresizingMaskIntoConstraints = false
         
         // cell label
+        
+        // servingTime field
+        self.servingTimeField.delegate = self
         self.servingTimeField.textColor = UIColor.white
         self.servingTimeField.font =  UIFont(name: Constants.appFont.bold.rawValue, size: CGFloat(Constants.fontSize.medium.rawValue))
         contentView.addSubview(self.servingTimeField)
         self.servingTimeField.widthAnchor.constraint(equalToConstant: 50)
         self.servingTimeField.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
         self.servingTimeField.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
-        //self.servingTimeField.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         self.servingTimeField.translatesAutoresizingMaskIntoConstraints = false
         
-        // recipeDescField
+        // recipeDesc field
         self.recipeDescField.textColor = UIColor.white
         self.recipeDescField.isUserInteractionEnabled = false
         self.recipeDescField.font =  UIFont(name: Constants.appFont.bold.rawValue, size: CGFloat(Constants.fontSize.medium.rawValue))
@@ -93,6 +115,12 @@ class MyMenuTableViewCell: UITableViewCell {
         deleteButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
         deleteButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    // should begin editing textfield delegate method
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        self.delegate?.servingTimeFieldSelected(textField)
+        return false // prevents field from being editable
     }
     
     func onClickDeleteAction() {

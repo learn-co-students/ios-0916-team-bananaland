@@ -54,7 +54,4 @@ class TempViewController: UIViewController, TempViewDelegate {
         let recipeTabView = RecipeTabViewController()
         navigationController?.pushViewController(recipeTabView, animated: true)
     }
-    
-    
-
 }
