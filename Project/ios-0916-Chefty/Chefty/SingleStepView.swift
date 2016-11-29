@@ -12,6 +12,9 @@ class SingleStepView: UIView {
 
     override init(frame:CGRect){
         super.init(frame: frame)
+        CheftyAPIClient.getStepsAndIngredients {
+            print("Gettin' steps complete")
+        }
         
         let ingredients: [String] = ["2 1/2 cups all-purpose flour", "teaspoons sugar","1/4 teaspoon fine salt", "14 tablespoons cold butter, diced", "large egg", "large egg, lightly beaten with 2 tablespoons cold water"]
         
