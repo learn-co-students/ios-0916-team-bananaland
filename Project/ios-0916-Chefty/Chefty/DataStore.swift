@@ -88,7 +88,7 @@ class DataStore {
         recipeSelectedInst.servings = recipe.servings
         recipeSelectedInst.type = recipe.type
         recipeSelectedInst.servingTime = recipe.servingTime as NSDate?
-        recipeSelectedInst.sortValue = Int16(recipe.sortValue)
+        //recipeSelectedInst.sortValue = Int16(recipe.sortValue)
         
         self.saveRecipeSelectedContext()
         self.fetchRecipeSelected()
