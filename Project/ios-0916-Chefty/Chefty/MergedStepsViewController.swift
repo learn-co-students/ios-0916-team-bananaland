@@ -15,11 +15,13 @@ class MergedStepsViewController: UIViewController {
     var store = DataStore.sharedInstance
     var recipeSteps = [RecipeStep]()
     var stepsForDisplayArray = [Int]()
+    var stepTitlesForDisplay = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         getAPIInfo(){
+            print("first recipe step \(self.recipeSteps[0].timeToStart)")
             self.mergeRecipeSteps()
             print("inside ViewDidLoad closure")
         }
@@ -64,71 +66,77 @@ extension MergedStepsViewController {
         recipeSteps = self.recipeSteps.sorted { (step1: RecipeStep, step2: RecipeStep) -> Bool in
             
             
-            //            //TODO: handle optionals without force unwrapping
-            //
-            //            //same start
-            //            if step1.timeToStart == step2.timeToStart {
-            //
-            //                //different attentionNeeded
-            //                if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
-            //                    return true
-            //                } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
-            //                    addedTime += step1.timeToStart! + step1.duration! - step2.timeToStart!
-            //                    print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
-            //                    return false
-            //
-            //                    //same attentionNeeded, add shorter duration to addedTime
-            //                } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
-            //                    if step1.duration! > step2.duration! {
-            //                        addedTime += step2.duration!
-            //                        print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
-            //                        return false
-            //                    } else if step1.duration! < step2.duration! {
-            //                        addedTime += step1.duration!
-            //                        print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
-            //                        return true
-            //                    }
-            //                }
-            //            }
-            //
-            //            //overlap duration
-            //            if (step2.timeToStart! > step1.timeToStart!) && (step2.timeToStart! < (step1.timeToStart! + step1.duration!)) {
-            //
-            //                if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
-            //                    addedTime += step2.timeToStart! - (step1.timeToStart! + step1.duration!)
-            //                    print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
-            //                    return true
-            //
-            //                } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
-            //                    addedTime += (step1.timeToStart! + step1.duration!) - step2.timeToStart!
-            //                    print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
-            //                    return true
-            //
-            //                } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
-            //                    addedTime += (step1.timeToStart! + step1.duration!) - step2.timeToStart!
-            //                    print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
-            //                    return true
-            //                }
-            //            }
-            //
-            //            print(step1.timeToStart! < step2.timeToStart!)
-            //
-            //            return step1.timeToStart! < step2.timeToStart!
+            //TODO: handle optionals without force unwrapping
             
-            return(step1.timeToStart! < step2.timeToStart!)
+            //same start
+            if step1.timeToStart == step2.timeToStart {
+                
+                //different attentionNeeded
+                if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
+                    return true
+                } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
+                    addedTime += step1.timeToStart! + step1.duration! - step2.timeToStart!
+                    print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                    return false
+                    
+                    //same attentionNeeded, add shorter duration to addedTime
+                } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
+                    if step1.duration! > step2.duration! {
+                        addedTime += step2.duration!
+                        print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                        return false
+                    } else if step1.duration! < step2.duration! {
+                        addedTime += step1.duration!
+                        print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                        return true
+                    }
+                }
+            }
+            
+            //overlap duration
+            if (step2.timeToStart! > step1.timeToStart!) && (step2.timeToStart! < (step1.timeToStart! + step1.duration!)) {
+                
+                if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
+                    addedTime += step2.timeToStart! - (step1.timeToStart! + step1.duration!)
+                    print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                    return true
+                    
+                } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
+                    addedTime += (step1.timeToStart! + step1.duration!) - step2.timeToStart!
+                    print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                    return true
+                    
+                } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
+                    addedTime += (step1.timeToStart! + step1.duration!) - step2.timeToStart!
+                    print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                    return true
+                }
+            }
+            
+            return step1.timeToStart! < step2.timeToStart!
+            
+            //return(step1.duration! < step2.duration!)
             
         }
         
-        //eventually change this to procedure, so merged steps will appear. will need array of strings to fill tableview
+        //testcase with duration/timeToStart
+//        for step in recipeSteps {
+//            stepsForDisplayArray.append(step.timeToStart!)
+//        }
+//        
+//        var stringArray = stepsForDisplayArray.map { "\($0)" }
+//        
+//        store.recipeProceduresMerged = stringArray.joined(separator: "\n")
+        
+        
+        
+        //create array with ordered/merged procedures for display in tableview
+        
         for step in recipeSteps {
-            stepsForDisplayArray.append(step.timeToStart!)
+            stepTitlesForDisplay.append(step.stepTitle!)
         }
-        print(stepsForDisplayArray)
-        
-        var stringArray = stepsForDisplayArray.map { "\($0)" }
-        
-        store.recipeProceduresMerged = stringArray.joined(separator: "\n")
-        print(store.recipeProceduresMerged)
+
+        store.recipeProceduresMerged = stepTitlesForDisplay.joined(separator: "\n\n")
         
     }
 }
