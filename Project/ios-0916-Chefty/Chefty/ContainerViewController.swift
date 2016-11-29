@@ -17,6 +17,12 @@ class ContainerViewController: UIViewController {
     }
 
     
+    @IBAction func menuViewButton(_ sender: Any) {
+    
+    let menuView = MyMenuViewController()
+    present(menuView, animated: true, completion: nil)
+    
+    }
     
     
     

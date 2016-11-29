@@ -91,5 +91,21 @@ class DataStore {
         
         self.saveRecipeSelectedContext()
         self.fetchRecipeSelected()
+        //print(recipesSelected.count)
     }
+    
+    func deselectRecipe() {
+        let context = persistentContainer.viewContext
+        if !recipesSelected.isEmpty {
+            context.delete(recipesSelected.last!)
+            self.recipesSelected.remove(at: recipesSelected.count - 1)
+            do {
+                try! context.save()
+            } catch { fatalError() }
+        } else if recipesSelected.count == 1 {
+            recipesSelected = []
+        }
+        
+    }
+
 }
