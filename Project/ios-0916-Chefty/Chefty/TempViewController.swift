@@ -54,11 +54,4 @@ class TempViewController: UIViewController, TempViewDelegate {
         let recipeTabView = RecipeTabViewController()
         navigationController?.pushViewController(recipeTabView, animated: true)
     }
-    
-    
-    func onPressWelcome(button: UIButton) {
-        let welcomeView1 = WelcomeViewController()  // create the destination
-        navigationController?.pushViewController(welcomeView1, animated: false) // show destination with nav bar
-    }
-
 }

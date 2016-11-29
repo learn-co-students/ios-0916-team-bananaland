@@ -13,7 +13,6 @@ protocol TempViewDelegate: class {
     func onPressTraditionalRecipeButton(button: UIButton)
     func onPressIngredientsButton(button: UIButton)
     func onPressHomePageButton(button: UIButton)
-    func onPressWelcome(button: UIButton)
 }
 
 
@@ -52,9 +51,6 @@ class TempView: UIView {
         homepageButton.setTitle("Homepage", for: .normal)
         homepageButton.addTarget(self, action: #selector(self.goToHomepage), for: UIControlEvents.touchUpInside)
 
-        welcomeButton.setTitle("Welcome to Chefty", for: .normal)
-        welcomeButton.addTarget(self, action: #selector(self.goToWelcome), for: UIControlEvents.touchUpInside)
-        
         // add the object to the view
         self.addSubview(pageLabel)
         self.addSubview(myMenuButton)
@@ -105,10 +101,6 @@ class TempView: UIView {
     
     func traditionalRecipeAction(traditionalRecipeButton:UIButton) {
         self.delegate.onPressTraditionalRecipeButton(button: traditionalRecipeButton)
-    }
-    
-    func goToWelcome(welcomeButton:UIButton) {
-        self.delegate.onPressWelcome(button: welcomeButton)
     }
 
     func goToHomepage(homepageButton: UIButton) {

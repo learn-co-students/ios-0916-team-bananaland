@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let store = DataStore.sharedInstance
     var queue = OperationQueue()
     var initialViewController = UIViewController()
-    
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         // load data from core data

@@ -33,21 +33,45 @@
 		C00CEFF51DDF5C82005C4BE5 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00CEFF41DDF5C82005C4BE5 /* Recipe.swift */; };
 		C0252C631DDD16EA00046AD0 /* MyMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0252C621DDD16EA00046AD0 /* MyMenuViewController.swift */; };
 		C0252C651DDD171A00046AD0 /* MyMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0252C641DDD171A00046AD0 /* MyMenuView.swift */; };
-		C0252C681DDD240100046AD0 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A7C1E1C51DDCD97300BD8A13 /* Info.plist */; };
 		C0252C6A1DDD243100046AD0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0252C691DDD243100046AD0 /* Constants.swift */; };
 		C054B2A01DE1185C00F4DEB1 /* MyMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C054B29F1DE1185C00F4DEB1 /* MyMenuTableViewCell.swift */; };
 		C08F8B941DE34A940092144F /* Chefty.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C08F8B921DE34A940092144F /* Chefty.xcdatamodeld */; };
-		C08FBF3D1DE4B13C00699D9C /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08FBF3C1DE4B13C00699D9C /* WelcomeViewController.swift */; };
-		C08FBF3F1DE4B38100699D9C /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08FBF3E1DE4B38100699D9C /* WelcomeView.swift */; };
 		C08FBF451DE4C33600699D9C /* iTunesArtwork@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C08FBF421DE4C33600699D9C /* iTunesArtwork@1x.png */; };
 		C08FBF461DE4C33600699D9C /* iTunesArtwork@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C08FBF431DE4C33600699D9C /* iTunesArtwork@2x.png */; };
 		C08FBF471DE4C33600699D9C /* iTunesArtwork@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C08FBF441DE4C33600699D9C /* iTunesArtwork@3x.png */; };
 		C08FBF881DE6329300699D9C /* GradientViewLeftToRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08FBF871DE6329300699D9C /* GradientViewLeftToRight.swift */; };
+		C0A59D001DE8DB63002CD413 /* Icon-App-72x72@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0A59CFF1DE8DB63002CD413 /* Icon-App-72x72@1x.png */; };
+		C0A59D021DE9BE76002CD413 /* analogclock.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0A59D011DE9BE76002CD413 /* analogclock.ttf */; };
 		C0AAB53D1DDDE98F0055DF8B /* TempView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB53C1DDDE98F0055DF8B /* TempView.swift */; };
 		C0AAB53F1DDDEA880055DF8B /* TempViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB53E1DDDEA880055DF8B /* TempViewController.swift */; };
 		C0AAB5431DDE64970055DF8B /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB5421DDE64970055DF8B /* DataStore.swift */; };
 		C0AAB5471DDE67300055DF8B /* CheftyAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB5461DDE67300055DF8B /* CheftyAPIClient.swift */; };
 		C0AAB5491DDE677C0055DF8B /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB5481DDE677C0055DF8B /* Secrets.swift */; };
+		C0D2E4FA1DEC6C7700070E78 /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4E31DEC6C7700070E78 /* Contents.json */; };
+		C0D2E4FB1DEC6C7700070E78 /* Icon-App-20x20@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4E41DEC6C7700070E78 /* Icon-App-20x20@1x.png */; };
+		C0D2E4FC1DEC6C7700070E78 /* Icon-App-20x20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4E51DEC6C7700070E78 /* Icon-App-20x20@2x.png */; };
+		C0D2E4FD1DEC6C7700070E78 /* Icon-App-20x20@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4E61DEC6C7700070E78 /* Icon-App-20x20@3x.png */; };
+		C0D2E4FE1DEC6C7700070E78 /* Icon-App-29x29@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4E71DEC6C7700070E78 /* Icon-App-29x29@1x.png */; };
+		C0D2E4FF1DEC6C7700070E78 /* Icon-App-29x29@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4E81DEC6C7700070E78 /* Icon-App-29x29@2x.png */; };
+		C0D2E5001DEC6C7700070E78 /* Icon-App-29x29@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4E91DEC6C7700070E78 /* Icon-App-29x29@3x.png */; };
+		C0D2E5011DEC6C7700070E78 /* Icon-App-40x40@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4EA1DEC6C7700070E78 /* Icon-App-40x40@1x.png */; };
+		C0D2E5021DEC6C7700070E78 /* Icon-App-40x40@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4EB1DEC6C7700070E78 /* Icon-App-40x40@2x.png */; };
+		C0D2E5031DEC6C7700070E78 /* Icon-App-40x40@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4EC1DEC6C7700070E78 /* Icon-App-40x40@3x.png */; };
+		C0D2E5041DEC6C7700070E78 /* Icon-App-57x57@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4ED1DEC6C7700070E78 /* Icon-App-57x57@1x.png */; };
+		C0D2E5051DEC6C7700070E78 /* Icon-App-57x57@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4EE1DEC6C7700070E78 /* Icon-App-57x57@2x.png */; };
+		C0D2E5061DEC6C7700070E78 /* Icon-App-60x60@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4EF1DEC6C7700070E78 /* Icon-App-60x60@1x.png */; };
+		C0D2E5071DEC6C7700070E78 /* Icon-App-60x60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4F01DEC6C7700070E78 /* Icon-App-60x60@2x.png */; };
+		C0D2E5081DEC6C7700070E78 /* Icon-App-60x60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4F11DEC6C7700070E78 /* Icon-App-60x60@3x.png */; };
+		C0D2E5091DEC6C7700070E78 /* Icon-App-72x72@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4F21DEC6C7700070E78 /* Icon-App-72x72@1x.png */; };
+		C0D2E50A1DEC6C7700070E78 /* Icon-App-72x72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4F31DEC6C7700070E78 /* Icon-App-72x72@2x.png */; };
+		C0D2E50B1DEC6C7700070E78 /* Icon-App-76x76@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4F41DEC6C7700070E78 /* Icon-App-76x76@1x.png */; };
+		C0D2E50C1DEC6C7700070E78 /* Icon-App-76x76@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4F51DEC6C7700070E78 /* Icon-App-76x76@2x.png */; };
+		C0D2E50D1DEC6C7700070E78 /* Icon-App-76x76@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4F61DEC6C7700070E78 /* Icon-App-76x76@3x.png */; };
+		C0D2E50E1DEC6C7700070E78 /* Icon-App-83.5x83.5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4F71DEC6C7700070E78 /* Icon-App-83.5x83.5@2x.png */; };
+		C0D2E50F1DEC6C7700070E78 /* Icon-Small-50x50@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4F81DEC6C7700070E78 /* Icon-Small-50x50@1x.png */; };
+		C0D2E5101DEC6C7700070E78 /* Icon-Small-50x50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4F91DEC6C7700070E78 /* Icon-Small-50x50@2x.png */; };
+		C0D2E5121DEC779500070E78 /* SingleStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2E5111DEC779500070E78 /* SingleStepViewController.swift */; };
+		C0D2E5141DEC77D200070E78 /* SingleStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2E5131DEC77D200070E78 /* SingleStepView.swift */; };
 		C0DBD0611DDD25E800B9B9FF /* MaterialIcons-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C0252C661DDD23AD00046AD0 /* MaterialIcons-Regular.otf */; };
 /* End PBXBuildFile section */
 
@@ -86,17 +110,42 @@
 		C0252C691DDD243100046AD0 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C054B29F1DE1185C00F4DEB1 /* MyMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMenuTableViewCell.swift; sourceTree = "<group>"; };
 		C08F8B931DE34A940092144F /* Chefty.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Chefty.xcdatamodel; sourceTree = "<group>"; };
-		C08FBF3C1DE4B13C00699D9C /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
-		C08FBF3E1DE4B38100699D9C /* WelcomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		C08FBF421DE4C33600699D9C /* iTunesArtwork@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@1x.png"; sourceTree = "<group>"; };
 		C08FBF431DE4C33600699D9C /* iTunesArtwork@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@2x.png"; sourceTree = "<group>"; };
 		C08FBF441DE4C33600699D9C /* iTunesArtwork@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@3x.png"; sourceTree = "<group>"; };
 		C08FBF871DE6329300699D9C /* GradientViewLeftToRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientViewLeftToRight.swift; sourceTree = "<group>"; };
+		C0A59CFF1DE8DB63002CD413 /* Icon-App-72x72@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-72x72@1x.png"; sourceTree = "<group>"; };
+		C0A59D011DE9BE76002CD413 /* analogclock.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = analogclock.ttf; sourceTree = "<group>"; };
 		C0AAB53C1DDDE98F0055DF8B /* TempView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempView.swift; sourceTree = "<group>"; };
 		C0AAB53E1DDDEA880055DF8B /* TempViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempViewController.swift; sourceTree = "<group>"; };
 		C0AAB5421DDE64970055DF8B /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		C0AAB5461DDE67300055DF8B /* CheftyAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheftyAPIClient.swift; sourceTree = "<group>"; };
 		C0AAB5481DDE677C0055DF8B /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		C0D2E4E31DEC6C7700070E78 /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
+		C0D2E4E41DEC6C7700070E78 /* Icon-App-20x20@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-20x20@1x.png"; sourceTree = "<group>"; };
+		C0D2E4E51DEC6C7700070E78 /* Icon-App-20x20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-20x20@2x.png"; sourceTree = "<group>"; };
+		C0D2E4E61DEC6C7700070E78 /* Icon-App-20x20@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-20x20@3x.png"; sourceTree = "<group>"; };
+		C0D2E4E71DEC6C7700070E78 /* Icon-App-29x29@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-29x29@1x.png"; sourceTree = "<group>"; };
+		C0D2E4E81DEC6C7700070E78 /* Icon-App-29x29@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-29x29@2x.png"; sourceTree = "<group>"; };
+		C0D2E4E91DEC6C7700070E78 /* Icon-App-29x29@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-29x29@3x.png"; sourceTree = "<group>"; };
+		C0D2E4EA1DEC6C7700070E78 /* Icon-App-40x40@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-40x40@1x.png"; sourceTree = "<group>"; };
+		C0D2E4EB1DEC6C7700070E78 /* Icon-App-40x40@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-40x40@2x.png"; sourceTree = "<group>"; };
+		C0D2E4EC1DEC6C7700070E78 /* Icon-App-40x40@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-40x40@3x.png"; sourceTree = "<group>"; };
+		C0D2E4ED1DEC6C7700070E78 /* Icon-App-57x57@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-57x57@1x.png"; sourceTree = "<group>"; };
+		C0D2E4EE1DEC6C7700070E78 /* Icon-App-57x57@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-57x57@2x.png"; sourceTree = "<group>"; };
+		C0D2E4EF1DEC6C7700070E78 /* Icon-App-60x60@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-60x60@1x.png"; sourceTree = "<group>"; };
+		C0D2E4F01DEC6C7700070E78 /* Icon-App-60x60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-60x60@2x.png"; sourceTree = "<group>"; };
+		C0D2E4F11DEC6C7700070E78 /* Icon-App-60x60@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-60x60@3x.png"; sourceTree = "<group>"; };
+		C0D2E4F21DEC6C7700070E78 /* Icon-App-72x72@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-72x72@1x.png"; sourceTree = "<group>"; };
+		C0D2E4F31DEC6C7700070E78 /* Icon-App-72x72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-72x72@2x.png"; sourceTree = "<group>"; };
+		C0D2E4F41DEC6C7700070E78 /* Icon-App-76x76@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-76x76@1x.png"; sourceTree = "<group>"; };
+		C0D2E4F51DEC6C7700070E78 /* Icon-App-76x76@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-76x76@2x.png"; sourceTree = "<group>"; };
+		C0D2E4F61DEC6C7700070E78 /* Icon-App-76x76@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-76x76@3x.png"; sourceTree = "<group>"; };
+		C0D2E4F71DEC6C7700070E78 /* Icon-App-83.5x83.5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-83.5x83.5@2x.png"; sourceTree = "<group>"; };
+		C0D2E4F81DEC6C7700070E78 /* Icon-Small-50x50@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50x50@1x.png"; sourceTree = "<group>"; };
+		C0D2E4F91DEC6C7700070E78 /* Icon-Small-50x50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50x50@2x.png"; sourceTree = "<group>"; };
+		C0D2E5111DEC779500070E78 /* SingleStepViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleStepViewController.swift; sourceTree = "<group>"; };
+		C0D2E5131DEC77D200070E78 /* SingleStepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleStepView.swift; sourceTree = "<group>"; };
 		F99EB0E7E4778030CC432A72 /* Pods_Chefty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chefty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -205,8 +254,8 @@
 				C054B2A11DE11C4A00F4DEB1 /* MyMenu */,
 				C0AAB53C1DDDE98F0055DF8B /* TempView.swift */,
 				714EBD5B1DDE340800C0857A /* TraditionalRecipeView.swift */,
-				C08FBF3E1DE4B38100699D9C /* WelcomeView.swift */,
 				A7DCBF721DE5FAD100AA7629 /* TestTraditionalRecipeView.swift */,
+				C0D2E5131DEC77D200070E78 /* SingleStepView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -217,11 +266,11 @@
 				A7DCBF741DE5FD1700AA7629 /* TestTraditionalRecipeViewController.swift */,
 				71E655C31DDCE61700B60E0B /* TraditionalRecipeViewController.swift */,
 				C0252C621DDD16EA00046AD0 /* MyMenuViewController.swift */,
+				C0D2E5111DEC779500070E78 /* SingleStepViewController.swift */,
 				C0AAB53E1DDDEA880055DF8B /* TempViewController.swift */,
 				A7C1E2311DDE5BC200BD8A13 /* HomePageViewController.swift */,
 				A7C0B4561DE4ECE10091E80C /* RecipeTabViewController.swift */,
 				01A830B21DDF82330064B9CE /* IngredientsController.swift */,
-				C08FBF3C1DE4B13C00699D9C /* WelcomeViewController.swift */,
 				A7DCBF761DE64E9600AA7629 /* ContainerViewController.swift */,
 				A7C0B4551DE4ECBA0091E80C /* Recipe Categories */,
 			);
@@ -242,10 +291,13 @@
 		C0252C671DDD23B600046AD0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C0D2E4E21DEC6C7700070E78 /* AppIcon.appiconset */,
 				C0252C661DDD23AD00046AD0 /* MaterialIcons-Regular.otf */,
+				C0A59D011DE9BE76002CD413 /* analogclock.ttf */,
 				C08FBF421DE4C33600699D9C /* iTunesArtwork@1x.png */,
 				C08FBF431DE4C33600699D9C /* iTunesArtwork@2x.png */,
 				C08FBF441DE4C33600699D9C /* iTunesArtwork@3x.png */,
+				C0A59CFF1DE8DB63002CD413 /* Icon-App-72x72@1x.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -258,6 +310,36 @@
 				C08FBF871DE6329300699D9C /* GradientViewLeftToRight.swift */,
 			);
 			name = MyMenu;
+			sourceTree = "<group>";
+		};
+		C0D2E4E21DEC6C7700070E78 /* AppIcon.appiconset */ = {
+			isa = PBXGroup;
+			children = (
+				C0D2E4E41DEC6C7700070E78 /* Icon-App-20x20@1x.png */,
+				C0D2E4E31DEC6C7700070E78 /* Contents.json */,
+				C0D2E4E51DEC6C7700070E78 /* Icon-App-20x20@2x.png */,
+				C0D2E4E61DEC6C7700070E78 /* Icon-App-20x20@3x.png */,
+				C0D2E4E71DEC6C7700070E78 /* Icon-App-29x29@1x.png */,
+				C0D2E4E81DEC6C7700070E78 /* Icon-App-29x29@2x.png */,
+				C0D2E4E91DEC6C7700070E78 /* Icon-App-29x29@3x.png */,
+				C0D2E4EA1DEC6C7700070E78 /* Icon-App-40x40@1x.png */,
+				C0D2E4EB1DEC6C7700070E78 /* Icon-App-40x40@2x.png */,
+				C0D2E4EC1DEC6C7700070E78 /* Icon-App-40x40@3x.png */,
+				C0D2E4ED1DEC6C7700070E78 /* Icon-App-57x57@1x.png */,
+				C0D2E4EE1DEC6C7700070E78 /* Icon-App-57x57@2x.png */,
+				C0D2E4EF1DEC6C7700070E78 /* Icon-App-60x60@1x.png */,
+				C0D2E4F01DEC6C7700070E78 /* Icon-App-60x60@2x.png */,
+				C0D2E4F11DEC6C7700070E78 /* Icon-App-60x60@3x.png */,
+				C0D2E4F21DEC6C7700070E78 /* Icon-App-72x72@1x.png */,
+				C0D2E4F31DEC6C7700070E78 /* Icon-App-72x72@2x.png */,
+				C0D2E4F41DEC6C7700070E78 /* Icon-App-76x76@1x.png */,
+				C0D2E4F51DEC6C7700070E78 /* Icon-App-76x76@2x.png */,
+				C0D2E4F61DEC6C7700070E78 /* Icon-App-76x76@3x.png */,
+				C0D2E4F71DEC6C7700070E78 /* Icon-App-83.5x83.5@2x.png */,
+				C0D2E4F81DEC6C7700070E78 /* Icon-Small-50x50@1x.png */,
+				C0D2E4F91DEC6C7700070E78 /* Icon-Small-50x50@2x.png */,
+			);
+			path = AppIcon.appiconset;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -325,14 +407,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				A7C0B4591DE4F7540091E80C /* bg.png in Resources */,
-				C0252C681DDD240100046AD0 /* Info.plist in Resources */,
+				C0A59D021DE9BE76002CD413 /* analogclock.ttf in Resources */,
+				C0D2E50E1DEC6C7700070E78 /* Icon-App-83.5x83.5@2x.png in Resources */,
 				A72DBEA71DE4D72E00867C86 /* Main.storyboard in Resources */,
 				C08FBF471DE4C33600699D9C /* iTunesArtwork@3x.png in Resources */,
+				C0D2E4FF1DEC6C7700070E78 /* Icon-App-29x29@2x.png in Resources */,
+				C0D2E4FC1DEC6C7700070E78 /* Icon-App-20x20@2x.png in Resources */,
+				C0D2E4FE1DEC6C7700070E78 /* Icon-App-29x29@1x.png in Resources */,
 				C08FBF461DE4C33600699D9C /* iTunesArtwork@2x.png in Resources */,
+				C0D2E4FB1DEC6C7700070E78 /* Icon-App-20x20@1x.png in Resources */,
+				C0D2E50C1DEC6C7700070E78 /* Icon-App-76x76@2x.png in Resources */,
 				C08FBF451DE4C33600699D9C /* iTunesArtwork@1x.png in Resources */,
 				A7C1E1C41DDCD97300BD8A13 /* LaunchScreen.storyboard in Resources */,
+				C0D2E5081DEC6C7700070E78 /* Icon-App-60x60@3x.png in Resources */,
+				C0D2E5001DEC6C7700070E78 /* Icon-App-29x29@3x.png in Resources */,
+				C0D2E5051DEC6C7700070E78 /* Icon-App-57x57@2x.png in Resources */,
+				C0D2E4FD1DEC6C7700070E78 /* Icon-App-20x20@3x.png in Resources */,
+				C0D2E50F1DEC6C7700070E78 /* Icon-Small-50x50@1x.png in Resources */,
+				C0D2E5061DEC6C7700070E78 /* Icon-App-60x60@1x.png in Resources */,
+				C0D2E50D1DEC6C7700070E78 /* Icon-App-76x76@3x.png in Resources */,
 				A7C1E1C11DDCD97300BD8A13 /* Assets.xcassets in Resources */,
+				C0A59D001DE8DB63002CD413 /* Icon-App-72x72@1x.png in Resources */,
+				C0D2E5031DEC6C7700070E78 /* Icon-App-40x40@3x.png in Resources */,
+				C0D2E5101DEC6C7700070E78 /* Icon-Small-50x50@2x.png in Resources */,
+				C0D2E50A1DEC6C7700070E78 /* Icon-App-72x72@2x.png in Resources */,
+				C0D2E5071DEC6C7700070E78 /* Icon-App-60x60@2x.png in Resources */,
+				C0D2E5021DEC6C7700070E78 /* Icon-App-40x40@2x.png in Resources */,
+				C0D2E5011DEC6C7700070E78 /* Icon-App-40x40@1x.png in Resources */,
+				C0D2E50B1DEC6C7700070E78 /* Icon-App-76x76@1x.png in Resources */,
+				C0D2E4FA1DEC6C7700070E78 /* Contents.json in Resources */,
 				C0DBD0611DDD25E800B9B9FF /* MaterialIcons-Regular.otf in Resources */,
+				C0D2E5041DEC6C7700070E78 /* Icon-App-57x57@1x.png in Resources */,
+				C0D2E5091DEC6C7700070E78 /* Icon-App-72x72@1x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,7 +498,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C0252C651DDD171A00046AD0 /* MyMenuView.swift in Sources */,
-				C08FBF3D1DE4B13C00699D9C /* WelcomeViewController.swift in Sources */,
 				A7DCBF751DE5FD1700AA7629 /* TestTraditionalRecipeViewController.swift in Sources */,
 				C08F8B941DE34A940092144F /* Chefty.xcdatamodeld in Sources */,
 				A7C1E2341DDE5D6F00BD8A13 /* CustomLayoutView.swift in Sources */,
@@ -403,12 +508,13 @@
 				A7DCBF731DE5FAD100AA7629 /* TestTraditionalRecipeView.swift in Sources */,
 				A7C9D3F31DDF849900EA5637 /* GradientView.swift in Sources */,
 				71E655C41DDCE61700B60E0B /* TraditionalRecipeViewController.swift in Sources */,
+				C0D2E5141DEC77D200070E78 /* SingleStepView.swift in Sources */,
 				A72DBEAD1DE4DB0400867C86 /* AppetizerViewController.swift in Sources */,
+				C0D2E5121DEC779500070E78 /* SingleStepViewController.swift in Sources */,
 				714EBD5C1DDE340800C0857A /* TraditionalRecipeView.swift in Sources */,
 				C0AAB53F1DDDEA880055DF8B /* TempViewController.swift in Sources */,
 				C0AAB53D1DDDE98F0055DF8B /* TempView.swift in Sources */,
 				A72DBEAB1DE4DA6900867C86 /* MainDishViewController.swift in Sources */,
-				C08FBF3F1DE4B38100699D9C /* WelcomeView.swift in Sources */,
 				C0AAB5471DDE67300055DF8B /* CheftyAPIClient.swift in Sources */,
 				C00CEFF51DDF5C82005C4BE5 /* Recipe.swift in Sources */,
 				A7DCBF771DE64E9600AA7629 /* ContainerViewController.swift in Sources */,
@@ -458,6 +564,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -508,6 +615,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -537,6 +645,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 45466194089BC863FFF4F44A /* Pods-Chefty.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = CJ24M7DKLZ;
@@ -555,6 +664,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A9984F50016543896BA81B7F /* Pods-Chefty.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = CJ24M7DKLZ;
