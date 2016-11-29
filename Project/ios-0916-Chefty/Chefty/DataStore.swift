@@ -16,6 +16,7 @@ class DataStore {
     var recipes:[Recipe] = []
     var recipeSteps: [RecipeStep] = []
     var recipesSelected:[RecipeSelected] = []
+    var recipeProceduresMerged: String = "" //this will need to be an array for tableview
     
     func getRecipes(completion: @escaping () -> ()) {
         

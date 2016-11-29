@@ -12,9 +12,9 @@ import UIKit
 class RecipeStep {
     
     var recipeID: String?
-    var stepNumber: String?
-    var duration: Int?
-    var timeToStart: Int?
+    var stepNumber: Int?
+    //var duration: Date?
+    //var timeToStart: Date?
     var fullAttentionRequired: Bool?
     var stepTitle: String?
     var procedure: String?
@@ -23,9 +23,22 @@ class RecipeStep {
     
     init(dict: [String: Any]) {
         self.recipeID = dict["recipe"] as! String?
-        self.stepNumber = dict["step"] as! String?
-        self.duration = Int((dict["duration"] as! String?)!)
-        self.timeToStart = Int((dict["timeToStart"] as! String?)!)
+        self.stepNumber = Int((dict["step"] as! String?)!)
+        
+//        let durationDouble = Double(dict["duration"] as! String?)!)
+//        self.duration = Date(durationDouble)
+        
+//        let durationString = dict["duration"] as! String?
+//        let dayTimePeriodFormatter = DateFormatter()
+//        dayTimePeriodFormatter.dateFormat = "HH:mm:ss"
+//        let dateString = dayTimePeriodFormatter.string(from: durationString as! Date)
+        
+        
+        //self.duration = Date(timeIntervalSince1970: durationDouble!)
+        
+//        let timeToStartDouble = Double(((dict["timeToStart"]) as! String?)!)
+//        self.timeToStart = Date(timeIntervalSince1970: timeToStartDouble!)
+        
         self.fullAttentionRequired = Bool(((dict["fullAttentionRequired"] as! String?)!))
         self.stepTitle = dict["stepTitle"] as! String?
         self.procedure = dict["procedure"] as! String?

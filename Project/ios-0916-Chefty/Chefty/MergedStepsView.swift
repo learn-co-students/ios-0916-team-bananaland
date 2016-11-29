@@ -29,11 +29,11 @@ class MergedStepsView: UIView {
     
     
     func setUpElements() {
-
         
         //textbox
         let myTextBox = UITextView()
-        myTextBox.text = "hi"
+        //let text = mergedStepsVC.stepsForDisplayString
+        myTextBox.text = store.recipeProceduresMerged
         myTextBox.textAlignment = .center
         
         self.addSubview(myTextBox)

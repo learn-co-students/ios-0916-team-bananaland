@@ -14,6 +14,7 @@ class MergedStepsViewController: UIViewController {
     var mergedStepsView: MergedStepsView!
     var store = DataStore.sharedInstance
     var recipeSteps = [RecipeStep]()
+    var stepsForDisplayArray = [Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +45,7 @@ class MergedStepsViewController: UIViewController {
             for stepGroup in self.store.recipeSteps {
                 self.recipeSteps.append(stepGroup)
             }
-            print(self.recipeSteps.count)
+            //print(self.recipeSteps.count) --> yes, this correctly grabs all the steps for Apple Pie and stores in recipeSteps
             
             completion()
         }
@@ -55,9 +56,12 @@ class MergedStepsViewController: UIViewController {
     
     func mergeRecipeSteps() {
         
+        //take Apple Pie steps stored in recipeSteps and re-order/merge them
+        
         var addedTime = 0
         
         recipeSteps = self.recipeSteps.sorted { (step1: RecipeStep, step2: RecipeStep) -> Bool in
+            
             
 //            //TODO: handle optionals without force unwrapping
 //            
@@ -110,14 +114,19 @@ class MergedStepsViewController: UIViewController {
 //            
 //            return step1.timeToStart! < step2.timeToStart!
             
-            print(step1.stepNumber! > step2.stepNumber!)
             return(step1.stepNumber! > step2.stepNumber!)
             
         }
         
-        //print(addedTime)
-        //print(self.recipeSteps)
-        //return(steps)
+        for step in recipeSteps {
+            stepsForDisplayArray.append(step.stepNumber!)
+        }
+        print(stepsForDisplayArray)
+        
+        var stringArray = stepsForDisplayArray.map { "\($0)" }
+
+        store.recipeProceduresMerged = stringArray.joined(separator: "\n")
+        print(store.recipeProceduresMerged)
         
     }
     
