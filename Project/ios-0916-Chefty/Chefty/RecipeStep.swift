@@ -30,10 +30,10 @@ class RecipeStep {
         self.procedure = dict["procedure"] as! String?
         self.ingredients = dict["ingredients"] as! [String]?
 
-        let durationSeconds = convertStringToMinutes(input: (dict["duration"] as! String?)!)
+        let durationSeconds = convertDurationToMinutes(duration: (dict["duration"] as! String?)!)
         self.duration = durationSeconds
         
-        let timeToStartSeconds = convertStringToMinutes(input: (dict["timeToStart"] as! String?)!)
+        let timeToStartSeconds = convertTimeToStartToMinutes(timeToStart: (dict["timeToStart"] as! String?)!)
         self.timeToStart = timeToStartSeconds
         
     }
@@ -41,8 +41,8 @@ class RecipeStep {
 
 extension RecipeStep {
     
-    func convertStringToMinutes(input: String) -> Int {
-        let separatedNum = input.components(separatedBy: ":")
+    func convertDurationToMinutes(duration: String) -> Int {
+        let separatedNum = duration.components(separatedBy: ":")
         let handleMinutesOnly = Int(separatedNum[0])
         let handleHours = Int(separatedNum[0])
         let handleMinutesWithHours = Int(separatedNum[1])
@@ -59,6 +59,28 @@ extension RecipeStep {
         
         return totalMinutes
     }
+    
+    
+    
+    func convertTimeToStartToMinutes(timeToStart: String) -> Int {
+        let separatedNum = timeToStart.components(separatedBy: ":")
+        let handleMinutesOnly = Int(separatedNum[0])
+        let handleHours = Int(separatedNum[0])
+        let handleMinutesWithHours = Int(separatedNum[1])
+        var totalMinutes: Int = 0
+        
+        switch separatedNum.count {
+        case 2:
+            totalMinutes += handleMinutesOnly!
+        case 3:
+            totalMinutes += ((handleHours! * 60) - (handleMinutesWithHours!))
+        default:
+            print("error")
+        }
+        
+        return totalMinutes
+    }
+
     
     
     
