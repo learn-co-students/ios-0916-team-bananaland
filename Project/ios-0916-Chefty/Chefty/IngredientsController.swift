@@ -57,11 +57,8 @@ class IngredientsController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-      
         return store.recipesSelected[section].displayName
-        //return store.ingredientsArray[section].recipeID
     }
-    
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
