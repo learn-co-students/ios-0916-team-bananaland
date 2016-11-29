@@ -15,20 +15,31 @@ class SingleStepView: UIView {
         
         let ingredients: [String] = ["2 1/2 cups all-purpose flour", "teaspoons sugar","1/4 teaspoon fine salt", "14 tablespoons cold butter, diced", "large egg", "large egg, lightly beaten with 2 tablespoons cold water"]
         
-        // initialize button
+        // initialize controls
         let stepTitle: UILabel = UILabel()
+        let ingredientsTitle: UILabel = UILabel()
         
         // configure controls
         stepTitle.text = "Make dough"
         stepTitle.font =  UIFont(name: "Helvetica", size: CGFloat(Constants.fontSize.large.rawValue))
+        stepTitle.backgroundColor = UIColor.red
+        
+        ingredientsTitle.text = "Ingredients"
+        ingredientsTitle.font =  UIFont(name: "Helvetica", size: CGFloat(Constants.fontSize.medium.rawValue))
+        ingredientsTitle.backgroundColor = UIColor.red
         
         // add the object to the view
         self.addSubview(stepTitle)
+        self.addSubview(ingredientsTitle)
         
         // constrain the object
         stepTitle.translatesAutoresizingMaskIntoConstraints = false
         stepTitle.topAnchor.constraint(equalTo: self.topAnchor, constant: 100).isActive = true
         stepTitle.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        
+        ingredientsTitle.translatesAutoresizingMaskIntoConstraints = false
+        ingredientsTitle.topAnchor.constraint(equalTo: stepTitle.topAnchor, constant: 60).isActive = true
+        ingredientsTitle.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {

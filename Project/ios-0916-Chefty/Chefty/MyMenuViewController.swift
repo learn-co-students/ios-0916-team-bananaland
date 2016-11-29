@@ -38,7 +38,7 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         notificationManagerInst.notificationsTitleTextColor = UIColor.black
         notificationManagerInst.notificationsBodyTextColor = UIColor.darkGray
         notificationManagerInst.notificationsSeperatorColor = UIColor.gray
-        notificationManagerInst.notificationsIcon = UIImage(named: "Icon-App-72x72")
+        notificationManagerInst.notificationsIcon = UIImage(named: "Icon-App-76x76")
         
 //        let alertSoundURL: URL? = Bundle.main.url(forResource: "click", withExtension: "wav")
 //        if let _ = alertSoundURL {
