@@ -138,10 +138,14 @@ class CheftyAPIClient {
     }
     
     
-    class func getStepsAndIngredients(completion: @escaping () -> Void){
+    class func getStepsAndIngredients(recipeIDRequest: String, completion: @escaping () -> Void){
         let store = DataStore.sharedInstance
-        let urlString = "\(Secrets.cheftyAPIURL)/getRecipeSteps.php?key=\(Secrets.cheftyKey)&recipe=apple-pie"
+        let urlString = "\(Secrets.cheftyAPIURL)/getRecipeSteps.php?key=\(Secrets.cheftyKey)&recipe=\(recipeIDRequest)"
         let url = URL(string: urlString)
+        var selectedRecipe:Recipe?
+        
+        // get the recipe with the id that was requested
+        
         
         if let unwrappedUrl = url{
             let session = URLSession.shared
@@ -152,48 +156,22 @@ class CheftyAPIClient {
                         //print(responseJSON)
                         
                         for stepsDict in responseJSON {
-                            
-                            let context = store.persistentContainer.viewContext
-                            let stepsInst = Steps(context: context)
-                            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Recipe")
-                            
-                            var unwrappedRecipeIDFromManagedObject = String()
-                            
-                            let predicate = NSPredicate(format: "id = 'apple-pie'")
-                            fetchRequest.predicate = predicate
-                            
-                            //var recipeManagedObject = NSManagedObject()
-                            
-                            do {
-                                let results = try context.fetch(fetchRequest)
-                                let requestRecipes = results as! [NSManagedObject]
-                                
-
-                                for requestRecipeFromCD in requestRecipes.enumerated() {
-                                    
-                                    let recipeIDFromCD = requestRecipeFromCD.element.value(forKey: "id")!
-                                    if stepsDict["recipe"] as! String == recipeIDFromCD as! String {
-                                        print("Match found")
-                                        
-                                    }
-                                }
-                            } catch {
-                                print("error")
-                            }
+                            var recipeIdFromStep = stepsDict["recipe"]
                             
                             
-                            
-                            
+                            if recipeIDRequest == recipeIdFromStep as! String {
+                                print("recipeIDRequest: \(recipeIDRequest) = recipeIdFromStep \(recipeIdFromStep)")
                             //store.saveRecipeSelectedContext()
+                            }
                         }
-                        completion()
+                        //completion()
+                            
                     } catch {
                         print("An error occured when creating responseJSON")
                     }
                 }
             }
             task.resume()
-            
         }
         
     }
