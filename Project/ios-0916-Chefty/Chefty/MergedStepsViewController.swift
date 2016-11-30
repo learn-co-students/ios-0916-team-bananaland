@@ -25,11 +25,6 @@ class MergedStepsViewController: UIViewController {
             //print("getting api and inside closure")
         }
         
-        
-        
-        
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
@@ -41,6 +36,7 @@ class MergedStepsViewController: UIViewController {
     }
     
     override func loadView(){
+        print("HEYY!")
         self.mergedStepsView = MergedStepsView(frame: CGRect.zero)
         self.view = self.mergedStepsView
     }

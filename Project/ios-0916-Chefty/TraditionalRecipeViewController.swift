@@ -39,10 +39,23 @@ class TraditionalRecipeViewController: UIViewController {
     
     override func loadView(){
         self.traditionalRecipeView = TraditionalRecipeView(frame: CGRect.zero)
+        traditionalRecipeView.delegate = self
         self.view = self.traditionalRecipeView
     }
-
-
     
+ 
+}
+
+extension TraditionalRecipeViewController: TraditionalDelegate {
     
+    func mergedStepsTapped(sender: TraditionalRecipeView) {
+        let mergedStepsViewController = MergedStepsViewController()
+        
+        navigationController?.pushViewController(mergedStepsViewController, animated: true)
+        print("go to merged steps pressed")
+
+        
+        
+        
+    }
 }

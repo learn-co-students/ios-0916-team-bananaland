@@ -9,12 +9,20 @@
 
 import UIKit
 
+protocol TraditionalDelegate: class {
+    
+    func mergedStepsTapped(sender: TraditionalRecipeView)
+    
+}
+
 class TraditionalRecipeView: UIView {
     
     var store = DataStore.sharedInstance
     var recipe: Recipe?
     var combinedSteps = String()
     var combinedIngredients = String()
+    
+    weak var delegate: TraditionalDelegate?
     
     override init(frame:CGRect){
         super.init(frame: frame)
@@ -207,20 +215,33 @@ class TraditionalRecipeView: UIView {
         stepsText.isScrollEnabled = false
         
         
-        //ADD BUTTON
-        let addButton: UIButton = UIButton(type: .roundedRect)
-        addButton.setTitle(Constants.iconLibrary.close.rawValue, for: .normal)
-        addButton.titleLabel!.font =  UIFont(name: Constants.iconFont.material.rawValue, size: CGFloat(Constants.iconSize.small.rawValue))
-        addButton.backgroundColor = UIColor.blue
-        self.addSubview(addButton)
-        addButton.bringSubview(toFront: myScrollView)
-        addButton.setTitleColor(UIColor(named: .white), for: .normal)
-        //        addButton.addTarget(self, action: #selector(MyMenuTableViewCell.onClickAddAction), for: UIControlEvents.touchUpInside)
-        addButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -30).isActive = true
-        addButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
-        addButton.translatesAutoresizingMaskIntoConstraints = false
         
         
+        
+        ////////////////////////////////////////////
+        //Temporary navigation to Merged Steps View
+        
+        
+        //MERGED STEPS BUTTON
+        let mergedStepsButton: UIButton = UIButton(type: .roundedRect)
+        mergedStepsButton.setTitle(Constants.iconLibrary.close.rawValue, for: .normal)
+        mergedStepsButton.titleLabel!.font =  UIFont(name: Constants.iconFont.material.rawValue, size: CGFloat(Constants.iconSize.small.rawValue))
+        mergedStepsButton.backgroundColor = UIColor.blue
+        self.addSubview(mergedStepsButton)
+        mergedStepsButton.bringSubview(toFront: myScrollView)
+        mergedStepsButton.setTitleColor(UIColor(named: .white), for: .normal)
+        mergedStepsButton.addTarget(self, action: #selector(goToMergedSteps), for: UIControlEvents.touchUpInside)
+        mergedStepsButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -30).isActive = true
+        mergedStepsButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
+        mergedStepsButton.translatesAutoresizingMaskIntoConstraints = false
+        
+    }
+    
+    func goToMergedSteps(mergedStepsButton:UIButton) {
+        
+        delegate?.mergedStepsTapped(sender: self)
+        
+//        traditionalViewController.onPressMergedStepsButton(button: mergedStepsButton)
     }
     
 }

@@ -64,7 +64,6 @@ class TempViewController: UIViewController, TempViewDelegate {
     
     func onPressMergedStepsButton(button: UIButton) {
         let mergedStepsView = MergedStepsViewController()  // create the destination
-        //mergedStepsView.recipe = store.recipes[0]
         navigationController?.pushViewController(mergedStepsView, animated: true) // show destination with nav bar
     }
 
