@@ -14,17 +14,21 @@ class MergedStepsViewController: UIViewController {
     var mergedStepsView: MergedStepsView!
     var store = DataStore.sharedInstance
     var recipeSteps = [RecipeStep]()
-    var stepsForDisplayArray = [Int]()
     var stepTitlesForDisplay = [String]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getAPIInfo(){
-            print("first recipe step \(self.recipeSteps[0].timeToStart)")
-            self.mergeRecipeSteps()
-            print("inside ViewDidLoad closure")
+        getAPIInfo {
+            print("4")
+            //print("getting api and inside closure")
         }
+        
+        
+        
+        
+        
         
     }
     
@@ -42,27 +46,34 @@ class MergedStepsViewController: UIViewController {
     }
     
     func getAPIInfo(with completion: @escaping () -> ()) {
+        print("1")
         store.getRecipeSteps {
+            print("2")
             
+            print("recipe steps count before appending to store.recipeSteps: \(self.store.recipeSteps.count)")
             for stepGroup in self.store.recipeSteps {
                 self.recipeSteps.append(stepGroup)
             }
-            //print(self.recipeSteps.count) --> yes, this correctly grabs all the steps for Apple Pie and stores in recipeSteps
+            print("recipe steps count after appending to store.recipeSteps: \(self.store.recipeSteps.count)")
+            print("3")
             
             completion()
+            self.mergeRecipeSteps()
+            print("7")
+            
         }
-        
     }
+
 }
 
 extension MergedStepsViewController {
     
     func mergeRecipeSteps() {
-        
-        //take Apple Pie steps stored in recipeSteps and re-order/merge them
+        print("5")
         
         var addedTime = 0
         
+        print("recipe steps count inside merge function at start: \(self.recipeSteps.count)")
         recipeSteps = self.recipeSteps.sorted { (step1: RecipeStep, step2: RecipeStep) -> Bool in
             
             
@@ -76,18 +87,18 @@ extension MergedStepsViewController {
                     return true
                 } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
                     addedTime += step1.timeToStart! + step1.duration! - step2.timeToStart!
-                    print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                    //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                     return false
                     
                     //same attentionNeeded, add shorter duration to addedTime
                 } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
                     if step1.duration! > step2.duration! {
                         addedTime += step2.duration!
-                        print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                        //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                         return false
                     } else if step1.duration! < step2.duration! {
                         addedTime += step1.duration!
-                        print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                        //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                         return true
                     }
                 }
@@ -98,17 +109,17 @@ extension MergedStepsViewController {
                 
                 if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
                     addedTime += step2.timeToStart! - (step1.timeToStart! + step1.duration!)
-                    print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                    //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                     return true
                     
                 } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
                     addedTime += (step1.timeToStart! + step1.duration!) - step2.timeToStart!
-                    print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                    //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                     return true
                     
                 } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
                     addedTime += (step1.timeToStart! + step1.duration!) - step2.timeToStart!
-                    print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                    //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                     return true
                 }
             }
@@ -119,24 +130,14 @@ extension MergedStepsViewController {
             
         }
         
-        //testcase with duration/timeToStart
-//        for step in recipeSteps {
-//            stepsForDisplayArray.append(step.timeToStart!)
-//        }
-//        
-//        var stringArray = stepsForDisplayArray.map { "\($0)" }
-//        
-//        store.recipeProceduresMerged = stringArray.joined(separator: "\n")
-        
-        
-        
-        //create array with ordered/merged procedures for display in tableview
-        
+        //TODO: create array with ordered/merged procedures for display in tableview
         for step in recipeSteps {
-            stepTitlesForDisplay.append(step.stepTitle!)
+            stepTitlesForDisplay.append("\(step.timeToStart)")
         }
 
         store.recipeProceduresMerged = stepTitlesForDisplay.joined(separator: "\n\n")
-        
+        print("recipe steps count inside merge function at end: \(self.recipeSteps.count)")
+
+        print("6")
     }
 }

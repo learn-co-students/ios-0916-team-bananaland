@@ -12,7 +12,7 @@ import CoreData
 class DataStore {
     static let sharedInstance = DataStore()
     fileprivate init() {}
-
+    
     var recipes:[Recipe] = []
     var recipeSteps: [RecipeStep] = []
     var recipesSelected:[RecipeSelected] = []
@@ -20,17 +20,45 @@ class DataStore {
     
     func getRecipes(completion: @escaping () -> ()) {
         
-        CheftyAPIClient.getRecipes {_ in 
+        CheftyAPIClient.getRecipes {_ in
             completion() // call back to onViewDidLoad
         }
     }
     
     func getRecipeSteps(completion: @escaping () -> ()) {
         
-        CheftyAPIClient.getRecipeSteps {_ in
-            completion()
-        }
+        
+        CheftyAPIClient.getRecipeSteps1(with: { success in
+            
+            CheftyAPIClient.getRecipeSteps2(with: { success in
+                
+                completion()
+                
+                
+            })
+            
+        })
+        
+        
+//        
+//        CheftyAPIClient.getRecipeSteps1 {_ in
+//            print("inside Data store getting recipe steps1")
+//            completion()
+//            print("exited completion Data store getting recipe steps1")
+//            
+//            CheftyAPIClient.getRecipeSteps2 {_ in
+//                print("inside Data store getting recipe steps2")
+//                completion()
+//                print("exited completion Data store getting recipe steps2")
+//            }
+//            
+//        }
+        
+        
+        
     }
+    
+    
     
     func fillRecipeStepsArray(completion: @escaping () -> ()) {
         
@@ -40,7 +68,7 @@ class DataStore {
         }
     }
     
-
+    
     lazy var persistentContainer: NSPersistentContainer = {
         
         let container = NSPersistentContainer(name: "Chefty") // name must match model file
