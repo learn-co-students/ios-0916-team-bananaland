@@ -12,7 +12,7 @@ class SingleStepView: UIView {
 
     override init(frame:CGRect){
         super.init(frame: frame)
-        CheftyAPIClient.getStepsAndIngredients {
+        CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: "apple-pie") {
             print("Gettin' steps complete")
         }
         
