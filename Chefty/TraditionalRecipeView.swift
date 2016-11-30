@@ -15,6 +15,9 @@ protocol TraditionalDelegate: class {
     
 }
 
+
+
+
 class TraditionalRecipeView: UIView {
     
     var store = DataStore.sharedInstance
@@ -31,15 +34,8 @@ class TraditionalRecipeView: UIView {
         
 
         print(recipe.displayName)
+        //use this to populate, not API call!!
         
-       // setUpElements(recipe: recipe)
-        
-        //        if recipe == nil {
-        //            recipe = store.recipes[0]
-        //            print("*********nil*********")
-        //        } else {
-        //            print("*********\(recipe!.displayName)***********")
-        //        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -47,10 +43,12 @@ class TraditionalRecipeView: UIView {
     }
     
     
+    //TODO: fix this so it accepts steps from recipe passed in
     func getAPIInfo(with completion: @escaping () -> ()) {
         store.getRecipeSteps {
             
-            //TODO: fix: steps duplicates each time the view loads
+    //TODO: fix: steps duplicates each time the view loads
+            
             //steps
             var combinedStepsArray: [String] = []
             
@@ -80,9 +78,6 @@ class TraditionalRecipeView: UIView {
         
         guard let recipe = self.recipe else { return }
         
-        //         print("*********\(self.recipe.displayName)***********")
-        //        var recipe = store.recipes[0]
-    
         //SCROLLVIEW
         let myScrollView = UIScrollView()
         self.addSubview(myScrollView)
@@ -113,6 +108,7 @@ class TraditionalRecipeView: UIView {
         //create title label
         let titleLabel = UILabel()
         titleLabel.text = recipe.displayName
+        print(recipe.displayName)
         titleLabel.font = titleLabel.font.withSize(30)
         titleLabel.textAlignment = .center
         
