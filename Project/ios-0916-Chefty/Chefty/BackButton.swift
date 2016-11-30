@@ -1,34 +1,28 @@
 //
-//  MenuViewButton.swift
+//  BackButton.swift
 //  Chefty
 //
-//  Created by Arvin San Miguel on 11/28/16.
+//  Created by Arvin San Miguel on 11/29/16.
 //  Copyright © 2016 com.AppRising.SML. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-@IBDesignable
-class MenuViewButton : UIButton {
-    
+class BackButton: UIButton {
+
     override func draw(_ rect: CGRect) {
         
         let lineWidth: CGFloat = 2
-        
-        //StyleKitName.drawMainDish(frame: bounds, resizing: .aspectFill)
         let insetRect = rect.insetBy(dx: lineWidth / 2, dy: lineWidth / 2)
         let path = UIBezierPath(ovalIn: insetRect)
         path.lineWidth = 2.0
-        UIColor.white.setStroke()
+        UIColor.black.withAlphaComponent(0.7).setFill()
+        UIColor.black.setStroke()
+        path.fill()
         path.stroke()
-        
         
     }
     
-    func selected() {
-        
-        //StyleKitName.drawSelectedMainDish()
-        
-    }
-
+    
+    
 }

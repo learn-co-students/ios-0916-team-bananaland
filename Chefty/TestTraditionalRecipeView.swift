@@ -7,25 +7,14 @@
 //
 
 import Foundation
-
+import CoreImage
 import UIKit
 
 class TestTraditionalRecipeView: UIView {
     
     var store = DataStore.sharedInstance
     var recipe: Recipe!
-    
-//    override init(frame:CGRect){
-//        super.init(frame: frame)
-//        
-//        self.backgroundColor = UIColor.white
-//        
-//        setUpElements()
-//        
-//        if recipe == nil {
-//            recipe = store.recipes[0]
-//        }
-//    }
+    var myImageView : UIImageView!
     
     init(recipe: Recipe) {
         super.init(frame: UIScreen.main.bounds)
@@ -34,15 +23,11 @@ class TestTraditionalRecipeView: UIView {
         setUpElements()
     }
     
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    
     func setUpElements() {
-        
         
         //SCROLLVIEW
         let myScrollView = UIScrollView()
@@ -51,11 +36,11 @@ class TestTraditionalRecipeView: UIView {
         myScrollView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         myScrollView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         myScrollView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
-        
         myScrollView.translatesAutoresizingMaskIntoConstraints = false
         
+        
         // create image
-        let myImageView = UIImageView()
+        myImageView = UIImageView()
         let url = URL(string: (recipe.imageURL)!)
         myImageView.contentMode = .scaleAspectFit
         myImageView.sd_setImage(with: url!)
@@ -73,6 +58,7 @@ class TestTraditionalRecipeView: UIView {
         titleLabel.text = recipe.displayName
         titleLabel.font = UIFont(name: "GillSans-SemiBold", size: 30)
         titleLabel.textAlignment = .center
+        titleLabel.backgroundColor = UIColor.clear
         
         myScrollView.addSubview(titleLabel)
         
@@ -89,11 +75,13 @@ class TestTraditionalRecipeView: UIView {
         servingSizeLabel.text = recipe.servings
         servingSizeLabel.font = UIFont(name: "GillSans-SemiBold", size: 20)
         servingSizeLabel.textAlignment = .left
+        servingSizeLabel.backgroundColor = UIColor.clear
         
         let durationLabel = UILabel()
-        durationLabel.text = "TO BE UPDATED"
+        durationLabel.text = String(describing: recipe.servingTime)
         durationLabel.font = UIFont(name: "GillSans-SemiBold", size: 20)
         durationLabel.textAlignment = .left
+        durationLabel.backgroundColor = UIColor.clear
         
         myScrollView.addSubview(servingSizeLabel)
         myScrollView.addSubview(durationLabel)
@@ -117,6 +105,7 @@ class TestTraditionalRecipeView: UIView {
         ingredientsLabel.text = "Ingredients"
         ingredientsLabel.font = UIFont(name: "GillSans-SemiBold", size: 16)
         ingredientsLabel.textAlignment = .left
+        ingredientsLabel.backgroundColor = UIColor.clear
         
         myScrollView.addSubview(ingredientsLabel)
         
@@ -134,6 +123,7 @@ class TestTraditionalRecipeView: UIView {
         ingredientsText.text = "Lorem ipsum dolor sit amet \nconsectetur adipiscing elit \nsed do eiusmod tempor \nincididunt ut labore \net dolore magna aliqua***Lorem ipsum dolor sit amet \nconsectetur adipiscing elit"
         ingredientsText.font = UIFont(name: "GillSans-SemiBold", size: 14)
         //ingredientsText.font = titleLabel.font.withSize(14)
+        ingredientsText.backgroundColor = UIColor.clear
         ingredientsText.textAlignment = .left
         
         myScrollView.addSubview(ingredientsText)
@@ -143,6 +133,7 @@ class TestTraditionalRecipeView: UIView {
         var ingredientsFrame = ingredientsText.frame
         ingredientsFrame.size.height = ingredientsContentSize.height
         ingredientsText.frame = ingredientsFrame
+        
         
         ingredientsText.leftAnchor.constraint(equalTo: myScrollView.leftAnchor, constant: 10).isActive = true
         ingredientsText.topAnchor.constraint(equalTo: ingredientsLabel.bottomAnchor).isActive = true
@@ -158,6 +149,7 @@ class TestTraditionalRecipeView: UIView {
         stepsLabel.text = "Steps"
         stepsLabel.font = titleLabel.font.withSize(16)
         stepsLabel.textAlignment = .left
+        stepsLabel.backgroundColor = UIColor.clear
         
         myScrollView.addSubview(stepsLabel)
         
@@ -176,6 +168,7 @@ class TestTraditionalRecipeView: UIView {
         stepsText.font = UIFont(name: "GillSans-SemiBold", size: 20)
         //stepsText.font = titleLabel.font.withSize(14)
         stepsText.textAlignment = .left
+        stepsText.backgroundColor = UIColor.clear
         
         myScrollView.addSubview(stepsText)
         
@@ -187,5 +180,8 @@ class TestTraditionalRecipeView: UIView {
         
         stepsText.translatesAutoresizingMaskIntoConstraints = false
         stepsText.isScrollEnabled = false
+        
+                
     }
+    
 }
