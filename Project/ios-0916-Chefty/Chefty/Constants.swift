@@ -11,7 +11,7 @@ import UIKit
 
 struct Constants{
     
-    enum fontSize: Int {
+    enum fontSize: CGFloat {
         case xsmall =       12
         case small =        16
         case medium =       18
