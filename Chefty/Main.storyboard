@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Yk5-ZK-6pz">
+    <device id="retina5_5" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Chefty Main View Controller-->
+        <scene sceneID="1mi-o1-7qL">
+            <objects>
+                <viewController id="Yk5-ZK-6pz" customClass="CheftyMainViewController" customModule="Chefty" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Z24-iR-4ud"/>
+                        <viewControllerLayoutGuide type="bottom" id="IDe-dU-WKY"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Qha-K0-HME">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rta-Pc-g9y">
+                                <rect key="frame" x="0.0" y="140" width="414" height="596"/>
+                            </containerView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qat-eZ-f2O">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Otk-Rb-ZR0" customClass="SegmentedControl" customModule="Chefty" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="95" width="414" height="42"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedLabelColor">
+                                                <color key="value" red="0.68627450980000004" green="0.031372549020000001" blue="0.023529411760000001" alpha="0.74063570209999996" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="thumbColor">
+                                                <color key="value" red="0.036065179849999997" green="0.2324331999" blue="0.33735990519999998" alpha="0.89899935789999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="unselectedLabelColor">
+                                                <color key="value" red="0.68627450980000004" green="0.031372549020000001" blue="0.023529411760000001" alpha="0.74063570209999996" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Otk-Rb-ZR0" secondAttribute="trailing" id="4UA-c6-ceA"/>
+                                    <constraint firstAttribute="bottom" secondItem="Otk-Rb-ZR0" secondAttribute="bottom" constant="3" id="B93-zS-6yA"/>
+                                    <constraint firstItem="Otk-Rb-ZR0" firstAttribute="height" secondItem="Qat-eZ-f2O" secondAttribute="height" multiplier="0.3" id="FuC-6G-gya"/>
+                                    <constraint firstItem="Otk-Rb-ZR0" firstAttribute="leading" secondItem="Qat-eZ-f2O" secondAttribute="leading" id="a4Y-g2-Yxn"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Qat-eZ-f2O" secondAttribute="trailing" id="0pm-YH-HhF"/>
+                            <constraint firstItem="Rta-Pc-g9y" firstAttribute="top" secondItem="Qat-eZ-f2O" secondAttribute="bottom" id="2Ev-rF-BQP"/>
+                            <constraint firstItem="Rta-Pc-g9y" firstAttribute="top" secondItem="Qat-eZ-f2O" secondAttribute="bottom" id="3mT-Tl-ZPY"/>
+                            <constraint firstItem="Rta-Pc-g9y" firstAttribute="centerY" secondItem="Qha-K0-HME" secondAttribute="centerY" constant="70" id="5RU-rc-EA5"/>
+                            <constraint firstItem="Qat-eZ-f2O" firstAttribute="leading" secondItem="Qha-K0-HME" secondAttribute="leading" id="6WR-Nb-Gfi"/>
+                            <constraint firstItem="Rta-Pc-g9y" firstAttribute="centerX" secondItem="Qha-K0-HME" secondAttribute="centerX" id="C3G-ma-DF6"/>
+                            <constraint firstItem="Rta-Pc-g9y" firstAttribute="width" secondItem="Qha-K0-HME" secondAttribute="width" id="O41-hh-bNo"/>
+                            <constraint firstItem="Qat-eZ-f2O" firstAttribute="top" secondItem="Qha-K0-HME" secondAttribute="top" id="hzp-ST-552"/>
+                            <constraint firstItem="Rta-Pc-g9y" firstAttribute="height" secondItem="Qha-K0-HME" secondAttribute="height" multiplier="0.8" constant="7.1999999999999318" id="roL-Wa-otR"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="hh6-la-hoU"/>
+                    <connections>
+                        <outlet property="background" destination="Qat-eZ-f2O" id="R3s-6i-Oao"/>
+                        <outlet property="containerView" destination="Rta-Pc-g9y" id="Gza-xX-iqf"/>
+                        <outlet property="controller" destination="Otk-Rb-ZR0" id="SwO-dJ-JLr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fvd-pA-J7R" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-257.97101449275362" y="-20.380434782608699"/>
+        </scene>
+        <!--Main Dish View Controller-->
+        <scene sceneID="nT8-3i-Rea">
+            <objects>
+                <viewController storyboardIdentifier="MainDishVC" id="sqI-o9-jQP" customClass="MainDishViewController" customModule="Chefty" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="xiB-Qa-adP"/>
+                        <viewControllerLayoutGuide type="bottom" id="YOz-xY-29c"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rSJ-4v-q0u">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="b2W-qh-BhJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="471.19999999999999" y="-17.541229385307346"/>
+        </scene>
+        <!--Appetizer View Controller-->
+        <scene sceneID="Yuu-Va-AwA">
+            <objects>
+                <viewController storyboardIdentifier="AppetizerVC" id="p24-sA-hDm" customClass="AppetizerViewController" customModule="Chefty" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="4cx-fb-db1"/>
+                        <viewControllerLayoutGuide type="bottom" id="w8d-Qk-yp4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SLE-YD-ea4">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ypW-35-CUw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1158" y="-19"/>
+        </scene>
+        <!--Sides View Controller-->
+        <scene sceneID="RUR-df-sGi">
+            <objects>
+                <viewController storyboardIdentifier="SidesVC" id="NTm-dD-bqn" customClass="SidesViewController" customModule="Chefty" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1aV-an-9nr"/>
+                        <viewControllerLayoutGuide type="bottom" id="Jl2-kV-aH8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="LXg-my-75j">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TLh-M1-KFm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1888" y="-20"/>
+        </scene>
+        <!--Dessert View Controller-->
+        <scene sceneID="7xw-ti-2W5">
+            <objects>
+                <viewController storyboardIdentifier="DessertVC" id="WLj-Ok-QHi" customClass="DessertViewController" customModule="Chefty" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DRO-ig-2K7"/>
+                        <viewControllerLayoutGuide type="bottom" id="7YB-iW-eVr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TdG-xk-0FP">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZOQ-GO-fFf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2621" y="-27"/>
+        </scene>
+    </scenes>
+</document>
