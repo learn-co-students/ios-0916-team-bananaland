@@ -43,14 +43,7 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         notificationManagerInst.notificationsSeperatorColor = UIColor.gray
         notificationManagerInst.notificationsIcon = UIImage(named: "Icon-App-76x76")
         
-//        let alertSoundURL: URL? = Bundle.main.url(forResource: "click", withExtension: "wav")
-//        if let _ = alertSoundURL {
-//            var mySound: SystemSoundID = 0
-//            AudioServicesCreateSystemSoundID(alertSoundURL! as CFURL, &mySound)
-//            notificationManager1.notificationSound = mySound
-//        }
-        
-        //TODO: calculate recipeSelected instead of HARD-CODE
+        // set the notification message
         var notificationMessage = String()
         if store.recipesSelected.count == 1 {
             notificationMessage = "Last time you were here, you selected one recipe, lets review it."
@@ -91,5 +84,26 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     func goToSingleStep(){
         let singleStepViewControllerInst = SingleStepViewController()
         navigationController?.pushViewController(singleStepViewControllerInst, animated: false) // show destination with nav bar
+    }
+    
+    func clearAllRecipes() {
+        for recipeInst in store.recipesSelected {
+            store.setRecipeUnselected(recipe: recipeInst)
+        }
+        myMenuViewInst.tableView.reloadData()
+        myMenuViewInst.tableView.tableFooterView = UIView()  // this removes the grid lines between the rows
+        
+        // show prompt
+        let message1 = "All the recipes have been removed from the menu."
+        let alertController = UIAlertController(title: "", message: message1, preferredStyle: .alert)
+        
+        let closeAction = UIAlertAction(title: "Close My Menu", style: .default) { (_) in
+            self.goToHome()
+        }
+        closeAction.isEnabled = true
+        
+        alertController.addAction(closeAction)
+        self.present(alertController, animated: true) { }
+        
     }
 }

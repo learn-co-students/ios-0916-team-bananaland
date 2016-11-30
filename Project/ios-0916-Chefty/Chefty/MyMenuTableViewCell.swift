@@ -126,14 +126,7 @@ class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
     func onClickDeleteAction() {
         if let currentRowString = self.deleteButton.accessibilityLabel {
             if let currentRow = Int(currentRowString) {
-                print(currentRow)
                 store.setRecipeUnselected(recipe: store.recipesSelected[currentRow])
-                
-//                context.delete(store.recipesSelected[currentRow])
-//                store.recipes.remove(at: currentRow)
-//                do {
-//                    try context.save()
-//                } catch _ { print("Error deleting item.")}
                 self.delegate?.updateTableViewNow()
             }
         }
