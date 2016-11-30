@@ -8,6 +8,8 @@ DerivedData/
 .DS_Store
 xcuserdata/
 
+serverSide/
+
 ## Various settings
 *.pbxuser
 !default.pbxuser
