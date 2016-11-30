@@ -24,11 +24,22 @@ class TraditionalRecipeView: UIView {
     
     weak var delegate: TraditionalDelegate?
     
-    override init(frame:CGRect){
+    init(frame:CGRect, recipe: Recipe){
         super.init(frame: frame)
         
         self.backgroundColor = UIColor.white
         
+
+        print(recipe.displayName)
+        
+       // setUpElements(recipe: recipe)
+        
+        //        if recipe == nil {
+        //            recipe = store.recipes[0]
+        //            print("*********nil*********")
+        //        } else {
+        //            print("*********\(recipe!.displayName)***********")
+        //        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -69,6 +80,9 @@ class TraditionalRecipeView: UIView {
         
         guard let recipe = self.recipe else { return }
         
+        //         print("*********\(self.recipe.displayName)***********")
+        //        var recipe = store.recipes[0]
+    
         //SCROLLVIEW
         let myScrollView = UIScrollView()
         self.addSubview(myScrollView)
@@ -83,7 +97,9 @@ class TraditionalRecipeView: UIView {
         // create image
         let myImageView = UIImageView()
         
-        Recipe.getImage(recipe: recipe, imageView: myImageView, view: self, backgroundImage: false)
+    
+        // TODO: What happened to getImage on Recipe?
+        // Recipe.getImage(recipe: recipe, imageView: myImageView, view: self, backgroundImage: false)
         
         myScrollView.addSubview(myImageView)
         

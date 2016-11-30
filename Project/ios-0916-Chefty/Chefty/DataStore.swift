@@ -8,6 +8,15 @@
 
 import Foundation
 import CoreData
+import UIKit
+
+//DispatchQueue.main.async {
+//
+//}
+//
+//OperationQueue.main.addOperation {
+//
+//}
 
 class DataStore {
     static let sharedInstance = DataStore()
@@ -15,12 +24,42 @@ class DataStore {
     
     var recipes:[Recipe] = []
     var recipeSteps: [RecipeStep] = []
-    var recipesSelected:[RecipeSelected] = []
     var recipeProceduresMerged: String = "" //this will need to be an array for tableview
+    var recipesSelected:[Recipe] = []
+    var images: [UIImage] = []
     
-    func getRecipes(completion: @escaping () -> ()) {
+    var main: [Recipe] = []
+    var appetizer : [Recipe] = []
+    var sides : [Recipe] = []
+    var desserts: [Recipe] = []
+    
+    var stepCurrent: Int = 1
+    var stepTotal: Int = 12
+    
+    func populateHomeArrays () {
+        for recipe in recipes {
+            switch recipe.type! {
+                
+            case "main" : self.main.append(recipe)
+            case "appetizer" : self.appetizer.append(recipe)
+            case "side" : self.sides.append(recipe)
+            case "dessert" : self.desserts.append(recipe)
+            default: break
+                
+            }
+        }
         
-        CheftyAPIClient.getRecipes {_ in
+        CheftyAPIClient.getRecipiesFromDB { success in
+            
+            
+        }
+        
+       
+    }
+    
+    
+    func getRecipesFromDB(completion: @escaping () -> ()) {
+        CheftyAPIClient.getRecipiesFromDB {_ in
             completion() // call back to onViewDidLoad
         }
     }
@@ -40,19 +79,19 @@ class DataStore {
         })
         
         
-//        
-//        CheftyAPIClient.getRecipeSteps1 {_ in
-//            print("inside Data store getting recipe steps1")
-//            completion()
-//            print("exited completion Data store getting recipe steps1")
-//            
-//            CheftyAPIClient.getRecipeSteps2 {_ in
-//                print("inside Data store getting recipe steps2")
-//                completion()
-//                print("exited completion Data store getting recipe steps2")
-//            }
-//            
-//        }
+        //
+        //        CheftyAPIClient.getRecipeSteps1 {_ in
+        //            print("inside Data store getting recipe steps1")
+        //            completion()
+        //            print("exited completion Data store getting recipe steps1")
+        //
+        //            CheftyAPIClient.getRecipeSteps2 {_ in
+        //                print("inside Data store getting recipe steps2")
+        //                completion()
+        //                print("exited completion Data store getting recipe steps2")
+        //            }
+        //
+        //        }
         
         
         
@@ -62,10 +101,13 @@ class DataStore {
     
     func fillRecipeStepsArray(completion: @escaping () -> ()) {
         
-        CheftyAPIClient.getRecipes {_ in
-            completion()
+        CheftyAPIClient.getRecipiesFromDB { _ in
             
+            completion()
+
         }
+        
+       
     }
     
     
@@ -80,7 +122,8 @@ class DataStore {
         return container
     }()
     
-    func saveRecipeSelectedContext () {
+    
+    func saveRecipesContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
@@ -94,48 +137,43 @@ class DataStore {
         }
     }
     
-    func fetchRecipeSelected() {
-        
+    func getRecipesFromCoreData() {
         let context = persistentContainer.viewContext
-        let recipeRequest: NSFetchRequest<RecipeSelected> = RecipeSelected.fetchRequest()
+        let recipeRequest: NSFetchRequest<Recipe> = Recipe.fetchRequest()
         
         do {
-            self.recipesSelected = try context.fetch(recipeRequest)
+            self.recipes = try context.fetch(recipeRequest)
         } catch let error {
             print("Error fetching data: \(error)")
         }
-        
-        // generate the test recipesSelected if needed
-        if recipesSelected.count == 0 {
-            self.addTestRecipesSelected()
-        }
     }
     
-    func addTestRecipesSelected(){
-        // set some recipes as selected, this will happen in the previous screen soon
+    
+    func updateSelectedRecipes() {
+        self.recipesSelected.removeAll()
         for recipe in self.recipes {
-            recipe.id == "apple-pie" ? addRecipeSelected(recipe: recipe) : ()
-            recipe.id == "chicken-breasts" ? addRecipeSelected(recipe: recipe) : ()
-            recipe.id == "black-bean-couscous-salad" ? addRecipeSelected(recipe: recipe) : ()
-            recipe.id == "yummy-baked-potato-skins" ? addRecipeSelected(recipe: recipe) : ()
+            if recipe.selected {
+                self.recipesSelected.append(recipe)
+            }
         }
     }
     
-    func addRecipeSelected(recipe: Recipe) {
-        let context = persistentContainer.viewContext
+    func setRecipeSelected(recipe: Recipe) {
         
-        // define recipesSelected
-        let recipeSelected1: RecipeSelected = NSEntityDescription.insertNewObject(forEntityName: "RecipeSelected", into: context) as! RecipeSelected
-        recipeSelected1.displayName = recipe.displayName
-        recipeSelected1.id = recipe.id
-        recipeSelected1.imageURL = recipe.imageURL
-        recipeSelected1.servings = recipe.servings
-        recipeSelected1.type = recipe.type
-        recipeSelected1.servingTime = recipe.servingTime as NSDate?
-        recipeSelected1.imageData = recipe.imageData as NSObject?
-        recipeSelected1.image = recipe.image
+        recipe.selected = true
         
-        self.saveRecipeSelectedContext()
-        self.fetchRecipeSelected()
+        self.saveRecipesContext()
+        self.updateSelectedRecipes()
+        
     }
+    
+    func setRecipeUnselected(recipe: Recipe) {
+        
+        recipe.selected = false
+        
+        self.saveRecipesContext()
+        self.updateSelectedRecipes()
+        
+    }
+    
 }

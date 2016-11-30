@@ -10,89 +10,125 @@ import UIKit
 
 protocol MyMenuTableViewCellDelegate: class {
     func updateTableViewNow()
+    func servingTimeFieldSelected(_ sender: UITextField)
 }
 
-class MyMenuTableViewCell: UITableViewCell {
+class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
     
     var store = DataStore.sharedInstance
     weak var delegate: MyMenuTableViewCellDelegate?
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
-    }
-    
-    var cellLabel1:UILabel = UILabel()
-    let imageView1:UIImageView = UIImageView()
+    var gradientView: GradientView!
+    var gradientViewLeftToRight: GradientViewLeftToRight!
+    var servingTimeField:UITextField = UITextField()
+    var recipeDescField:UITextField = UITextField()
+    var imageViewInst:UIImageView = UIImageView()
     let deleteButton: UIButton = UIButton(type: .roundedRect)
     
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:)")
+    var recipe: Recipe? {
+        didSet {
+            // set serving time
+            let myFormatter = DateFormatter()
+            myFormatter.timeStyle = .short
+            
+            var cellLabelStartTime = String()
+            if let servingTime = recipe?.servingTime {
+                cellLabelStartTime = myFormatter.string(from: servingTime as Date)
+            }
+            self.servingTimeField.text = "@ \(cellLabelStartTime)"
+            
+            // set displayName
+            if let displayNameUnwrapped = recipe?.displayName {
+                self.recipeDescField.text = "\(displayNameUnwrapped)                                  " // extra space pushes label left
+            }
+        }
     }
+
+    override func awakeFromNib() { super.awakeFromNib() }
+
+    override func setSelected(_ selected: Bool, animated: Bool) { super.setSelected(selected, animated: animated) }
+
+    required init(coder aDecoder: NSCoder) { fatalError("init(coder:)") }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         // background image
-        contentView.addSubview(imageView1)
-        imageView1.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        imageView1.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        imageView1.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
-        imageView1.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(imageViewInst)
+        imageViewInst.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        imageViewInst.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        imageViewInst.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        
+        //layout GradientView
+        gradientView = GradientView(frame: imageViewInst.frame)
+        gradientView.layer.cornerRadius = 10.0
+        gradientView.layer.masksToBounds = true
+        self.contentView.addSubview(gradientView)
+        
+        gradientView.translatesAutoresizingMaskIntoConstraints = false
+        gradientView.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
+        gradientView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
+        gradientView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
+        gradientView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
+        
+        gradientViewLeftToRight = GradientViewLeftToRight(frame: imageViewInst.frame)
+        gradientViewLeftToRight.layer.cornerRadius = 10.0
+        gradientViewLeftToRight.layer.masksToBounds = true
+        self.contentView.addSubview(gradientViewLeftToRight)
+        
+        gradientViewLeftToRight.translatesAutoresizingMaskIntoConstraints = false
+        gradientViewLeftToRight.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
+        gradientViewLeftToRight.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
+        gradientViewLeftToRight.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
+        gradientViewLeftToRight.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
+        
+        imageViewInst.translatesAutoresizingMaskIntoConstraints = false
         
         // cell label
-        self.cellLabel1.textColor = UIColor.white
-        self.cellLabel1.font =  UIFont(name: Constants.appFont.bold.rawValue, size: CGFloat(Constants.fontSize.medium.rawValue))
-        contentView.addSubview(self.cellLabel1)
-        self.cellLabel1.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
-        self.cellLabel1.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
-        self.cellLabel1.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
-        self.cellLabel1.translatesAutoresizingMaskIntoConstraints = false
+        
+        // servingTime field
+        self.servingTimeField.delegate = self
+        self.servingTimeField.textColor = UIColor.white
+        self.servingTimeField.font =  UIFont(name: Constants.appFont.bold.rawValue, size: CGFloat(Constants.fontSize.medium.rawValue))
+        contentView.addSubview(self.servingTimeField)
+        self.servingTimeField.widthAnchor.constraint(equalToConstant: 50)
+        self.servingTimeField.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
+        self.servingTimeField.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
+        self.servingTimeField.translatesAutoresizingMaskIntoConstraints = false
+        
+        // recipeDesc field
+        self.recipeDescField.textColor = UIColor.white
+        self.recipeDescField.isUserInteractionEnabled = false
+        self.recipeDescField.font =  UIFont(name: Constants.appFont.bold.rawValue, size: CGFloat(Constants.fontSize.medium.rawValue))
+        contentView.addSubview(self.recipeDescField)
+        self.recipeDescField.bottomAnchor.constraint(equalTo: servingTimeField.bottomAnchor).isActive = true
+        self.recipeDescField.leftAnchor.constraint(equalTo: servingTimeField.rightAnchor, constant: 10).isActive = true
+        self.recipeDescField.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
+        self.recipeDescField.translatesAutoresizingMaskIntoConstraints = false
         
         // delete button
         let deleteButton: UIButton = UIButton(type: .roundedRect)
         deleteButton.setTitle(Constants.iconLibrary.close.rawValue, for: .normal)
-        deleteButton.titleLabel!.font =  UIFont(name: Constants.iconFont.material.rawValue, size: CGFloat(Constants.iconSize.small.rawValue))
+        deleteButton.titleLabel!.font =  UIFont(name: Constants.iconFont.material.rawValue, size: CGFloat(Constants.iconSize.xsmall.rawValue))
         deleteButton.setTitleColor(UIColor(named: .white), for: .normal)
         deleteButton.addTarget(self, action: #selector(MyMenuTableViewCell.onClickDeleteAction), for: UIControlEvents.touchUpInside)
         contentView.addSubview(deleteButton)
-        deleteButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -30).isActive = true
+        deleteButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
         deleteButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        // set tiem button
-        let timeButton: UIButton = UIButton(type: .roundedRect)
-        timeButton.setTitle(Constants.iconLibrary.access_time.rawValue, for: .normal)
-        timeButton.titleLabel!.font =  UIFont(name: Constants.iconFont.material.rawValue, size: CGFloat(Constants.iconSize.small.rawValue))
-        timeButton.setTitleColor(UIColor(named: .white), for: .normal)
-        timeButton.addTarget(self, action: #selector(MyMenuTableViewCell.setTimeAction), for: UIControlEvents.touchUpInside)
-        contentView.addSubview(timeButton)
-        timeButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
-        timeButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
-        timeButton.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    // should begin editing textfield delegate method
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        self.delegate?.servingTimeFieldSelected(textField)
+        return false // prevents field from being editable
     }
     
     func onClickDeleteAction() {
         if let currentRowString = self.deleteButton.accessibilityLabel {
             if let currentRow = Int(currentRowString) {
-                let context = store.persistentContainer.viewContext
-                context.delete(store.recipesSelected[currentRow])
-                store.recipesSelected.remove(at: currentRow)
-                do {
-                    try context.save()
-                } catch _ { print("Error deleting item.")}
+                store.setRecipeUnselected(recipe: store.recipesSelected[currentRow])
                 self.delegate?.updateTableViewNow()
             }
         }
     }
-    
-    func setTimeAction() {
-        print("set time")
-    }
-
 }

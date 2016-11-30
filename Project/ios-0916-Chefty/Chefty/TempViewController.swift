@@ -18,21 +18,29 @@ class TempViewController: UIViewController, TempViewDelegate {
         super.viewDidLoad()
         tempView1.delegate = self
         
-        store.getRecipes {
-            
+        store.getRecipesFromDB { 
             // load sample data
-            self.store.fetchRecipeSelected()
+            
+            self.store.getRecipesFromCoreData()
+            // self.store.fetchRecipeSelected() This originally was fetchRecipeSelected is it now getRecipesFromCoreData???
+            
+            
             
             // print("store.recipes.count: \(self.store.recipes.count)")
             // OperationQueue.main.addOperation({
             //     self.tableView.reloadData()
             // })
+
+
         }
+        
+      
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.navigationBar.topItem?.title = "Welcome to the Chefty Temp Page"
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -42,7 +50,7 @@ class TempViewController: UIViewController, TempViewDelegate {
     
     override func loadView(){
         self.tempView1 = TempView(frame: CGRect.zero)
-        self.view = self.tempView1
+        self.view = self.tempView1	
     }
     
     func onPressMyMenuButton(button: UIButton) {
@@ -67,4 +75,8 @@ class TempViewController: UIViewController, TempViewDelegate {
         navigationController?.pushViewController(mergedStepsView, animated: true) // show destination with nav bar
     }
 
+    func onPressHomePageButton(button: UIButton) {
+        let recipeTabView = RecipeTabViewController()
+        navigationController?.pushViewController(recipeTabView, animated: true)
+    }
 }

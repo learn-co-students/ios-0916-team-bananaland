@@ -13,6 +13,7 @@ protocol TempViewDelegate: class {
     func onPressTraditionalRecipeButton(button: UIButton)
     func onPressIngredientsButton(button: UIButton)
     func onPressMergedStepsButton(button: UIButton)
+    func onPressHomePageButton(button: UIButton)
 }
 
 
@@ -33,6 +34,9 @@ class TempView: UIView {
         let ingredientsButton = UIButton(type: .roundedRect)
         
         let mergedStepsButton = UIButton(type: .roundedRect)
+        let homepageButton = UIButton(type: .roundedRect)
+
+        let welcomeButton = UIButton(type: .roundedRect)
         
         // configure controls
         pageLabel.text = "Choose a view controller to open."
@@ -49,12 +53,17 @@ class TempView: UIView {
         mergedStepsButton.setTitle("Open Merged Steps", for: .normal)
         mergedStepsButton.addTarget(self, action: #selector(self.goToMergedSteps), for: UIControlEvents.touchUpInside)
         
+        homepageButton.setTitle("Homepage", for: .normal)
+        homepageButton.addTarget(self, action: #selector(self.goToHomepage), for: UIControlEvents.touchUpInside)
+
         // add the object to the view
         self.addSubview(pageLabel)
         self.addSubview(myMenuButton)
         self.addSubview(traditionalRecipeButton)
         self.addSubview(ingredientsButton)
         self.addSubview(mergedStepsButton)
+        self.addSubview(homepageButton)
+        self.addSubview(welcomeButton)
         
         // constrain the object
         pageLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -76,6 +85,14 @@ class TempView: UIView {
         mergedStepsButton.translatesAutoresizingMaskIntoConstraints = false
         mergedStepsButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 400).isActive = true
         mergedStepsButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 100).isActive = true
+        homepageButton.translatesAutoresizingMaskIntoConstraints = false
+        homepageButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 400).isActive = true
+        homepageButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 100).isActive = true
+        
+        welcomeButton.translatesAutoresizingMaskIntoConstraints = false
+        welcomeButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 350).isActive = true
+        welcomeButton.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 100).isActive = true
+
         
     }
     
@@ -101,4 +118,8 @@ class TempView: UIView {
     
     
 
+    func goToHomepage(homepageButton: UIButton) {
+        self.delegate.onPressHomePageButton(button: homepageButton)
+    }
+    
 }

@@ -1,0 +1,17 @@
+PODS:
+  - LNRSimpleNotifications (0.5.3)
+  - SDWebImage (3.8.2):
+    - SDWebImage/Core (= 3.8.2)
+  - SDWebImage/Core (3.8.2)
+
+DEPENDENCIES:
+  - LNRSimpleNotifications
+  - SDWebImage
+
+SPEC CHECKSUMS:
+  LNRSimpleNotifications: 13aa05e2f65ccf196f736def89178007f30a5182
+  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+
+PODFILE CHECKSUM: 81430c43f2734a3a8d1a0b81619e74dadc4ef1a6
+
+COCOAPODS: 1.1.1
