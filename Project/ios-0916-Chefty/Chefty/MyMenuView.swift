@@ -13,6 +13,7 @@ protocol MyMenuViewDelegate: class {
     func goToRecipe()
     func goToIngredients()
     func goToSingleStep()
+    func clearAllRecipes()
 }
 
 class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTableViewCellDelegate, UIPickerViewDelegate, UITextFieldDelegate {
@@ -25,7 +26,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     var recipeForTraditionalRecipeView: Recipe?
     var textFieldBeingEdited: UITextField = UITextField()
     
-    // TRY: date picker with constraints
     let datePickerContainerView = UIView()
     var datePickerContainerViewOffScreenConstraint = NSLayoutConstraint()
     var datePickerContainerViewOnScreenConstraint = NSLayoutConstraint()
@@ -55,7 +55,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         
         // toolbar buttons
         let ingredientsButton: UIBarButtonItem = UIBarButtonItem(title: "Ingredients", style: .plain , target: self, action: #selector(clickIngredients))
-        let clearAllButton: UIBarButtonItem = UIBarButtonItem(title: "Clear All", style: .plain , target: self, action: #selector(clearAllRecipes))
+        let clearAllButton: UIBarButtonItem = UIBarButtonItem(title: "Clear All", style: .plain , target: self, action: #selector(onClickClearAllRecipes))
         let openStep1Button: UIBarButtonItem = UIBarButtonItem(title: "Open Step \(store.stepCurrent)", style: .plain , target: self, action: #selector(clickOpenStep))
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let toolbarButtons = [ingredientsButton, spacer, clearAllButton, spacer, openStep1Button]
@@ -102,7 +102,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     func doneClickTimePicker() {
         // save new serving time to core data
-        store.recipes[0].servingTime = self.datePicker.date as NSDate?
+        store.recipesSelected[Int(self.textFieldBeingEdited.accessibilityLabel!)!].servingTime = self.datePicker.date as NSDate?
         self.store.saveRecipesContext()
         // update field
         let dateFormatterInst = DateFormatter()
@@ -144,6 +144,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         cell.delegate = self
         cell.recipe = store.recipesSelected[indexPath.row]
         cell.deleteButton.accessibilityLabel = String(indexPath.row)
+        cell.servingTimeField.accessibilityLabel = String(indexPath.row)
         cell.selectionStyle = .none
         self.getBackgroundImage(recipe: self.store.recipesSelected[indexPath.row], imageView: cell.imageViewInst, view: cell)
         return cell
@@ -161,7 +162,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     // onClick table cell go to recipe
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
-        self.recipeForTraditionalRecipeView = getRelatedRecipe(recipeSelected: store.recipes[indexPath.row])
+        self.recipeForTraditionalRecipeView = store.recipesSelected[indexPath.row]
         self.delegate?.goToRecipe()
     }
     
@@ -171,7 +172,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     func servingTimeFieldSelected(_ sender: UITextField) {
         
         self.textFieldBeingEdited = sender
-        
         sender.isUserInteractionEnabled = false
         
         // present date picker
@@ -186,34 +186,9 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     func clickIngredients() { self.delegate?.goToIngredients() }
     
-    func clearAllRecipes() {
-        let context = store.persistentContainer.viewContext
-        for _ in store.recipes {
-            context.delete(store.recipes[0])
-            store.recipes.remove(at: 0)
-        }
-        do {
-            try context.save()
-        } catch _ { print("Error deleting item.")}
-        self.tableView.reloadData()
-    }
+    func onClickClearAllRecipes() { self.delegate?.clearAllRecipes() }
     
-    func clickOpenStep() {
-        self.delegate?.goToSingleStep()
-    }
-    
-    //TODO: DELETE THIS FUNCTION!
-    // given a RecipeSelected, return the the related recipe - 
-    func getRelatedRecipe(recipeSelected: Recipe) -> Recipe {
-        var results = store.recipes[0]
-        for recipe in store.recipes {
-            if recipe.id == recipeSelected.id {
-                results = recipe
-                break;
-            }
-        }
-        return recipeSelected
-    }
+    func clickOpenStep() { self.delegate?.goToSingleStep() }
     
     func getBackgroundImage(recipe: Recipe, imageView: UIImageView, view: UIView) {
         // The tableview cells crop images nicely when they are background images. This function gets a background image, stores it in the object and then sets it on the imageView that was passed in.
