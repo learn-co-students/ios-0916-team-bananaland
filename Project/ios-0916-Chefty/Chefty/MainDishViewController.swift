@@ -17,12 +17,12 @@ class MainDishViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         let layout = CustomLayoutView()
-        let frame = CGRect(x: view.bounds.minX, y: view.bounds.maxY * 0.25, width: view.bounds.width, height: view.bounds.height * 0.75)
-        collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
+        //let frame = CGRect(x: view.bounds.minX, y: view.bounds.maxY * 0.25, width: view.bounds.width, height: view.bounds.height * 0.75)
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
         collectionView.register(RecipeCollectionViewCell.self, forCellWithReuseIdentifier: "recipeCell")
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = UIColor.black
+        collectionView.backgroundColor = UIColor.white
         view.addSubview(collectionView)
     }
     
@@ -30,7 +30,7 @@ class MainDishViewController: UIViewController {
         super.viewWillAppear(animated)
         self.reloadInputViews()
     }
-
+    
 }
 
 extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDataSource {
@@ -75,9 +75,10 @@ extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let testView = TestTraditionalRecipeViewController()
+        testView.modalTransitionStyle = .crossDissolve
         testView.recipe = store.main[indexPath.row]
         present(testView, animated: true, completion: nil)
-
+        
     }
     
 }

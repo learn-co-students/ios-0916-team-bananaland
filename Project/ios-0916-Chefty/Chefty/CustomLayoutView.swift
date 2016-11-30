@@ -18,7 +18,7 @@ class CustomLayoutView: UICollectionViewLayout {
     private var contentWidth : CGFloat {
         let insets = collectionView!.contentInset
         return collectionView!.bounds.width - (insets.left + insets.right)
-    }
+    } 
     
     override func prepare() {
         
@@ -35,9 +35,9 @@ class CustomLayoutView: UICollectionViewLayout {
             var yOffset = [CGFloat](repeating: 0, count: numberOfColumns)
             
             
-            let smallCell = (self.collectionView?.frame.height)! * 0.33
-            let mediumCell = (self.collectionView?.frame.height)! * 0.44
-            let largeCell = (self.collectionView?.frame.height)! * 0.55
+            let smallCell = (self.collectionView?.frame.height)! * 0.20
+            let mediumCell = (self.collectionView?.frame.height)! * 0.30
+            let largeCell = (self.collectionView?.frame.height)! * 0.40
             
             var photoHeight : [CGFloat] = [smallCell, mediumCell, largeCell]
             var arr = 0
@@ -46,7 +46,7 @@ class CustomLayoutView: UICollectionViewLayout {
                 
                 let indexPath = NSIndexPath(item: item, section: 0)
                 
-                let height = cellPadding + photoHeight[arr] + cellPadding
+                let height = cellPadding/2 + photoHeight[arr] + cellPadding/2
                 let frame = CGRect(x: xOffset[column], y: yOffset[column], width: columnWidth, height: height)
                 let insetFrame = frame.insetBy(dx: cellPadding, dy: cellPadding)
                 

@@ -17,12 +17,12 @@ class AppetizerViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         let layout = CustomLayoutView()
-        let frame = CGRect(x: view.bounds.minX, y: view.bounds.maxY * 0.25, width: view.bounds.width, height: view.bounds.height * 0.75)
-        collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
+        //let frame = CGRect(x: view.bounds.minX, y: view.bounds.maxY * 0.25, width: view.bounds.width, height: view.bounds.height * 0.75)
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
         collectionView.register(RecipeCollectionViewCell.self, forCellWithReuseIdentifier: "recipeCell")
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = UIColor.black
+        collectionView.backgroundColor = UIColor.white
         view.addSubview(collectionView)
     }
     
@@ -78,8 +78,8 @@ extension AppetizerViewController : UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let testView = TestTraditionalRecipeViewController()
-        testView.recipe = store.appetizer[indexPath.row]
         testView.modalTransitionStyle = .crossDissolve
+        testView.recipe = store.appetizer[indexPath.row]
         present(testView, animated: true, completion: nil)
         
     }

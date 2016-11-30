@@ -17,18 +17,19 @@ class DessertViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         let layout = CustomLayoutView()
-        let frame = CGRect(x: view.bounds.minX, y: view.bounds.maxY * 0.25, width: view.bounds.width, height: view.bounds.height * 0.75)
-        collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
+        //let frame = CGRect(x: view.bounds.minX, y: view.bounds.maxY * 0.25, width: view.bounds.width, height: view.bounds.height * 0.75)
+        collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
         collectionView.register(RecipeCollectionViewCell.self, forCellWithReuseIdentifier: "recipeCell")
         collectionView.delegate = self
         collectionView.dataSource = self
-        collectionView.backgroundColor = UIColor.black
+        collectionView.backgroundColor = UIColor.white
         view.addSubview(collectionView)
     }
     
+       
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.reloadInputViews()
     }
     
 }
