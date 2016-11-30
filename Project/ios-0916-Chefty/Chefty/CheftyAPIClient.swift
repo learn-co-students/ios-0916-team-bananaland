@@ -142,10 +142,16 @@ class CheftyAPIClient {
         let store = DataStore.sharedInstance
         let urlString = "\(Secrets.cheftyAPIURL)/getRecipeSteps.php?key=\(Secrets.cheftyKey)&recipe=\(recipeIDRequest)"
         let url = URL(string: urlString)
-        var selectedRecipe:Recipe?
+        var recipeRequested:Recipe?
+        
+        let context = store.persistentContainer.viewContext
         
         // get the recipe with the id that was requested
-        
+        for recipe in store.recipes {
+            if recipeIDRequest == recipe.id {
+                recipeRequested = recipe
+            }
+        }
         
         if let unwrappedUrl = url{
             let session = URLSession.shared
@@ -156,15 +162,52 @@ class CheftyAPIClient {
                         //print(responseJSON)
                         
                         for stepsDict in responseJSON {
-                            var recipeIdFromStep = stepsDict["recipe"]
+
+                            var recipeIdFromStep = stepsDict["recipe"] as! String
                             
-                            
-                            if recipeIDRequest == recipeIdFromStep as! String {
-                                print("recipeIDRequest: \(recipeIDRequest) = recipeIdFromStep \(recipeIdFromStep)")
-                            //store.saveRecipeSelectedContext()
+                            if recipeRequested?.id == recipeIdFromStep as! String {
+                                
+                                //print("recipeIDRequest: \(recipeIDRequest) = recipeIdFromStep \(recipeIdFromStep)")
+                                
+                                let newStep: Steps = Steps(context: context)
+                                
+                                // getting STEP TITLES
+                                newStep.stepTitle = stepsDict["stepTitle"] as! String
+                                //print(newStep.stepTitle)
+                                
+                                // getting STEP PROCEDURE
+                                newStep.procedure = stepsDict["procedure"] as! String
+                                //print(newStep.procedure)
+                                
+                                // getting FULL ATTENTION
+                                newStep.fullAttentionRequired = Bool(stepsDict["fullAttentionRequired"] as! String)!
+                                //print(newStep.fullAttentionRequired)
+                                
+                                // getting STEP NUMBER
+                                newStep.stepNumber = Int32(stepsDict["step"] as! String)!
+                                //print(newStep.stepNumber)
+                                
+                                // getting DURATION
+                                newStep.duration = stepsDict["duration"] as? String
+                                print(newStep.duration)
+                                
+//                                var ingredientsJSON = stepsDict["ingredients"] as! [String]
+//                                print("ladi ladlkajeltkawje;ltkjaw;e \(ingredientsJSON)")
+                                
+                                
+                                print("ready to add to step")
+                                                
+                                recipeRequested?.addToStep(newStep)
+                    
+                                
+                                store.saveRecipesContext()
+                                
+                                
                             }
+                            
+                            
                         }
-                        //completion()
+                        completion()
                             
                     } catch {
                         print("An error occured when creating responseJSON")

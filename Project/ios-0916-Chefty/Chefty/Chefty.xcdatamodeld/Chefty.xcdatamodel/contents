@@ -15,20 +15,19 @@
         <attribute name="servingTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="sortValue" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="steps31" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Steps" inverseName="recipe" inverseEntity="Steps" syncable="YES"/>
+        <relationship name="step" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Steps" inverseName="recipe" inverseEntity="Steps" syncable="YES"/>
     </entity>
     <entity name="Steps" representedClassName="Steps" syncable="YES" codeGenerationType="class">
-        <attribute name="duration" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="duration" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="fullAttentionRequired" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="procedure" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="stepNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="stepNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="stepTitle" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="timeToStart" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Recipe" inverseName="steps31" inverseEntity="Recipe" syncable="YES"/>
+        <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Recipe" inverseName="step" inverseEntity="Recipe" syncable="YES"/>
     </entity>
     <elements>
         <element name="Ingredient" positionX="-63" positionY="54" width="128" height="105"/>
         <element name="Recipe" positionX="-45" positionY="72" width="128" height="180"/>
-        <element name="Steps" positionX="-27" positionY="153" width="128" height="150"/>
+        <element name="Steps" positionX="-27" positionY="153" width="128" height="135"/>
     </elements>
 </model>
