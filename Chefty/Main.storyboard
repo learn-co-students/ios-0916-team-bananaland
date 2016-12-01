@@ -209,6 +209,10 @@
         <scene sceneID="4PN-Hy-z7O">
             <objects>
                 <viewController id="YlH-SC-qjT" customClass="TestMenuViewController" customModule="Chefty" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6q0-eR-vcQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="FlF-ZZ-G4m"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="g7t-ky-9he">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

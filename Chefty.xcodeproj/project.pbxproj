@@ -20,7 +20,6 @@
 		A72DBEB11DE4DBD700867C86 /* SidesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72DBEB01DE4DBD700867C86 /* SidesViewController.swift */; };
 		A7B968F11DEF0B7D003C6116 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7B968F01DEF0B7D003C6116 /* Main.storyboard */; };
 		A7BCACC61DEC7E8D00DC317C /* MenuViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BCACC51DEC7E8D00DC317C /* MenuViewButton.swift */; };
-		A7BE012B1DEF81C7009F65B1 /* OldMain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7BE01231DEF81C7009F65B1 /* OldMain.storyboard */; };
 		A7BE01371DEF8683009F65B1 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE01321DEF8683009F65B1 /* BackButton.swift */; };
 		A7BE01381DEF8683009F65B1 /* MainDishIconImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE01331DEF8683009F65B1 /* MainDishIconImage.swift */; };
 		A7BE01391DEF8683009F65B1 /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE01341DEF8683009F65B1 /* SegmentedControl.swift */; };
@@ -101,7 +100,6 @@
 		A72DBEB01DE4DBD700867C86 /* SidesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidesViewController.swift; sourceTree = "<group>"; };
 		A7B968F01DEF0B7D003C6116 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		A7BCACC51DEC7E8D00DC317C /* MenuViewButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewButton.swift; sourceTree = "<group>"; };
-		A7BE01231DEF81C7009F65B1 /* OldMain.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = OldMain.storyboard; sourceTree = "<group>"; };
 		A7BE01321DEF8683009F65B1 /* BackButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		A7BE01331DEF8683009F65B1 /* MainDishIconImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainDishIconImage.swift; sourceTree = "<group>"; };
 		A7BE01341DEF8683009F65B1 /* SegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
@@ -203,7 +201,6 @@
 		A72DBEA21DE4A74E00867C86 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				A7BE01231DEF81C7009F65B1 /* OldMain.storyboard */,
 				A7C1E1C01DDCD97300BD8A13 /* Assets.xcassets */,
 				A7C1E1C21DDCD97300BD8A13 /* LaunchScreen.storyboard */,
 				A7C1E1C51DDCD97300BD8A13 /* Info.plist */,
@@ -458,7 +455,6 @@
 				C0D2E50F1DEC6C7700070E78 /* Icon-Small-50x50@1x.png in Resources */,
 				C0D2E5061DEC6C7700070E78 /* Icon-App-60x60@1x.png in Resources */,
 				C0D2E50D1DEC6C7700070E78 /* Icon-App-76x76@3x.png in Resources */,
-				A7BE012B1DEF81C7009F65B1 /* OldMain.storyboard in Resources */,
 				A7C1E1C11DDCD97300BD8A13 /* Assets.xcassets in Resources */,
 				C0A59D001DE8DB63002CD413 /* Icon-App-72x72@1x.png in Resources */,
 				C0D2E5031DEC6C7700070E78 /* Icon-App-40x40@3x.png in Resources */,

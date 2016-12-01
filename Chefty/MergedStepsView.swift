@@ -13,7 +13,6 @@ class MergedStepsView: UIView {
 
     var store = DataStore.sharedInstance
     var steps = [RecipeStep]()
-    var mergedStepsVC: MergedStepsViewController!
     
     override init(frame:CGRect){
         super.init(frame: frame)
@@ -32,7 +31,6 @@ class MergedStepsView: UIView {
         
         //textbox
         let myTextBox = UITextView()
-        //let text = mergedStepsVC.stepsForDisplayString
         myTextBox.text = store.recipeProceduresMerged
         myTextBox.font = myTextBox.font?.withSize(40)
         myTextBox.textAlignment = .left
@@ -43,7 +41,6 @@ class MergedStepsView: UIView {
         myTextBox.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         myTextBox.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         myTextBox.translatesAutoresizingMaskIntoConstraints = false
-        
         
     }
 

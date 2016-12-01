@@ -22,7 +22,6 @@ class MergedStepsViewController: UIViewController {
         
         getAPIInfo {
             print("4")
-            //print("getting api and inside closure")
         }
         
     }
@@ -36,7 +35,6 @@ class MergedStepsViewController: UIViewController {
     }
     
     override func loadView(){
-        print("HEYY!")
         self.mergedStepsView = MergedStepsView(frame: CGRect.zero)
         self.view = self.mergedStepsView
     }
@@ -46,15 +44,16 @@ class MergedStepsViewController: UIViewController {
         store.getRecipeSteps {
             print("2")
             
-            print("recipe steps count before appending to store.recipeSteps: \(self.store.recipeSteps.count)")
             for stepGroup in self.store.recipeSteps {
                 self.recipeSteps.append(stepGroup)
             }
-            print("recipe steps count after appending to store.recipeSteps: \(self.store.recipeSteps.count)")
+            
             print("3")
             
             completion()
+            
             self.mergeRecipeSteps()
+            
             print("7")
             
         }
@@ -69,9 +68,7 @@ extension MergedStepsViewController {
         
         var addedTime = 0
         
-        print("recipe steps count inside merge function at start: \(self.recipeSteps.count)")
         recipeSteps = self.recipeSteps.sorted { (step1: RecipeStep, step2: RecipeStep) -> Bool in
-            
             
             //TODO: handle optionals without force unwrapping
             
@@ -126,14 +123,14 @@ extension MergedStepsViewController {
             
         }
         
-        //TODO: create array with ordered/merged procedures for display in tableview
+        //TODO: create array instead of string for tableview
+        
         for step in recipeSteps {
             stepTitlesForDisplay.append("\(step.timeToStart)")
         }
 
         store.recipeProceduresMerged = stepTitlesForDisplay.joined(separator: "\n\n")
-        print("recipe steps count inside merge function at end: \(self.recipeSteps.count)")
-
+        
         print("6")
     }
 }

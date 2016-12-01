@@ -24,7 +24,7 @@ class DataStore {
     
     var recipes:[Recipe] = []
     var recipeSteps: [RecipeStep] = []
-    var recipeProceduresMerged: String = "" //this will need to be an array for tableview
+    var recipeProceduresMerged: String = "refresh page to see steps" //this will need to be an array for tableview
     var recipesSelected:[Recipe] = []
     var images: [UIImage] = []
     
@@ -49,16 +49,18 @@ class DataStore {
             }
         }
         
-        CheftyAPIClient.getRecipiesFromDB { success in
-            
-            
-        }
         
-       
+        // Hi Arvin: This is being called everytime the app opens, so it add 15 recipes to core data everytime. Can a conditiona be added to limit the number of recipes on the phone? - Paul
+        
+//        CheftyAPIClient.getRecipiesFromDB { success in
+//
+//        }
+
     }
     
     
     func getRecipesFromDB(completion: @escaping () -> ()) {
+        print("get Recipes from DB")
         CheftyAPIClient.getRecipiesFromDB {_ in
             completion() // call back to onViewDidLoad
         }
@@ -77,23 +79,6 @@ class DataStore {
             })
             
         })
-        
-        
-        //
-        //        CheftyAPIClient.getRecipeSteps1 {_ in
-        //            print("inside Data store getting recipe steps1")
-        //            completion()
-        //            print("exited completion Data store getting recipe steps1")
-        //
-        //            CheftyAPIClient.getRecipeSteps2 {_ in
-        //                print("inside Data store getting recipe steps2")
-        //                completion()
-        //                print("exited completion Data store getting recipe steps2")
-        //            }
-        //
-        //        }
-        
-        
         
     }
     
@@ -143,9 +128,11 @@ class DataStore {
         
         do {
             self.recipes = try context.fetch(recipeRequest)
+            print("self.recipes.count: \(self.recipes.count)")
         } catch let error {
             print("Error fetching data: \(error)")
         }
+        print("get Recipes from core data in data store")
     }
     
     
@@ -159,21 +146,14 @@ class DataStore {
     }
     
     func setRecipeSelected(recipe: Recipe) {
-        
         recipe.selected = true
-        
         self.saveRecipesContext()
         self.updateSelectedRecipes()
-        
     }
     
     func setRecipeUnselected(recipe: Recipe) {
-        
         recipe.selected = false
-        
         self.saveRecipesContext()
         self.updateSelectedRecipes()
-        
     }
-    
 }

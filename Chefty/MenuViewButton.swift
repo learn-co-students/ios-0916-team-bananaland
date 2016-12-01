@@ -15,7 +15,7 @@ class MenuViewButton : UIButton {
         
         let lineWidth: CGFloat = 2
         
-        StyleKitName.drawMainDish(frame: bounds, resizing: .aspectFill)
+        //StyleKitName.drawMainDish(frame: bounds, resizing: .aspectFill)
         let insetRect = rect.insetBy(dx: lineWidth / 2, dy: lineWidth / 2)
         let path = UIBezierPath(ovalIn: insetRect)
         path.lineWidth = 2.0
@@ -27,7 +27,7 @@ class MenuViewButton : UIButton {
     
     func selected() {
         
-        StyleKitName.drawSelectedMainDish()
+        //StyleKitName.drawSelectedMainDish()
         
     }
 
