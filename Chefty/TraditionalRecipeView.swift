@@ -39,29 +39,32 @@ class TraditionalRecipeView: UIView {
     }
     
     
-    
-//    func getAPIInfo(with completion: @escaping () -> ()) {
-//        
-//        //steps
-//        var combinedStepsArray: [String] = []
-//        
-//        for dictionary in self.store.recipeSteps {
-//            guard let step = dictionary.procedure else { return }
-//            combinedStepsArray.append(step)
-//        }
-//        
-//        self.combinedSteps = combinedStepsArray.joined(separator: "\n\n")
-//        
-//        //ingredients
-//        for dict in self.store.recipeSteps {
-//            guard let ingredients = dict.ingredients else { return }
-//            //if ingredients != [] {
-//            self.combinedIngredients.append(ingredients.joined(separator: "\n"))
-//        }
-//        
-//        completion()
-//        
-//    }
+    //TODO: fix this so it accepts steps from recipe passed in
+    func getAPIInfo(with completion: @escaping () -> ()) {
+        //store.getRecipeSteps {
+        
+        //TODO: fix: steps duplicates each time the view loads
+        
+        //steps
+        var combinedStepsArray: [String] = []
+        
+        for dictionary in self.store.recipeSteps {
+            guard let step = dictionary.procedure else { return }
+            combinedStepsArray.append(step)
+        }
+        
+        self.combinedSteps = combinedStepsArray.joined(separator: "\n\n")
+        
+        //ingredients
+        for dict in self.store.recipeSteps {
+            guard let ingredients = dict.ingredients else { return }
+            //if ingredients != [] {
+            self.combinedIngredients.append(ingredients.joined(separator: "\n"))
+        }
+        
+        completion()
+        
+    }
     
     
     

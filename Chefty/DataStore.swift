@@ -17,7 +17,6 @@ class DataStore {
     
     var recipes:[Recipe] = []
     var recipeSteps: [RecipeStep] = []
-    var recipeProceduresMerged: String = "refresh page to see steps" //this will need to be an array for tableview
     var recipesSelected:[Recipe] = []
     var images: [UIImage] = []
     

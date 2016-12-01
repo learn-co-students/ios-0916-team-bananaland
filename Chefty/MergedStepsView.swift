@@ -34,7 +34,7 @@ class MergedStepsView: UIView {
         
         //textbox
         let myTextBox = UITextView()
-        myTextBox.text = store.recipeProceduresMerged
+        myTextBox.text = "HI"
         myTextBox.font = myTextBox.font?.withSize(40)
         myTextBox.textAlignment = .left
         self.addSubview(myTextBox)
