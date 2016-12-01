@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class IngredientsController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class IngredientsController: UIViewController {
     
     var tableView = UITableView()
     var arrayOfSectionIDs = [String]()
@@ -17,30 +17,85 @@ class IngredientsController: UIViewController, UITableViewDelegate, UITableViewD
     var arrayOfSectionLabels = [String]()
     
     let store = DataStore.sharedInstance
+    var allStepsArray = [Steps]()
+    var allIngredientsArray = [Ingredient]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: "apple-pie", completion:{ ingredients in
+        
+        for recipe in store.recipesSelected {
             
-            OperationQueue.main.addOperation {
-                self.tableView.reloadData()
+//            if recipe.step!.count > 0 {
+                if let unwrappedRecipeSteps = recipe.step {
+                    CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: recipe.id!, completion:{ ingredients in
+                        
+                        // build an array of recipeIngredients
+                        let stepsFromRecipe:[Steps] = unwrappedRecipeSteps.allObjects as! [Steps]
+                        self.allStepsArray = stepsFromRecipe + self.allStepsArray
+                        
+                        print("FROM API: \(self.allStepsArray)")
+                        print("procedureFromStep: \(stepsFromRecipe[0].procedure)")
+                        print("ingredientFromStep: \(stepsFromRecipe[0].ingredient)")
+                        
+                        
+                        //            OperationQueue.main.addOperation {
+                        //                self.tableView.reloadData()
+                        //            }
+                        //            self.tableView.reloadData()
+                        
+                        self.gettingIngredientsFromSteps()
+                    })
+                    
+                } else {
+                    
+                    let stepsFromRecipe: [Steps] = recipe.step?.allObjects as! [Steps]
+                    self.allStepsArray = stepsFromRecipe + self.allStepsArray
+                    
+                    print("FROM CORE DATA: \(self.allStepsArray)")
+                    
+                    self.gettingIngredientsFromSteps()
+                    
+                }
+  
+//            }
+          }
+  
+   //        tableView.delegate = self
+//        tableView.dataSource = self
+//        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "listCell")
+        
+//        self.view.addSubview(self.tableView)
+//        
+//        self.tableView.translatesAutoresizingMaskIntoConstraints = false
+//        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+//        self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+//        self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+//        self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        
+    }
+    
+    func gettingIngredientsFromSteps () {
+        
+        print("//////////////////////////////////////getting Ingredients")
+        
+        for steps in allStepsArray {
+            
+            if steps.ingredient?.allObjects.count != 0 {
+                let ingredientsFromStep: [Ingredient] = steps.ingredient?.allObjects as! [Ingredient]
+                self.allIngredientsArray = ingredientsFromStep + self.allIngredientsArray
+                print("Ingredient: \(ingredientsFromStep)")
+                
+                
+            } else {
+                print("NO ingredients!")
             }
-            self.tableView.reloadData()
-        })
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "listCell")
-        
-        self.view.addSubview(self.tableView)
-        
-        self.tableView.translatesAutoresizingMaskIntoConstraints = false
-        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        
+            
+            
+            
+        }
+
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
@@ -51,81 +106,81 @@ class IngredientsController: UIViewController, UITableViewDelegate, UITableViewD
         super.didReceiveMemoryWarning()
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return store.recipesSelected.count
-    }
-
-    //TODO: GETTING WRONG RECIPE: FIXXXXXX
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return store.recipes[section].displayName
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-        header.contentView.backgroundColor = UIColor(red: 0/255, green: 240/255, blue: 80/255, alpha: 1.0)
-        header.textLabel?.textColor = UIColor(red: 0/255, green: 30/255, blue: 255/255, alpha: 1.0)
-        header.alpha = 0.8
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
-        tableView.allowsMultipleSelection = true
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 120
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-//            return store.recipes[section].ingredients.count
-
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       
-        let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath)
-        
-        cell.selectionStyle = .none
-
-//        let ingredientSet = store.recipes.ingredient! as Set
-//        let ingredientsArray = Array(ingredientSet)
-        
-//            print(ingredientsArray)
-
-
-
-
-        
-               //let ingredient = ingredients[indexPath.row]
-        //cell.textLabel?.text = ingredient
-        cell.textLabel?.numberOfLines = 0
-        cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
-        
-//        if ingredient.isChecked {
-//            cell.accessoryType = UITableViewCellAccessoryType.checkmark
-//            
-//        } else {
-//            cell.accessoryType = UITableViewCellAccessoryType.none
-//        }
-        
-        return cell
-    }
-    
-    
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        print("did select")
-        //var recipe = ingredients[indexPath.section]
-//        let ingredient = ingredients.all
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return store.recipesSelected.count
+//    }
+//
+//    //TODO: GETTING WRONG RECIPE: FIXXXXXX
+//    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        return store.recipes[section].displayName
+//    }
+//    
+//    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+//        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+//        header.contentView.backgroundColor = UIColor(red: 0/255, green: 240/255, blue: 80/255, alpha: 1.0)
+//        header.textLabel?.textColor = UIColor(red: 0/255, green: 30/255, blue: 255/255, alpha: 1.0)
+//        header.alpha = 0.8
+//    }
+//    
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+//        tableView.allowsMultipleSelection = true
+//        tableView.rowHeight = UITableViewAutomaticDimension
+//        tableView.estimatedRowHeight = 120
+//    }
+//    
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return 20
+////            return store.recipes[section].ingredients.count
+//
+//    }
+//    
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//       
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath)
 //        
-//        if recipe.ingredients[indexPath.row].isChecked {
-//            recipe.ingredients[indexPath.row].isChecked = false
-//        } else {
-//            recipe.ingredients[indexPath.row].isChecked = true
-//        }
-        
-        tableView.reloadData()
-        
-    }
+//        cell.selectionStyle = .none
+//
+////        let ingredientSet = store.recipes.ingredient! as Set
+////        let ingredientsArray = Array(ingredientSet)
+//        
+////            print(ingredientsArray)
+//
+//
+//
+//
+//        
+//               //let ingredient = ingredients[indexPath.row]
+//        //cell.textLabel?.text = ingredient
+//        cell.textLabel?.numberOfLines = 0
+//        cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+//        
+////        if ingredient.isChecked {
+////            cell.accessoryType = UITableViewCellAccessoryType.checkmark
+////            
+////        } else {
+////            cell.accessoryType = UITableViewCellAccessoryType.none
+////        }
+//        
+//        return cell
+//    }
+//    
+//    
+//    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        
+//        print("did select")
+//        //var recipe = ingredients[indexPath.section]
+////        let ingredient = ingredients.all
+////        
+////        if recipe.ingredients[indexPath.row].isChecked {
+////            recipe.ingredients[indexPath.row].isChecked = false
+////        } else {
+////            recipe.ingredients[indexPath.row].isChecked = true
+////        }
+//        
+//        tableView.reloadData()
+//        
+//    }
 }
 
