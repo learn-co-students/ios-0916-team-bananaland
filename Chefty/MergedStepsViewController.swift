@@ -23,7 +23,7 @@ class MergedStepsViewController: UIViewController {
         super.viewDidLoad()
         
         getStepsFromRecipesSelected {
-            print("5")
+            print("4")
             self.mergeRecipeSteps()
         }
         
@@ -48,11 +48,10 @@ class MergedStepsViewController: UIViewController {
         print("1")
         
         for singleRecipe in store.recipesSelected {
-            print("2")
             
             DispatchQueue.main.async {
                 CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: singleRecipe.id!, completion: {
-                    print("3")
+                    print("2")
                 })
             }
             
@@ -61,11 +60,11 @@ class MergedStepsViewController: UIViewController {
             
         }
         
-        print("4")
+        print("3")
         
         completion()
         
-        print("12")
+        print("9")
         
     }
     
@@ -77,12 +76,11 @@ class MergedStepsViewController: UIViewController {
 extension MergedStepsViewController {
     
     func mergeRecipeSteps() {
-        print("6")
+        print("5")
         
         var addedTime = 0
         
         recipeSteps = self.recipeSteps.sorted { (step1: Steps, step2: Steps) -> Bool in
-            print("7")
             //
             //            //TODO: handle optionals without force unwrapping
             //
@@ -133,22 +131,21 @@ extension MergedStepsViewController {
             //
             //            return step1.timeToStart! < step2.timeToStart!
             //
-            print("8")
             return(step1.duration! > step2.duration!)
             
         }
         
         //TODO: create array instead of string for tableview
         
-        print("9")
+        print("6")
         for step in recipeSteps {
             stepTitlesForDisplay.append("\(step.duration)")
         }
         
-        print("10")
+        print("7")
         print("steps for display: \(stepTitlesForDisplay.joined(separator: "\n\n"))")
         store.recipeProceduresMerged = stepTitlesForDisplay.joined(separator: "\n\n")
-        print("11")
+        print("8")
         
     }
 }
