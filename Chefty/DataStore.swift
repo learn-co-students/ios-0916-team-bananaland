@@ -24,7 +24,7 @@ class DataStore {
     
     var recipes:[Recipe] = []
     var recipeSteps: [RecipeStep] = []
-    var recipeProceduresMerged: String = "" //this will need to be an array for tableview
+    var recipeProceduresMerged: String = "refresh page to see steps" //this will need to be an array for tableview
     var recipesSelected:[Recipe] = []
     var images: [UIImage] = []
     
@@ -48,10 +48,14 @@ class DataStore {
                 
             }
         }
+        
+        
         // Hi Arvin: This is being called everytime the app opens, so it add 15 recipes to core data everytime. Can a conditiona be added to limit the number of recipes on the phone? - Paul
+        
 //        CheftyAPIClient.getRecipiesFromDB { success in
 //
 //        }
+
     }
     
     
@@ -75,23 +79,6 @@ class DataStore {
             })
             
         })
-        
-        
-        //
-        //        CheftyAPIClient.getRecipeSteps1 {_ in
-        //            print("inside Data store getting recipe steps1")
-        //            completion()
-        //            print("exited completion Data store getting recipe steps1")
-        //
-        //            CheftyAPIClient.getRecipeSteps2 {_ in
-        //                print("inside Data store getting recipe steps2")
-        //                completion()
-        //                print("exited completion Data store getting recipe steps2")
-        //            }
-        //
-        //        }
-        
-        
         
     }
     
