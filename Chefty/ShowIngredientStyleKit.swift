@@ -1,18 +1,19 @@
 //
-//  CookButton.swift
+//  ShowIngredientStyleKit.swift
 //  Chefty
 //
-//  Created by Arvin San Miguel on 11/30/16.
+//  Created by Arvin San Miguel on 12/1/16.
 //  Copyright © 2016 com.AppRising.SML. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
-public class CookButtonStyleKit : NSObject {
+public class ShowIngredientStyleKit : NSObject {
     
     //// Drawing Methods
     
-    public dynamic class func drawCookButton(frame targetFrame: CGRect = CGRect(x: 0, y: 0, width: 130, height: 130), resizing: ResizingBehavior = .aspectFit) {
+    public dynamic class func drawShowIngredients(frame targetFrame: CGRect = CGRect(x: 0, y: 0, width: 130, height: 130), resizing: ResizingBehavior = .aspectFit) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
         
@@ -28,7 +29,7 @@ public class CookButtonStyleKit : NSObject {
         
         //// Group
         //// Oval Drawing
-        let ovalPath = UIBezierPath(ovalIn: CGRect(x: 25.5, y: 18.5, width: 84, height: 84))
+        let ovalPath = UIBezierPath(ovalIn: CGRect(x: 25.5, y: 20.5, width: 84, height: 84))
         color4.setFill()
         ovalPath.fill()
         UIColor.black.setStroke()
@@ -38,28 +39,58 @@ public class CookButtonStyleKit : NSObject {
         
         
         
-        //// Rectangle 3 Drawing
-        let rectangle3Path = UIBezierPath(rect: CGRect(x: 52.5, y: 70.5, width: 30, height: 10.5))
+        //// Bezier Drawing
+        let bezierPath = UIBezierPath()
+        bezierPath.move(to: CGPoint(x: 52, y: 62.5))
+        bezierPath.addCurve(to: CGPoint(x: 90.5, y: 62.5), controlPoint1: CGPoint(x: 90.54, y: 62.5), controlPoint2: CGPoint(x: 90.5, y: 62.5))
         UIColor.white.setStroke()
-        rectangle3Path.lineWidth = 2
-        rectangle3Path.lineJoinStyle = .round
-        rectangle3Path.stroke()
+        bezierPath.lineWidth = 3.5
+        bezierPath.stroke()
         
         
-        //// Rectangle Drawing
-        let rectanglePath = UIBezierPath(rect: CGRect(x: 52.5, y: 55.5, width: 30, height: 10.5))
+        //// Bezier 2 Drawing
+        let bezier2Path = UIBezierPath()
+        bezier2Path.move(to: CGPoint(x: 52, y: 76.5))
+        bezier2Path.addCurve(to: CGPoint(x: 90.5, y: 76.5), controlPoint1: CGPoint(x: 90.54, y: 76.5), controlPoint2: CGPoint(x: 90.5, y: 76.5))
         UIColor.white.setStroke()
-        rectanglePath.lineWidth = 2
-        rectanglePath.lineJoinStyle = .round
-        rectanglePath.stroke()
+        bezier2Path.lineWidth = 3.5
+        bezier2Path.stroke()
         
         
-        //// Rectangle 2 Drawing
-        let rectangle2Path = UIBezierPath(rect: CGRect(x: 52.5, y: 40.5, width: 30, height: 10.5))
+        //// Bezier 3 Drawing
+        let bezier3Path = UIBezierPath()
+        bezier3Path.move(to: CGPoint(x: 52, y: 49))
+        bezier3Path.addCurve(to: CGPoint(x: 90.5, y: 49), controlPoint1: CGPoint(x: 90.54, y: 49), controlPoint2: CGPoint(x: 90.5, y: 49))
         UIColor.white.setStroke()
-        rectangle2Path.lineWidth = 2
-        rectangle2Path.lineJoinStyle = .round
-        rectangle2Path.stroke()
+        bezier3Path.lineWidth = 3.5
+        bezier3Path.stroke()
+        
+        
+        //// Oval 2 Drawing
+        let oval2Path = UIBezierPath(ovalIn: CGRect(x: 44, y: 48, width: 2, height: 2))
+        UIColor.white.setFill()
+        oval2Path.fill()
+        UIColor.white.setStroke()
+        oval2Path.lineWidth = 3.5
+        oval2Path.stroke()
+        
+        
+        //// Oval 3 Drawing
+        let oval3Path = UIBezierPath(ovalIn: CGRect(x: 44, y: 61, width: 2, height: 2))
+        UIColor.white.setFill()
+        oval3Path.fill()
+        UIColor.white.setStroke()
+        oval3Path.lineWidth = 3.5
+        oval3Path.stroke()
+        
+        
+        //// Oval 4 Drawing
+        let oval4Path = UIBezierPath(ovalIn: CGRect(x: 44, y: 75, width: 2, height: 2))
+        UIColor.white.setFill()
+        oval4Path.fill()
+        UIColor.white.setStroke()
+        oval4Path.lineWidth = 3.5
+        oval4Path.stroke()
         
         context.restoreGState()
         

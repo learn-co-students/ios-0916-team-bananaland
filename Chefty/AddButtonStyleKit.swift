@@ -1,18 +1,19 @@
 //
-//  CookButton.swift
+//  AddButtonStyleKit.swift
 //  Chefty
 //
-//  Created by Arvin San Miguel on 11/30/16.
+//  Created by Arvin San Miguel on 12/1/16.
 //  Copyright © 2016 com.AppRising.SML. All rights reserved.
 //
 
+import Foundation
 import UIKit
 
-public class CookButtonStyleKit : NSObject {
+public class AddButtonStyleKit : NSObject {
     
     //// Drawing Methods
     
-    public dynamic class func drawCookButton(frame targetFrame: CGRect = CGRect(x: 0, y: 0, width: 130, height: 130), resizing: ResizingBehavior = .aspectFit) {
+    public dynamic class func drawaddButton(frame targetFrame: CGRect = CGRect(x: 0, y: 0, width: 130, height: 130), resizing: ResizingBehavior = .aspectFit) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
         
@@ -28,7 +29,7 @@ public class CookButtonStyleKit : NSObject {
         
         //// Group
         //// Oval Drawing
-        let ovalPath = UIBezierPath(ovalIn: CGRect(x: 25.5, y: 18.5, width: 84, height: 84))
+        let ovalPath = UIBezierPath(ovalIn: CGRect(x: 25.5, y: 20.5, width: 84, height: 84))
         color4.setFill()
         ovalPath.fill()
         UIColor.black.setStroke()
@@ -36,30 +37,28 @@ public class CookButtonStyleKit : NSObject {
         ovalPath.stroke()
         
         
-        
-        
-        //// Rectangle 3 Drawing
-        let rectangle3Path = UIBezierPath(rect: CGRect(x: 52.5, y: 70.5, width: 30, height: 10.5))
+        //// Bezier Drawing
+        let bezierPath = UIBezierPath()
+        bezierPath.move(to: CGPoint(x: 48.5, y: 62.5))
+        bezierPath.addCurve(to: CGPoint(x: 85.5, y: 62.5), controlPoint1: CGPoint(x: 85.51, y: 62.5), controlPoint2: CGPoint(x: 85.5, y: 62.5))
         UIColor.white.setStroke()
-        rectangle3Path.lineWidth = 2
-        rectangle3Path.lineJoinStyle = .round
-        rectangle3Path.stroke()
+        bezierPath.lineWidth = 3
+        bezierPath.stroke()
         
         
-        //// Rectangle Drawing
-        let rectanglePath = UIBezierPath(rect: CGRect(x: 52.5, y: 55.5, width: 30, height: 10.5))
+        //// Bezier 2 Drawing
+        context.saveGState()
+        context.translateBy(x: 67.5, y: 81.5)
+        context.rotate(by: -90 * CGFloat.pi/180)
+        
+        let bezier2Path = UIBezierPath()
+        bezier2Path.move(to: CGPoint(x: 0, y: 0))
+        bezier2Path.addCurve(to: CGPoint(x: 37, y: 0), controlPoint1: CGPoint(x: 37.01, y: 0), controlPoint2: CGPoint(x: 37, y: 0))
         UIColor.white.setStroke()
-        rectanglePath.lineWidth = 2
-        rectanglePath.lineJoinStyle = .round
-        rectanglePath.stroke()
+        bezier2Path.lineWidth = 3
+        bezier2Path.stroke()
         
-        
-        //// Rectangle 2 Drawing
-        let rectangle2Path = UIBezierPath(rect: CGRect(x: 52.5, y: 40.5, width: 30, height: 10.5))
-        UIColor.white.setStroke()
-        rectangle2Path.lineWidth = 2
-        rectangle2Path.lineJoinStyle = .round
-        rectangle2Path.stroke()
+        context.restoreGState()
         
         context.restoreGState()
         
