@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-//@IBDesignable
+@IBDesignable
 class SegmentedControl : UIControl {
     
     fileprivate var labels = [UILabel]()
@@ -96,7 +96,7 @@ class SegmentedControl : UIControl {
             label.text = items[index - 1]
             label.backgroundColor = UIColor.clear
             label.textAlignment = .center
-            label.font = UIFont(name: "GillSans-SemiBold", size: 20)
+            label.font = UIFont(name: "GillSans-Light", size: 20)
             label.textColor = index == 1 ? selectedLabelColor : unselectedLabelColor
             label.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview(label)
@@ -109,7 +109,7 @@ class SegmentedControl : UIControl {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        thumbView.frame = CGRect(x: labels[0].bounds.minX, y: labels[0].bounds.maxY, width: labels[0].bounds.width * 0.7, height: labels[0].bounds.height * 0.05)
+        thumbView.frame = CGRect(x: labels[0].bounds.minX, y: labels[0].bounds.maxY * 0.95, width: labels[0].bounds.width * 0.7, height: labels[0].bounds.height * 0.15)
         thumbView.backgroundColor = thumbColor
         displayNewSelectedIndex()
         
@@ -144,7 +144,7 @@ class SegmentedControl : UIControl {
         
         UIView.animate(withDuration: 0.3, delay: 0.1, options: .curveEaseInOut, animations: {
             //self.thumbView.alpha = 1.0
-            self.thumbView.frame = CGRect(x: label.bounds.minX, y: label.bounds.maxY, width: label.bounds.width * 0.7, height: label.bounds.height * 0.05)
+            self.thumbView.frame = CGRect(x: label.bounds.minX, y: label.bounds.maxY * 0.95, width: label.bounds.width * 0.7, height: label.bounds.height * 0.15)
             self.thumbView.center.x = label.center.x
             
         }, completion: nil )

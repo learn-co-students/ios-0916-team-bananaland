@@ -35,9 +35,9 @@ class CustomLayoutView: UICollectionViewLayout {
             var yOffset = [CGFloat](repeating: 0, count: numberOfColumns)
             
             
-            let smallCell = (self.collectionView?.frame.height)! * 0.20
-            let mediumCell = (self.collectionView?.frame.height)! * 0.30
-            let largeCell = (self.collectionView?.frame.height)! * 0.40
+            let smallCell = (self.collectionView?.frame.height)! * 0.30
+            let mediumCell = (self.collectionView?.frame.height)! * 0.40
+            let largeCell = (self.collectionView?.frame.height)! * 0.50
             
             var photoHeight : [CGFloat] = [smallCell, mediumCell, largeCell]
             var arr = 0
