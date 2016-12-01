@@ -226,85 +226,100 @@ class CheftyAPIClient {
             }
         }
         
-        if let unwrappedUrl = url{
-            let session = URLSession.shared
-            let task = session.dataTask(with: unwrappedUrl) { (data, response, error) in
-                if let unwrappedData = data {
-                    do {
-                        
-                        // TODO: This commented out code was working for Jackqueline! Commenting out her code during the merge.
-                        //                        let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String:Any]]
-                        //
-                        //                        for stepDict in responseJSON {
-                        //                            let step = RecipeStep(dict: stepDict)
-                        //                            store.recipeSteps.append(step)
-                        //                        }
-                        //
-                        //                        completion()
-                        
-                        // THIS CODE below is masters.
-                        let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: Any]]
-                        //print(responseJSON)
-                        
-                        for stepsDict in responseJSON {
-
-                            let recipeIdFromStep = stepsDict["recipe"] as! String
-                            
-                            // if the step is related to the recipeRequested, get the steps and add them to the recipe in CD
-                            if recipeRequested?.id == recipeIdFromStep {
+        if let recipeStepsEmptyBeforeAPIRequest = recipeRequested?.step?.allObjects.isEmpty {
+            // fetch steps if needed
+            if recipeStepsEmptyBeforeAPIRequest {
+                if let unwrappedUrl = url{
+                    let session = URLSession.shared
+                    let task = session.dataTask(with: unwrappedUrl) { (data, response, error) in
+                        if let unwrappedData = data {
+                            do {
                                 
-                                let newStep: Steps = Steps(context: context)
+                                // TODO: This commented out code was working for Jackqueline! Commenting out her code during the merge.
+                                //                        let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String:Any]]
+                                //
+                                //                        for stepDict in responseJSON {
+                                //                            let step = RecipeStep(dict: stepDict)
+                                //                            store.recipeSteps.append(step)
+                                //                        }
+                                //
+                                //                        completion()
                                 
-                                // getting STEP TITLES
-                                newStep.stepTitle = stepsDict["stepTitle"] as? String
-                                //print(newStep.stepTitle)
+                                // THIS CODE below is masters.
+                                let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: Any]]
+                                //print(responseJSON)
                                 
-                                // getting STEP PROCEDURE
-                                newStep.procedure = stepsDict["procedure"] as? String
-                                //print(newStep.procedure)
-                                
-                                // getting FULL ATTENTION
-                                newStep.fullAttentionRequired = Bool(stepsDict["fullAttentionRequired"] as! String)!
-                                //print(newStep.fullAttentionRequired)
-                                
-                                // getting STEP NUMBER
-                                newStep.stepNumber = Int32(stepsDict["step"] as! String)!
-                                //print(newStep.stepNumber)
-                                
-                                // getting DURATION
-                                newStep.duration = stepsDict["duration"] as? String
-                                //print(newStep.duration)
-                                
-                                // add step to recipe
-                                recipeRequested?.addToStep(newStep)
-                                
-                                // add ingredients to the step, if they exist
-                                let ingredientsRaw = stepsDict["ingredients"] as? [String]
-                                var ingredients:[String] = [String]()
-                                if let ingredientsWithNullValues = ingredientsRaw {
-                                    if ingredientsWithNullValues.count > 0 {
-                                        ingredients = ingredientsWithNullValues
-                                        for ingredient in ingredients {
-                                            let newIngredient: Ingredient = Ingredient(context: context)
-                                            newIngredient.isChecked = false
-                                            newIngredient.recipeDescription = ingredient
-                                            newStep.addToIngredient(newIngredient)
+                                for stepsDict in responseJSON {
+                                    
+                                    let recipeIdFromStep = stepsDict["recipe"] as! String
+                                    
+                                    // if the step is related to the recipeRequested, get the steps and add them to the recipe in CD
+                                    if recipeRequested?.id == recipeIdFromStep {
+                                        
+                                        let newStep: Steps = Steps(context: context)
+                                        
+                                        // getting STEP TITLES
+                                        newStep.stepTitle = stepsDict["stepTitle"] as? String
+                                        //print(newStep.stepTitle)
+                                        
+                                        // getting STEP PROCEDURE
+                                        newStep.procedure = stepsDict["procedure"] as? String
+                                        //print(newStep.procedure)
+                                        
+                                        // getting FULL ATTENTION
+                                        newStep.fullAttentionRequired = Bool(stepsDict["fullAttentionRequired"] as! String)!
+                                        //print(newStep.fullAttentionRequired)
+                                        
+                                        // getting STEP NUMBER
+                                        newStep.stepNumber = Int32(stepsDict["step"] as! String)!
+                                        //print(newStep.stepNumber)
+                                        
+                                        // getting DURATION
+                                        newStep.duration = stepsDict["duration"] as? String
+                                        //print(newStep.duration)
+                                        
+                                        // getting TIME TO START
+                                        newStep.timeToStart = stepsDict["timeToStart"] as? String
+                                        //print(timeToStart)
+                                        
+                                        // add step to recipe
+                                        recipeRequested?.addToStep(newStep)
+                                        
+                                        // add ingredients to the step, if they exist
+                                        let ingredientsRaw = stepsDict["ingredients"] as? [String]
+                                        var ingredients:[String] = [String]()
+                                        if let ingredientsWithPossibleNullValues = ingredientsRaw {
+                                            if ingredientsWithPossibleNullValues.isEmpty == false {  // check to see if the ingredients are null
+                                                ingredients = ingredientsWithPossibleNullValues
+                                                for ingredient in ingredients {
+                                                    let newIngredient: Ingredient = Ingredient(context: context)
+                                                    
+                                                    // setting default value for isChecked
+                                                    newIngredient.isChecked = false
+                                                    
+                                                    // getting ingredientDescription
+                                                    newIngredient.ingredientDescription = ingredient
+                                                    
+                                                    newStep.addToIngredient(newIngredient)
+                                                }
+                                            }
                                         }
-                                        //print(ingredients)
+                                        store.saveRecipesContext()
                                     }
                                 }
-                                
-                                
-                                store.saveRecipesContext()
+                                completion()
+                            } catch {
+                                print("An error occured when creating responseJSON")
                             }
                         }
-                        completion()
-                    } catch {
-                        print("An error occured when creating responseJSON")
                     }
+                    task.resume()
                 }
             }
-            task.resume()
+            else {
+                completion()
+            }
+            
         }
     }
 
