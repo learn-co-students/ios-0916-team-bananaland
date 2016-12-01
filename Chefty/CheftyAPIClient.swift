@@ -158,12 +158,12 @@ class CheftyAPIClient {
         
         
         
-        let recipeCount = recipeRequested?.step?.allObjects.count
+//        let recipeCount = recipeRequested?.step?.allObjects.count
+//        
+//        
+//        if recipeCount == 0 {
+//            print("then im empty do something")
         
-        
-        if recipeCount == 0 {
-            print("then im empty do something")
-            
             if let unwrappedUrl = url{
                 let session = URLSession.shared
                 let task = session.dataTask(with: unwrappedUrl) { (data, response, error) in
@@ -197,15 +197,25 @@ class CheftyAPIClient {
                                             newStep.procedure = stepsDict["procedure"] as? String   // getting STEP PROCEDURE
                                             newStep.fullAttentionRequired = Bool(stepsDict["fullAttentionRequired"] as! String)!  // getting FULL ATTENTION
                                             newStep.stepNumber = Int32(stepsDict["step"] as! String)! // getting STEP NUMBER
+                                            
                                             let durationString = stepsDict["duration"] as? String
                                             guard let unwrappedDuration = durationString else { return }
                                             let durationInt = unwrappedDuration.convertDurationToMinutes()
-                                            print("HEY JOHANN")
-                                            print(durationInt)
+                                            //print("HEY JOHANN")
                                             newStep.duration = Int32(durationInt)
                                             //Johann
                                             //newStep.duration = stepsDict["duration"] as? String  // getting DURATION
-                                            newStep.timeToStart = stepsDict["timeToStart"] as? String  // getting TIME TO START
+                                            
+                                            
+                                            
+                                            let timeToStartString = stepsDict["timeToStart"] as? String
+                                            guard let unwrappedTimeToStart = timeToStartString else { return }
+                                            let timeToStartInt = unwrappedTimeToStart.convertTimeToStartToMinutes()
+                                            newStep.timeToStart = Int32(timeToStartInt)
+                                            
+                                    
+                                            //newStep.timeToStart = stepsDict["timeToStart"] as? String  // getting TIME TO START
+                                            print(newStep)
                                             recipeRequested?.addToStep(newStep)  // add step to recipe
                                             
                                             // add ingredients to the step, if they exist
@@ -236,10 +246,12 @@ class CheftyAPIClient {
                 task.resume()
             }
 
-        }else{
-            print("im not empty don't do anything")
-            completion()
-        }
+//        }else{
+//            print("im not empty don't do anything")
+//            completion()
+//        }
+        
+        completion()
         
         /*
         if let recipeStepsEmptyBeforeAPIRequest = recipeRequested?.step?.allObjects.isEmpty {

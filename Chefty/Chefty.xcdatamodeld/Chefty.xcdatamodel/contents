@@ -22,7 +22,7 @@
         <attribute name="procedure" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="stepNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="stepTitle" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="timeToStart" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeToStart" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="ingredient" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ingredient" inverseName="step" inverseEntity="Ingredient" syncable="YES"/>
         <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Recipe" inverseName="step" inverseEntity="Recipe" syncable="YES"/>
     </entity>

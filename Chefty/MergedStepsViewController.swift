@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 
+
 class MergedStepsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     //TODO: add conditional to make sure recipe not already pre-loaded from ingredients
@@ -16,7 +17,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     var mergedStepsView: MergedStepsView!
     var store = DataStore.sharedInstance
     var recipeSteps = [Steps]()
-    //var stepTitlesForDisplay = [String]()
     var tableView = UITableView()
     
     
@@ -28,11 +28,14 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
         self.view.addSubview(self.tableView)
+        createConstraints()
         
         getStepsFromRecipesSelected {
-            print("4")
+            print("3")
             self.mergeRecipeSteps()
+            self.tableView.reloadData()
         }
+        
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
@@ -42,11 +45,11 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    override func loadView(){
-        self.mergedStepsView = MergedStepsView(frame: CGRect.zero)
-        self.view = self.mergedStepsView
-    }
+    //
+    //    override func loadView(){
+    //        self.mergedStepsView = MergedStepsView(frame: CGRect.zero)
+    //        self.view = self.mergedStepsView
+    //    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -63,16 +66,27 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     
+    func createConstraints(){
+        self.tableView.translatesAutoresizingMaskIntoConstraints = false
+        self.tableView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
+        self.tableView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1.0).isActive = true
+        self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+    }
+    
+    
     
     func getStepsFromRecipesSelected(completion: @escaping () -> ()) {
         
         print("1")
-        var intArray = [Int]()
         
         self.recipeSteps.removeAll()
+        
+        print("HI JACQUELINE")
         print("Number of recipes selected - \(store.recipesSelected.count)")
-        for (index,singleRecipe) in store.recipesSelected.enumerated() {
-            print("\(singleRecipe.displayName) -  Item \(index)")
+        
+        for singleRecipe in store.recipesSelected {
+            
             DispatchQueue.main.async {
                 CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: singleRecipe.id!, completion: {
                     print("6")
@@ -80,10 +94,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
             }
             
             let allRecipeSteps = singleRecipe.step!.allObjects as! [Steps]
-
-            for recipe in allRecipeSteps{
-                print("\(recipe.stepTitle) - \(recipe.duration)")
-            }
+            
             self.recipeSteps += allRecipeSteps
             
         }
@@ -104,80 +115,66 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
 extension MergedStepsViewController {
     
     func mergeRecipeSteps() {
-        print("3")
+        print("4")
         
         var addedTime = 0
         
         recipeSteps = self.recipeSteps.sorted { (step1: Steps, step2: Steps) -> Bool in
-            //
-            //            //TODO: handle optionals without force unwrapping
-            //
-            //            //same start
-            //            if step1.timeToStart == step2.timeToStart {
-            //
-            //                //different attentionNeeded
-            //                if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
-            //                    return true
-            //                } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
-            //                    addedTime += step1.timeToStart! + step1.duration! - step2.timeToStart!
-            //                    //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
-            //                    return false
-            //
-            //                    //same attentionNeeded, add shorter duration to addedTime
-            //                } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
-            //                    if step1.duration! > step2.duration! {
-            //                        addedTime += step2.duration!
-            //                        //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
-            //                        return false
-            //                    } else if step1.duration! < step2.duration! {
-            //                        addedTime += step1.duration!
-            //                        //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
-            //                        return true
-            //                    }
-            //                }
-            //            }
-            //
-            //            //overlap duration
-            //            if (step2.timeToStart! > step1.timeToStart!) && (step2.timeToStart! < (step1.timeToStart! + step1.duration!)) {
-            //
-            //                if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
-            //                    addedTime += step2.timeToStart! - (step1.timeToStart! + step1.duration!)
-            //                    //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
-            //                    return true
-            //
-            //                } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
-            //                    addedTime += (step1.timeToStart! + step1.duration!) - step2.timeToStart!
-            //                    //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
-            //                    return true
-            //
-            //                } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
-            //                    addedTime += (step1.timeToStart! + step1.duration!) - step2.timeToStart!
-            //                    //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
-            //                    return true
-            //                }
-            //            }
-            //
-            //            return step1.timeToStart! < step2.timeToStart!
-            //
-            return(step1.timeToStart! < step2.timeToStart!)
+            
+            //TODO: handle optionals without force unwrapping
+            
+            //same start
+            if step1.timeToStart == step2.timeToStart {
+                
+                //different attentionNeeded
+                if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
+                    return true
+                } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
+                    addedTime += step1.timeToStart! + step1.duration! - step2.timeToStart!
+                    //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                    return false
+                    
+                    //same attentionNeeded, add shorter duration to addedTime
+                } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
+                    if step1.duration! > step2.duration! {
+                        addedTime += step2.duration!
+                        //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                        return false
+                    } else if step1.duration! < step2.duration! {
+                        addedTime += step1.duration!
+                        //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                        return true
+                    }
+                }
+            }
+            
+            //overlap duration
+            if (step2.timeToStart! > step1.timeToStart!) && (step2.timeToStart! < (step1.timeToStart! + step1.duration!)) {
+                
+                if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
+                    addedTime += step2.timeToStart! - (step1.timeToStart! + step1.duration!)
+                    //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                    return true
+                    
+                } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
+                    addedTime += (step1.timeToStart + step1.duration) - step2.timeToStart
+                    //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                    return true
+                    
+                } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
+                    addedTime += (step1.timeToStart + step1.duration) - step2.timeToStart!
+                    //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                    return true
+                }
+            }
+            
+            return step1.timeToStart < step2.timeToStart
             
         }
         
-        //TODO: create array instead of string for tableview
-        
-//        print("6")
-//        for step in recipeSteps {
-//            stepTitlesForDisplay.append("\(step.timeToStart)")
-//        }
-//        
-//        print("7")
-//        
-//        store.recipeProceduresMerged = stepTitlesForDisplay.joined(separator: "\n\n")
-//        print("8")
-        
     }
     
- 
+    
 }
 
 extension String {
@@ -200,12 +197,10 @@ extension String {
         
         return totalMinutes
     }
-
-}
-extension MergedStepsViewController {
     
-    func convertDurationToMinutes(duration: String) -> Int {
-        let separatedNum = duration.components(separatedBy: ":")
+    
+    func convertTimeToStartToMinutes() -> Int {
+        let separatedNum = self.components(separatedBy: ":")
         let handleMinutesOnly = Int(separatedNum[0])
         let handleHours = Int(separatedNum[0])
         let handleMinutesWithHours = Int(separatedNum[1])
@@ -215,7 +210,7 @@ extension MergedStepsViewController {
         case 2:
             totalMinutes += handleMinutesOnly!
         case 3:
-            totalMinutes += ((handleHours! * 60) + (handleMinutesWithHours!))
+            totalMinutes += ((handleHours! * 60) - (handleMinutesWithHours!))
         default:
             print("error")
         }
@@ -223,5 +218,52 @@ extension MergedStepsViewController {
         return totalMinutes
     }
     
+}
+
+
+//extension MergedStepsViewController {
+//
+//    func convertDurationToMinutes(duration: String) -> Int {
+//        let separatedNum = duration.components(separatedBy: ":")
+//        let handleMinutesOnly = Int(separatedNum[0])
+//        let handleHours = Int(separatedNum[0])
+//        let handleMinutesWithHours = Int(separatedNum[1])
+//        var totalMinutes: Int = 0
+//
+//        switch separatedNum.count {
+//        case 2:
+//            totalMinutes += handleMinutesOnly!
+//        case 3:
+//            totalMinutes += ((handleHours! * 60) + (handleMinutesWithHours!))
+//        default:
+//            print("error")
+//        }
+//
+//        return totalMinutes
+//    }
+
+
+
+func convertTimeToStartToMinutes(timeToStart: String) -> Int {
+    let separatedNum = timeToStart.components(separatedBy: ":")
+    let handleMinutesOnly = Int(separatedNum[0])
+    let handleHours = Int(separatedNum[0])
+    let handleMinutesWithHours = Int(separatedNum[1])
+    var totalMinutes: Int = 0
     
+    switch separatedNum.count {
+    case 2:
+        totalMinutes += handleMinutesOnly!
+    case 3:
+        totalMinutes += ((handleHours! * 60) - (handleMinutesWithHours!))
+    default:
+        print("error")
+    }
+    
+    return totalMinutes
+}
+
+
+
+
 }
