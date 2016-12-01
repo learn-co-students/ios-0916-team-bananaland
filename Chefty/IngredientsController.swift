@@ -21,14 +21,13 @@ class IngredientsController: UIViewController, UITableViewDelegate, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        CheftyAPIClient.getIngredients { ingredients in
+        CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: "apple-pie", completion:{ ingredients in
             
             OperationQueue.main.addOperation {
                 self.tableView.reloadData()
             }
-            
             self.tableView.reloadData()
-        }
+        })
         
         tableView.delegate = self
         tableView.dataSource = self

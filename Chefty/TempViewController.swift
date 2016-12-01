@@ -18,23 +18,21 @@ class TempViewController: UIViewController, TempViewDelegate {
         super.viewDidLoad()
         tempView1.delegate = self
         
-        store.getRecipesFromDB { 
-            // load sample data
-            
-            self.store.getRecipesFromCoreData()
-            // self.store.fetchRecipeSelected() This originally was fetchRecipeSelected is it now getRecipesFromCoreData???
-            
-            
-            
-            // print("store.recipes.count: \(self.store.recipes.count)")
-            // OperationQueue.main.addOperation({
-            //     self.tableView.reloadData()
-            // })
-
-
-        }
-        
-      
+//        store.getRecipesFromDB { 
+//            // load sample data
+//            
+//            //self.store.getRecipesFromCoreData()
+//            // self.store.fetchRecipeSelected() This originally was fetchRecipeSelected is it now getRecipesFromCoreData???
+//            
+//            
+//            
+//            // print("store.recipes.count: \(self.store.recipes.count)")
+//            // OperationQueue.main.addOperation({
+//            //     self.tableView.reloadData()
+//            // })
+//
+//
+//        }
         
     }
     

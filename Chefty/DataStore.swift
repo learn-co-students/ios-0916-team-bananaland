@@ -50,15 +50,17 @@ class DataStore {
         }
         
         
-        CheftyAPIClient.getRecipiesFromDB { success in
-            
-        }
+        // Hi Arvin: This is being called everytime the app opens, so it add 15 recipes to core data everytime. Can a conditiona be added to limit the number of recipes on the phone? - Paul
         
-       
+//        CheftyAPIClient.getRecipiesFromDB { success in
+//
+//        }
+
     }
     
     
     func getRecipesFromDB(completion: @escaping () -> ()) {
+        print("get Recipes from DB")
         CheftyAPIClient.getRecipiesFromDB {_ in
             completion() // call back to onViewDidLoad
         }
@@ -126,9 +128,11 @@ class DataStore {
         
         do {
             self.recipes = try context.fetch(recipeRequest)
+            print("self.recipes.count: \(self.recipes.count)")
         } catch let error {
             print("Error fetching data: \(error)")
         }
+        print("get Recipes from core data in data store")
     }
     
     
@@ -142,21 +146,14 @@ class DataStore {
     }
     
     func setRecipeSelected(recipe: Recipe) {
-        
         recipe.selected = true
-        
         self.saveRecipesContext()
         self.updateSelectedRecipes()
-        
     }
     
     func setRecipeUnselected(recipe: Recipe) {
-        
         recipe.selected = false
-        
         self.saveRecipesContext()
         self.updateSelectedRecipes()
-        
     }
-    
 }
