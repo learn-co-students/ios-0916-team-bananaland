@@ -31,21 +31,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("DESSERT: \(self.store.desserts.count)")
         print("SIDES: \(self.store.sides.count)")
         print("APPETIZER: \(self.store.appetizer.count)")
-        
-        if store.recipesSelected.count == 0 {
-            store.getRecipesFromDB {
-                self.initialViewController = HomePageViewController()
-            }
-        } else {
-            self.initialViewController = MyMenuViewController()
-        }
-        
-        
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        let navigationController = UINavigationController(rootViewController: self.initialViewController)
-        self.window!.rootViewController = navigationController
-        self.window!.backgroundColor = UIColor.white
-        self.window!.makeKeyAndVisible()
+//        
+//        if store.recipesSelected.count == 0 {
+//            store.getRecipesFromDB {
+//                self.initialViewController = HomePageViewController()
+//            }
+//        } else {
+//            self.initialViewController = MyMenuViewController()
+//        }
+//
+//        
+//        self.window = UIWindow(frame: UIScreen.main.bounds)
+//        let navigationController = UINavigationController(rootViewController: self.initialViewController)
+//        self.window!.rootViewController = navigationController
+//        self.window!.backgroundColor = UIColor.white
+//        self.window!.makeKeyAndVisible()
         
         
         return true

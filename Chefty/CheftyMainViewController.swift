@@ -85,6 +85,7 @@ class CheftyMainViewController: UIViewController {
         addChildViewController(viewController)
         containerView.addSubview(viewController.view)
         viewController.view.frame = containerView.bounds
+        viewController.view.backgroundColor = UIColor.clear
         viewController.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         viewController.didMove(toParentViewController: self)
         
@@ -146,5 +147,15 @@ class CheftyMainViewController: UIViewController {
         }, completion: nil)
         
     }
+    
+    
+    
+    @IBAction func cookButtonTapped(_ sender: Any) {
+    
+        let menuView = TestMenuViewController()
+        present(menuView, animated: true, completion: nil)
+    
+    }
+    
     
 }

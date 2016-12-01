@@ -10,6 +10,38 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--View Controller-->
+        <scene sceneID="GhG-Hd-vv9">
+            <objects>
+                <viewController id="w2k-zh-geE" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zn7-eI-sel"/>
+                        <viewControllerLayoutGuide type="bottom" id="ACX-7x-ehG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VU9-ms-8Uk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LAh-4A-X0D">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="YlH-SC-qjT" kind="embed" id="fqM-Pp-5aK"/>
+                                </connections>
+                            </containerView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t1H-pY-ef1">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="83"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Ii-UE-xJn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-168" y="-20"/>
+        </scene>
         <!--Chefty Main View Controller-->
         <scene sceneID="1mi-o1-7qL">
             <objects>
@@ -24,36 +56,60 @@
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rta-Pc-g9y">
                                 <rect key="frame" x="0.0" y="140" width="414" height="596"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </containerView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qat-eZ-f2O">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="140"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Otk-Rb-ZR0" customClass="SegmentedControl" customModule="Chefty" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="95" width="414" height="42"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.20950341219999999" green="0.1200535521" blue="0.16926589610000001" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="color" keyPath="selectedLabelColor">
-                                                <color key="value" red="0.68627450980000004" green="0.031372549020000001" blue="0.023529411760000001" alpha="0.74063570209999996" colorSpace="calibratedRGB"/>
+                                                <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="thumbColor">
-                                                <color key="value" red="0.036065179849999997" green="0.2324331999" blue="0.33735990519999998" alpha="0.89899935789999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="value" red="0.7231871485710144" green="0.65943229198455811" blue="0.60878199338912964" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="unselectedLabelColor">
-                                                <color key="value" red="0.68627450980000004" green="0.031372549020000001" blue="0.023529411760000001" alpha="0.74063570209999996" colorSpace="calibratedRGB"/>
+                                                <color key="value" red="0.61278480290000004" green="0.56385982040000004" blue="0.60078346729999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ww7-jS-k9j" customClass="CookButton" customModule="Chefty" customModuleProvider="target">
+                                        <rect key="frame" x="346" y="27" width="60" height="60"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="60" id="Lcl-pg-vXW"/>
+                                            <constraint firstAttribute="width" constant="60" id="UL1-tg-Qc0"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="cookButtonTapped:" destination="Yk5-ZK-6pz" eventType="touchUpInside" id="Szo-pC-TeE"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CHEFTY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YVj-S5-em3">
+                                        <rect key="frame" x="103.66666666666669" y="22" width="207" height="70"/>
+                                        <fontDescription key="fontDescription" name="GillSans-Bold" family="Gill Sans" pointSize="36"/>
+                                        <color key="textColor" red="0.87514948844909668" green="0.85624551773071289" blue="0.77265346050262451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.20950341219999999" green="0.1200535521" blue="0.16926589610000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Otk-Rb-ZR0" secondAttribute="trailing" id="4UA-c6-ceA"/>
+                                    <constraint firstItem="YVj-S5-em3" firstAttribute="centerY" secondItem="Qat-eZ-f2O" secondAttribute="centerY" constant="-13" id="9H6-ZP-lws"/>
+                                    <constraint firstAttribute="trailing" secondItem="ww7-jS-k9j" secondAttribute="trailing" constant="8" id="A8w-Xs-bGJ"/>
                                     <constraint firstAttribute="bottom" secondItem="Otk-Rb-ZR0" secondAttribute="bottom" constant="3" id="B93-zS-6yA"/>
                                     <constraint firstItem="Otk-Rb-ZR0" firstAttribute="height" secondItem="Qat-eZ-f2O" secondAttribute="height" multiplier="0.3" id="FuC-6G-gya"/>
                                     <constraint firstItem="Otk-Rb-ZR0" firstAttribute="leading" secondItem="Qat-eZ-f2O" secondAttribute="leading" id="a4Y-g2-Yxn"/>
+                                    <constraint firstItem="YVj-S5-em3" firstAttribute="centerX" secondItem="Qat-eZ-f2O" secondAttribute="centerX" id="fqP-Ow-VJU"/>
+                                    <constraint firstItem="ww7-jS-k9j" firstAttribute="top" secondItem="Qat-eZ-f2O" secondAttribute="top" constant="27" id="fxz-ec-YjT"/>
+                                    <constraint firstItem="YVj-S5-em3" firstAttribute="width" secondItem="Qat-eZ-f2O" secondAttribute="width" multiplier="0.5" id="iI6-iX-Cfa"/>
+                                    <constraint firstItem="YVj-S5-em3" firstAttribute="height" secondItem="Qat-eZ-f2O" secondAttribute="height" multiplier="0.5" id="v52-5N-zUh"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.51947820190000005" green="0.1239732429" blue="0.16876372689999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Qat-eZ-f2O" secondAttribute="trailing" id="0pm-YH-HhF"/>
                             <constraint firstItem="Rta-Pc-g9y" firstAttribute="top" secondItem="Qat-eZ-f2O" secondAttribute="bottom" id="2Ev-rF-BQP"/>
@@ -75,7 +131,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fvd-pA-J7R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-257.97101449275362" y="-20.380434782608699"/>
+            <point key="canvasLocation" x="649.27536231884062" y="-20.380434782608699"/>
         </scene>
         <!--Main Dish View Controller-->
         <scene sceneID="nT8-3i-Rea">
@@ -93,7 +149,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b2W-qh-BhJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="471.19999999999999" y="-17.541229385307346"/>
+            <point key="canvasLocation" x="1378.2608695652175" y="-17.934782608695652"/>
         </scene>
         <!--Appetizer View Controller-->
         <scene sceneID="Yuu-Va-AwA">
@@ -111,7 +167,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ypW-35-CUw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1158" y="-19"/>
+            <point key="canvasLocation" x="2065.217391304348" y="-19.565217391304348"/>
         </scene>
         <!--Sides View Controller-->
         <scene sceneID="RUR-df-sGi">
@@ -129,7 +185,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TLh-M1-KFm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1888" y="-20"/>
+            <point key="canvasLocation" x="2794.202898550725" y="-20.380434782608699"/>
         </scene>
         <!--Dessert View Controller-->
         <scene sceneID="7xw-ti-2W5">
@@ -147,7 +203,50 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZOQ-GO-fFf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2621" y="-27"/>
+            <point key="canvasLocation" x="3527.5362318840585" y="-27.717391304347828"/>
+        </scene>
+        <!--Test Menu View Controller-->
+        <scene sceneID="4PN-Hy-z7O">
+            <objects>
+                <viewController id="YlH-SC-qjT" customClass="TestMenuViewController" customModule="Chefty" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="g7t-ky-9he">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="283" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="y1N-nY-haJ">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="testMenuCell" rowHeight="200" id="f8C-CK-zFI" customClass="TestMenuTableViewCell" customModule="Chefty" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="200"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f8C-CK-zFI" id="iTf-bu-idE">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="199"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="YlH-SC-qjT" id="YWp-xD-xRM"/>
+                                    <outlet property="delegate" destination="YlH-SC-qjT" id="Ur7-dN-XHI"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="y1N-nY-haJ" firstAttribute="centerX" secondItem="g7t-ky-9he" secondAttribute="centerX" id="CBQ-tb-bfE"/>
+                            <constraint firstItem="y1N-nY-haJ" firstAttribute="width" secondItem="g7t-ky-9he" secondAttribute="width" id="fmu-PO-gFM"/>
+                            <constraint firstItem="y1N-nY-haJ" firstAttribute="height" secondItem="g7t-ky-9he" secondAttribute="height" id="sGq-w0-NkO"/>
+                            <constraint firstItem="y1N-nY-haJ" firstAttribute="centerY" secondItem="g7t-ky-9he" secondAttribute="centerY" id="sRS-wB-dxQ"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="y1N-nY-haJ" id="Xuq-Eq-Tvw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Uf0-db-Q81" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-168.11594202898553" y="771.19565217391312"/>
         </scene>
     </scenes>
 </document>
