@@ -148,6 +148,27 @@ class CheftyAPIClient {
         let urlString = "http://api.ptangen.com/getRecipeSteps.php?key=flatiron0916&recipe=authentic-italian-meatballs"
         let url = URL(string: urlString)
         
+        if let unwrappedUrl = url{
+            let session = URLSession.shared
+            let task = session.dataTask(with: unwrappedUrl) { (data, response, error) in
+                if let unwrappedData = data {
+                    do {
+                        let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String:Any]]
+                        
+                        for stepDict in responseJSON {
+                            let step = RecipeStep(dict: stepDict)
+                            store.recipeSteps.append(step)
+                        }
+                        
+                        completion()
+                    } catch {
+                        print("An error occured when creating responseJSON")
+                    }
+                }
+            }
+            task.resume()
+        }
+
     }
     
     class func getServingTime () -> Date {
@@ -225,17 +246,6 @@ class CheftyAPIClient {
                 if let unwrappedData = data {
                     do {
                         
-                        // TODO: This commented out code was working for Jackqueline! Commenting out her code during the merge.
-                        //                        let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String:Any]]
-                        //
-                        //                        for stepDict in responseJSON {
-                        //                            let step = RecipeStep(dict: stepDict)
-                        //                            store.recipeSteps.append(step)
-                        //                        }
-                        //
-                        //                        completion()
-                        
-                        // THIS CODE below is masters.
                         let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: Any]]
                         //print(responseJSON)
                         
@@ -260,10 +270,7 @@ class CheftyAPIClient {
     }
     
     
-    
-    
-    
-    
+
     class func fetchImage(_ url: URL, recipe: Recipe, completion: @escaping () -> Void) {
         let store = DataStore.sharedInstance
         let session = URLSession.shared
