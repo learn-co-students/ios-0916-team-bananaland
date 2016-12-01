@@ -19,7 +19,7 @@ class MergedStepsView: UIView {
         
         self.backgroundColor = UIColor.white
         
-        setUpElements()
+        //setUpElements()
     }
     
     required init?(coder aDecoder: NSCoder) {

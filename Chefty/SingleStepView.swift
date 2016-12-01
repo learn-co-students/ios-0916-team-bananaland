@@ -25,7 +25,7 @@ class SingleStepView: UIView {
                         print("stepTitle: \(step.stepTitle!)")
                         print("stepNumber: \(step.stepNumber)")
                         print("timeToStart: \(step.timeToStart!)")
-                        print("duration: \(step.duration!)")
+                        print("duration: \(step.duration)")
                         print("fullAttentionRequired: \(step.fullAttentionRequired)")
                         print("procedure: \(step.procedure!)")
                         if let ingredientsAny = step.ingredient {

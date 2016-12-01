@@ -32,10 +32,6 @@ class TraditionalRecipeView: UIView {
         
         self.backgroundColor = UIColor.white
         
-        
-        print(recipe.displayName)
-        //use this to populate, not API call!!
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -106,7 +102,7 @@ class TraditionalRecipeView: UIView {
         //create title label
         let titleLabel = UILabel()
         titleLabel.text = recipe.displayName
-        print(recipe.displayName)
+        //print(recipe.displayName)
         titleLabel.font = titleLabel.font.withSize(30)
         titleLabel.textAlignment = .center
         
@@ -122,8 +118,9 @@ class TraditionalRecipeView: UIView {
         
         //SERVING SIZE AND ESTIMATED TIME INFO
         //create labels
+        guard let servings = recipe.servings else { return }
         let servingSizeLabel = UILabel()
-        servingSizeLabel.text = "Serving Size: \(recipe.servings)"
+        servingSizeLabel.text = "Serving Size: \(servings)"
         servingSizeLabel.font = titleLabel.font.withSize(20)
         servingSizeLabel.textAlignment = .left
         

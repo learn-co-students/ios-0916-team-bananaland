@@ -24,12 +24,6 @@ class TraditionalRecipeViewController: UIViewController {
         
         self.traditionalRecipeView.setUpElements()
         
-//        self.traditionalRecipeView.getAPIInfo {
-//            DispatchQueue.main.async {
-//                self.traditionalRecipeView.setUpElements()
-//            }
-//        }
-        
     }
     
     

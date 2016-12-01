@@ -9,24 +9,30 @@
 import Foundation
 import UIKit
 
-class MergedStepsViewController: UIViewController {
+class MergedStepsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     //TODO: add conditional to make sure recipe not already pre-loaded from ingredients
     
     var mergedStepsView: MergedStepsView!
     var store = DataStore.sharedInstance
     var recipeSteps = [Steps]()
-    var stepTitlesForDisplay = [String]()
+    //var stepTitlesForDisplay = [String]()
+    var tableView = UITableView()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        
+        self.view.addSubview(self.tableView)
+        
         getStepsFromRecipesSelected {
             print("4")
             self.mergeRecipeSteps()
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
@@ -42,29 +48,51 @@ class MergedStepsViewController: UIViewController {
         self.view = self.mergedStepsView
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return recipeSteps.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: "cell")! as UITableViewCell
+        cell.textLabel?.text = recipeSteps[indexPath.row].stepTitle
+        return cell
+    }
+    
+    
     
     func getStepsFromRecipesSelected(completion: @escaping () -> ()) {
         
         print("1")
+        var intArray = [Int]()
         
-        for singleRecipe in store.recipesSelected {
-            
+        self.recipeSteps.removeAll()
+        print("Number of recipes selected - \(store.recipesSelected.count)")
+        for (index,singleRecipe) in store.recipesSelected.enumerated() {
+            print("\(singleRecipe.displayName) -  Item \(index)")
             DispatchQueue.main.async {
                 CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: singleRecipe.id!, completion: {
-                    print("2")
+                    print("6")
                 })
             }
             
             let allRecipeSteps = singleRecipe.step!.allObjects as! [Steps]
+
+            for recipe in allRecipeSteps{
+                print("\(recipe.stepTitle) - \(recipe.duration)")
+            }
             self.recipeSteps += allRecipeSteps
             
         }
         
-        print("3")
+        print("2")
         
         completion()
         
-        print("9")
+        print("5")
         
     }
     
@@ -76,7 +104,7 @@ class MergedStepsViewController: UIViewController {
 extension MergedStepsViewController {
     
     func mergeRecipeSteps() {
-        print("5")
+        print("3")
         
         var addedTime = 0
         
@@ -131,25 +159,49 @@ extension MergedStepsViewController {
             //
             //            return step1.timeToStart! < step2.timeToStart!
             //
-            return(step1.duration! > step2.duration!)
+            return(step1.timeToStart! < step2.timeToStart!)
             
         }
         
         //TODO: create array instead of string for tableview
         
-        print("6")
-        for step in recipeSteps {
-            stepTitlesForDisplay.append("\(step.duration)")
-        }
-        
-        print("7")
-        print("steps for display: \(stepTitlesForDisplay.joined(separator: "\n\n"))")
-        store.recipeProceduresMerged = stepTitlesForDisplay.joined(separator: "\n\n")
-        print("8")
+//        print("6")
+//        for step in recipeSteps {
+//            stepTitlesForDisplay.append("\(step.timeToStart)")
+//        }
+//        
+//        print("7")
+//        
+//        store.recipeProceduresMerged = stepTitlesForDisplay.joined(separator: "\n\n")
+//        print("8")
         
     }
+    
+ 
 }
 
+extension String {
+    func convertDurationToMinutes() -> Int {
+        
+        let separatedNum = self.components(separatedBy: ":")
+        let handleMinutesOnly = Int(separatedNum[0])
+        let handleHours = Int(separatedNum[0])
+        let handleMinutesWithHours = Int(separatedNum[1])
+        var totalMinutes: Int = 0
+        
+        switch separatedNum.count {
+        case 2:
+            totalMinutes += handleMinutesOnly!
+        case 3:
+            totalMinutes += ((handleHours! * 60) + (handleMinutesWithHours!))
+        default:
+            print("error")
+        }
+        
+        return totalMinutes
+    }
+
+}
 extension MergedStepsViewController {
     
     func convertDurationToMinutes(duration: String) -> Int {
