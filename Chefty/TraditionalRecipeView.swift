@@ -32,7 +32,7 @@ class TraditionalRecipeView: UIView {
         
         self.backgroundColor = UIColor.white
         
-
+        
         print(recipe.displayName)
         //use this to populate, not API call!!
         
@@ -45,30 +45,28 @@ class TraditionalRecipeView: UIView {
     
     //TODO: fix this so it accepts steps from recipe passed in
     func getAPIInfo(with completion: @escaping () -> ()) {
-        store.getRecipeSteps {
-            
-    //TODO: fix: steps duplicates each time the view loads
-            
-            //steps
-            var combinedStepsArray: [String] = []
-            
-            for dictionary in self.store.recipeSteps {
-                guard let step = dictionary.procedure else { return }
-                combinedStepsArray.append(step)
-            }
-            
-            self.combinedSteps = combinedStepsArray.joined(separator: "\n\n")
-            
-            //ingredients
-            for dict in self.store.recipeSteps {
-                guard let ingredients = dict.ingredients else { return }
-                //if ingredients != [] {
-                self.combinedIngredients.append(ingredients.joined(separator: "\n"))
-            }
+        //store.getRecipeSteps {
+        
+        //TODO: fix: steps duplicates each time the view loads
+        
+        //steps
+        var combinedStepsArray: [String] = []
+        
+        for dictionary in self.store.recipeSteps {
+            guard let step = dictionary.procedure else { return }
+            combinedStepsArray.append(step)
+        }
+        
+        self.combinedSteps = combinedStepsArray.joined(separator: "\n\n")
+        
+        //ingredients
+        for dict in self.store.recipeSteps {
+            guard let ingredients = dict.ingredients else { return }
+            //if ingredients != [] {
+            self.combinedIngredients.append(ingredients.joined(separator: "\n"))
+        }
         
         completion()
-            
-        }
         
     }
     
@@ -92,7 +90,7 @@ class TraditionalRecipeView: UIView {
         // create image
         let myImageView = UIImageView()
         
-    
+        
         // TODO: What happened to getImage on Recipe?
         // Recipe.getImage(recipe: recipe, imageView: myImageView, view: self, backgroundImage: false)
         
@@ -253,7 +251,7 @@ class TraditionalRecipeView: UIView {
         
         delegate?.mergedStepsTapped(sender: self)
         
-//        traditionalViewController.onPressMergedStepsButton(button: mergedStepsButton)
+        //        traditionalViewController.onPressMergedStepsButton(button: mergedStepsButton)
     }
     
 }
