@@ -61,7 +61,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "cell")! as UITableViewCell
-        cell.textLabel?.text = recipeSteps[indexPath.row].stepTitle
+        cell.textLabel?.text = "\(recipeSteps[indexPath.row].timeToStart)"
         return cell
     }
     
@@ -130,18 +130,18 @@ extension MergedStepsViewController {
                 if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
                     return true
                 } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
-                    addedTime += step1.timeToStart! + step1.duration! - step2.timeToStart!
+                    addedTime += step1.timeToStart + step1.duration - step2.timeToStart
                     //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                     return false
                     
                     //same attentionNeeded, add shorter duration to addedTime
                 } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
-                    if step1.duration! > step2.duration! {
-                        addedTime += step2.duration!
+                    if step1.duration > step2.duration {
+                        //TODO: addedTime += step2.duration
                         //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                         return false
-                    } else if step1.duration! < step2.duration! {
-                        addedTime += step1.duration!
+                    } else if step1.duration < step2.duration {
+                        //TODO: addedTime += step1.duration
                         //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                         return true
                     }
@@ -149,10 +149,10 @@ extension MergedStepsViewController {
             }
             
             //overlap duration
-            if (step2.timeToStart! > step1.timeToStart!) && (step2.timeToStart! < (step1.timeToStart! + step1.duration!)) {
+            if (step2.timeToStart > step1.timeToStart) && (step2.timeToStart < (step1.timeToStart + step1.duration)) {
                 
                 if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
-                    addedTime += step2.timeToStart! - (step1.timeToStart! + step1.duration!)
+                    addedTime += step2.timeToStart - (step1.timeToStart + step1.duration)
                     //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                     return true
                     
@@ -162,7 +162,7 @@ extension MergedStepsViewController {
                     return true
                     
                 } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
-                    addedTime += (step1.timeToStart + step1.duration) - step2.timeToStart!
+                    addedTime += (step1.timeToStart + step1.duration) - step2.timeToStart
                     //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                     return true
                 }
@@ -242,28 +242,21 @@ extension String {
 //        return totalMinutes
 //    }
 
-
-
-func convertTimeToStartToMinutes(timeToStart: String) -> Int {
-    let separatedNum = timeToStart.components(separatedBy: ":")
-    let handleMinutesOnly = Int(separatedNum[0])
-    let handleHours = Int(separatedNum[0])
-    let handleMinutesWithHours = Int(separatedNum[1])
-    var totalMinutes: Int = 0
-    
-    switch separatedNum.count {
-    case 2:
-        totalMinutes += handleMinutesOnly!
-    case 3:
-        totalMinutes += ((handleHours! * 60) - (handleMinutesWithHours!))
-    default:
-        print("error")
-    }
-    
-    return totalMinutes
-}
-
-
-
-
-}
+//func convertTimeToStartToMinutes(timeToStart: String) -> Int {
+//    let separatedNum = timeToStart.components(separatedBy: ":")
+//    let handleMinutesOnly = Int(separatedNum[0])
+//    let handleHours = Int(separatedNum[0])
+//    let handleMinutesWithHours = Int(separatedNum[1])
+//    var totalMinutes: Int = 0
+//    
+//    switch separatedNum.count {
+//    case 2:
+//        totalMinutes += handleMinutesOnly!
+//    case 3:
+//        totalMinutes += ((handleHours! * 60) - (handleMinutesWithHours!))
+//    default:
+//        print("error")
+//    }
+//    
+//    return totalMinutes
+//}

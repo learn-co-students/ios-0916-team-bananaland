@@ -9,6 +9,9 @@
 import Foundation
 import UIKit
 
+//delete this page in master!!!! 
+
+
 class MergedStepsView: UIView {
 
     var store = DataStore.sharedInstance
