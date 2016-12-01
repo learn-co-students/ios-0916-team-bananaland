@@ -19,8 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var initialViewController = UIViewController()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-        
+
         // if no recipes selected in CoreData, fetch from DataBase
         store.getRecipesFromCoreData()
         store.updateSelectedRecipes()
@@ -40,14 +39,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.initialViewController = MyMenuViewController()
         }
         
-        
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let navigationController = UINavigationController(rootViewController: self.initialViewController)
         self.window!.rootViewController = navigationController
         self.window!.backgroundColor = UIColor.white
         self.window!.makeKeyAndVisible()
-        
-        
+
         return true
     }
 

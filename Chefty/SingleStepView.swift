@@ -15,16 +15,27 @@ class SingleStepView: UIView {
     override init(frame:CGRect){
         super.init(frame: frame)
         CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: "apple-pie") {
-            print("Gettin' steps complete")
         
+            // print the content of the requested recipe
             for recipe in self.store.recipes {
                 if "apple-pie" == recipe.id {
-                    var allSteps = recipe.step?.allObjects as! [Steps]
+                    let allSteps = recipe.step?.allObjects as! [Steps]
                     for step in allSteps {
-                        //print("TESTING DATA: \(step)")
+                        print("\n")
+                        print("stepTitle: \(step.stepTitle!)")
+                        print("stepNumber: \(step.stepNumber)")
+                        print("duration: \(step.duration!)")
+                        print("fullAttentionRequired: \(step.fullAttentionRequired)")
+                        print("procedure: \(step.procedure!)")
+                        if (step.ingredient?.count)! > 0 {
+                            for ingredientAny in step.ingredient! {
+                                let ingredient = ingredientAny as! Ingredient;
+                                print("ingredientRecipeDescripton: \(ingredient.recipeDescription!)")
+                                print("ingredientIsChecked: \(ingredient.isChecked)")
+                            }
+                        }
                     }
                 }
-                
             }
         }
         
