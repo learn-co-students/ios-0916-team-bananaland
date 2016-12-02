@@ -24,6 +24,7 @@ class IngredientsController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("getting in viewDidLoad")
         
         for recipe in store.recipesSelected {
             
@@ -32,11 +33,10 @@ class IngredientsController: UIViewController {
                     
                     // build an array of recipe steps
                     let stepsFromRecipe:[Steps] = unwrappedRecipeSteps.allObjects as! [Steps]
-                    self.allStepsArray = stepsFromRecipe + self.allStepsArray
-                    
-                    print("FROM API: \(self.allStepsArray)")
-                    print("procedureFromStep: \(stepsFromRecipe[0].procedure)")
-                    print("ingredientFromStep: \(stepsFromRecipe[0].ingredient)")
+                    self.allStepsArray = stepsFromRecipe
+                    print("FROM API: \(stepsFromRecipe[0].procedure)")
+//                    print("procedureFromStep: \(stepsFromRecipe[0].procedure)")
+//                    print("ingredientFromStep: \(stepsFromRecipe[0].ingredient)")
                     
                     
                     //            OperationQueue.main.addOperation {
@@ -48,6 +48,7 @@ class IngredientsController: UIViewController {
                 })
                 
             }
+            print("after unwrAP")
             
         }
         
