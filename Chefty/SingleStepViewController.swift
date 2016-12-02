@@ -17,15 +17,9 @@ class SingleStepViewController: UIViewController {
         super.viewDidLoad()
         //tempView1.delegate = self
         
-//        // add the menu button to the nav bar
-//        let menuButton = UIBarButtonItem(title: "All Steps", style: .plain, target: self, action: #selector(goToSingleStep))
-//        navigationItem.rightBarButtonItems = [menuButton]
-//        let menuButtonAttributes = [
-//            NSForegroundColorAttributeName: UIColor(named: .blue),
-//            NSFontAttributeName: UIFont(name: Constants.iconFont.material.rawValue,
-//                                        size: CGFloat(Constants.iconSize.small.rawValue))!
-//        ]
-//        menuButton.setTitleTextAttributes(menuButtonAttributes, for: .normal)
+        // add the menu button to the nav bar
+        let menuButton = UIBarButtonItem(title: "All Steps", style: .plain, target: self, action: #selector(goToSingleStep))
+        navigationItem.rightBarButtonItems = [menuButton]
     }
     
     override func loadView(){
@@ -46,8 +40,8 @@ class SingleStepViewController: UIViewController {
     }
     
     func goToSingleStep(){
-        let singleStepViewControllerInst = SingleStepViewController()
-        navigationController?.pushViewController(singleStepViewControllerInst, animated: false) // show destination with nav bar
+        let mergedStepsViewControllerInst = MergedStepsViewController()
+        navigationController?.pushViewController(mergedStepsViewControllerInst, animated: false) // show destination with nav bar
     }
     
 

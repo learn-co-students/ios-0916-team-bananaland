@@ -58,7 +58,6 @@ class DataStore {
         }
     }
     
-
     
     
     func fillRecipeStepsArray(completion: @escaping () -> ()) {
@@ -105,7 +104,7 @@ class DataStore {
         
         do {
             self.recipes = try context.fetch(recipeRequest)
-            print("self.recipes.count: \(self.recipes.count)")
+            //print("self.recipes.count: \(self.recipes.count)")
         } catch let error {
             print("Error fetching data: \(error)")
         }

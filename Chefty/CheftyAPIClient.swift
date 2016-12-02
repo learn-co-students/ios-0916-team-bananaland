@@ -10,8 +10,6 @@ import Foundation
 import UIKit
 import CoreData
 
-
-
 class CheftyAPIClient {
     
     class func getRecipiesFromDB(completion: @escaping () -> Void) {
@@ -68,7 +66,7 @@ class CheftyAPIClient {
                             
                             store.saveRecipesContext()
                             store.getRecipesFromCoreData()
-                            print("getRecipesFromCoreData in CheftyAPIClient")
+                            //print("getRecipesFromCoreData in CheftyAPIClient")
                         }
                         completion()
                         
@@ -117,7 +115,7 @@ class CheftyAPIClient {
                             if let unwrappedData = data {
                                 do {
                                     let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: Any]]
-
+                                    
                                     for stepsDict in responseJSON {
                                         let recipeIdFromStep = stepsDict["recipe"] as! String
                                         // if the step is related to the recipeRequested, get the steps and add them to the recipe in CD
@@ -164,7 +162,7 @@ class CheftyAPIClient {
                                             newStep.timeToStart = Int32(timeToStartInt) // getting TIME TO START
                                             
                                             recipeRequested?.addToStep(newStep)  // add step to recipe
-
+                                            
                                             // add ingredients to the step
                                             
                                             // get the value, could be empty
@@ -179,14 +177,16 @@ class CheftyAPIClient {
                                                             newIngredient.isChecked = false   // setting default value for isChecked
                                                             newIngredient.ingredientDescription = ingredient  // getting ingredientDescription
                                                             newStep.addToIngredient(newIngredient)
-                                                            print("ingredient attribute: \(newIngredient.ingredientDescription)")
+//                                                            print("ingredient attribute: \(newIngredient.ingredientDescription)")
                                                         }
                                                     } else {
                                                         //print("We DO NOT have ingredient for this step.")
                                                     }
+                                                    
                                                 }
                                             }
                                         }
+                                        
                                     }
                                     completion()
                                 } catch {
@@ -198,24 +198,34 @@ class CheftyAPIClient {
                         task.resume()
                     }
                 } else {
-                    completion() // this allow code in the completion to execute when we are not fetching data
+                    completion()
                 }
+                
             }
+            
         }
     }
     
-    class func fetchImage(_ url: URL, recipe: Recipe, completion: @escaping () -> Void) {
-        let store = DataStore.sharedInstance
-        let session = URLSession.shared
-        let task = session.dataTask(with: url) { (data, response, error) in
-            
-            guard let imageData = try? Data(contentsOf: url) else { fatalError() }
-            let image = UIImage(data: imageData)
-            store.images.append(image!)
-            OperationQueue.main.addOperation {
-                completion()
+        
+        
+        class func fetchImage(_ url: URL, recipe: Recipe, completion: @escaping () -> Void) {
+            let store = DataStore.sharedInstance
+            let session = URLSession.shared
+            let task = session.dataTask(with: url) { (data, response, error) in
+                
+                guard let imageData = try? Data(contentsOf: url) else { fatalError() }
+                let image = UIImage(data: imageData)
+                store.images.append(image!)
+                OperationQueue.main.addOperation {
+                    completion()
+                    
+                }
             }
+            
+            task.resume()
         }
-        task.resume()
-    }
+        
+        
+        
+        
 }
