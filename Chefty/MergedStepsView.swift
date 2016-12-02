@@ -15,7 +15,6 @@ import UIKit
 class MergedStepsView: UIView {
 
     var store = DataStore.sharedInstance
-    var steps = [RecipeStep]()
     
     override init(frame:CGRect){
         super.init(frame: frame)
