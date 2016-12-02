@@ -13,7 +13,7 @@ class SingleStepView: UIView {
     let store = DataStore.sharedInstance
     var sampleStep: Steps?
     var procedureBody: String = String()
-    var duration: String = String()
+    var duration: Int32 = Int32()
     var stepTitle: String = String()
 
     override init(frame:CGRect){

@@ -69,8 +69,13 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     }
     
     func goToHome() {
-        let homePageViewController1 = HomePageViewController()
-        navigationController?.pushViewController(homePageViewController1, animated: false)
+        //let cheftyMainViewController1 = CheftyMainViewController()
+        //navigationController?.pushViewController(cheftyMainViewController1, animated: false)
+        
+        let cheftyMainViewController1 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "cheftyMain") as! CheftyMainViewController
+        // .instantiatViewControllerWithIdentifier() returns AnyObject! this must be downcast to utilize it
+        
+        self.present(cheftyMainViewController1, animated: false, completion: nil)
     }
     
     func goToRecipe(){
