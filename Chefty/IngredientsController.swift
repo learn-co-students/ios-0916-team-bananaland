@@ -130,14 +130,13 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         print("did select")
-        //var recipe = ingredients[indexPath.section]
-        //        let ingredient = ingredients.all
-        //
-        //        if recipe.ingredients[indexPath.row].isChecked {
-        //            recipe.ingredients[indexPath.row].isChecked = false
-        //        } else {
-        //            recipe.ingredients[indexPath.row].isChecked = true
-        //        }
+        let ingredient = ingredientsPerRecipe[indexPath.section][indexPath.row]
+        
+        if ingredient.isChecked {
+            ingredient.isChecked = false
+        } else {
+            ingredient.isChecked = true
+        }
         
         tableView.reloadData()
         
