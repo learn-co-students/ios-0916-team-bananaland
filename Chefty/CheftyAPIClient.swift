@@ -169,7 +169,7 @@ class CheftyAPIClient {
             }
             task.resume()
         }
-
+        
     }
     
     class func getServingTime () -> Date {
@@ -186,50 +186,50 @@ class CheftyAPIClient {
     }
     
     
-//    class func getIngredients(completion: @escaping () -> Void){
-//        
-//        let store = DataStore.sharedInstance
-//        let urlString = "\(Secrets.cheftyAPIURL)/getIngredients.php?key=\(Secrets.cheftyKey)&recipe1=chicken-breasts&recipe2=sweet-potato-fries&recipe3=peach-cobbler&recipe4=beef-broccoli-stir-fry"
-//        
-//        guard let url = URL(string: urlString) else { return }
-//        
-//        let session = URLSession.shared
-//        
-//        let task = session.dataTask(with: url) { (data, response, error) in
-//            if let unwrappedData = data {
-//                do {
-//                    let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: String]]
-//                    
-//                    for ingredientDict in responseJSON {
-//                        let context = store.persistentContainer.viewContext
-//                        let ingredientInst = Ingredient(context: context)
-//                        ingredientInst.recipeID = ingredientDict["recipeID"] as String!
-//                        print(ingredientInst.recipeID!)
-//                        ingredientInst.recipeDescription = ingredientDict["description"] as String!
-//                        print(ingredientInst.recipeDescription!)
-//                        ingredientInst.isChecked = false
-//                        
-//                        
-//                        for recipe in store.recipes {
-//                            if recipe.id == ingredientInst.recipeID {
-//                                //                                recipe.addToIngredient(ingredientInst)
-//                            }
-//                        }
-//                        
-//                        
-//                        
-//                        store.saveRecipesContext()
-//                    }
-//                    completion()
-//                } catch {
-//                    print("An error occured when creating responseJSON")
-//                }
-//            }
-//        }
-//        task.resume()
-//        
-//        
-//    }
+    //    class func getIngredients(completion: @escaping () -> Void){
+    //
+    //        let store = DataStore.sharedInstance
+    //        let urlString = "\(Secrets.cheftyAPIURL)/getIngredients.php?key=\(Secrets.cheftyKey)&recipe1=chicken-breasts&recipe2=sweet-potato-fries&recipe3=peach-cobbler&recipe4=beef-broccoli-stir-fry"
+    //
+    //        guard let url = URL(string: urlString) else { return }
+    //
+    //        let session = URLSession.shared
+    //
+    //        let task = session.dataTask(with: url) { (data, response, error) in
+    //            if let unwrappedData = data {
+    //                do {
+    //                    let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: String]]
+    //
+    //                    for ingredientDict in responseJSON {
+    //                        let context = store.persistentContainer.viewContext
+    //                        let ingredientInst = Ingredient(context: context)
+    //                        ingredientInst.recipeID = ingredientDict["recipeID"] as String!
+    //                        print(ingredientInst.recipeID!)
+    //                        ingredientInst.recipeDescription = ingredientDict["description"] as String!
+    //                        print(ingredientInst.recipeDescription!)
+    //                        ingredientInst.isChecked = false
+    //
+    //
+    //                        for recipe in store.recipes {
+    //                            if recipe.id == ingredientInst.recipeID {
+    //                                //                                recipe.addToIngredient(ingredientInst)
+    //                            }
+    //                        }
+    //
+    //
+    //
+    //                        store.saveRecipesContext()
+    //                    }
+    //                    completion()
+    //                } catch {
+    //                    print("An error occured when creating responseJSON")
+    //                }
+    //            }
+    //        }
+    //        task.resume()
+    //
+    //
+    //    }
     
     
     class func getStepsAndIngredients(recipeIDRequest: String, completion: @escaping () -> Void){
@@ -237,87 +237,107 @@ class CheftyAPIClient {
         let urlString = "\(Secrets.cheftyAPIURL)/getRecipeSteps.php?key=\(Secrets.cheftyKey)&recipe=\(recipeIDRequest)"
         let url = URL(string: urlString)
         var recipeRequested:Recipe?
-        
         let context = store.persistentContainer.viewContext
         
         // get the recipe with the id that was requested
         for recipe in store.recipes {
-            if recipeIDRequest == recipe.id {
-                recipeRequested = recipe
-            }
+            recipeIDRequest == recipe.id ? recipeRequested = recipe : ()
         }
         
-        if let unwrappedUrl = url{
-            let session = URLSession.shared
-            let task = session.dataTask(with: unwrappedUrl) { (data, response, error) in
-                if let unwrappedData = data {
-                    do {
-                        
-                        let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: Any]]
-                        //print(responseJSON)
-                        
-                        for stepsDict in responseJSON {
+        if let recipeRequestedUnwrapped = recipeRequested {
+            if let recipeStepsEmptyBeforeAPIRequest = recipeRequestedUnwrapped.step?.allObjects.isEmpty {
+                // fetch steps if needed
+                if recipeStepsEmptyBeforeAPIRequest {
+                    //print("no steps found, fetch them!!")
+                    if let unwrappedUrl = url{
+                        let session = URLSession.shared
+                        let task = session.dataTask(with: unwrappedUrl) { (data, response, error) in
+                            if let unwrappedData = data {
+                                do {
+                                    let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: Any]]
 
-                            let recipeIdFromStep = stepsDict["recipe"] as! String
-                            
-                            // if the step is related to the recipeRequested, get the steps and add them to the recipe in CD
-                            if recipeRequested?.id == recipeIdFromStep {
-                                
-                                let newStep: Steps = Steps(context: context)
-                                
-                                // getting STEP TITLES
-                                newStep.stepTitle = stepsDict["stepTitle"] as? String
-                                //print(newStep.stepTitle)
-                                
-                                // getting STEP PROCEDURE
-                                newStep.procedure = stepsDict["procedure"] as? String
-                                //print(newStep.procedure)
-                                
-                                // getting FULL ATTENTION
-                                newStep.fullAttentionRequired = Bool(stepsDict["fullAttentionRequired"] as! String)!
-                                //print(newStep.fullAttentionRequired)
-                                
-                                // getting STEP NUMBER
-                                newStep.stepNumber = Int32(stepsDict["step"] as! String)!
-                                //print(newStep.stepNumber)
-                                
-                                // getting DURATION
-                                newStep.duration = stepsDict["duration"] as? String
-                                //print(newStep.duration)
-                                
-                                // add step to recipe
-                                recipeRequested?.addToStep(newStep)
-                                
-                                // add ingredients to the step, if they exist
-                                let ingredientsRaw = stepsDict["ingredients"] as? [String]
-                                var ingredients:[String] = [String]()
-                                if let ingredientsWithNullValues = ingredientsRaw {
-                                    if ingredientsWithNullValues.count > 0 {
-                                        ingredients = ingredientsWithNullValues
-                                        for ingredient in ingredients {
-                                            let newIngredient: Ingredient = Ingredient(context: context)
-                                            newIngredient.isChecked = false
-                                            newIngredient.recipeDescription = ingredient
-                                            newStep.addToIngredient(newIngredient)
+                                    for stepsDict in responseJSON {
+                                        let recipeIdFromStep = stepsDict["recipe"] as! String
+                                        // if the step is related to the recipeRequested, get the steps and add them to the recipe in CD
+                                        if recipeRequested?.id == recipeIdFromStep {
+                                            
+                                            let newStep: Steps = Steps(context: context)
+                                            
+                                            if let stepTitleUnwrapped = stepsDict["stepTitle"] as? String {
+                                                newStep.stepTitle = stepTitleUnwrapped   // getting STEP TITLES
+                                            }
+                                            
+                                            if let procedureUnwrapped = stepsDict["procedure"] as? String {
+                                                newStep.procedure = procedureUnwrapped  // getting STEP PROCEDURE
+                                            }
+                                            
+                                            if let fullAttentionRequiredUnwrapped = stepsDict["fullAttentionRequired"] as? String {
+                                                newStep.fullAttentionRequired = Bool(fullAttentionRequiredUnwrapped)!  // getting FULL ATTENTION
+                                            }
+                                            
+                                            if let stepNumberUnwrapped = stepsDict["step"] {
+                                                
+                                                let stepNumberInt = stepNumberUnwrapped as? Int
+                                                let stepNumberString = stepNumberUnwrapped as? String
+                                                
+                                                if let numberInt = stepNumberInt {
+                                                    newStep.stepNumber = Int32(numberInt) // getting STEP NUMBER
+                                                }
+                                                
+                                                if let numberString = stepNumberString {
+                                                    newStep.stepNumber = Int32(numberString)! // getting STEP NUMBER
+                                                }
+                                            }
+                                            
+                                            if let durationUnwrapped = stepsDict["duration"] as? String {
+                                                newStep.duration = durationUnwrapped  // getting DURATION
+                                            }
+                                            
+                                            if let timeToStartUnwrapped = stepsDict["timeToStart"] {
+                                                newStep.timeToStart = timeToStartUnwrapped as? String  // getting TIME TO START
+                                            }
+                                            
+                                            recipeRequested?.addToStep(newStep)  // add step to recipe
+
+                                            // add ingredients to the step
+                                            
+                                            // get the value, could be empty
+                                            if let ingredientsRawUnwrapped = stepsDict["ingredients"] {
+                                                // convert results from JSON into a [string]
+                                                let ingredientsStringArray = ingredientsRawUnwrapped as? [String]
+                                                if let ingredientsStringArray = ingredientsStringArray {
+                                                    if ingredientsStringArray.isEmpty == false {
+                                                        //print("We DO have ingredient for this step.")
+                                                        for ingredient in ingredientsStringArray {
+                                                            let newIngredient: Ingredient = Ingredient(context: context)
+                                                            newIngredient.isChecked = false   // setting default value for isChecked
+                                                            newIngredient.ingredientDescription = ingredient  // getting ingredientDescription
+                                                            newStep.addToIngredient(newIngredient)
+                                                            print("ingredient attribute: \(newIngredient.ingredientDescription)")
+                                                        }
+                                                    } else {
+                                                        //print("We DO NOT have ingredient for this step.")
+                                                    }
+                                                }
+                                            }
                                         }
-                                        //print(ingredients)
                                     }
+                                    completion()
+                                } catch {
+                                    print("An error occured when creating responseJSON")
                                 }
-                                
-                                
                                 store.saveRecipesContext()
                             }
                         }
-                        completion()
-                    } catch {
-                        print("An error occured when creating responseJSON")
+                        task.resume()
                     }
+                } else {
+                    completion() // this allow code in the completion to execute when we are not fetching data
                 }
             }
-            task.resume()
         }
     }
-
+    
     class func fetchImage(_ url: URL, recipe: Recipe, completion: @escaping () -> Void) {
         let store = DataStore.sharedInstance
         let session = URLSession.shared
@@ -332,7 +352,4 @@ class CheftyAPIClient {
         }
         task.resume()
     }
-    
-    
-    
 }
