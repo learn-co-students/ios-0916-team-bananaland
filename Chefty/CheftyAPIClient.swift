@@ -198,13 +198,24 @@ class CheftyAPIClient {
                                                 }
                                             }
                                             
-                                            if let durationUnwrapped = stepsDict["duration"] as? String {
-                                                newStep.duration = durationUnwrapped  // getting DURATION
-                                            }
+//                                            if let durationUnwrapped = stepsDict["duration"] as? String {
+//                                                newStep.duration = durationUnwrapped  // getting DURATION
+//                                            }
                                             
-                                            if let timeToStartUnwrapped = stepsDict["timeToStart"] {
-                                                newStep.timeToStart = timeToStartUnwrapped as? String  // getting TIME TO START
-                                            }
+                                            let durationString = stepsDict["duration"] as? String
+                                            guard let unwrappedDuration = durationString else { return }
+                                            let durationInt = unwrappedDuration.convertDurationToMinutes()
+                                            newStep.duration = Int32(durationInt)   // getting DURATION
+
+                                            
+                                            let timeToStartString = stepsDict["timeToStart"] as? String
+                                            guard let unwrappedTimeToStart = timeToStartString else { return }
+                                            let timeToStartInt = unwrappedTimeToStart.convertTimeToStartToMinutes()
+                                            newStep.timeToStart = Int32(timeToStartInt) // getting TIME TO START
+
+//                                            if let timeToStartUnwrapped = stepsDict["timeToStart"] {
+//                                                newStep.timeToStart = timeToStartUnwrapped as? String  // getting TIME TO START
+//                                            }
                                             
                                             recipeRequested?.addToStep(newStep)  // add step to recipe
 
