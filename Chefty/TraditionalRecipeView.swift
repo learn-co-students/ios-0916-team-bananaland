@@ -18,6 +18,7 @@ class TraditionalRecipeView: UIView {
     
     var recipe: Recipe?
     var combinedSteps: String = "hiiii"
+    var combinedIngredients: String = "hello hello"
     
     weak var delegate: TraditionalDelegate?
     
@@ -33,7 +34,7 @@ class TraditionalRecipeView: UIView {
     }
     
     func getStepsandIngredients() {
-        //call api if not info not already there
+        //TODO: call api if not info not already there
         
         guard let recipe = self.recipe else { return }
         
@@ -41,30 +42,42 @@ class TraditionalRecipeView: UIView {
         
         CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: recipeIDRequest!) {
         }
-
+        
         guard let recipeStep = recipe.step else { return }
         
         let steps = recipeStep.allObjects as! [Steps]
         
         var stepsArray: [String] = []
-        var newArray: [String] = []
+        var ingredientsArray: [String] = []
         
         for step in steps {
-            if let procedure = step.procedure {
-                stepsArray.append(procedure)
+            
+            guard let procedure = step.procedure else { return }
+            stepsArray.append(procedure)
+            
+            
+            guard let stepIngredient = step.ingredient else { return }
+            
+            let ingredientsPerStep = stepIngredient.allObjects as! [Ingredient]
+            if ingredientsPerStep.isEmpty == false {
+                
+                for ingredient in ingredientsPerStep {
+                    guard let ingredientDescription = ingredient.ingredientDescription else { return }
+                    ingredientsArray.append(ingredientDescription)
+                }
+                
             }
             
-            if let ingredientsArray = step.ingredient {
-                print("count: \(ingredientsArray.count)")
-            }
             
         }
         
-        combinedSteps = stepsArray.joined(separator: "\n")
+        combinedSteps = stepsArray.joined(separator: "\n\n")
+        combinedIngredients = ingredientsArray.joined(separator: "\n")
+        
         
         
     }
-
+    
     
     
     func setUpElements() {
@@ -165,7 +178,7 @@ class TraditionalRecipeView: UIView {
         //INGREDIENTS TEXT BOX
         //create textbox
         let ingredientsText = UITextView()
-        ingredientsText.text = "fill this in"
+        ingredientsText.text = combinedIngredients
         ingredientsText.font = titleLabel.font.withSize(14)
         ingredientsText.textAlignment = .left
         
