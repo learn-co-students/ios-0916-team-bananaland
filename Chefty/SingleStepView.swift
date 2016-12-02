@@ -24,20 +24,35 @@ class SingleStepView: UIView {
                         print("\n")
                         print("stepTitle: \(step.stepTitle!)")
                         print("stepNumber: \(step.stepNumber)")
+                        print("timeToStart: \(step.timeToStart!)")
                         print("duration: \(step.duration!)")
                         print("fullAttentionRequired: \(step.fullAttentionRequired)")
                         print("procedure: \(step.procedure!)")
-                        if (step.ingredient?.count)! > 0 {
-                            for ingredientAny in step.ingredient! {
-                                let ingredient = ingredientAny as! Ingredient;
-                                print("ingredientRecipeDescripton: \(ingredient.recipeDescription!)")
-                                print("ingredientIsChecked: \(ingredient.isChecked)")
+                        if let ingredientsAny = step.ingredient {
+                            for ingredientAny in ingredientsAny {
+                                let ingredient = ingredientAny as? Ingredient;
+                                if let ingredientUnwrapped = ingredient {
+                                    print("ingredientDescription: \(ingredientUnwrapped.ingredientDescription)")
+                                    print("ingredientIsChecked: \(ingredientUnwrapped.isChecked)")
+                                }
                             }
                         }
                     }
                 }
             }
         }
+        
+        // build an array of recipeSteps
+        let stepsFromRecipe1:[Steps] = store.recipes.first!.step!.allObjects as! [Steps]
+        let stepsFromRecipe2:[Steps] = store.recipes.last!.step!.allObjects as! [Steps]
+        let stepsFromBothRecipes = stepsFromRecipe1 + stepsFromRecipe2
+        
+        print("stepsFromBothRecipes.count: \(stepsFromBothRecipes.count)")
+        
+        print("procedureFromStep: \(stepsFromBothRecipes.first?.procedure)")
+        
+        print("step's recipe: \(stepsFromBothRecipes.first?.recipe?.id)")
+        
         
         let ingredients: [String] = ["2 1/2 cups all-purpose flour", "teaspoons sugar","1/4 teaspoon fine salt", "14 tablespoons cold butter, diced", "large egg", "large egg, lightly beaten with 2 tablespoons cold water"]
         
