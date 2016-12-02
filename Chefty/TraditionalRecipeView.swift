@@ -17,8 +17,10 @@ protocol TraditionalDelegate: class {
 class TraditionalRecipeView: UIView {
     
     var recipe: Recipe?
-    var combinedSteps: String = "hiiii"
-    var combinedIngredients: String = "hello hello"
+    var store = DataStore.sharedInstance
+    var ingredientsArray: [String] = []
+    var combinedSteps: String = ""
+    var combinedIngredients: String = ""
     
     weak var delegate: TraditionalDelegate?
     
@@ -36,7 +38,6 @@ class TraditionalRecipeView: UIView {
     
     
     func getStepsandIngredients() {
-        //TODO: call api if not info not already there
         
         guard let recipe = self.recipe else { return }
         
@@ -49,13 +50,10 @@ class TraditionalRecipeView: UIView {
         
         let steps = recipeStep.allObjects as! [Steps]
         
-        var stepsArray: [String] = []
-        var ingredientsArray: [String] = []
-        
         for step in steps {
             
             guard let procedure = step.procedure else { return }
-            stepsArray.append(procedure)
+            store.mergedStepsArray.append(procedure)
             
             
             guard let stepIngredient = step.ingredient else { return }
@@ -73,7 +71,7 @@ class TraditionalRecipeView: UIView {
             
         }
         
-        combinedSteps = stepsArray.joined(separator: "\n\n")
+        combinedSteps = store.mergedStepsArray.joined(separator: "\n\n")
         combinedIngredients = ingredientsArray.joined(separator: "\n")
     
     }
@@ -198,6 +196,7 @@ class TraditionalRecipeView: UIView {
         ingredientsText.heightAnchor.constraint(equalToConstant: ingredientsText.frame.size.height).isActive = true
         ingredientsText.translatesAutoresizingMaskIntoConstraints = false
         ingredientsText.isScrollEnabled = false
+        ingredientsText.isUserInteractionEnabled = false
         
         
         //STEPS LABEL
@@ -234,6 +233,7 @@ class TraditionalRecipeView: UIView {
         
         stepsText.translatesAutoresizingMaskIntoConstraints = false
         stepsText.isScrollEnabled = false
+        stepsText.isUserInteractionEnabled = false
         
         
         ////////////////////////////////////////////
