@@ -360,8 +360,6 @@
                     <view key="view" contentMode="scaleToFill" id="oxk-Ie-RYd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-<<<<<<< HEAD
-=======
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="283" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="y1N-nY-haJ">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
@@ -382,7 +380,6 @@
                                 </connections>
                             </tableView>
                         </subviews>
->>>>>>> master
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </viewController>
