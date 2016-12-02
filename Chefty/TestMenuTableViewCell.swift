@@ -10,6 +10,11 @@ import UIKit
 
 class TestMenuTableViewCell: UITableViewCell {
  
-    var recipe : Recipe?
     
+    @IBOutlet weak var recipeLabel: UILabel!
+    var recipe : Recipe?
+    @IBOutlet weak var selectedRecipeImage: UIImageView!
+    
+    
+   
 }
