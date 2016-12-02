@@ -66,21 +66,21 @@ class DataStore {
         }
     }
     
-    func getRecipeSteps(completion: @escaping () -> ()) {
-        
-        
-        CheftyAPIClient.getRecipeSteps1(with: { success in
-            
-            CheftyAPIClient.getRecipeSteps2(with: { success in
-                
-                completion()
-                
-                
-            })
-            
-        })
-        
-    }
+//    func getRecipeSteps(completion: @escaping () -> ()) {
+//        
+//        
+//        CheftyAPIClient.getRecipeSteps1(with: { success in
+//            
+//            CheftyAPIClient.getRecipeSteps2(with: { success in
+//                
+//                completion()
+//                
+//                
+//            })
+//            
+//        })
+//        
+//    }
     
     
     
