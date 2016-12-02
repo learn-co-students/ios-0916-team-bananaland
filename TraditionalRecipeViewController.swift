@@ -12,7 +12,7 @@ class TraditionalRecipeViewController: UIViewController {
     
     var traditionalRecipeView: TraditionalRecipeView!
     var recipe: Recipe?
-    var step: RecipeStep?
+    //var step: RecipeStep?
     
     override func viewDidLoad() {
         super.viewDidLoad()

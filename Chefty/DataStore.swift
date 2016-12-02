@@ -16,7 +16,7 @@ class DataStore {
     fileprivate init() {}
     
     var recipes:[Recipe] = []
-    var recipeSteps: [RecipeStep] = []
+    //var recipeSteps: [RecipeStep] = []
     var recipesSelected:[Recipe] = []
     var images: [UIImage] = []
     

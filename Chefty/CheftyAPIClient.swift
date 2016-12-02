@@ -95,52 +95,6 @@ class CheftyAPIClient {
     }
     
     
-    //    class func getIngredients(completion: @escaping () -> Void){
-    //
-    //        let store = DataStore.sharedInstance
-    //        let urlString = "\(Secrets.cheftyAPIURL)/getIngredients.php?key=\(Secrets.cheftyKey)&recipe1=chicken-breasts&recipe2=sweet-potato-fries&recipe3=peach-cobbler&recipe4=beef-broccoli-stir-fry"
-    //
-    //        guard let url = URL(string: urlString) else { return }
-    //
-    //        let session = URLSession.shared
-    //
-    //        let task = session.dataTask(with: url) { (data, response, error) in
-    //            if let unwrappedData = data {
-    //                do {
-    //                    let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: String]]
-    //
-    //                    for ingredientDict in responseJSON {
-    //                        let context = store.persistentContainer.viewContext
-    //                        let ingredientInst = Ingredient(context: context)
-    //                        ingredientInst.recipeID = ingredientDict["recipeID"] as String!
-    //                        print(ingredientInst.recipeID!)
-    //                        ingredientInst.recipeDescription = ingredientDict["description"] as String!
-    //                        print(ingredientInst.recipeDescription!)
-    //                        ingredientInst.isChecked = false
-    //
-    //
-    //                        for recipe in store.recipes {
-    //                            if recipe.id == ingredientInst.recipeID {
-    //                                //                                recipe.addToIngredient(ingredientInst)
-    //                            }
-    //                        }
-    //
-    //
-    //
-    //                        store.saveRecipesContext()
-    //                    }
-    //                    completion()
-    //                } catch {
-    //                    print("An error occured when creating responseJSON")
-    //                }
-    //            }
-    //        }
-    //        task.resume()
-    //
-    //
-    //    }
-    
-    
     class func getStepsAndIngredients(recipeIDRequest: String, completion: @escaping () -> Void){
         let store = DataStore.sharedInstance
         let urlString = "\(Secrets.cheftyAPIURL)/getRecipeSteps.php?key=\(Secrets.cheftyKey)&recipe=\(recipeIDRequest)"
