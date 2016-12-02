@@ -141,7 +141,7 @@
                                 <rect key="frame" x="0.0" y="28" width="414" height="309"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vqf-Jw-pfG" id="oEv-zO-FeR">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="308"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="308.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YbW-hZ-Uvo">
@@ -357,6 +357,10 @@
         <scene sceneID="g4W-Rd-Epp">
             <objects>
                 <viewController id="iLY-j8-QWX" customClass="IngredientsController" customModule="Chefty" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="JjJ-83-lE9"/>
+                        <viewControllerLayoutGuide type="bottom" id="htt-uu-7ig"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="oxk-Ie-RYd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
