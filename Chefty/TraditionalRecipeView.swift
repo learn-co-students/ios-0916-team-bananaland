@@ -37,9 +37,10 @@ class TraditionalRecipeView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
-    //TODO: fix this so it accepts steps from recipe passed in
+
+
+//    //TODO: fix this so it accepts steps from recipe passed in
+
 //    func getAPIInfo(with completion: @escaping () -> ()) {
 //        //store.getRecipeSteps {
 //        

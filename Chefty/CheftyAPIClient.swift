@@ -93,8 +93,7 @@ class CheftyAPIClient {
         let servingTime = calendarInst.date(from: componentsServingTime)!
         return servingTime
     }
-    
-    
+
     class func getStepsAndIngredients(recipeIDRequest: String, completion: @escaping () -> Void){
         let store = DataStore.sharedInstance
         let urlString = "\(Secrets.cheftyAPIURL)/getRecipeSteps.php?key=\(Secrets.cheftyKey)&recipe=\(recipeIDRequest)"
@@ -152,9 +151,6 @@ class CheftyAPIClient {
                                                 }
                                             }
                                             
-//                                            if let durationUnwrapped = stepsDict["duration"] as? String {
-//                                                newStep.duration = durationUnwrapped  // getting DURATION
-//                                            }
                                             
                                             let durationString = stepsDict["duration"] as? String
                                             guard let unwrappedDuration = durationString else { return }
@@ -166,10 +162,6 @@ class CheftyAPIClient {
                                             guard let unwrappedTimeToStart = timeToStartString else { return }
                                             let timeToStartInt = unwrappedTimeToStart.convertTimeToStartToMinutes()
                                             newStep.timeToStart = Int32(timeToStartInt) // getting TIME TO START
-
-//                                            if let timeToStartUnwrapped = stepsDict["timeToStart"] {
-//                                                newStep.timeToStart = timeToStartUnwrapped as? String  // getting TIME TO START
-//                                            }
                                             
                                             recipeRequested?.addToStep(newStep)  // add step to recipe
 
