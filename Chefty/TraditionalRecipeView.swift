@@ -10,20 +10,14 @@
 import UIKit
 
 protocol TraditionalDelegate: class {
-    
     func mergedStepsTapped(sender: TraditionalRecipeView)
-    
 }
-
-
 
 
 class TraditionalRecipeView: UIView {
     
-    var store = DataStore.sharedInstance
     var recipe: Recipe?
-    var combinedSteps = String()
-    var combinedIngredients = String()
+    var combinedSteps: String = "hiiii"
     
     weak var delegate: TraditionalDelegate?
     
@@ -37,36 +31,40 @@ class TraditionalRecipeView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-
-//    //TODO: fix this so it accepts steps from recipe passed in
-
-//    func getAPIInfo(with completion: @escaping () -> ()) {
-//        //store.getRecipeSteps {
-//        
-//        //TODO: fix: steps duplicates each time the view loads
-//        
-//        //steps
-//        var combinedStepsArray: [String] = []
-//        
-//        for dictionary in self.store.recipeSteps {
-//            guard let step = dictionary.procedure else { return }
-//            combinedStepsArray.append(step)
-//        }
-//        
-//        self.combinedSteps = combinedStepsArray.joined(separator: "\n\n")
-//        
-//        //ingredients
-//        for dict in self.store.recipeSteps {
-//            guard let ingredients = dict.ingredients else { return }
-//            //if ingredients != [] {
-//            self.combinedIngredients.append(ingredients.joined(separator: "\n"))
-//        }
-//        
-//        completion()
-//        
-//    }
     
+    func getStepsandIngredients() {
+        //call api if not info not already there
+        
+        guard let recipe = self.recipe else { return }
+        
+        let recipeIDRequest = recipe.id
+        
+        CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: recipeIDRequest!) {
+        }
+
+        guard let recipeStep = recipe.step else { return }
+        
+        let steps = recipeStep.allObjects as! [Steps]
+        
+        var stepsArray: [String] = []
+        var newArray: [String] = []
+        
+        for step in steps {
+            if let procedure = step.procedure {
+                stepsArray.append(procedure)
+            }
+            
+            if let ingredientsArray = step.ingredient {
+                print("count: \(ingredientsArray.count)")
+            }
+            
+        }
+        
+        combinedSteps = stepsArray.joined(separator: "\n")
+        
+        
+    }
+
     
     
     func setUpElements() {
@@ -167,7 +165,7 @@ class TraditionalRecipeView: UIView {
         //INGREDIENTS TEXT BOX
         //create textbox
         let ingredientsText = UITextView()
-        ingredientsText.text = combinedIngredients
+        ingredientsText.text = "fill this in"
         ingredientsText.font = titleLabel.font.withSize(14)
         ingredientsText.textAlignment = .left
         
@@ -223,9 +221,6 @@ class TraditionalRecipeView: UIView {
         stepsText.isScrollEnabled = false
         
         
-        
-        
-        
         ////////////////////////////////////////////
         //Temporary navigation to Merged Steps View
         
@@ -245,11 +240,13 @@ class TraditionalRecipeView: UIView {
         
     }
     
+    
     func goToMergedSteps(mergedStepsButton:UIButton) {
         
         delegate?.mergedStepsTapped(sender: self)
         
-        //        traditionalViewController.onPressMergedStepsButton(button: mergedStepsButton)
     }
     
 }
+
+
