@@ -33,6 +33,8 @@ class TraditionalRecipeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
     func getStepsandIngredients() {
         //TODO: call api if not info not already there
         
@@ -73,10 +75,10 @@ class TraditionalRecipeView: UIView {
         
         combinedSteps = stepsArray.joined(separator: "\n\n")
         combinedIngredients = ingredientsArray.joined(separator: "\n")
-        
-        
-        
+    
     }
+    
+    
     
     
     
