@@ -11,48 +11,76 @@ import UIKit
 class SingleStepView: UIView {
     
     let store = DataStore.sharedInstance
+    var sampleStep: Steps?
+    var procedureBody: String = String()
+    var duration: String = String()
+    var stepTitle: String = String()
 
     override init(frame:CGRect){
         super.init(frame: frame)
         CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: "apple-pie") {
         
             // print the content of the requested recipe
-            for recipe in self.store.recipes {
-                if "apple-pie" == recipe.id {
-                    let allSteps = recipe.step?.allObjects as! [Steps]
-                    for step in allSteps {
-                        print("\n")
-                        print("stepTitle: \(step.stepTitle!)")
-                        print("stepNumber: \(step.stepNumber)")
-                        print("timeToStart: \(step.timeToStart!)")
-                        print("duration: \(step.duration!)")
-                        print("fullAttentionRequired: \(step.fullAttentionRequired)")
-                        print("procedure: \(step.procedure!)")
-                        if let ingredientsAny = step.ingredient {
-                            for ingredientAny in ingredientsAny {
-                                let ingredient = ingredientAny as? Ingredient;
-                                if let ingredientUnwrapped = ingredient {
-                                    print("ingredientDescription: \(ingredientUnwrapped.ingredientDescription)")
-                                    print("ingredientIsChecked: \(ingredientUnwrapped.isChecked)")
-                                }
-                            }
-                        }
-                    }
-                }
+
+//            for recipe in self.store.recipes {
+//                if "apple-pie" == recipe.id {
+//                    let allSteps = recipe.step?.allObjects as! [Steps]
+//                    for step in allSteps {
+//                        print("\n")
+//                        print("stepTitle: \(step.stepTitle!)")
+//                        print("stepNumber: \(step.stepNumber)")
+//                        print("timeToStart: \(step.timeToStart!)")
+//                        print("duration: \(step.duration!)")
+//                        print("fullAttentionRequired: \(step.fullAttentionRequired)")
+//                        print("procedure: \(step.procedure!)")
+//                        if let ingredientsAny = step.ingredient {
+//                            for ingredientAny in ingredientsAny {
+//                                let ingredient = ingredientAny as? Ingredient;
+//                                if let ingredientUnwrapped = ingredient {
+//                                    print("ingredientDescription: \(ingredientUnwrapped.ingredientDescription)")
+//                                    print("ingredientIsChecked: \(ingredientUnwrapped.isChecked)")
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+        
+        //  build an array of recipeSteps
+//          let stepsFromRecipe1:[Steps] = store.recipes.first!.step!.allObjects as! [Steps]
+//          let stepsFromRecipe2:[Steps] = store.recipes.last!.step!.allObjects as! [Steps]
+//          let stepsFromBothRecipes = stepsFromRecipe1 + stepsFromRecipe2
+//        
+//          print("stepsFromBothRecipes.count: \(stepsFromBothRecipes.count)")
+//        
+//          print("procedureFromStep: \(stepsFromBothRecipes.first?.procedure)")
+//        
+//          print("step's recipe: \(stepsFromBothRecipes.first?.recipe?.id)")
+        
+            
+            // get the steps
+            let sampleSteps:[Steps] = self.store.recipes.first!.step!.allObjects as! [Steps]
+            
+            // get step 1
+            for step in sampleSteps {
+                step.stepNumber == 1 ? self.sampleStep = step : ()
             }
+            
+            // unwrap values
+            if let procedureBody = self.sampleStep?.procedure {
+                self.procedureBody = procedureBody
+            }
+            
+            if let duration = self.sampleStep?.duration {
+                self.duration = duration
+            }
+            
+            if let stepTitle = self.sampleStep?.stepTitle {
+                self.stepTitle = stepTitle
+            }
+            
         }
-        
-        // build an array of recipeSteps
-        let stepsFromRecipe1:[Steps] = store.recipes.first!.step!.allObjects as! [Steps]
-        let stepsFromRecipe2:[Steps] = store.recipes.last!.step!.allObjects as! [Steps]
-        let stepsFromBothRecipes = stepsFromRecipe1 + stepsFromRecipe2
-        
-        print("stepsFromBothRecipes.count: \(stepsFromBothRecipes.count)")
-        
-        print("procedureFromStep: \(stepsFromBothRecipes.first?.procedure)")
-        
-        print("step's recipe: \(stepsFromBothRecipes.first?.recipe?.id)")
-        
         
         let ingredients: [String] = ["2 1/2 cups all-purpose flour", "teaspoons sugar","1/4 teaspoon fine salt", "14 tablespoons cold butter, diced", "large egg", "large egg, lightly beaten with 2 tablespoons cold water"]
         
@@ -65,11 +93,11 @@ class SingleStepView: UIView {
         let procedureBody: UITextView = UITextView()
         
         // configure controls
-        stepTitle.text = "Make dough"
+        stepTitle.text = self.stepTitle
         stepTitle.font =  UIFont(name: Constants.appFont.bold.rawValue, size: Constants.fontSize.large.rawValue)
         //stepTitle.backgroundColor = UIColor.red
         
-        timeRemaingLabel.text = "Time remaining in step 1: 12 minutes"
+        timeRemaingLabel.text = "Time remaining in step 1: \(duration) seconds"
         timeRemaingLabel.font = UIFont(name: Constants.appFont.regular.rawValue, size: Constants.fontSize.xsmall.rawValue)
         //timeRemaingLabel.backgroundColor = UIColor.red
         
@@ -86,7 +114,7 @@ class SingleStepView: UIView {
         procedureTitle.font =  UIFont(name: Constants.appFont.bold.rawValue, size: Constants.fontSize.medium.rawValue)
         //procedureTitle.backgroundColor = UIColor.red
         
-        procedureBody.text = "Make the dough by hand. In a medium bowl, whisk together the flour, sugar, and salt. Using your fingers, work the butter into the dry ingredients until it resembles yellow corn meal mixed with bean sized bits of butter. (If the flour/butter mixture gets warm, refrigerate it for 10 minutes before proceeding.) Add the egg and stir the dough together with a fork or by hand in the bowl. If the dough is dry, sprinkle up to a tablespoon more of cold water over the mixture. Form the dough into a disk, wrap in plastic wrap and refrigerate until thoroughly chilled, at least 1 hour."
+        procedureBody.text = self.procedureBody
         procedureBody.font =  UIFont(name: Constants.appFont.regular.rawValue, size: Constants.fontSize.small.rawValue)
         //procedureBody.backgroundColor = UIColor.red
         procedureBody.isUserInteractionEnabled = false
@@ -128,7 +156,6 @@ class SingleStepView: UIView {
         procedureBody.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
         procedureBody.topAnchor.constraint(equalTo: procedureTitle.bottomAnchor, constant: 0).isActive = true
     }
-    
     
     
     required init?(coder aDecoder: NSCoder) {

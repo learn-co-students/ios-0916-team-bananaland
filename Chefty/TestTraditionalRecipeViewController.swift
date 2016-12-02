@@ -21,7 +21,6 @@ class TestTraditionalRecipeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupElements()
-        
     }
     
     func slideButtonTapped(sender: UIButton!) {
