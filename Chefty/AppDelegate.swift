@@ -31,21 +31,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("SIDES: \(self.store.sides.count)")
         print("APPETIZER: \(self.store.appetizer.count)")
         
-        if store.recipesSelected.count == 0 {
-            store.getRecipesFromDB {
-                self.initialViewController = HomePageViewController()
-            }
-        } else {
-            self.initialViewController = MyMenuViewController()
-        }
-        
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        let navigationController = UINavigationController(rootViewController: self.initialViewController)
-        self.window!.rootViewController = navigationController
-        self.window!.backgroundColor = UIColor.white
-        self.window!.makeKeyAndVisible()
+//        if store.recipesSelected.count == 0 {
+//            store.getRecipesFromDB {
+//                self.initialViewController = HomePageViewController()
+//            }
+//        } else {
+//            self.initialViewController = MyMenuViewController()
+//        }
+//        
+//        
+//        self.window = UIWindow(frame: UIScreen.main.bounds)
+//        let navigationController = UINavigationController(rootViewController: self.initialViewController)
+//        self.window!.rootViewController = navigationController
+//        self.window!.backgroundColor = UIColor.white
+//        self.window!.makeKeyAndVisible()
 
         return true
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -56,7 +58,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {

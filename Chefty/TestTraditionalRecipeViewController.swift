@@ -9,12 +9,14 @@
 import UIKit
 
 class TestTraditionalRecipeViewController: UIViewController {
-
+    
+    var store = DataStore.sharedInstance
     var testTraditionalRecipeView: TestTraditionalRecipeView!
     var recipe: Recipe?
     var backButton : BackButton!
     var slideButton : SlidesButton!
     var addButton : AddButton!
+    var isSelected = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +31,22 @@ class TestTraditionalRecipeViewController: UIViewController {
     func backButtonTapped(sender: UIButton) {
         print("pressed")
         dismiss(animated: true, completion: nil)
+    }
+    
+    func addButtonTapped(sender: UIButton) {
+        
+        guard let recipeName = recipe?.displayName else { return }
+        
+        if isSelected {
+            //store.setRecipeUnselected(recipe: recipe)
+            isSelected = false
+            print("Removed \(recipeName)")
+        } else {
+            //store.setRecipeSelected(recipe: recipe)
+            isSelected = true
+            print("Added \(recipeName)")
+        }
+        
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
@@ -59,6 +77,7 @@ class TestTraditionalRecipeViewController: UIViewController {
         self.view.addSubview(slideButton)
         
         addButton = AddButton(frame: CGRect(x: view.frame.maxX * 0.80, y: 20, width: 60, height: 60))
+        addButton.addTarget(self, action: #selector(self.addButtonTapped(sender:)), for: .touchUpInside)
         self.view.addSubview(addButton)
         
     }

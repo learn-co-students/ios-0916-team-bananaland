@@ -18,6 +18,7 @@
 		A72DBEAD1DE4DB0400867C86 /* AppetizerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72DBEAC1DE4DB0400867C86 /* AppetizerViewController.swift */; };
 		A72DBEAF1DE4DB8700867C86 /* DessertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72DBEAE1DE4DB8700867C86 /* DessertViewController.swift */; };
 		A72DBEB11DE4DBD700867C86 /* SidesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72DBEB01DE4DBD700867C86 /* SidesViewController.swift */; };
+		A79D470C1DF1CEC8008380A3 /* TestDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79D470B1DF1CEC8008380A3 /* TestDataViewController.swift */; };
 		A7B968F11DEF0B7D003C6116 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7B968F01DEF0B7D003C6116 /* Main.storyboard */; };
 		A7BCACC61DEC7E8D00DC317C /* MenuViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BCACC51DEC7E8D00DC317C /* MenuViewButton.swift */; };
 		A7BE01371DEF8683009F65B1 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE01321DEF8683009F65B1 /* BackButton.swift */; };
@@ -107,6 +108,7 @@
 		A72DBEAC1DE4DB0400867C86 /* AppetizerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppetizerViewController.swift; sourceTree = "<group>"; };
 		A72DBEAE1DE4DB8700867C86 /* DessertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DessertViewController.swift; sourceTree = "<group>"; };
 		A72DBEB01DE4DBD700867C86 /* SidesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidesViewController.swift; sourceTree = "<group>"; };
+		A79D470B1DF1CEC8008380A3 /* TestDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestDataViewController.swift; sourceTree = "<group>"; };
 		A7B968F01DEF0B7D003C6116 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		A7BCACC51DEC7E8D00DC317C /* MenuViewButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewButton.swift; sourceTree = "<group>"; };
 		A7BE01321DEF8683009F65B1 /* BackButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
@@ -319,6 +321,7 @@
 			children = (
 				A7C0B4551DE4ECBA0091E80C /* Recipe Categories */,
 				A7BE013C1DEF8698009F65B1 /* CheftyMainViewController.swift */,
+				A79D470B1DF1CEC8008380A3 /* TestDataViewController.swift */,
 				A7DCBF741DE5FD1700AA7629 /* TestTraditionalRecipeViewController.swift */,
 				71E655C31DDCE61700B60E0B /* TraditionalRecipeViewController.swift */,
 				717B57D91DECB539000F30CA /* MergedStepsViewController.swift */,
@@ -552,6 +555,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A79D470C1DF1CEC8008380A3 /* TestDataViewController.swift in Sources */,
 				A7BE014F1DF0B60B009F65B1 /* AddButtonStyleKit.swift in Sources */,
 				C0252C651DDD171A00046AD0 /* MyMenuView.swift in Sources */,
 				A7DCBF751DE5FD1700AA7629 /* TestTraditionalRecipeViewController.swift in Sources */,
