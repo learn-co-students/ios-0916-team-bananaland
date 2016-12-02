@@ -79,97 +79,6 @@ class CheftyAPIClient {
         }
     }
     
-    //    class func getRecipeSteps(with completion: @escaping ()-> Void) {
-    //        let store = DataStore.sharedInstance
-    //        //TODO: change recipeID to handle all selected recipes
-    //        let recipeID = "marinated-cheese-appetizer"
-    //        //let urlString = "\(Secrets.cheftyAPIURL)/getRecipeSteps.php?key=\(Secrets.cheftyKey)=\(recipeID)"
-    //        let urlString = "http://api.ptangen.com/getRecipeSteps.php?key=flatiron0916&recipe=marinated-cheese-appetizer"
-    //        let url = URL(string: urlString)
-    //
-    //        if let unwrappedUrl = url{
-    //            let session = URLSession.shared
-    //            let task = session.dataTask(with: unwrappedUrl) { (data, response, error) in
-    //                if let unwrappedData = data {
-    //                    do {
-    //                        let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String:Any]]
-    //
-    //                        for stepDict in responseJSON {
-    //                            let step = RecipeStep(dict: stepDict)
-    //                            store.recipeSteps.append(step)
-    //                        }
-    //
-    //                        completion()
-    //                    } catch {
-    //                        print("An error occured when creating responseJSON")
-    //                    }
-    //                }
-    //            }
-    //            task.resume()
-    //        }
-    //    }
-    
-    class func getRecipeSteps1(with completion: @escaping ()-> Void) {
-        let store = DataStore.sharedInstance
-        //TODO: change recipeID to handle all selected recipes
-        let recipeID = "marinated-cheese-appetizer"
-        //let urlString = "\(Secrets.cheftyAPIURL)/getRecipeSteps.php?key=\(Secrets.cheftyKey)=\(recipeID)"
-        let urlString = "http://api.ptangen.com/getRecipeSteps.php?key=flatiron0916&recipe=marinated-cheese-appetizer"
-        let url = URL(string: urlString)
-        
-        if let unwrappedUrl = url{
-            let session = URLSession.shared
-            let task = session.dataTask(with: unwrappedUrl) { (data, response, error) in
-                if let unwrappedData = data {
-                    do {
-                        let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String:Any]]
-                        
-                        for stepDict in responseJSON {
-                            let step = RecipeStep(dict: stepDict)
-                            store.recipeSteps.append(step)
-                        }
-                        
-                        completion()
-                    } catch {
-                        print("An error occured when creating responseJSON")
-                    }
-                }
-            }
-            task.resume()
-        }
-    }
-    
-    class func getRecipeSteps2 (with completion: @escaping ()-> Void) {
-        let store = DataStore.sharedInstance
-        //TODO: change recipeID to handle all selected recipes
-        let recipeID = "authentic-italian-meatballs"
-        //let urlString = "\(Secrets.cheftyAPIURL)/getRecipeSteps.php?key=\(Secrets.cheftyKey)=\(recipeID)"
-        let urlString = "http://api.ptangen.com/getRecipeSteps.php?key=flatiron0916&recipe=authentic-italian-meatballs"
-        let url = URL(string: urlString)
-        
-        if let unwrappedUrl = url{
-            let session = URLSession.shared
-            let task = session.dataTask(with: unwrappedUrl) { (data, response, error) in
-                if let unwrappedData = data {
-                    do {
-                        let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String:Any]]
-                        
-                        for stepDict in responseJSON {
-                            let step = RecipeStep(dict: stepDict)
-                            store.recipeSteps.append(step)
-                        }
-                        
-                        completion()
-                    } catch {
-                        print("An error occured when creating responseJSON")
-                    }
-                }
-            }
-            task.resume()
-        }
-        
-    }
-    
     class func getServingTime () -> Date {
         let calendarInst = Calendar(identifier: .gregorian)
         var componentsServingTime = DateComponents()
@@ -184,6 +93,7 @@ class CheftyAPIClient {
     }
     
     
+
     class func getStepsAndIngredients(recipeIDRequest: String, completion: @escaping () -> Void){
         let store = DataStore.sharedInstance
         let urlString = "\(Secrets.cheftyAPIURL)/getRecipeSteps.php?key=\(Secrets.cheftyKey)&recipe=\(recipeIDRequest)"
@@ -195,7 +105,7 @@ class CheftyAPIClient {
         for recipe in store.recipes {
             recipeIDRequest == recipe.id ? recipeRequested = recipe : ()
         }
-        
+    
         if let recipeRequestedUnwrapped = recipeRequested {
             if let recipeStepsEmptyBeforeAPIRequest = recipeRequestedUnwrapped.step?.allObjects.isEmpty {
                 // fetch steps if needed
@@ -241,13 +151,17 @@ class CheftyAPIClient {
                                                 }
                                             }
                                             
-                                            if let durationUnwrapped = stepsDict["duration"] as? String {
-                                                newStep.duration = durationUnwrapped  // getting DURATION
-                                            }
                                             
-                                            if let timeToStartUnwrapped = stepsDict["timeToStart"] {
-                                                newStep.timeToStart = timeToStartUnwrapped as? String  // getting TIME TO START
-                                            }
+                                            let durationString = stepsDict["duration"] as? String
+                                            guard let unwrappedDuration = durationString else { return }
+                                            let durationInt = unwrappedDuration.convertDurationToMinutes()
+                                            newStep.duration = Int32(durationInt)   // getting DURATION
+
+                                            
+                                            let timeToStartString = stepsDict["timeToStart"] as? String
+                                            guard let unwrappedTimeToStart = timeToStartString else { return }
+                                            let timeToStartInt = unwrappedTimeToStart.convertTimeToStartToMinutes()
+                                            newStep.timeToStart = Int32(timeToStartInt) // getting TIME TO START
                                             
                                             recipeRequested?.addToStep(newStep)  // add step to recipe
                                             

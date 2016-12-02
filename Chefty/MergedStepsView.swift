@@ -9,17 +9,19 @@
 import Foundation
 import UIKit
 
+//delete this page in master!!!! 
+
+
 class MergedStepsView: UIView {
 
     var store = DataStore.sharedInstance
-    var steps = [RecipeStep]()
     
     override init(frame:CGRect){
         super.init(frame: frame)
         
         self.backgroundColor = UIColor.white
         
-        setUpElements()
+        //setUpElements()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -31,7 +33,7 @@ class MergedStepsView: UIView {
         
         //textbox
         let myTextBox = UITextView()
-        myTextBox.text = store.recipeProceduresMerged
+        myTextBox.text = "HI"
         myTextBox.font = myTextBox.font?.withSize(40)
         myTextBox.textAlignment = .left
         self.addSubview(myTextBox)
