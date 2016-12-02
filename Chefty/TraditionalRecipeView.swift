@@ -16,8 +16,6 @@ protocol TraditionalDelegate: class {
 }
 
 
-
-
 class TraditionalRecipeView: UIView {
     
     var store = DataStore.sharedInstance
@@ -38,36 +36,7 @@ class TraditionalRecipeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-//    //TODO: fix this so it accepts steps from recipe passed in
-//    func getAPIInfo(with completion: @escaping () -> ()) {
-//        //store.getRecipeSteps {
-//        
-//        //TODO: fix: steps duplicates each time the view loads
-//        
-//        //steps
-//        var combinedStepsArray: [String] = []
-//        
-//        for dictionary in self.store.recipeSteps {
-//            guard let step = dictionary.procedure else { return }
-//            combinedStepsArray.append(step)
-//        }
-//        
-//        self.combinedSteps = combinedStepsArray.joined(separator: "\n\n")
-//        
-//        //ingredients
-//        for dict in self.store.recipeSteps {
-//            guard let ingredients = dict.ingredients else { return }
-//            //if ingredients != [] {
-//            self.combinedIngredients.append(ingredients.joined(separator: "\n"))
-//        }
-//        
-//        completion()
-//        
-//    }
-    
-    
-    
+
     func setUpElements() {
         
         guard let recipe = self.recipe else { return }
@@ -85,17 +54,26 @@ class TraditionalRecipeView: UIView {
         //IMAGE
         // create image
         let myImageView = UIImageView()
-        
-        
-        // TODO: What happened to getImage on Recipe?
-        // Recipe.getImage(recipe: recipe, imageView: myImageView, view: self, backgroundImage: false)
-        
         myScrollView.addSubview(myImageView)
         
         // constrain the image
         myImageView.topAnchor.constraint(equalTo: myScrollView.topAnchor).isActive = true
         myImageView.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true
+
         myImageView.translatesAutoresizingMaskIntoConstraints = false
+        myImageView.contentMode = .scaleAspectFit
+        
+        
+        // grab image from URL
+        let imageURL = URL(string: recipe.imageURL!)
+        do {
+            let data = try Data(contentsOf: imageURL!)
+            if data.isEmpty == false {
+                myImageView.image = UIImage(data: data)
+            }
+        } catch {
+            print("error: no image")
+        }
         
         
         //RECIPE TITLE

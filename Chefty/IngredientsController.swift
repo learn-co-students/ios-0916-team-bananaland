@@ -134,11 +134,14 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         
         if ingredient.isChecked {
             ingredient.isChecked = false
+            store.saveRecipesContext()
         } else {
             ingredient.isChecked = true
+            store.saveRecipesContext()
         }
         
         tableView.reloadData()
+        
         
     }
     
