@@ -32,7 +32,6 @@ class TraditionalRecipeView: UIView {
     }
     
     
-    
     func getStepsandIngredients() {
         
         guard let recipe = self.recipe else { return }
@@ -81,9 +80,6 @@ class TraditionalRecipeView: UIView {
     }
     
     
-    
-    
-    
     func setUpElements() {
         
         guard let recipe = self.recipe else { return }
@@ -101,17 +97,26 @@ class TraditionalRecipeView: UIView {
         //IMAGE
         // create image
         let myImageView = UIImageView()
-        
-        
-        // TODO: What happened to getImage on Recipe?
-        // Recipe.getImage(recipe: recipe, imageView: myImageView, view: self, backgroundImage: false)
-        
         myScrollView.addSubview(myImageView)
         
         // constrain the image
         myImageView.topAnchor.constraint(equalTo: myScrollView.topAnchor).isActive = true
         myImageView.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true
+
         myImageView.translatesAutoresizingMaskIntoConstraints = false
+        myImageView.contentMode = .scaleAspectFit
+        
+        
+        // grab image from URL
+        let imageURL = URL(string: recipe.imageURL!)
+        do {
+            let data = try Data(contentsOf: imageURL!)
+            if data.isEmpty == false {
+                myImageView.image = UIImage(data: data)
+            }
+        } catch {
+            print("error: no image")
+        }
         
         
         //RECIPE TITLE
