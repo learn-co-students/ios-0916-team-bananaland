@@ -317,6 +317,7 @@
 		C0252C5E1DDCF95800046AD0 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				A7C0B4551DE4ECBA0091E80C /* Recipe Categories */,
 				A7BE013C1DEF8698009F65B1 /* CheftyMainViewController.swift */,
 				A7DCBF741DE5FD1700AA7629 /* TestTraditionalRecipeViewController.swift */,
 				71E655C31DDCE61700B60E0B /* TraditionalRecipeViewController.swift */,
@@ -328,7 +329,6 @@
 				A7C0B4561DE4ECE10091E80C /* RecipeTabViewController.swift */,
 				01A830B21DDF82330064B9CE /* IngredientsController.swift */,
 				A7DCBF761DE64E9600AA7629 /* ContainerViewController.swift */,
-				A7C0B4551DE4ECBA0091E80C /* Recipe Categories */,
 				A7BE01441DEFC9A8009F65B1 /* TestMenuTableViewController.swift */,
 				A7BE01521DF0BBD7009F65B1 /* NewTestTraditionalRecipeViewController.swift */,
 				A7BE01581DF0D2E2009F65B1 /* TestIngredientsViewController.swift */,
