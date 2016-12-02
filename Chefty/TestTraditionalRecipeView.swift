@@ -38,7 +38,6 @@ class TestTraditionalRecipeView: UIView {
         myScrollView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         myScrollView.translatesAutoresizingMaskIntoConstraints = false
         
-        
         // create image
         myImageView = UIImageView()
         let url = URL(string: (recipe.imageURL)!)
@@ -142,7 +141,6 @@ class TestTraditionalRecipeView: UIView {
         ingredientsText.translatesAutoresizingMaskIntoConstraints = false
         ingredientsText.isScrollEnabled = false
         
-        
         //STEPS LABEL
         //create label
         let stepsLabel = UILabel()
@@ -177,7 +175,6 @@ class TestTraditionalRecipeView: UIView {
         stepsText.topAnchor.constraint(equalTo: stepsLabel.bottomAnchor).isActive = true
         stepsText.bottomAnchor.constraint(equalTo: myScrollView.bottomAnchor).isActive = true
         stepsText.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true
-        
         stepsText.translatesAutoresizingMaskIntoConstraints = false
         stepsText.isScrollEnabled = false
         

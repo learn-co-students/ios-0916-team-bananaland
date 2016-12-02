@@ -77,7 +77,7 @@ extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDat
         testView.modalTransitionStyle = .crossDissolve
         testView.recipe = store.main[indexPath.row]
         present(testView, animated: true, completion: nil)
-        
+                
     }
     
 }
