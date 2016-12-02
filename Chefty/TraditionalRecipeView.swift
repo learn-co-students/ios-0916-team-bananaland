@@ -32,10 +32,6 @@ class TraditionalRecipeView: UIView {
         
         self.backgroundColor = UIColor.white
         
-
-        print(recipe.displayName)
-        //use this to populate, not API call!!
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,34 +39,32 @@ class TraditionalRecipeView: UIView {
     }
     
     
-    //TODO: fix this so it accepts steps from recipe passed in
-    func getAPIInfo(with completion: @escaping () -> ()) {
-        store.getRecipeSteps {
-            
-    //TODO: fix: steps duplicates each time the view loads
-            
-            //steps
-            var combinedStepsArray: [String] = []
-            
-            for dictionary in self.store.recipeSteps {
-                guard let step = dictionary.procedure else { return }
-                combinedStepsArray.append(step)
-            }
-            
-            self.combinedSteps = combinedStepsArray.joined(separator: "\n\n")
-            
-            //ingredients
-            for dict in self.store.recipeSteps {
-                guard let ingredients = dict.ingredients else { return }
-                //if ingredients != [] {
-                self.combinedIngredients.append(ingredients.joined(separator: "\n"))
-            }
-        
-        completion()
-            
-        }
-        
-    }
+//    //TODO: fix this so it accepts steps from recipe passed in
+//    func getAPIInfo(with completion: @escaping () -> ()) {
+//        //store.getRecipeSteps {
+//        
+//        //TODO: fix: steps duplicates each time the view loads
+//        
+//        //steps
+//        var combinedStepsArray: [String] = []
+//        
+//        for dictionary in self.store.recipeSteps {
+//            guard let step = dictionary.procedure else { return }
+//            combinedStepsArray.append(step)
+//        }
+//        
+//        self.combinedSteps = combinedStepsArray.joined(separator: "\n\n")
+//        
+//        //ingredients
+//        for dict in self.store.recipeSteps {
+//            guard let ingredients = dict.ingredients else { return }
+//            //if ingredients != [] {
+//            self.combinedIngredients.append(ingredients.joined(separator: "\n"))
+//        }
+//        
+//        completion()
+//        
+//    }
     
     
     
@@ -92,7 +86,7 @@ class TraditionalRecipeView: UIView {
         // create image
         let myImageView = UIImageView()
         
-    
+        
         // TODO: What happened to getImage on Recipe?
         // Recipe.getImage(recipe: recipe, imageView: myImageView, view: self, backgroundImage: false)
         
@@ -108,7 +102,7 @@ class TraditionalRecipeView: UIView {
         //create title label
         let titleLabel = UILabel()
         titleLabel.text = recipe.displayName
-        print(recipe.displayName)
+        //print(recipe.displayName)
         titleLabel.font = titleLabel.font.withSize(30)
         titleLabel.textAlignment = .center
         
@@ -124,8 +118,9 @@ class TraditionalRecipeView: UIView {
         
         //SERVING SIZE AND ESTIMATED TIME INFO
         //create labels
+        guard let servings = recipe.servings else { return }
         let servingSizeLabel = UILabel()
-        servingSizeLabel.text = "Serving Size: \(recipe.servings)"
+        servingSizeLabel.text = "Serving Size: \(servings)"
         servingSizeLabel.font = titleLabel.font.withSize(20)
         servingSizeLabel.textAlignment = .left
         
@@ -253,7 +248,7 @@ class TraditionalRecipeView: UIView {
         
         delegate?.mergedStepsTapped(sender: self)
         
-//        traditionalViewController.onPressMergedStepsButton(button: mergedStepsButton)
+        //        traditionalViewController.onPressMergedStepsButton(button: mergedStepsButton)
     }
     
 }

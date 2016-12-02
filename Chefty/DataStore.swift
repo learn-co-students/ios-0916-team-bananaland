@@ -10,21 +10,12 @@ import Foundation
 import CoreData
 import UIKit
 
-//DispatchQueue.main.async {
-//
-//}
-//
-//OperationQueue.main.addOperation {
-//
-//}
 
 class DataStore {
     static let sharedInstance = DataStore()
     fileprivate init() {}
     
     var recipes:[Recipe] = []
-    var recipeSteps: [RecipeStep] = []
-    var recipeProceduresMerged: String = "refresh page to see steps" //this will need to be an array for tableview
     var recipesSelected:[Recipe] = []
     var images: [UIImage] = []
     
@@ -64,22 +55,6 @@ class DataStore {
         CheftyAPIClient.getRecipiesFromDB {_ in
             completion() // call back to onViewDidLoad
         }
-    }
-    
-    func getRecipeSteps(completion: @escaping () -> ()) {
-        
-        
-        CheftyAPIClient.getRecipeSteps1(with: { success in
-            
-            CheftyAPIClient.getRecipeSteps2(with: { success in
-                
-                completion()
-                
-                
-            })
-            
-        })
-        
     }
     
     
@@ -128,7 +103,7 @@ class DataStore {
         
         do {
             self.recipes = try context.fetch(recipeRequest)
-            print("self.recipes.count: \(self.recipes.count)")
+            //print("self.recipes.count: \(self.recipes.count)")
         } catch let error {
             print("Error fetching data: \(error)")
         }

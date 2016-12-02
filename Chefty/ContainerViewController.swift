@@ -12,17 +12,8 @@ class ContainerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Do any additional setup after loading the view.
+       
     }
-    
-    @IBAction func menuViewButton(_ sender: Any) {
-        
-        let menuView = MyMenuViewController()
-        present(menuView, animated: true, completion: nil)
-        
-    }
-    
     
     
 }

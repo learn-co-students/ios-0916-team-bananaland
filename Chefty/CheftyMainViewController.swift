@@ -27,6 +27,10 @@ class CheftyMainViewController: UIViewController {
         super.viewDidLayoutSubviews()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     private func setupView() {
         setupSegmentedControl()
         updateView()
@@ -147,13 +151,8 @@ class CheftyMainViewController: UIViewController {
         }, completion: nil)
         
     }
-    
-    
-    
+        
     @IBAction func cookButtonTapped(_ sender: Any) {
-    
-        let menuView = TestMenuViewController()
-        present(menuView, animated: true, completion: nil)
     
     }
     

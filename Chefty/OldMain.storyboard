@@ -205,7 +205,11 @@
                             <constraint firstItem="TS9-ZJ-rtg" firstAttribute="width" secondItem="SEi-xU-Mtx" secondAttribute="width" id="ykH-TQ-kAR"/>
                         </constraints>
                     </view>
+<<<<<<< HEAD
+                    <tabBarItem key="tabBarItem" title="Main" selectedImage="041C52B2-C5CA-4C00-93C3-C2359796F82E" id="LZJ-Py-x29"/>
+=======
                     <tabBarItem key="tabBarItem" title="Main" selectedImage="B93FAE0D-ECD4-4CFC-BCD0-381F7966474B" id="LZJ-Py-x29"/>
+>>>>>>> master
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Aln-ab-tso" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -233,7 +237,11 @@
         </scene>
     </scenes>
     <resources>
+<<<<<<< HEAD
+        <image name="041C52B2-C5CA-4C00-93C3-C2359796F82E" width="126" height="143">
+=======
         <image name="B93FAE0D-ECD4-4CFC-BCD0-381F7966474B" width="126" height="143">
+>>>>>>> master
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPT5YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQrLjE3OlUkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw

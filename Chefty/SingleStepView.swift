@@ -21,6 +21,7 @@ class SingleStepView: UIView {
         CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: "apple-pie") {
         
             // print the content of the requested recipe
+
 //            for recipe in self.store.recipes {
 //                if "apple-pie" == recipe.id {
 //                    let allSteps = recipe.step?.allObjects as! [Steps]

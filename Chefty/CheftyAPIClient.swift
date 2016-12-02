@@ -10,8 +10,6 @@ import Foundation
 import UIKit
 import CoreData
 
-
-
 class CheftyAPIClient {
     
     class func getRecipiesFromDB(completion: @escaping () -> Void) {
@@ -68,7 +66,7 @@ class CheftyAPIClient {
                             
                             store.saveRecipesContext()
                             store.getRecipesFromCoreData()
-                            print("getRecipesFromCoreData in CheftyAPIClient")
+                            //print("getRecipesFromCoreData in CheftyAPIClient")
                         }
                         completion()
                         
@@ -79,97 +77,6 @@ class CheftyAPIClient {
             }
             task.resume()
         }
-    }
-    
-    //    class func getRecipeSteps(with completion: @escaping ()-> Void) {
-    //        let store = DataStore.sharedInstance
-    //        //TODO: change recipeID to handle all selected recipes
-    //        let recipeID = "marinated-cheese-appetizer"
-    //        //let urlString = "\(Secrets.cheftyAPIURL)/getRecipeSteps.php?key=\(Secrets.cheftyKey)=\(recipeID)"
-    //        let urlString = "http://api.ptangen.com/getRecipeSteps.php?key=flatiron0916&recipe=marinated-cheese-appetizer"
-    //        let url = URL(string: urlString)
-    //
-    //        if let unwrappedUrl = url{
-    //            let session = URLSession.shared
-    //            let task = session.dataTask(with: unwrappedUrl) { (data, response, error) in
-    //                if let unwrappedData = data {
-    //                    do {
-    //                        let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String:Any]]
-    //
-    //                        for stepDict in responseJSON {
-    //                            let step = RecipeStep(dict: stepDict)
-    //                            store.recipeSteps.append(step)
-    //                        }
-    //
-    //                        completion()
-    //                    } catch {
-    //                        print("An error occured when creating responseJSON")
-    //                    }
-    //                }
-    //            }
-    //            task.resume()
-    //        }
-    //    }
-    
-    class func getRecipeSteps1(with completion: @escaping ()-> Void) {
-        let store = DataStore.sharedInstance
-        //TODO: change recipeID to handle all selected recipes
-        let recipeID = "marinated-cheese-appetizer"
-        //let urlString = "\(Secrets.cheftyAPIURL)/getRecipeSteps.php?key=\(Secrets.cheftyKey)=\(recipeID)"
-        let urlString = "http://api.ptangen.com/getRecipeSteps.php?key=flatiron0916&recipe=marinated-cheese-appetizer"
-        let url = URL(string: urlString)
-        
-        if let unwrappedUrl = url{
-            let session = URLSession.shared
-            let task = session.dataTask(with: unwrappedUrl) { (data, response, error) in
-                if let unwrappedData = data {
-                    do {
-                        let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String:Any]]
-                        
-                        for stepDict in responseJSON {
-                            let step = RecipeStep(dict: stepDict)
-                            store.recipeSteps.append(step)
-                        }
-                        
-                        completion()
-                    } catch {
-                        print("An error occured when creating responseJSON")
-                    }
-                }
-            }
-            task.resume()
-        }
-    }
-    
-    class func getRecipeSteps2 (with completion: @escaping ()-> Void) {
-        let store = DataStore.sharedInstance
-        //TODO: change recipeID to handle all selected recipes
-        let recipeID = "authentic-italian-meatballs"
-        //let urlString = "\(Secrets.cheftyAPIURL)/getRecipeSteps.php?key=\(Secrets.cheftyKey)=\(recipeID)"
-        let urlString = "http://api.ptangen.com/getRecipeSteps.php?key=flatiron0916&recipe=authentic-italian-meatballs"
-        let url = URL(string: urlString)
-        
-        if let unwrappedUrl = url{
-            let session = URLSession.shared
-            let task = session.dataTask(with: unwrappedUrl) { (data, response, error) in
-                if let unwrappedData = data {
-                    do {
-                        let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String:Any]]
-                        
-                        for stepDict in responseJSON {
-                            let step = RecipeStep(dict: stepDict)
-                            store.recipeSteps.append(step)
-                        }
-                        
-                        completion()
-                    } catch {
-                        print("An error occured when creating responseJSON")
-                    }
-                }
-            }
-            task.resume()
-        }
-        
     }
     
     class func getServingTime () -> Date {
@@ -186,52 +93,7 @@ class CheftyAPIClient {
     }
     
     
-    //    class func getIngredients(completion: @escaping () -> Void){
-    //
-    //        let store = DataStore.sharedInstance
-    //        let urlString = "\(Secrets.cheftyAPIURL)/getIngredients.php?key=\(Secrets.cheftyKey)&recipe1=chicken-breasts&recipe2=sweet-potato-fries&recipe3=peach-cobbler&recipe4=beef-broccoli-stir-fry"
-    //
-    //        guard let url = URL(string: urlString) else { return }
-    //
-    //        let session = URLSession.shared
-    //
-    //        let task = session.dataTask(with: url) { (data, response, error) in
-    //            if let unwrappedData = data {
-    //                do {
-    //                    let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: String]]
-    //
-    //                    for ingredientDict in responseJSON {
-    //                        let context = store.persistentContainer.viewContext
-    //                        let ingredientInst = Ingredient(context: context)
-    //                        ingredientInst.recipeID = ingredientDict["recipeID"] as String!
-    //                        print(ingredientInst.recipeID!)
-    //                        ingredientInst.recipeDescription = ingredientDict["description"] as String!
-    //                        print(ingredientInst.recipeDescription!)
-    //                        ingredientInst.isChecked = false
-    //
-    //
-    //                        for recipe in store.recipes {
-    //                            if recipe.id == ingredientInst.recipeID {
-    //                                //                                recipe.addToIngredient(ingredientInst)
-    //                            }
-    //                        }
-    //
-    //
-    //
-    //                        store.saveRecipesContext()
-    //                    }
-    //                    completion()
-    //                } catch {
-    //                    print("An error occured when creating responseJSON")
-    //                }
-    //            }
-    //        }
-    //        task.resume()
-    //
-    //
-    //    }
-    
-    
+
     class func getStepsAndIngredients(recipeIDRequest: String, completion: @escaping () -> Void){
         let store = DataStore.sharedInstance
         let urlString = "\(Secrets.cheftyAPIURL)/getRecipeSteps.php?key=\(Secrets.cheftyKey)&recipe=\(recipeIDRequest)"
@@ -243,7 +105,7 @@ class CheftyAPIClient {
         for recipe in store.recipes {
             recipeIDRequest == recipe.id ? recipeRequested = recipe : ()
         }
-        
+    
         if let recipeRequestedUnwrapped = recipeRequested {
             if let recipeStepsEmptyBeforeAPIRequest = recipeRequestedUnwrapped.step?.allObjects.isEmpty {
                 // fetch steps if needed
@@ -255,7 +117,7 @@ class CheftyAPIClient {
                             if let unwrappedData = data {
                                 do {
                                     let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: Any]]
-
+                                    
                                     for stepsDict in responseJSON {
                                         let recipeIdFromStep = stepsDict["recipe"] as! String
                                         // if the step is related to the recipeRequested, get the steps and add them to the recipe in CD
@@ -289,16 +151,20 @@ class CheftyAPIClient {
                                                 }
                                             }
                                             
-                                            if let durationUnwrapped = stepsDict["duration"] as? String {
-                                                newStep.duration = durationUnwrapped  // getting DURATION
-                                            }
                                             
-                                            if let timeToStartUnwrapped = stepsDict["timeToStart"] {
-                                                newStep.timeToStart = timeToStartUnwrapped as? String  // getting TIME TO START
-                                            }
+                                            let durationString = stepsDict["duration"] as? String
+                                            guard let unwrappedDuration = durationString else { return }
+                                            let durationInt = unwrappedDuration.convertDurationToMinutes()
+                                            newStep.duration = Int32(durationInt)   // getting DURATION
+
+                                            
+                                            let timeToStartString = stepsDict["timeToStart"] as? String
+                                            guard let unwrappedTimeToStart = timeToStartString else { return }
+                                            let timeToStartInt = unwrappedTimeToStart.convertTimeToStartToMinutes()
+                                            newStep.timeToStart = Int32(timeToStartInt) // getting TIME TO START
                                             
                                             recipeRequested?.addToStep(newStep)  // add step to recipe
-
+                                            
                                             // add ingredients to the step
                                             
                                             // get the value, could be empty
@@ -313,14 +179,16 @@ class CheftyAPIClient {
                                                             newIngredient.isChecked = false   // setting default value for isChecked
                                                             newIngredient.ingredientDescription = ingredient  // getting ingredientDescription
                                                             newStep.addToIngredient(newIngredient)
-                                                            print("ingredient attribute: \(newIngredient.ingredientDescription)")
+//                                                            print("ingredient attribute: \(newIngredient.ingredientDescription)")
                                                         }
                                                     } else {
                                                         //print("We DO NOT have ingredient for this step.")
                                                     }
+                                                    
                                                 }
                                             }
                                         }
+                                        
                                     }
                                     completion()
                                 } catch {
@@ -332,24 +200,34 @@ class CheftyAPIClient {
                         task.resume()
                     }
                 } else {
-                    completion() // this allow code in the completion to execute when we are not fetching data
+                    completion()
                 }
+                
             }
+            
         }
     }
     
-    class func fetchImage(_ url: URL, recipe: Recipe, completion: @escaping () -> Void) {
-        let store = DataStore.sharedInstance
-        let session = URLSession.shared
-        let task = session.dataTask(with: url) { (data, response, error) in
-            
-            guard let imageData = try? Data(contentsOf: url) else { fatalError() }
-            let image = UIImage(data: imageData)
-            store.images.append(image!)
-            OperationQueue.main.addOperation {
-                completion()
+        
+        
+        class func fetchImage(_ url: URL, recipe: Recipe, completion: @escaping () -> Void) {
+            let store = DataStore.sharedInstance
+            let session = URLSession.shared
+            let task = session.dataTask(with: url) { (data, response, error) in
+                
+                guard let imageData = try? Data(contentsOf: url) else { fatalError() }
+                let image = UIImage(data: imageData)
+                store.images.append(image!)
+                OperationQueue.main.addOperation {
+                    completion()
+                    
+                }
             }
+            
+            task.resume()
         }
-        task.resume()
-    }
+        
+        
+        
+        
 }
