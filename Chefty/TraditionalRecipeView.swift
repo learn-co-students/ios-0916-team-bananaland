@@ -51,6 +51,8 @@ class TraditionalRecipeView: UIView {
             guard let procedure = step.procedure else { return }
             store.mergedStepsArray.append(procedure)
             
+            totalTime += Int(step.duration)
+            
             
             guard let stepIngredient = step.ingredient else { return }
             
