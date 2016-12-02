@@ -14,7 +14,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     
     //TODO: add conditional to make sure recipe not already pre-loaded from ingredients
     
-    var mergedStepsView: MergedStepsView!
     var store = DataStore.sharedInstance
     var recipeSteps = [Steps]()
     var tableView = UITableView()
@@ -31,7 +30,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         createConstraints()
         
         getStepsFromRecipesSelected {
-            print("3")
             self.mergeRecipeSteps()
             self.tableView.reloadData()
         }
@@ -45,11 +43,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    //
-    //    override func loadView(){
-    //        self.mergedStepsView = MergedStepsView(frame: CGRect.zero)
-    //        self.view = self.mergedStepsView
-    //    }
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -78,18 +72,12 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     
     func getStepsFromRecipesSelected(completion: @escaping () -> ()) {
         
-        print("1")
-        
         self.recipeSteps.removeAll()
-        
-        print("HI JACQUELINE")
-        print("Number of recipes selected - \(store.recipesSelected.count)")
         
         for singleRecipe in store.recipesSelected {
             
             DispatchQueue.main.async {
                 CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: singleRecipe.id!, completion: {
-                    print("6")
                 })
             }
             
@@ -99,11 +87,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
             
         }
         
-        print("2")
-        
         completion()
-        
-        print("5")
         
     }
     
@@ -115,13 +99,10 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
 extension MergedStepsViewController {
     
     func mergeRecipeSteps() {
-        print("4")
         
         var addedTime = 0
         
         recipeSteps = self.recipeSteps.sorted { (step1: Steps, step2: Steps) -> Bool in
-            
-            //TODO: handle optionals without force unwrapping
             
             //same start
             if step1.timeToStart == step2.timeToStart {
@@ -221,42 +202,3 @@ extension String {
 }
 
 
-//extension MergedStepsViewController {
-//
-//    func convertDurationToMinutes(duration: String) -> Int {
-//        let separatedNum = duration.components(separatedBy: ":")
-//        let handleMinutesOnly = Int(separatedNum[0])
-//        let handleHours = Int(separatedNum[0])
-//        let handleMinutesWithHours = Int(separatedNum[1])
-//        var totalMinutes: Int = 0
-//
-//        switch separatedNum.count {
-//        case 2:
-//            totalMinutes += handleMinutesOnly!
-//        case 3:
-//            totalMinutes += ((handleHours! * 60) + (handleMinutesWithHours!))
-//        default:
-//            print("error")
-//        }
-//
-//        return totalMinutes
-//    }
-
-//func convertTimeToStartToMinutes(timeToStart: String) -> Int {
-//    let separatedNum = timeToStart.components(separatedBy: ":")
-//    let handleMinutesOnly = Int(separatedNum[0])
-//    let handleHours = Int(separatedNum[0])
-//    let handleMinutesWithHours = Int(separatedNum[1])
-//    var totalMinutes: Int = 0
-//    
-//    switch separatedNum.count {
-//    case 2:
-//        totalMinutes += handleMinutesOnly!
-//    case 3:
-//        totalMinutes += ((handleHours! * 60) - (handleMinutesWithHours!))
-//    default:
-//        print("error")
-//    }
-//    
-//    return totalMinutes
-//}

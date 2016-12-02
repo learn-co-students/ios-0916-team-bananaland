@@ -95,8 +95,6 @@ class CheftyAPIClient {
         let servingTime = calendarInst.date(from: componentsServingTime)!
         return servingTime
     }
-    
-    
 
     class func getStepsAndIngredients(recipeIDRequest: String, completion: @escaping () -> Void){
         let store = DataStore.sharedInstance

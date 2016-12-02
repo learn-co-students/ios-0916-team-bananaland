@@ -10,20 +10,17 @@
 import UIKit
 
 protocol TraditionalDelegate: class {
-    
     func mergedStepsTapped(sender: TraditionalRecipeView)
-    
 }
-
-
 
 
 class TraditionalRecipeView: UIView {
     
-    var store = DataStore.sharedInstance
     var recipe: Recipe?
-    var combinedSteps = String()
-    var combinedIngredients = String()
+    var store = DataStore.sharedInstance
+    var ingredientsArray: [String] = []
+    var combinedSteps: String = ""
+    var combinedIngredients: String = ""
     
     weak var delegate: TraditionalDelegate?
     
@@ -39,33 +36,44 @@ class TraditionalRecipeView: UIView {
     }
     
     
-//    //TODO: fix this so it accepts steps from recipe passed in
-//    func getAPIInfo(with completion: @escaping () -> ()) {
-//        //store.getRecipeSteps {
-//        
-//        //TODO: fix: steps duplicates each time the view loads
-//        
-//        //steps
-//        var combinedStepsArray: [String] = []
-//        
-//        for dictionary in self.store.recipeSteps {
-//            guard let step = dictionary.procedure else { return }
-//            combinedStepsArray.append(step)
-//        }
-//        
-//        self.combinedSteps = combinedStepsArray.joined(separator: "\n\n")
-//        
-//        //ingredients
-//        for dict in self.store.recipeSteps {
-//            guard let ingredients = dict.ingredients else { return }
-//            //if ingredients != [] {
-//            self.combinedIngredients.append(ingredients.joined(separator: "\n"))
-//        }
-//        
-//        completion()
-//        
-//    }
+    func getStepsandIngredients() {
+        
+        guard let recipe = self.recipe else { return }
+        
+        let recipeIDRequest = recipe.id
+        
+        CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: recipeIDRequest!) {
+        }
+        
+        guard let recipeStep = recipe.step else { return }
+        
+        let steps = recipeStep.allObjects as! [Steps]
+        
+        for step in steps {
+            
+            guard let procedure = step.procedure else { return }
+            store.mergedStepsArray.append(procedure)
+            
+            
+            guard let stepIngredient = step.ingredient else { return }
+            
+            let ingredientsPerStep = stepIngredient.allObjects as! [Ingredient]
+            if ingredientsPerStep.isEmpty == false {
+                
+                for ingredient in ingredientsPerStep {
+                    guard let ingredientDescription = ingredient.ingredientDescription else { return }
+                    ingredientsArray.append(ingredientDescription)
+                }
+                
+            }
+            
+            
+        }
+        
+        combinedSteps = store.mergedStepsArray.joined(separator: "\n\n")
+        combinedIngredients = ingredientsArray.joined(separator: "\n")
     
+    }
     
     
     func setUpElements() {
@@ -85,17 +93,26 @@ class TraditionalRecipeView: UIView {
         //IMAGE
         // create image
         let myImageView = UIImageView()
-        
-        
-        // TODO: What happened to getImage on Recipe?
-        // Recipe.getImage(recipe: recipe, imageView: myImageView, view: self, backgroundImage: false)
-        
         myScrollView.addSubview(myImageView)
         
         // constrain the image
         myImageView.topAnchor.constraint(equalTo: myScrollView.topAnchor).isActive = true
         myImageView.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true
+
         myImageView.translatesAutoresizingMaskIntoConstraints = false
+        myImageView.contentMode = .scaleAspectFit
+        
+        
+        // grab image from URL
+        let imageURL = URL(string: recipe.imageURL!)
+        do {
+            let data = try Data(contentsOf: imageURL!)
+            if data.isEmpty == false {
+                myImageView.image = UIImage(data: data)
+            }
+        } catch {
+            print("error: no image")
+        }
         
         
         //RECIPE TITLE
@@ -184,6 +201,7 @@ class TraditionalRecipeView: UIView {
         ingredientsText.heightAnchor.constraint(equalToConstant: ingredientsText.frame.size.height).isActive = true
         ingredientsText.translatesAutoresizingMaskIntoConstraints = false
         ingredientsText.isScrollEnabled = false
+        ingredientsText.isUserInteractionEnabled = false
         
         
         //STEPS LABEL
@@ -220,9 +238,7 @@ class TraditionalRecipeView: UIView {
         
         stepsText.translatesAutoresizingMaskIntoConstraints = false
         stepsText.isScrollEnabled = false
-        
-        
-        
+        stepsText.isUserInteractionEnabled = false
         
         
         ////////////////////////////////////////////
@@ -244,11 +260,13 @@ class TraditionalRecipeView: UIView {
         
     }
     
+    
     func goToMergedSteps(mergedStepsButton:UIButton) {
         
         delegate?.mergedStepsTapped(sender: self)
         
-        //        traditionalViewController.onPressMergedStepsButton(button: mergedStepsButton)
     }
     
 }
+
+
