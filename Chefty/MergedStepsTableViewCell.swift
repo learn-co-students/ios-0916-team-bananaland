@@ -19,16 +19,18 @@ class MergedStepsTableViewCell: UITableViewCell {
         
         //image
         contentView.addSubview(imageViewInst)
-        imageViewInst.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        imageViewInst.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        imageViewInst.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.1).isActive = true
+        imageViewInst.topAnchor.constraint(equalTo: self.topAnchor, constant: 3).isActive = true
+        imageViewInst.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -3).isActive = true
+        imageViewInst.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 3).isActive = true
+        imageViewInst.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.08).isActive = true
+        
         
         imageViewInst.translatesAutoresizingMaskIntoConstraints = false
         
         
         //text label
         
-        textLabel?.leadingAnchor.constraint(equalTo: imageViewInst.trailingAnchor, constant: 20).isActive = true
+        textLabel?.trailingAnchor.constraint(equalTo: imageViewInst.trailingAnchor, constant: 100).isActive = true
         textLabel?.translatesAutoresizingMaskIntoConstraints = false
     }
     
