@@ -43,7 +43,9 @@ class TraditionalRecipeView: UIView {
         
         guard let recipeStep = recipe.step else { return }
         
-        let steps = recipeStep.allObjects as! [Steps]
+        var steps = recipeStep.allObjects as! [Steps]
+        
+        steps = steps.sorted(by: { $0.timeToStart < $1.timeToStart } )
         
         for step in steps {
             
