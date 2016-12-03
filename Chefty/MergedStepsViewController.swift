@@ -16,7 +16,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     var recipeSteps = [Steps]()
     var tableView = UITableView()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,24 +66,35 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.view.addSubview(self.tableView)
         
-        let myTextView = UITextView()
-        self.view.addSubview(myTextView)
+        let myView = UIView()
+        self.view.addSubview(myView)
         
-        myTextView.translatesAutoresizingMaskIntoConstraints = false
-        myTextView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
-        myTextView.heightAnchor.constraint(equalToConstant: 200).isActive = true
-        myTextView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        myTextView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        myTextView.bottomAnchor.constraint(equalTo: self.tableView.topAnchor).isActive = true
-        myTextView.backgroundColor = UIColor.blue
-        myTextView.text = "Start cooking at 4:00 pm"
+        let myLabel = UILabel()
+        self.view.addSubview(myLabel)
+        
+        myView.translatesAutoresizingMaskIntoConstraints = false
+        myView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
+        myView.heightAnchor.constraint(equalToConstant: 150).isActive = true
+        myView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        myView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        myView.bottomAnchor.constraint(equalTo: self.tableView.topAnchor).isActive = true
+        
+        
+        myLabel.translatesAutoresizingMaskIntoConstraints = false
+        myLabel.widthAnchor.constraint(equalTo: myView.widthAnchor, multiplier: 1.0).isActive = true
+        myLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        myLabel.leftAnchor.constraint(equalTo: myView.leftAnchor).isActive = true
+        myLabel.bottomAnchor.constraint(equalTo: myView.bottomAnchor).isActive = true
+        myLabel.text = "Start cooking at 4:00 pm"
+        myLabel.font = myLabel.font?.withSize(24)
+        myLabel.textAlignment = .center
+
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
         tableView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1.0).isActive = true
         tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: myTextView.bottomAnchor, constant: 100).isActive = true
-        tableView.backgroundColor = UIColor.yellow
+        tableView.topAnchor.constraint(equalTo: myView.bottomAnchor, constant: 100).isActive = true
         
         
     }
@@ -117,6 +127,12 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
                 }
             view.addSubview(imageView)
         }
+    }
+    
+    func calculateStartTime() {
+        
+        //code here
+        
     }
     
 }
