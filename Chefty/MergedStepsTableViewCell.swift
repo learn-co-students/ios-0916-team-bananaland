@@ -17,13 +17,12 @@ class MergedStepsTableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        contentView.backgroundColor = UIColor.blue
-        
         //image
         contentView.addSubview(imageViewInst)
-        imageViewInst.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        imageViewInst.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        imageViewInst.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        imageViewInst.topAnchor.constraint(equalTo: self.topAnchor, constant: 4).isActive = true
+        imageViewInst.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 4).isActive = true
+        imageViewInst.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        imageViewInst.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.1).isActive = true
         imageViewInst.translatesAutoresizingMaskIntoConstraints = false
 
         
