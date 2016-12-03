@@ -96,7 +96,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     func getImage(recipe: Recipe, imageView: UIImageView, view: UIView) {
         if let imageURLString = recipe.imageURLSmall {
             let imageURL: URL = URL(string: imageURLString)!
-            DispatchQueue.main.async {
                 do {
                     let data = try Data(contentsOf: imageURL)
                     if data.isEmpty == false {
@@ -105,7 +104,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
                 } catch {
                     print("error: no image")
                 }
-            }
             view.addSubview(imageView)
         }
     }
