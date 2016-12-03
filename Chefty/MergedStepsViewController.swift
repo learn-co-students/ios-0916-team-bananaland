@@ -20,13 +20,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
-        
-        self.view.addSubview(self.tableView)
-        createConstraints()
-        
+        createViewAndTableView()
         
         getStepsFromRecipesSelected {
             self.mergeRecipeSteps()
@@ -67,14 +61,33 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     
-    func createConstraints(){
-        self.tableView.translatesAutoresizingMaskIntoConstraints = false
-        self.tableView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
-        self.tableView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1.0).isActive = true
-        self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+    func createViewAndTableView(){
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        self.view.addSubview(self.tableView)
+        
+        let myTextView = UITextView()
+        self.view.addSubview(myTextView)
+        
+        myTextView.translatesAutoresizingMaskIntoConstraints = false
+        myTextView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
+        myTextView.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        myTextView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        myTextView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        myTextView.bottomAnchor.constraint(equalTo: self.tableView.topAnchor).isActive = true
+        myTextView.backgroundColor = UIColor.blue
+        myTextView.text = "Start cooking at 4:00 pm"
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
+        tableView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1.0).isActive = true
+        tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: myTextView.bottomAnchor, constant: 100).isActive = true
+        tableView.backgroundColor = UIColor.yellow
+        
+        
     }
-    
     
     
     func getStepsFromRecipesSelected(completion: @escaping () -> ()) {
@@ -87,9 +100,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
             let allRecipeSteps = singleRecipe.step!.allObjects as! [Steps]
             self.recipeSteps += allRecipeSteps
         }
-        
         completion()
-        
     }
     
     
@@ -107,8 +118,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
             view.addSubview(imageView)
         }
     }
-    
-    
     
 }
 
