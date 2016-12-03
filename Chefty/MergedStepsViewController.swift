@@ -15,6 +15,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     var store = DataStore.sharedInstance
     var recipeSteps = [Steps]()
     var tableView = UITableView()
+    var totalTime = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +28,8 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
             for step in self.recipeSteps {
                 self.store.mergedStepsArray.append(step)
             }
+            
+            self.calculateStartTime()
             
             self.tableView.reloadData()
         }
@@ -77,12 +80,10 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         myView.heightAnchor.constraint(equalToConstant: 150).isActive = true
         myView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         myView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        myView.bottomAnchor.constraint(equalTo: self.tableView.topAnchor).isActive = true
         
         
         myLabel.translatesAutoresizingMaskIntoConstraints = false
         myLabel.widthAnchor.constraint(equalTo: myView.widthAnchor, multiplier: 1.0).isActive = true
-        myLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         myLabel.leftAnchor.constraint(equalTo: myView.leftAnchor).isActive = true
         myLabel.bottomAnchor.constraint(equalTo: myView.bottomAnchor).isActive = true
         myLabel.text = "Start cooking at 4:00 pm"
@@ -94,7 +95,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
         tableView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1.0).isActive = true
         tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: myView.bottomAnchor, constant: 100).isActive = true
+        tableView.topAnchor.constraint(equalTo: myView.bottomAnchor).isActive = true
         
         
     }
@@ -131,7 +132,11 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     
     func calculateStartTime() {
         
-        //code here
+        for step in store.mergedStepsArray {
+            totalTime += Int(step.duration)
+        }
+        
+        print("total min: \(totalTime)")
         
     }
     
