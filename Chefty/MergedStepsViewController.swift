@@ -15,7 +15,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     var store = DataStore.sharedInstance
     var recipeSteps = [Steps]()
     var tableView = UITableView()
-    var totalTime = 0
+    var addedTime = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,11 +132,25 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     
     func calculateStartTime() {
         
+        var totalTime = 0
+        
         for step in store.mergedStepsArray {
             totalTime += Int(step.duration)
         }
         
+        totalTime += addedTime
+        
         print("total min: \(totalTime)")
+        
+        var hours = totalTime / 60
+        
+        print("hours: \(hours)")
+        
+        var minutes = totalTime - (60 * hours)
+        
+        print("minutes: \(minutes)")
+        
+        
         
     }
     
@@ -146,8 +160,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
 extension MergedStepsViewController {
     
     func mergeRecipeSteps() {
-        
-        var addedTime = 0
         
         recipeSteps = self.recipeSteps.sorted { (step1: Steps, step2: Steps) -> Bool in
             
