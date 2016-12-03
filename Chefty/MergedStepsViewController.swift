@@ -132,15 +132,11 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     
     func calculateStartTime() {
         
-        var totalTime = 0
-        
-        for step in store.mergedStepsArray {
-            totalTime += Int(step.duration)
-        }
+        var totalTime = store.mergedStepsArray[0].timeToStart * -1
         
         totalTime += addedTime
         
-        print("total min: \(totalTime)")
+        print("total minutes: \(totalTime)")
         
         var hours = totalTime / 60
         
@@ -149,12 +145,18 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         var minutes = totalTime - (60 * hours)
         
         print("minutes: \(minutes)")
+
         
+        }
         
-        
-    }
-    
+
 }
+        
+        
+        
+    
+    
+
 
 
 extension MergedStepsViewController {
