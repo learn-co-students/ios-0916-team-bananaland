@@ -53,7 +53,7 @@ class TraditionalRecipeView: UIView {
             stepsArray.append(procedure)
             
             totalTime += Int(step.duration)
-            
+        
             
             guard let stepIngredient = step.ingredient else { return }
             
@@ -104,6 +104,7 @@ class TraditionalRecipeView: UIView {
         
         
         // grab image from URL
+        //let imageURL = URL(string: recipe.imageURL!)
         let imageURL = URL(string: recipe.imageURL!)
         do {
             let data = try Data(contentsOf: imageURL!)

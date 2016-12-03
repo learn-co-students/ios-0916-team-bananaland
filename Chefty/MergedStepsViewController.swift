@@ -57,8 +57,10 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "cell")! as UITableViewCell
+        //let cell = self.tableView.dequeueReusableCell(withIdentifier: "cell")! as UITableViewCell
+        let cell = MergedStepsTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
         cell.textLabel?.text = "\(recipeSteps[indexPath.row].timeToStart)"
+        self.getImage(recipe: recipeSteps[indexPath.row].recipe!, imageView: cell.imageViewInst, view: cell)
         return cell
     }
     
@@ -94,8 +96,25 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         
     }
     
+    func getImage(recipe: Recipe, imageView: UIImageView, view: UIView) {
+        if let imageURLString = recipe.imageURLSmall {
+            let imageURL: URL = URL(string: imageURLString)!
+            do {
+                let data = try Data(contentsOf: imageURL)
+                if data.isEmpty == false {
+                    imageView.image = UIImage(data: data)
+                }
+            } catch {
+                print("error: no image")
+            }
+            
+            view.addSubview(imageView)
+            
+        }
+    }
+    
+    
 }
-
 
 
 
