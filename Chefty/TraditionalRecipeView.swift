@@ -13,8 +13,9 @@ import UIKit
 class TraditionalRecipeView: UIView {
     
     var recipe: Recipe?
-    var store = DataStore.sharedInstance
+    //var store = DataStore.sharedInstance
     var ingredientsArray: [String] = []
+    var stepsArray: [String] = []
     var combinedSteps: String = ""
     var combinedIngredients: String = ""
     var totalTime: Int = 0
@@ -48,7 +49,8 @@ class TraditionalRecipeView: UIView {
         for step in steps {
             
             guard let procedure = step.procedure else { return }
-            store.mergedStepsArray.append(procedure)
+            stepsArray.append(procedure)
+            //store.mergedStepsArray.append(procedure)
             
             totalTime += Int(step.duration)
             
@@ -68,15 +70,10 @@ class TraditionalRecipeView: UIView {
             
         }
         
-        combinedSteps = store.mergedStepsArray.joined(separator: "\n\n")
+        //combinedSteps = store.mergedStepsArray.joined(separator: "\n\n")
+        combinedSteps = stepsArray.joined(separator: "\n\n")
         combinedIngredients = ingredientsArray.joined(separator: "\n")
     
-    }
-    
-    func calculateTotalTime() {
-        for step in store.mergedStepsArray {
-            
-        }
     }
     
     
