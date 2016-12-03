@@ -22,30 +22,30 @@ class SingleStepView: UIView {
         
             // print the content of the requested recipe
 
-            for recipe in self.store.recipes {
-                if "apple-pie" == recipe.id {
-                    print(recipe.imageURLSmall)
-                    let allSteps = recipe.step?.allObjects as! [Steps]
-                    for step in allSteps {
-                        print("\n")
-                        print("stepTitle: \(step.stepTitle!)")
-                        print("stepNumber: \(step.stepNumber)")
-                        print("timeToStart: \(step.timeToStart)")
-                        print("duration: \(step.duration)")
-                        print("fullAttentionRequired: \(step.fullAttentionRequired)")
-                        print("procedure: \(step.procedure!)")
-                        if let ingredientsAny = step.ingredient {
-                            for ingredientAny in ingredientsAny {
-                                let ingredient = ingredientAny as? Ingredient;
-                                if let ingredientUnwrapped = ingredient {
-                                    print("ingredientDescription: \(ingredientUnwrapped.ingredientDescription)")
-                                    print("ingredientIsChecked: \(ingredientUnwrapped.isChecked)")
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+//            for recipe in self.store.recipes {
+//                if "apple-pie" == recipe.id {
+//                    print(recipe.imageURLSmall)
+//                    let allSteps = recipe.step?.allObjects as! [Steps]
+//                    for step in allSteps {
+//                        print("\n")
+//                        print("stepTitle: \(step.stepTitle!)")
+//                        print("stepNumber: \(step.stepNumber)")
+//                        print("timeToStart: \(step.timeToStart)")
+//                        print("duration: \(step.duration)")
+//                        print("fullAttentionRequired: \(step.fullAttentionRequired)")
+//                        print("procedure: \(step.procedure!)")
+//                        if let ingredientsAny = step.ingredient {
+//                            for ingredientAny in ingredientsAny {
+//                                let ingredient = ingredientAny as? Ingredient;
+//                                if let ingredientUnwrapped = ingredient {
+//                                    print("ingredientDescription: \(ingredientUnwrapped.ingredientDescription)")
+//                                    print("ingredientIsChecked: \(ingredientUnwrapped.isChecked)")
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
         
           //build an array of recipeSteps
           let stepsFromRecipe1:[Steps] = self.store.recipes.first!.step!.allObjects as! [Steps]
