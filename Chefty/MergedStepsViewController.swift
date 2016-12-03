@@ -58,8 +58,10 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = MergedStepsTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
+        if let stepTitle = recipeSteps[indexPath.row].stepTitle {
+            cell.textLabel?.text = "\(stepTitle): \(recipeSteps[indexPath.row].timeToStart)"
+        }
         self.getImage(recipe: recipeSteps[indexPath.row].recipe!, imageView: cell.imageViewInst, view: cell)
-        cell.textLabel?.text = "\(recipeSteps[indexPath.row].timeToStart)"
         return cell
     }
     
