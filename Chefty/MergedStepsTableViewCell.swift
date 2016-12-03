@@ -27,6 +27,7 @@ class MergedStepsTableViewCell: UITableViewCell {
         
         
         //text label
+        textLabel?.textAlignment = .center// why does this load last??
         textLabel?.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 100).isActive = true
         textLabel?.translatesAutoresizingMaskIntoConstraints = false
     }

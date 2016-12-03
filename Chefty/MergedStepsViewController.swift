@@ -27,6 +27,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         self.view.addSubview(self.tableView)
         createConstraints()
         
+        
         getStepsFromRecipesSelected {
             self.mergeRecipeSteps()
             
@@ -61,7 +62,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         if let stepTitle = recipeSteps[indexPath.row].stepTitle {
             cell.textLabel?.text = "\(stepTitle) (\(recipeSteps[indexPath.row].timeToStart))"
         }
-        cell.textLabel?.textAlignment = .center
         self.getImage(recipe: recipeSteps[indexPath.row].recipe!, imageView: cell.imageViewInst, view: cell)
         return cell
     }
