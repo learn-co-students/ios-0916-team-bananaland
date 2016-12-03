@@ -76,46 +76,41 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     
     
     func getStepsFromRecipesSelected(completion: @escaping () -> ()) {
-        
         self.recipeSteps.removeAll()
-        
         for singleRecipe in store.recipesSelected {
-            
             DispatchQueue.main.async {
                 CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: singleRecipe.id!, completion: {
                 })
             }
-            
             let allRecipeSteps = singleRecipe.step!.allObjects as! [Steps]
-            
             self.recipeSteps += allRecipeSteps
-            
         }
         
         completion()
         
     }
     
+    
     func getImage(recipe: Recipe, imageView: UIImageView, view: UIView) {
         if let imageURLString = recipe.imageURLSmall {
             let imageURL: URL = URL(string: imageURLString)!
-            do {
-                let data = try Data(contentsOf: imageURL)
-                if data.isEmpty == false {
-                    imageView.image = UIImage(data: data)
+            DispatchQueue.main.async {
+                do {
+                    let data = try Data(contentsOf: imageURL)
+                    if data.isEmpty == false {
+                        imageView.image = UIImage(data: data)
+                    }
+                } catch {
+                    print("error: no image")
                 }
-            } catch {
-                print("error: no image")
             }
-            
             view.addSubview(imageView)
-            
         }
     }
     
     
+    
 }
-
 
 
 extension MergedStepsViewController {
@@ -179,6 +174,9 @@ extension MergedStepsViewController {
     
     
 }
+
+
+
 
 extension String {
     func convertDurationToMinutes() -> Int {
