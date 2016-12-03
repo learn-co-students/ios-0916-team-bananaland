@@ -18,6 +18,7 @@ class SingleStepView: UIView {
 
     override init(frame:CGRect){
         super.init(frame: frame)
+        
         CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: "apple-pie") {
         
             // print the content of the requested recipe
@@ -46,6 +47,7 @@ class SingleStepView: UIView {
 //                    }
 //                }
 //            }
+
         
           //build an array of recipeSteps
           let stepsFromRecipe1:[Steps] = self.store.recipes.first!.step!.allObjects as! [Steps]
@@ -53,7 +55,7 @@ class SingleStepView: UIView {
           let stepsFromBothRecipes = stepsFromRecipe1 + stepsFromRecipe2
         
           print("stepsFromBothRecipes.count: \(stepsFromBothRecipes.count)")
-        
+                    
           print("procedureFromStep: \(stepsFromBothRecipes.first?.procedure)")
         
           print("step's recipe: \(stepsFromBothRecipes.first?.recipe?.id)")

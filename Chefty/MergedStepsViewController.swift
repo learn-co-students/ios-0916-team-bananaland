@@ -12,8 +12,6 @@ import UIKit
 
 class MergedStepsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    //TODO: add conditional to make sure recipe not already pre-loaded from ingredients
-    
     var store = DataStore.sharedInstance
     var recipeSteps = [Steps]()
     var tableView = UITableView()
@@ -31,6 +29,11 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         
         getStepsFromRecipesSelected {
             self.mergeRecipeSteps()
+            
+            for step in self.recipeSteps {
+                self.store.mergedStepsArray.append(step)
+            }
+            
             self.tableView.reloadData()
         }
         
