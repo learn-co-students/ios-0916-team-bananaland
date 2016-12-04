@@ -37,6 +37,7 @@ class SingleStepView: UIView {
     override init(frame:CGRect){
         print("init view")
         super.init(frame: frame)
+        
         CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: "apple-pie") {
         
             // print the content of the requested recipe
@@ -218,7 +219,7 @@ class SingleStepView: UIView {
     }
     
     func onClickNextStep(){
-        if store.stepCurrent < store.stepTotal {
+        if store.stepCurrent < self.store.stepTotal {
             self.store.stepCurrent += 1
             print("stepCurrent changed to \(self.store.stepCurrent)")
             self.delegate?.goToNextStep()

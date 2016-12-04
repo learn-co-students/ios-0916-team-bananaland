@@ -12,8 +12,6 @@ import UIKit
 
 class MergedStepsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    //TODO: add conditional to make sure recipe not already pre-loaded from ingredients
-    
     var store = DataStore.sharedInstance
     var recipeSteps = [Steps]()
     var tableView = UITableView()
@@ -29,8 +27,14 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         self.view.addSubview(self.tableView)
         createConstraints()
         
+        
         getStepsFromRecipesSelected {
             self.mergeRecipeSteps()
+            
+            for step in self.recipeSteps {
+                self.store.mergedStepsArray.append(step)
+            }
+            
             self.tableView.reloadData()
         }
         
@@ -54,8 +58,11 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "cell")! as UITableViewCell
-        cell.textLabel?.text = "\(recipeSteps[indexPath.row].timeToStart)"
+        let cell = MergedStepsTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
+        if let stepTitle = recipeSteps[indexPath.row].stepTitle {
+            cell.textLabel?.text = "\(stepTitle) (\(recipeSteps[indexPath.row].timeToStart))"
+        }
+        self.getImage(recipe: recipeSteps[indexPath.row].recipe!, imageView: cell.imageViewInst, view: cell)
         return cell
     }
     
@@ -71,29 +78,39 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     
     
     func getStepsFromRecipesSelected(completion: @escaping () -> ()) {
-        
         self.recipeSteps.removeAll()
-        
         for singleRecipe in store.recipesSelected {
-            
             DispatchQueue.main.async {
                 CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: singleRecipe.id!, completion: {
                 })
             }
-            
             let allRecipeSteps = singleRecipe.step!.allObjects as! [Steps]
-            
             self.recipeSteps += allRecipeSteps
-            
         }
         
         completion()
         
     }
     
+    
+    func getImage(recipe: Recipe, imageView: UIImageView, view: UIView) {
+        if let imageURLString = recipe.imageURLSmall {
+            let imageURL: URL = URL(string: imageURLString)!
+                do {
+                    let data = try Data(contentsOf: imageURL)
+                    if data.isEmpty == false {
+                        imageView.image = UIImage(data: data)
+                    }
+                } catch {
+                    print("error: no image")
+                }
+            view.addSubview(imageView)
+        }
+    }
+    
+    
+    
 }
-
-
 
 
 extension MergedStepsViewController {
@@ -157,6 +174,9 @@ extension MergedStepsViewController {
     
     
 }
+
+
+
 
 extension String {
     func convertDurationToMinutes() -> Int {
