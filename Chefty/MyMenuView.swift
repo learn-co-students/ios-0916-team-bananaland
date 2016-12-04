@@ -31,6 +31,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     var datePickerContainerViewOnScreenConstraint = NSLayoutConstraint()
     let datePicker = UIDatePicker()
     
+    let ingredientsButton: UIBarButtonItem = UIBarButtonItem(title: "Ingredients", style: .plain , target: self, action: #selector(clickIngredients))
+    let clearAllButton: UIBarButtonItem = UIBarButtonItem(title: "Clear All", style: .plain , target: self, action: #selector(onClickClearAllRecipes))
+    var openSingleStepButton: UIBarButtonItem = UIBarButtonItem(title: "Open Step", style: .plain , target: self, action: #selector(clickOpenStep))
+    
     override init(frame:CGRect){
         super.init(frame: frame)
 
@@ -53,12 +57,9 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.tableView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        // toolbar buttons
-        let ingredientsButton: UIBarButtonItem = UIBarButtonItem(title: "Ingredients", style: .plain , target: self, action: #selector(clickIngredients))
-        let clearAllButton: UIBarButtonItem = UIBarButtonItem(title: "Clear All", style: .plain , target: self, action: #selector(onClickClearAllRecipes))
-        let openStep1Button: UIBarButtonItem = UIBarButtonItem(title: "Open Step \(store.stepCurrent)", style: .plain , target: self, action: #selector(clickOpenStep))
+        // toolbar
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let toolbarButtons = [ingredientsButton, spacer, clearAllButton, spacer, openStep1Button]
+        let toolbarButtons = [self.ingredientsButton, spacer, self.clearAllButton, spacer, self.openSingleStepButton]
         self.toolbar.setItems(toolbarButtons, animated: false)
         
         // define the timePicker container view

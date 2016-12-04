@@ -81,6 +81,7 @@ class SingleStepView: UIView {
             //print("mergedStepArray: \(self.store.mergedStepsArray.first!.description)")
             
             // iterate through the steps and get the next one
+            print("self.store.stepCurrent: \(self.store.stepCurrent)")
             for step in sampleSteps {
                 if Int(step.stepNumber) == self.store.stepCurrent {
                     self.sampleStep = step
@@ -106,7 +107,9 @@ class SingleStepView: UIView {
                 let ingredientsArr = ingredientsAny.allObjects as? [Ingredient]
                 if ingredientsArr?.isEmpty == false {
                     for ingredient in ingredientsArr! {
-                        self.ingredients += "- \(ingredient.ingredientDescription)!\n"
+                        if let desc = ingredient.ingredientDescription {
+                            self.ingredients += "- \(desc)\n"
+                        }
                     }
                 }
             }
@@ -114,9 +117,7 @@ class SingleStepView: UIView {
             if let url = self.sampleStep?.recipe?.imageURLSmall {
                 self.imageURLString = url
             }
-        
-            
-        
+
             // configure controls
             self.stepTitleLabel.text = self.stepTitle
             self.stepTitleLabel.font =  UIFont(name: Constants.appFont.bold.rawValue, size: Constants.fontSize.large.rawValue)
@@ -142,12 +143,18 @@ class SingleStepView: UIView {
             let range = NSMakeRange(self.procedureBodyTextView.text.characters.count - 1, 0)
             self.procedureBodyTextView.scrollRangeToVisible(range)
             
-            self.doneButton.setTitle("Step Complete", for: .normal)
+            self.doneButton.setTitle("Completed Procedure, Go to Step \(self.store.stepCurrent + 1)", for: .normal)
             self.doneButton.titleLabel!.font =  UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.small.rawValue))
-            self.doneButton.setTitleColor(UIColor(named: .blue), for: .normal)
             self.doneButton.addTarget(self, action: #selector(SingleStepView.onClickNextStep), for: .touchUpInside)
+            if self.store.stepCurrent == self.store.stepTotal { // if on the last step, disable to next step button
+                self.doneButton.isEnabled = false
+                self.doneButton.setTitleColor(UIColor(named: .disabledText), for: .disabled)
+            } else {
+                self.doneButton.isEnabled = true
+                self.doneButton.setTitleColor(self.tintColor, for: .normal)   //, for: .normal)
+            }
 
-            // add the object to the view
+            // add objects to the view
             self.addSubview(self.stepTitleLabel)
             self.addSubview(self.recipeUIImageView)
             self.addSubview(self.timeRemaingLabel)
@@ -157,13 +164,7 @@ class SingleStepView: UIView {
             self.addSubview(self.procedureBodyTextView)
             self.addSubview(self.doneButton)
         
-            // constrain the object
-            self.stepTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-            self.stepTitleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 100).isActive = true
-            self.stepTitleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
-            self.stepTitleLabel.numberOfLines = 0
-            self.stepTitleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
-       
+            // constrain the objects
             self.recipeUIImageView.translatesAutoresizingMaskIntoConstraints = false
             self.recipeUIImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 60).isActive = true
             self.recipeUIImageView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
@@ -171,7 +172,14 @@ class SingleStepView: UIView {
             self.recipeUIImageView.heightAnchor.constraint(lessThanOrEqualToConstant: 200).isActive = true
             self.recipeUIImageView.contentMode = UIViewContentMode.scaleAspectFill
             self.recipeUIImageView.backgroundColor = UIColor.brown
-        
+            
+            self.stepTitleLabel.translatesAutoresizingMaskIntoConstraints = false
+            self.stepTitleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 100).isActive = true
+            self.stepTitleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
+            self.stepTitleLabel.rightAnchor.constraint(equalTo: self.recipeUIImageView.leftAnchor, constant: -40).isActive = true
+            self.stepTitleLabel.numberOfLines = 0
+            self.stepTitleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+       
             self.timeRemaingLabel.translatesAutoresizingMaskIntoConstraints = false
             self.timeRemaingLabel.topAnchor.constraint(equalTo: self.stepTitleLabel.topAnchor, constant: 60).isActive = true
             self.timeRemaingLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
@@ -193,7 +201,7 @@ class SingleStepView: UIView {
             
             self.doneButton.translatesAutoresizingMaskIntoConstraints = false
             self.doneButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -16).isActive = true
-            self.doneButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
+            self.doneButton.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -12).isActive = true
             self.doneButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
 
             self.procedureTitle.translatesAutoresizingMaskIntoConstraints = false
@@ -210,8 +218,11 @@ class SingleStepView: UIView {
     }
     
     func onClickNextStep(){
-        print("\nclick in view")
-        self.delegate?.goToNextStep()
+        if store.stepCurrent < store.stepTotal {
+            self.store.stepCurrent += 1
+            print("stepCurrent changed to \(self.store.stepCurrent)")
+            self.delegate?.goToNextStep()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -17,9 +17,17 @@ class SingleStepViewController: UIViewController, SingleStepDelegate {
         super.viewDidLoad()
         singleStepViewInst.delegate = self
         
-        // add the menu button to the nav bar
-        let menuButton = UIBarButtonItem(title: "All Steps", style: .plain, target: self, action: #selector(goToMergedSteps))
-        navigationItem.rightBarButtonItems = [menuButton]
+        // create buttons for nav bar
+        let myMenuButton = UIBarButtonItem(title: "My Menu", style: .plain, target: self, action: #selector(goToMyMenu))
+        let allStepsButton = UIBarButtonItem(title: "All Steps", style: .plain, target: self, action: #selector(goToMergedSteps))
+        // set font size of nav bar buttons
+        let labelFont: UIFont = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))!
+        let attributesTextNormal = [ NSFontAttributeName : labelFont ]
+        allStepsButton.setTitleTextAttributes(attributesTextNormal, for: .normal)
+        myMenuButton.setTitleTextAttributes(attributesTextNormal, for: UIControlState.normal)
+        // add buttons to nav bar
+        navigationItem.leftBarButtonItem = myMenuButton
+        navigationItem.rightBarButtonItem = allStepsButton
     }
     
     override func loadView(){
@@ -38,22 +46,25 @@ class SingleStepViewController: UIViewController, SingleStepDelegate {
         self.title = "Step \(store.stepCurrent) of \(store.stepTotal)"
     }
     
+    func goToMyMenu(){
+        let myMenuViewControllerInst = MyMenuViewController()
+        navigationController?.pushViewController(myMenuViewControllerInst, animated: false) // show destination with nav bar
+    }
+    
     func goToMergedSteps(){
         let mergedStepsViewControllerInst = MergedStepsViewController()
         navigationController?.pushViewController(mergedStepsViewControllerInst, animated: false) // show destination with nav bar
     }
     
     func goToNextStep(){
-        
-        if store.stepCurrent < store.stepTotal {
-            store.stepCurrent += 1
-            print("next step in vc, stepCurrent changed to \(store.stepCurrent)")
-        
+        // the current step value has been updated before this function was called, so refresh the view to show the new step
+        if store.stepCurrent <= store.stepTotal {
             self.loadView()
             self.viewDidLoad()
             self.viewWillAppear(false)
-        } else {
-            print("last step")
+            if self.store.stepCurrent == self.store.stepTotal {
+                self.store.stepCurrent = 1 // reset step position
+            }
         }
     }
     
