@@ -29,8 +29,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
                 self.store.mergedStepsArray.append(step)
             }
             
-            self.calculateStartTime()
-            
             self.tableView.reloadData()
         }
         
@@ -89,7 +87,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         myLabel.text = "Start cooking at 4:00 pm"
         myLabel.font = myLabel.font?.withSize(24)
         myLabel.textAlignment = .center
-
+        
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
@@ -118,44 +116,72 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     func getImage(recipe: Recipe, imageView: UIImageView, view: UIView) {
         if let imageURLString = recipe.imageURLSmall {
             let imageURL: URL = URL(string: imageURLString)!
-                do {
-                    let data = try Data(contentsOf: imageURL)
-                    if data.isEmpty == false {
-                        imageView.image = UIImage(data: data)
-                    }
-                } catch {
-                    print("error: no image")
+            do {
+                let data = try Data(contentsOf: imageURL)
+                if data.isEmpty == false {
+                    imageView.image = UIImage(data: data)
                 }
+            } catch {
+                print("error: no image")
+            }
             view.addSubview(imageView)
         }
     }
     
-    func calculateStartTime() {
+//    func calculateStartTime() {
+//        //servingTime seems to change with each refresh??
+//        
+//        var firstServed = Recipe()
+//        
+//        for recipe in store.recipesSelected {
+//            guard let servingTime = recipe.servingTime else { return }
+//            print("servingTime: \(servingTime)")
+//        }
+    
+//        var sorted = store.recipesSelected.sort(by: { $0.servingTime?.compare($1.servingTime as! Date) == .orderedDescending })
+//        
+//        
+//        print("start times sorted: \(sorted)")
         
-        var totalTime = store.mergedStepsArray[0].timeToStart * -1
+        // For each recipe, find serve time. Subtract each dish's full prep time. Find the earliest time. Subtract/add any addedTime. This is the start cooking time.
         
-        totalTime += addedTime
         
-        print("total minutes: \(totalTime)")
         
-        var hours = totalTime / 60
         
-        print("hours: \(hours)")
+//        var totalTime = store.mergedStepsArray[0].timeToStart * -1
+//        
+//        totalTime += addedTime
         
-        var minutes = totalTime - (60 * hours)
-        
-        print("minutes: \(minutes)")
-
-        
-        }
-        
-
+//        print("total minutes: \(totalTime)")
+//        
+//        var hours = totalTime / 60
+//        
+//        print("hours: \(hours)")
+//        
+//        var minutes = totalTime - (60 * hours)
+//        
+//        print("minutes: \(minutes)")
+//        
+//        let calendarInst = Calendar(identifier: .gregorian)
+//        var componentsServingTime = DateComponents()
+//        componentsServingTime.year = calendarInst.component(.year, from: Date())
+//        componentsServingTime.month = calendarInst.component(.month, from: Date())
+//        componentsServingTime.day = calendarInst.component(.day, from: Date())
+//        componentsServingTime.hour = Int(hours)
+//        componentsServingTime.minute = Int(minutes)
+//        componentsServingTime.second = 00
+//        let servingTime = calendarInst.date(from: componentsServingTime)!
+//        
+//        print("saved as Date: \(servingTime)")
+//    }
+    
+    
 }
-        
-        
-        
-    
-    
+
+
+
+
+
 
 
 
