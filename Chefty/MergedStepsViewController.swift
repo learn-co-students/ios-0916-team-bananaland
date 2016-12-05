@@ -22,8 +22,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         
         createViewAndTableView()
         
-        calculateStartTime()
-        
         getStepsFromRecipesSelected {
             self.mergeRecipeSteps()
             
@@ -33,6 +31,8 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
             
             self.tableView.reloadData()
         }
+        
+        calculateStartTime()
         
     }
     
@@ -131,41 +131,38 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func calculateStartTime() {
+        //function lives on open MyMenu
         
-        //find serving time for each recipe
-        for recipe in store.recipesSelected {
-            guard let servingTime = recipe.servingTime else { return }
-            print("servingTime: \(servingTime)")
+        var servingTime = store.recipesSelected[0].servingTime // default or user selected serving time is same for all 4 recipes
+        
+        //total cooking time = smallest timeToStart from mergedSteps + addedTime
+        let totalCookingDuration = store.mergedStepsArray[0].timeToStart + addedTime
+        
+        //earliest possible serving time = current time + total cooking time
+        let currentTime = Date()
+        let calendar = Calendar.current
+        let earliestPossibleServeTime = calendar.date(byAdding: .minute, value: Int(totalCookingDuration), to: currentTime)
+        
+        //start cooking time = serving time - total cooking duration
+        var startCookingTime = servingTime - totalCookingDuration
+        
+        //check that serving time is greater than earliest possible serving time
+        // --> if yes, servingTime & start cooking time will work, so don't change
+        if servingTime >= earliestPossibleServeTime as NSDate? {
+            print("start cooking time and serving time remains the same")
+        } else {
+        // --> if no, serving time = earliest possible serving time, start cooking time = earliest possible serving time - total duration
+            servingTime = earliestPossibleServeTime as NSDate?
+            startCookingTime = earliestPossibleServeTime - totalCookingDuration
         }
         
-        //find total prep time for each recipe
-        var array: [Int] = []
-        for recipe in store.recipesSelected { //4 recipes
-            var steps = recipe.step?.allObjects as! [Steps] //array of steps for each recipe
-            for step in steps { //single step in array of steps
-                var prepTime = step.duration //duration for the step
-                
-            }
-        }
         
         
         
         
-        //find start cooking time for each recipe --> subtract prep time from serving time
-        
-        //select earliest start cooking time
-        
-        //add any addedTime from mergedSteps()
-        
-        //this is the final Start Cooking Time
         
         
         
-        
-        //        var sorted = store.recipesSelected.sort(by: { $0.servingTime?.compare($1.servingTime as! Date) == .orderedDescending })
-        //
-        //
-        //        print("start times sorted: \(sorted)")
         
         
         
