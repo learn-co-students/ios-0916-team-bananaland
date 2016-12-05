@@ -24,7 +24,7 @@ class SingleStepView: UIView {
 
             for recipe in self.store.recipes {
                 if "apple-pie" == recipe.id {
-                    print(recipe.imageURLSmall)
+                    //print(recipe.imageURLSmall)
                     let allSteps = recipe.step?.allObjects as! [Steps]
                     for step in allSteps {
                         print("\n")

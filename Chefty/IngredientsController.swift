@@ -56,6 +56,8 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "listCell")
+        //tableView.register(UITableViewCell.self, forCellReuseIdentifier: "headerCell")
+       
         
         self.view.addSubview(self.tableView)
         
@@ -64,6 +66,21 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        
+//        let recognizer = UITapGestureRecognizer(target: self, action: "didTap")
+//        self.tableView.addGestureRecognizer(recognizer)
+        
+//        func didTap(recognizer: UIGestureRecognizer) {
+//            if recognizer.state == UIGestureRecognizerState.ended {
+//                let tapLocation = recognizer.location(in: self.tableView)
+//                if let tappedIndexPath = tableview.indexPathForRowAtPoint(tapLocation){
+//                    if let tappedCell = self.tableview.cellForRowAtIndexPath(tappedIndexPath) {
+//                        tappedCell.
+//                    }
+//                }
+//                
+//            }
+//        }
         
     }
     
@@ -90,9 +107,9 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-        header.contentView.backgroundColor = UIColor(red: 0/255, green: 240/255, blue: 80/255, alpha: 1.0)
-        header.textLabel?.textColor = UIColor(red: 0/255, green: 30/255, blue: 255/255, alpha: 1.0)
-        header.textLabel?.font = UIFont(name: "Helvetica Neue", size: 24)
+        header.contentView.backgroundColor = UIColor(red: 150/255, green: 0/255, blue: 10/255, alpha: 1.0)
+        header.textLabel?.textColor = UIColor(red: 255/255, green: 255/255, blue: 238/255, alpha: 1.0)
+        header.textLabel?.font = UIFont(name: "GillSans-Light", size: 24)
         header.alpha = 0.8
     }
     
@@ -108,13 +125,17 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        // Format cells
         let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath)
-        
-        cell.selectionStyle = .none
         let ingredient = ingredientsPerRecipe[indexPath.section][indexPath.row]
+        
+
+        // Text edits
+        cell.selectionStyle = .none
         cell.textLabel?.text = ingredient.ingredientDescription
         cell.textLabel?.numberOfLines = 0
         cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+        
         
         if ingredient.isChecked {
             cell.accessoryType = UITableViewCellAccessoryType.checkmark
@@ -142,8 +163,9 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         
         tableView.reloadData()
         
-        
     }
-    
+
+
 }
+
 
