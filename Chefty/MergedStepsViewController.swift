@@ -141,9 +141,9 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         //find total prep time for each recipe
         var array: [Int] = []
         for recipe in store.recipesSelected { //4 recipes
-            var steps = recipe.step?.allObjects as! [Steps]
-            for step in steps {
-                var prepTime = step.duration
+            var steps = recipe.step?.allObjects as! [Steps] //array of steps for each recipe
+            for step in steps { //single step in array of steps
+                var prepTime = step.duration //duration for the step
                 
             }
         }
