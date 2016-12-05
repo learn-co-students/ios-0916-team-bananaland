@@ -27,9 +27,25 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     var textFieldBeingEdited: UITextField = UITextField()
     
     let datePickerContainerView = UIView()
+    let servingTimeView = UIView()
     var datePickerContainerViewOffScreenConstraint = NSLayoutConstraint()
     var datePickerContainerViewOnScreenConstraint = NSLayoutConstraint()
     let datePicker = UIDatePicker()
+    var servingTimeField:UITextField = UITextField()
+    
+    let myFormatter = DateFormatter()
+    myFormatter.timeStyle = .short
+    
+    var startTimeValue = String()
+    if let servingTime = recipe?.servingTime {
+        startTimeValue = myFormatter.string(from: servingTime as Date)
+    }
+    self.servingTimeField.text = "@ \(startTimeValue)"
+    
+    // set displayName
+    if let displayNameUnwrapped = recipe?.displayName {
+        self.recipeDescField.text = "\(displayNameUnwrapped)                                  " // extra space pushes label left
+    }
     
     let ingredientsButton: UIBarButtonItem = UIBarButtonItem(title: "Ingredients", style: .plain , target: self, action: #selector(clickIngredients))
     let clearAllButton: UIBarButtonItem = UIBarButtonItem(title: "Clear All", style: .plain , target: self, action: #selector(onClickClearAllRecipes))
@@ -45,15 +61,22 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         // add the controls to the view
         self.addSubview(tableView)
         self.addSubview(toolbar)
+        self.addSubview(servingTimeView)
         
         // constrain the controls
         self.toolbar.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         self.toolbar.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         self.toolbar.translatesAutoresizingMaskIntoConstraints = false
         
+        // servingtime view
+        self.servingTimeView.bottomAnchor.constraint(equalTo: toolbar.topAnchor, constant: 0).isActive = true
+        self.servingTimeView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        self.servingTimeView.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        self.servingTimeView.translatesAutoresizingMaskIntoConstraints = false
+        
         // tableview
         self.tableView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
-        self.tableView.bottomAnchor.constraint(equalTo: toolbar.topAnchor, constant: 0).isActive = true
+        self.tableView.bottomAnchor.constraint(equalTo: self.servingTimeView.topAnchor, constant: 0).isActive = true
         self.tableView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -99,6 +122,18 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         datePicker.topAnchor.constraint(equalTo: pickerToolbar.bottomAnchor).isActive = true
         datePicker.bottomAnchor.constraint(equalTo: datePickerContainerView.bottomAnchor).isActive = true
         datePicker.widthAnchor.constraint(equalTo: datePickerContainerView.widthAnchor).isActive = true
+        
+        // define servingTimeView
+        servingTimeView.backgroundColor = UIColor.brown
+        //self.servingTimeField.delegate = self
+        
+        self.servingTimeField.textColor = UIColor.white
+        self.servingTimeField.font =  UIFont(name: Constants.appFont.bold.rawValue, size: CGFloat(Constants.fontSize.medium.rawValue))
+        servingTimeView.addSubview(self.servingTimeField)
+        self.servingTimeField.widthAnchor.constraint(equalToConstant: 50)
+        self.servingTimeField.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
+        self.servingTimeField.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
+        self.servingTimeField.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func doneClickTimePicker() {
