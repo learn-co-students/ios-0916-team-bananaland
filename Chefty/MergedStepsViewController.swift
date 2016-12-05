@@ -150,9 +150,8 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         print("earliest serve time: \(earliestPossibleServeTime)")
         
         //start cooking time = serving time - total cooking duration
-//        totalCookingDuration = totalCookingDuration * 60
-//        var startCookingTime = servingTime?.addingTimeInterval(TimeInterval(totalCookingDuration))
-        var startCookingTime = calendar.date(byAdding: .minute, value: Int(totalCookingDuration), to: servingTime as! Date)
+        let totalCookingDurationSeconds = totalCookingDuration * -60
+        var startCookingTime = servingTime?.addingTimeInterval(TimeInterval(totalCookingDurationSeconds))
         print("start cooking at: \(startCookingTime)")
         
         //check that serving time is greater than earliest possible serving time
@@ -164,11 +163,10 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         // --> if no, serving time = earliest possible serving time, start cooking time = earliest possible serving time - total duration
             servingTime = earliestPossibleServeTime as NSDate?
             print("input time error, earliest serving time possible = \(servingTime)")
-            startCookingTime = earliestPossibleServeTime?.addingTimeInterval(TimeInterval(totalCookingDuration))
+            startCookingTime = earliestPossibleServeTime?.addingTimeInterval(TimeInterval(totalCookingDurationSeconds)) as NSDate?
         }
 
-        
-        
+    
     }
     
     
