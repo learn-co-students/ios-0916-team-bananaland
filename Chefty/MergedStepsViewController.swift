@@ -140,29 +140,31 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         print("serving time: \(servingTime)")
         
         //total cooking time = smallest timeToStart from mergedSteps + addedTime
-        var totalCookingDuration = store.mergedStepsArray[0].timeToStart + addedTime
+        var totalCookingDuration = store.mergedStepsArray[0].timeToStart * -1 //+ addedTime
+        print("time to start = \(store.mergedStepsArray[0].timeToStart)")
+        //print("added time = \(addedTime)")
         print("total cooking time: \(totalCookingDuration)")
         
         //earliest possible serving time = current time + total cooking time
         let earliestPossibleServeTime = calendar.date(byAdding: .minute, value: Int(totalCookingDuration), to: currentTime)
         print("earliest serve time: \(earliestPossibleServeTime)")
-
         
         //start cooking time = serving time - total cooking duration
-        totalCookingDuration = totalCookingDuration * -60
-        var startCookingTime = servingTime?.addingTimeInterval(TimeInterval(totalCookingDuration))
+//        totalCookingDuration = totalCookingDuration * 60
+//        var startCookingTime = servingTime?.addingTimeInterval(TimeInterval(totalCookingDuration))
+        var startCookingTime = calendar.date(byAdding: .minute, value: Int(totalCookingDuration), to: servingTime as! Date)
         print("start cooking at: \(startCookingTime)")
         
         //check that serving time is greater than earliest possible serving time
         // --> if yes, servingTime & start cooking time will work, so don't change
-        if servingTime?.compare(earliestPossibleServeTime! as Date) == ComparisonResult.orderedDescending {
+        if servingTime?.compare(earliestPossibleServeTime! as Date) == ComparisonResult.orderedDescending || servingTime?.compare(earliestPossibleServeTime! as Date) == ComparisonResult.orderedSame {
             print("start cooking time and serving time remains the same")
             
         } else {
         // --> if no, serving time = earliest possible serving time, start cooking time = earliest possible serving time - total duration
             servingTime = earliestPossibleServeTime as NSDate?
             print("input time error, earliest serving time possible = \(servingTime)")
-//            startCookingTime = earliestPossibleServeTime - totalCookingDuration
+            startCookingTime = earliestPossibleServeTime?.addingTimeInterval(TimeInterval(totalCookingDuration))
         }
 
         
@@ -182,6 +184,8 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
 extension MergedStepsViewController {
     
     func mergeRecipeSteps() {
+        
+        addedTime = 0
         
         recipeSteps = self.recipeSteps.sorted { (step1: Steps, step2: Steps) -> Bool in
             
