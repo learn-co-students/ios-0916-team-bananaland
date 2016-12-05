@@ -132,39 +132,39 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     
     func calculateStartTime() {
         //function lives on open MyMenu
+        let currentTime = Date()
+        print("current time: \(currentTime)")
+        let calendar = Calendar.current
         
         var servingTime = store.recipesSelected[0].servingTime // default or user selected serving time is same for all 4 recipes
+        print("serving time: \(servingTime)")
         
         //total cooking time = smallest timeToStart from mergedSteps + addedTime
-        let totalCookingDuration = store.mergedStepsArray[0].timeToStart + addedTime
+        var totalCookingDuration = store.mergedStepsArray[0].timeToStart + addedTime
+        print("total cooking time: \(totalCookingDuration)")
         
         //earliest possible serving time = current time + total cooking time
-        let currentTime = Date()
-        let calendar = Calendar.current
         let earliestPossibleServeTime = calendar.date(byAdding: .minute, value: Int(totalCookingDuration), to: currentTime)
+        print("earliest serve time: \(earliestPossibleServeTime)")
+
         
         //start cooking time = serving time - total cooking duration
-        var startCookingTime = servingTime - totalCookingDuration
+        totalCookingDuration = totalCookingDuration * -60
+        var startCookingTime = servingTime?.addingTimeInterval(TimeInterval(totalCookingDuration))
+        print("start cooking at: \(startCookingTime)")
         
         //check that serving time is greater than earliest possible serving time
         // --> if yes, servingTime & start cooking time will work, so don't change
-        if servingTime >= earliestPossibleServeTime as NSDate? {
+        if servingTime?.compare(earliestPossibleServeTime! as Date) == ComparisonResult.orderedDescending {
             print("start cooking time and serving time remains the same")
+            
         } else {
         // --> if no, serving time = earliest possible serving time, start cooking time = earliest possible serving time - total duration
             servingTime = earliestPossibleServeTime as NSDate?
-            startCookingTime = earliestPossibleServeTime - totalCookingDuration
+            print("input time error, earliest serving time possible = \(servingTime)")
+//            startCookingTime = earliestPossibleServeTime - totalCookingDuration
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         
         
     }
