@@ -13,26 +13,12 @@ import UIKit
 class MergedStepsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var store = DataStore.sharedInstance
-    var recipeSteps = [Steps]()
     var tableView = UITableView()
-    var addedTime = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         createViewAndTableView()
-        
-        getStepsFromRecipesSelected {
-            self.mergeRecipeSteps()
-            
-            for step in self.recipeSteps {
-                self.store.mergedStepsArray.append(step)
-            }
-            
-            self.tableView.reloadData()
-        }
-        
-        calculateStartTime()
         
     }
     
@@ -50,15 +36,15 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return recipeSteps.count
+        return store.mergedStepsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = MergedStepsTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
-        if let stepTitle = recipeSteps[indexPath.row].stepTitle {
-            cell.textLabel?.text = "\(stepTitle) (\(recipeSteps[indexPath.row].timeToStart))"
+        if let stepTitle = store.mergedStepsArray[indexPath.row].stepTitle {
+            cell.textLabel?.text = "\(stepTitle) (\(store.mergedStepsArray[indexPath.row].timeToStart))"
         }
-        self.getImage(recipe: recipeSteps[indexPath.row].recipe!, imageView: cell.imageViewInst, view: cell)
+        self.getImage(recipe: store.mergedStepsArray[indexPath.row].recipe!, imageView: cell.imageViewInst, view: cell)
         return cell
     }
     
@@ -96,22 +82,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1.0).isActive = true
         tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: myView.bottomAnchor).isActive = true
-        
-        
-    }
-    
-    
-    func getStepsFromRecipesSelected(completion: @escaping () -> ()) {
-        self.recipeSteps.removeAll()
-        for singleRecipe in store.recipesSelected {
-            DispatchQueue.main.async {
-                CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: singleRecipe.id!, completion: {
-                })
-            }
-            let allRecipeSteps = singleRecipe.step!.allObjects as! [Steps]
-            self.recipeSteps += allRecipeSteps
-        }
-        completion()
     }
     
     
@@ -129,153 +99,5 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
             view.addSubview(imageView)
         }
     }
-    
-    func calculateStartTime() {
-
-        let currentTime = Date()
-        print("current time: \(currentTime)")
-        let calendar = Calendar.current
-        
-        var servingTime = store.recipesSelected[0].servingTime // default or user selected serving time is same for all 4 recipes
-        print("serving time: \(servingTime)")
-        
-        //total cooking time = smallest timeToStart from mergedSteps + addedTime
-        var totalCookingDuration = store.mergedStepsArray[0].timeToStart * -1 //+ addedTime
-        print("time to start = \(store.mergedStepsArray[0].timeToStart)")
-        print("total cooking time: \(totalCookingDuration)")
-        
-        //earliest possible serving time = current time + total cooking time
-        let earliestPossibleServeTime = calendar.date(byAdding: .minute, value: Int(totalCookingDuration), to: currentTime)
-        print("earliest serve time: \(earliestPossibleServeTime)")
-        
-        //start cooking time = serving time - total cooking duration
-        let totalCookingDurationSeconds = totalCookingDuration * -60
-        var startCookingTime = servingTime?.addingTimeInterval(TimeInterval(totalCookingDurationSeconds))
-        print("start cooking at: \(startCookingTime)")
-        
-        //check that serving time is greater than earliest possible serving time
-        // --> if yes, servingTime & start cooking time will work, so don't change
-        if servingTime?.compare(earliestPossibleServeTime! as Date) == ComparisonResult.orderedDescending || servingTime?.compare(earliestPossibleServeTime! as Date) == ComparisonResult.orderedSame {
-            print("start cooking time and serving time remains the same")
-            
-        } else {
-        // --> if no, serving time = earliest possible serving time, start cooking time = earliest possible serving time - total duration
-            servingTime = earliestPossibleServeTime as NSDate?
-            print("input time error, earliest serving time possible = \(servingTime)")
-            startCookingTime = earliestPossibleServeTime?.addingTimeInterval(TimeInterval(totalCookingDurationSeconds)) as NSDate?
-        }
-    }
 }
-
-
-
-
-
-
-
-
-extension MergedStepsViewController {
-    
-    func mergeRecipeSteps() {
-        
-        print("added time at start of mergeSteps = \(addedTime)")
-        
-        recipeSteps = self.recipeSteps.sorted { (step1: Steps, step2: Steps) -> Bool in
-           
-            //same start
-            if step1.timeToStart == step2.timeToStart {
-                
-                //different attentionNeeded
-                if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
-                    return true
-                } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
-                    addedTime += step1.timeToStart + step1.duration - step2.timeToStart
-                    return false
-                    
-                    //same attentionNeeded, add shorter duration to addedTime
-                } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
-                    if step1.duration > step2.duration {
-                        addedTime += Int(step2.duration)
-                        return false
-                    } else if step1.duration < step2.duration {
-                        addedTime += Int(step1.duration)
-                        return true
-                    }
-                }
-            }
-            
-            //overlap duration
-            if (step2.timeToStart > step1.timeToStart) && (step2.timeToStart < (step1.timeToStart + step1.duration)) {
-                
-                if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
-                    addedTime += step2.timeToStart - (step1.timeToStart + step1.duration)
-                    return true
-                    
-                } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
-                    addedTime += (step1.timeToStart + step1.duration) - step2.timeToStart
-                    return true
-                    
-                } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
-                    addedTime += (step1.timeToStart + step1.duration) - step2.timeToStart
-                    return true
-                }
-            }
-            
-            return step1.timeToStart < step2.timeToStart
-            
-        }
-        
-        print("added time at end of mergeSteps = \(addedTime)")
-
-        
-    }
-    
-}
-
-
-
-
-extension String {
-    func convertDurationToMinutes() -> Int {
-        
-        let separatedNum = self.components(separatedBy: ":")
-        let handleMinutesOnly = Int(separatedNum[0])
-        let handleHours = Int(separatedNum[0])
-        let handleMinutesWithHours = Int(separatedNum[1])
-        var totalMinutes: Int = 0
-        
-        switch separatedNum.count {
-        case 2:
-            totalMinutes += handleMinutesOnly!
-        case 3:
-            totalMinutes += ((handleHours! * 60) + (handleMinutesWithHours!))
-        default:
-            print("error")
-        }
-        
-        return totalMinutes
-    }
-    
-    
-    func convertTimeToStartToMinutes() -> Int {
-        let separatedNum = self.components(separatedBy: ":")
-        let handleMinutesOnly = Int(separatedNum[0])
-        let handleHours = Int(separatedNum[0])
-        let handleMinutesWithHours = Int(separatedNum[1])
-        var totalMinutes: Int = 0
-        
-        switch separatedNum.count {
-        case 2:
-            totalMinutes += handleMinutesOnly!
-        case 3:
-            totalMinutes += ((handleHours! * 60) - (handleMinutesWithHours!))
-        default:
-            print("error")
-        }
-        
-        return totalMinutes
-    }
-    
-}
-
 
