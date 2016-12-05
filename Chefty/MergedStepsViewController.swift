@@ -20,8 +20,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("added time in View did load: \(addedTime)")
-        
         createViewAndTableView()
         
         getStepsFromRecipesSelected {
@@ -34,11 +32,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
             self.tableView.reloadData()
         }
         
-        print("added time in View did load after mergesteps: \(addedTime)")
-        
         calculateStartTime()
-        
-        print("added time in View did load after calculate start time: \(addedTime)")
         
     }
     
@@ -137,9 +131,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func calculateStartTime() {
-        print("added time at start of calculateStartTime = \(addedTime)")
 
-        //function lives on open MyMenu
         let currentTime = Date()
         print("current time: \(currentTime)")
         let calendar = Calendar.current
@@ -150,7 +142,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         //total cooking time = smallest timeToStart from mergedSteps + addedTime
         var totalCookingDuration = store.mergedStepsArray[0].timeToStart * -1 //+ addedTime
         print("time to start = \(store.mergedStepsArray[0].timeToStart)")
-        //print("added time = \(addedTime)")
         print("total cooking time: \(totalCookingDuration)")
         
         //earliest possible serving time = current time + total cooking time
@@ -173,12 +164,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
             print("input time error, earliest serving time possible = \(servingTime)")
             startCookingTime = earliestPossibleServeTime?.addingTimeInterval(TimeInterval(totalCookingDurationSeconds)) as NSDate?
         }
-        
-        print("added time at end of calculateStartTime = \(addedTime)")
-
     }
-    
-    
 }
 
 
@@ -204,18 +190,15 @@ extension MergedStepsViewController {
                     return true
                 } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
                     addedTime += step1.timeToStart + step1.duration - step2.timeToStart
-                    print("\(addedTime) = step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                     return false
                     
                     //same attentionNeeded, add shorter duration to addedTime
                 } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
                     if step1.duration > step2.duration {
                         addedTime += Int(step2.duration)
-                        print("\(addedTime) = step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                         return false
                     } else if step1.duration < step2.duration {
                         addedTime += Int(step1.duration)
-                        print("\(addedTime) = step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                         return true
                     }
                 }
@@ -226,17 +209,14 @@ extension MergedStepsViewController {
                 
                 if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
                     addedTime += step2.timeToStart - (step1.timeToStart + step1.duration)
-                    print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                     return true
                     
                 } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
                     addedTime += (step1.timeToStart + step1.duration) - step2.timeToStart
-                    print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                     return true
                     
                 } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
                     addedTime += (step1.timeToStart + step1.duration) - step2.timeToStart
-                    print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                     return true
                 }
             }
