@@ -16,6 +16,7 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
     var arrayOfIngredientsGlobal = [[String]]()
     var arrayOfSectionLabels = [String]()
     
+    
     let store = DataStore.sharedInstance
     var ingredientsPerRecipe = [[Ingredient]]()
     
@@ -53,6 +54,7 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
             })
         }
         
+    
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "listCell")
@@ -66,6 +68,7 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        
         
 //        let recognizer = UITapGestureRecognizer(target: self, action: "didTap")
 //        self.tableView.addGestureRecognizer(recognizer)
@@ -128,14 +131,15 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         // Format cells
         let cell = tableView.dequeueReusableCell(withIdentifier: "listCell", for: indexPath)
         let ingredient = ingredientsPerRecipe[indexPath.section][indexPath.row]
-        
+    
 
         // Text edits
         cell.selectionStyle = .none
         cell.textLabel?.text = ingredient.ingredientDescription
         cell.textLabel?.numberOfLines = 0
         cell.textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
-        
+    
+    
         
         if ingredient.isChecked {
             cell.accessoryType = UITableViewCellAccessoryType.checkmark
