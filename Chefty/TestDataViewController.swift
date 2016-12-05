@@ -30,7 +30,7 @@ class TestDataViewController: UIViewController {
                     
                     print("stepTitle: \(step.stepTitle!)")
                     print("stepNumber: \(step.stepNumber)")
-                    print("duration: \(step.duration!)")
+                    print("duration: \(step.duration)")
                     print("fullAttentionRequired: \(step.fullAttentionRequired)")
                     print("procedure: \(step.procedure!)")
                     
