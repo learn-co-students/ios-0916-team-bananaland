@@ -12,7 +12,8 @@ import UIKit
 struct Constants{
     
     enum fontSize: CGFloat {
-        case xsmall =       12
+        case xxsmall =      12
+        case xsmall =       14
         case small =        16
         case medium =       18
         case large =        24
@@ -52,6 +53,9 @@ extension UIColor {
         case black =    0x999999ff
         case gray3 =    0x333333ff
         case orange =   0xFF851Bff
+        case disabledText =         0xCCCCCCff
+        case headingbackground =    0x84202Bff
+        case titleGreen =           0xDFDAC5ff
     }
 }
 

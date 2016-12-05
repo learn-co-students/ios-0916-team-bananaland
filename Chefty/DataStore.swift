@@ -25,8 +25,8 @@ class DataStore {
     var desserts: [Recipe] = []
     
     var stepCurrent: Int = 1
-    var stepTotal: Int = 12
-    var mergedStepsArray: [String] = []
+    var stepTotal: Int = 15
+    var mergedStepsArray: [Steps] = []
     
     func populateHomeArrays () {
         for recipe in recipes {
