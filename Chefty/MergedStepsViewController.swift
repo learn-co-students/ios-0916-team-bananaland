@@ -87,15 +87,9 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     
     func getImage(recipe: Recipe, imageView: UIImageView, view: UIView) {
         if let imageURLString = recipe.imageURLSmall {
-            let imageURL: URL = URL(string: imageURLString)!
-            do {
-                let data = try Data(contentsOf: imageURL)
-                if data.isEmpty == false {
-                    imageView.image = UIImage(data: data)
-                }
-            } catch {
-                print("error: no image")
-            }
+            let url = URL(string: imageURLString)
+            imageView.contentMode = .scaleAspectFit
+            imageView.sd_setImage(with: url!)
             view.addSubview(imageView)
         }
     }
