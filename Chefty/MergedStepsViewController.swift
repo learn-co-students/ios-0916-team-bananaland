@@ -72,7 +72,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         myLabel.widthAnchor.constraint(equalTo: myView.widthAnchor, multiplier: 1.0).isActive = true
         myLabel.leftAnchor.constraint(equalTo: myView.leftAnchor).isActive = true
         myLabel.bottomAnchor.constraint(equalTo: myView.bottomAnchor).isActive = true
-        myLabel.text = "Start cooking at 4:00 pm"
+        myLabel.text = "Start cooking at \(store.startCookingTime)"
         myLabel.font = myLabel.font?.withSize(24)
         myLabel.textAlignment = .center
         

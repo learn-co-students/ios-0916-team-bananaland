@@ -38,6 +38,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     var recipeSteps = [Steps]()
     var addedTime = 0
+    var servingTimeForDisplay = "test time here"
     
     let ingredientsButton: UIBarButtonItem = UIBarButtonItem(title: "Ingredients", style: .plain , target: self, action: #selector(clickIngredients))
     let clearAllButton: UIBarButtonItem = UIBarButtonItem(title: "Clear All", style: .plain , target: self, action: #selector(onClickClearAllRecipes))
@@ -293,7 +294,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     func calculateStartTime() {
         
-        //function lives on open MyMenu
         let currentTime = Date()
         print("current time: \(currentTime)")
         let calendar = Calendar.current
@@ -327,11 +327,15 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             print("input time error, earliest serving time possible = \(servingTime)")
             startCookingTime = earliestPossibleServeTime?.addingTimeInterval(TimeInterval(totalCookingDurationSeconds)) as NSDate?
         }
+        print("final serving time = \(servingTime)")
+        print("final start cooking time = \(startCookingTime)")
+        guard let finalStartCookingTime = startCookingTime else { return }
+        store.startCookingTime = "\(finalStartCookingTime)"
     }
 }
 
 
-//extensions to convert API string format to integer for duration and timeToStart step properties
+//extensions to convert step properties duration and timeToStart to integers
 extension String {
     func convertDurationToMinutes() -> Int {
         
