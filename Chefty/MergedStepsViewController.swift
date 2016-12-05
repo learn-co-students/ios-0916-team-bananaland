@@ -204,18 +204,18 @@ extension MergedStepsViewController {
                     return true
                 } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
                     addedTime += step1.timeToStart + step1.duration - step2.timeToStart
-                    //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                    print("adding \(addedTime) to added time: step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                     return false
                     
                     //same attentionNeeded, add shorter duration to addedTime
                 } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
                     if step1.duration > step2.duration {
-                        //TODO: addedTime += step2.duration
-                        //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                        addedTime += Int(step2.duration)
+                        print("adding \(addedTime) to added time: step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                         return false
                     } else if step1.duration < step2.duration {
-                        //TODO: addedTime += step1.duration
-                        //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                        addedTime += Int(step1.duration)
+                        print("adding \(addedTime) to addedTime: step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                         return true
                     }
                 }
@@ -226,17 +226,17 @@ extension MergedStepsViewController {
                 
                 if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
                     addedTime += step2.timeToStart - (step1.timeToStart + step1.duration)
-                    //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                    print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                     return true
                     
                 } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
                     addedTime += (step1.timeToStart + step1.duration) - step2.timeToStart
-                    //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                    print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                     return true
                     
                 } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
                     addedTime += (step1.timeToStart + step1.duration) - step2.timeToStart
-                    //print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
+                    print("\(addedTime): step1 = \(step1.timeToStart); step2 = \(step2.timeToStart)")
                     return true
                 }
             }
