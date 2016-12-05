@@ -16,18 +16,11 @@ class TraditionalRecipeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        guard let recipe = recipe else { return }
-        //TODO: button to access on previous page only available if recipe selected, thus no unwrapping here of optional
-        
         self.traditionalRecipeView.recipe = self.recipe
         
-        self.traditionalRecipeView.setUpElements()
+        self.traditionalRecipeView.getStepsandIngredients()
         
-//        self.traditionalRecipeView.getAPIInfo {
-//            DispatchQueue.main.async {
-//                self.traditionalRecipeView.setUpElements()
-//            }
-//        }
+        self.traditionalRecipeView.setUpElements()
         
     }
     
@@ -42,24 +35,8 @@ class TraditionalRecipeViewController: UIViewController {
     
     override func loadView(){
         traditionalRecipeView = TraditionalRecipeView(frame: CGRect.zero, recipe: recipe!)
-        traditionalRecipeView.delegate = self
         self.view = self.traditionalRecipeView
         
     }
-    
-    
-}
 
-extension TraditionalRecipeViewController: TraditionalDelegate {
-    
-    func mergedStepsTapped(sender: TraditionalRecipeView) {
-        let mergedStepsViewController = MergedStepsViewController()
-        
-        navigationController?.pushViewController(mergedStepsViewController, animated: true)
-        print("go to merged steps pressed")
-        
-        
-        
-        
-    }
 }

@@ -40,6 +40,10 @@ class CheftyAPIClient {
                                 recipeInst.imageURL = unwrappedImageURL as String
                             }
                             
+                            if let unwrappedImageURLSmall = recipeDict["imageURLSmall"] {
+                                recipeInst.imageURLSmall = unwrappedImageURLSmall as String
+                            }
+                            
                             if let unwrappedServings = recipeDict["servings"] {
                                 recipeInst.servings = unwrappedServings as String
                             }
@@ -91,8 +95,6 @@ class CheftyAPIClient {
         let servingTime = calendarInst.date(from: componentsServingTime)!
         return servingTime
     }
-    
-    
 
     class func getStepsAndIngredients(recipeIDRequest: String, completion: @escaping () -> Void){
         let store = DataStore.sharedInstance

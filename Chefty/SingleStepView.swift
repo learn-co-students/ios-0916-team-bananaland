@@ -13,24 +13,26 @@ class SingleStepView: UIView {
     let store = DataStore.sharedInstance
     var sampleStep: Steps?
     var procedureBody: String = String()
-    var duration: String = String()
+    var duration: Int32 = Int32()
     var stepTitle: String = String()
 
     override init(frame:CGRect){
         super.init(frame: frame)
+        
         CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: "apple-pie") {
         
             // print the content of the requested recipe
 
 //            for recipe in self.store.recipes {
 //                if "apple-pie" == recipe.id {
+//                    print(recipe.imageURLSmall)
 //                    let allSteps = recipe.step?.allObjects as! [Steps]
 //                    for step in allSteps {
 //                        print("\n")
 //                        print("stepTitle: \(step.stepTitle!)")
 //                        print("stepNumber: \(step.stepNumber)")
-//                        print("timeToStart: \(step.timeToStart!)")
-//                        print("duration: \(step.duration!)")
+//                        print("timeToStart: \(step.timeToStart)")
+//                        print("duration: \(step.duration)")
 //                        print("fullAttentionRequired: \(step.fullAttentionRequired)")
 //                        print("procedure: \(step.procedure!)")
 //                        if let ingredientsAny = step.ingredient {
@@ -45,18 +47,18 @@ class SingleStepView: UIView {
 //                    }
 //                }
 //            }
-//        }
+
         
-        //  build an array of recipeSteps
-//          let stepsFromRecipe1:[Steps] = store.recipes.first!.step!.allObjects as! [Steps]
-//          let stepsFromRecipe2:[Steps] = store.recipes.last!.step!.allObjects as! [Steps]
-//          let stepsFromBothRecipes = stepsFromRecipe1 + stepsFromRecipe2
-//        
-//          print("stepsFromBothRecipes.count: \(stepsFromBothRecipes.count)")
-//        
-//          print("procedureFromStep: \(stepsFromBothRecipes.first?.procedure)")
-//        
-//          print("step's recipe: \(stepsFromBothRecipes.first?.recipe?.id)")
+          //build an array of recipeSteps
+          let stepsFromRecipe1:[Steps] = self.store.recipes.first!.step!.allObjects as! [Steps]
+          let stepsFromRecipe2:[Steps] = self.store.recipes.last!.step!.allObjects as! [Steps]
+          let stepsFromBothRecipes = stepsFromRecipe1 + stepsFromRecipe2
+        
+          print("stepsFromBothRecipes.count: \(stepsFromBothRecipes.count)")
+                    
+          print("procedureFromStep: \(stepsFromBothRecipes.first?.procedure)")
+        
+          print("step's recipe: \(stepsFromBothRecipes.first?.recipe?.id)")
         
             
             // get the steps
