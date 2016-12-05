@@ -19,29 +19,9 @@ class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
     weak var delegate: MyMenuTableViewCellDelegate?
     var gradientView: GradientView!
     var gradientViewLeftToRight: GradientViewLeftToRight!
-    //var servingTimeField:UITextField = UITextField()
     var recipeDescField:UITextField = UITextField()
     var imageViewInst:UIImageView = UIImageView()
     let deleteButton: UIButton = UIButton(type: .roundedRect)
-    
-//    var recipe: Recipe? {
-//        didSet {
-//            // set serving time
-//            let myFormatter = DateFormatter()
-//            myFormatter.timeStyle = .short
-//            
-//            var cellLabelStartTime = String()
-//            if let servingTime = recipe?.servingTime {
-//                cellLabelStartTime = myFormatter.string(from: servingTime as Date)
-//            }
-//            self.servingTimeField.text = "@ \(cellLabelStartTime)"
-//            
-//            // set displayName
-//            if let displayNameUnwrapped = recipe?.displayName {
-//                self.recipeDescField.text = "\(displayNameUnwrapped)                                  " // extra space pushes label left
-//            }
-//        }
-//    }
 
     override func awakeFromNib() { super.awakeFromNib() }
 
@@ -83,25 +63,13 @@ class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
         
         imageViewInst.translatesAutoresizingMaskIntoConstraints = false
         
-        // cell label
-        
-        // servingTime field
-//        self.servingTimeField.delegate = self
-//        self.servingTimeField.textColor = UIColor.white
-//        self.servingTimeField.font =  UIFont(name: Constants.appFont.bold.rawValue, size: CGFloat(Constants.fontSize.medium.rawValue))
-//        contentView.addSubview(self.servingTimeField)
-//        self.servingTimeField.widthAnchor.constraint(equalToConstant: 50)
-//        self.servingTimeField.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
-//        self.servingTimeField.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
-//        self.servingTimeField.translatesAutoresizingMaskIntoConstraints = false
-        
-        // recipeDesc field
+        // recipeDesc label
         self.recipeDescField.textColor = UIColor.white
         self.recipeDescField.isUserInteractionEnabled = false
         self.recipeDescField.font =  UIFont(name: Constants.appFont.bold.rawValue, size: CGFloat(Constants.fontSize.medium.rawValue))
         contentView.addSubview(self.recipeDescField)
-        self.recipeDescField.bottomAnchor.constraint(equalTo: servingTimeField.bottomAnchor).isActive = true
-        self.recipeDescField.leftAnchor.constraint(equalTo: servingTimeField.rightAnchor, constant: 10).isActive = true
+        self.recipeDescField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
+        self.recipeDescField.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10).isActive = true
         self.recipeDescField.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         self.recipeDescField.translatesAutoresizingMaskIntoConstraints = false
         
