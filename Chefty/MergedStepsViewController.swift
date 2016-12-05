@@ -20,6 +20,8 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("added time in View did load: \(addedTime)")
+        
         createViewAndTableView()
         
         getStepsFromRecipesSelected {
@@ -32,7 +34,11 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
             self.tableView.reloadData()
         }
         
+        print("added time in View did load after mergesteps: \(addedTime)")
+        
         calculateStartTime()
+        
+        print("added time in View did load after calculate start time: \(addedTime)")
         
     }
     
@@ -131,6 +137,8 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func calculateStartTime() {
+        print("added time at start of calculateStartTime = \(addedTime)")
+
         //function lives on open MyMenu
         let currentTime = Date()
         print("current time: \(currentTime)")
@@ -165,8 +173,9 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
             print("input time error, earliest serving time possible = \(servingTime)")
             startCookingTime = earliestPossibleServeTime?.addingTimeInterval(TimeInterval(totalCookingDurationSeconds)) as NSDate?
         }
+        
+        print("added time at end of calculateStartTime = \(addedTime)")
 
-    
     }
     
     
@@ -183,10 +192,10 @@ extension MergedStepsViewController {
     
     func mergeRecipeSteps() {
         
-        addedTime = 0
+        print("added time at start of mergeSteps = \(addedTime)")
         
         recipeSteps = self.recipeSteps.sorted { (step1: Steps, step2: Steps) -> Bool in
-            
+           
             //same start
             if step1.timeToStart == step2.timeToStart {
                 
@@ -236,8 +245,10 @@ extension MergedStepsViewController {
             
         }
         
+        print("added time at end of mergeSteps = \(addedTime)")
+
+        
     }
-    
     
 }
 
