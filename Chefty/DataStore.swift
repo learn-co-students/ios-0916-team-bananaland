@@ -28,6 +28,8 @@ class DataStore {
     var stepTotal: Int = 15
     var mergedStepsArray: [Steps] = []
     
+    var showNotification = false
+    
     func populateHomeArrays () {
         for recipe in recipes {
             switch recipe.type! {
