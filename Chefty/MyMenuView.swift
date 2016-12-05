@@ -193,7 +193,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             self.datePickerContainerViewOffScreenConstraint.isActive = false
             self.datePickerContainerViewOnScreenConstraint.isActive = true
             self.layoutIfNeeded()
-            
         })
     }
     

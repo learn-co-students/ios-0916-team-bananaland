@@ -20,6 +20,8 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         
         createViewAndTableView()
         
+        tableView.reloadData()
+        
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
