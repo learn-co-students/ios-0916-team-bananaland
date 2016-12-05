@@ -53,9 +53,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             for step in self.recipeSteps {
                 self.store.mergedStepsArray.append(step)
             }
-            self.calculateStartTime()
             print("store.mergedStepsArray.count \(self.store.mergedStepsArray.count)")
         }
+        
+        self.calculateStartTime()
         
         
         // format the time
@@ -329,8 +330,13 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         }
         print("final serving time = \(servingTime)")
         print("final start cooking time = \(startCookingTime)")
-        guard let finalStartCookingTime = startCookingTime else { return }
-        store.startCookingTime = "\(finalStartCookingTime)"
+        
+        let myFormatter = DateFormatter()
+        myFormatter.timeStyle = .short
+        if let startCookingTime = startCookingTime {
+            var finalStartCookingTime = myFormatter.string(from: startCookingTime as Date)
+            store.startCookingTime = "\(finalStartCookingTime)"
+        }
     }
 }
 
