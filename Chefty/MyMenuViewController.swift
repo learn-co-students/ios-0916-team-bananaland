@@ -44,16 +44,19 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         // set the notification message
         var notificationMessage = String()
         if store.recipesSelected.count == 1 {
-            notificationMessage = "Last time you were here, you selected one recipe, lets review it."
+            notificationMessage = "\nLast time you were here, you selected one recipe, lets review it.\n\n"
         } else if store.recipesSelected.count > 1 {
-            notificationMessage = "Last time you were here, you selected \(store.recipesSelected.count) recipes, lets review them."
+            notificationMessage = "\nLast time you were here, you selected \(store.recipesSelected.count) recipes, lets review them.\n\n"
         }
         
-        notificationManagerInst.showNotification(title: "Welcome Back to Chefty", body: notificationMessage, onTap: { () -> Void in
-            let _ = self.notificationManagerInst.dismissActiveNotification(completion: { () -> Void in
-                print("Notification dismissed")
+        if store.showNotification {
+            notificationManagerInst.showNotification(title: "Welcome Back to Chefty", body: notificationMessage, onTap: { () -> Void in
+                let _ = self.notificationManagerInst.dismissActiveNotification(completion: { () -> Void in
+                    print("Notification dismissed")
+                })
             })
-        })
+            store.showNotification = false  // only show notification when user enters the app
+        }
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
@@ -63,7 +66,9 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
 
     override func didReceiveMemoryWarning() { super.didReceiveMemoryWarning() }
     
-    override func loadView(){ self.view = myMenuViewInst }
+    override func loadView(){
+        self.view = myMenuViewInst
+    }
     
     func goToIngredients() {
         let ingredientsView = IngredientsController()
