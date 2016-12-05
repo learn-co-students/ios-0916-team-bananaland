@@ -22,6 +22,8 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         
         createViewAndTableView()
         
+        calculateStartTime()
+        
         getStepsFromRecipesSelected {
             self.mergeRecipeSteps()
             
@@ -128,52 +130,47 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
-//    func calculateStartTime() {
-//        //servingTime seems to change with each refresh??
-//        
-//        var firstServed = Recipe()
-//        
-//        for recipe in store.recipesSelected {
-//            guard let servingTime = recipe.servingTime else { return }
-//            print("servingTime: \(servingTime)")
-//        }
-    
-//        var sorted = store.recipesSelected.sort(by: { $0.servingTime?.compare($1.servingTime as! Date) == .orderedDescending })
-//        
-//        
-//        print("start times sorted: \(sorted)")
+    func calculateStartTime() {
         
-        // For each recipe, find serve time. Subtract each dish's full prep time. Find the earliest time. Subtract/add any addedTime. This is the start cooking time.
+        //find serving time for each recipe
+        for recipe in store.recipesSelected {
+            guard let servingTime = recipe.servingTime else { return }
+            print("servingTime: \(servingTime)")
+        }
+        
+        //find total prep time for each recipe
+        var array: [Int] = []
+        for recipe in store.recipesSelected { //4 recipes
+            var steps = recipe.step?.allObjects as! [Steps]
+            for step in steps {
+                var prepTime = step.duration
+                
+            }
+        }
         
         
         
         
-//        var totalTime = store.mergedStepsArray[0].timeToStart * -1
-//        
-//        totalTime += addedTime
+        //find start cooking time for each recipe --> subtract prep time from serving time
         
-//        print("total minutes: \(totalTime)")
-//        
-//        var hours = totalTime / 60
-//        
-//        print("hours: \(hours)")
-//        
-//        var minutes = totalTime - (60 * hours)
-//        
-//        print("minutes: \(minutes)")
-//        
-//        let calendarInst = Calendar(identifier: .gregorian)
-//        var componentsServingTime = DateComponents()
-//        componentsServingTime.year = calendarInst.component(.year, from: Date())
-//        componentsServingTime.month = calendarInst.component(.month, from: Date())
-//        componentsServingTime.day = calendarInst.component(.day, from: Date())
-//        componentsServingTime.hour = Int(hours)
-//        componentsServingTime.minute = Int(minutes)
-//        componentsServingTime.second = 00
-//        let servingTime = calendarInst.date(from: componentsServingTime)!
-//        
-//        print("saved as Date: \(servingTime)")
-//    }
+        //select earliest start cooking time
+        
+        //add any addedTime from mergedSteps()
+        
+        //this is the final Start Cooking Time
+        
+        
+        
+        
+        //        var sorted = store.recipesSelected.sort(by: { $0.servingTime?.compare($1.servingTime as! Date) == .orderedDescending })
+        //
+        //
+        //        print("start times sorted: \(sorted)")
+        
+        
+        
+        
+    }
     
     
 }
