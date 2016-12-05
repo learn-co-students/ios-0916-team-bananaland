@@ -151,6 +151,28 @@ class TraditionalRecipeView: UIView {
         bgView2.topAnchor.constraint(equalTo: myImageView.bottomAnchor, constant: 0).isActive = true
         bgView2.translatesAutoresizingMaskIntoConstraints = false
         
+        //Insert Person Icon
+        let personIcon = PersonIconView()
+        myScrollView.addSubview(personIcon)
+        
+        personIcon.leftAnchor.constraint(equalTo: myScrollView.leftAnchor, constant: 20).isActive = true
+        personIcon.topAnchor.constraint(equalTo: bgView2.topAnchor).isActive = true
+        personIcon.widthAnchor.constraint(equalTo: myScrollView.widthAnchor, multiplier: 0.1).isActive = true
+        personIcon.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        personIcon.translatesAutoresizingMaskIntoConstraints = false
+        
+        //Insert Clock Icon
+        let clockIcon = ClockIconView()
+        myScrollView.addSubview(clockIcon)
+        
+        clockIcon.leftAnchor.constraint(equalTo: myScrollView.leftAnchor, constant: 20).isActive = true
+        clockIcon.topAnchor.constraint(equalTo: personIcon.bottomAnchor).isActive = true
+        clockIcon.widthAnchor.constraint(equalTo: myScrollView.widthAnchor, multiplier: 0.1).isActive = true
+        clockIcon.bottomAnchor.constraint(equalTo: bgView2.bottomAnchor).isActive = true
+        clockIcon.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        clockIcon.translatesAutoresizingMaskIntoConstraints = false
+        
+        
         //SERVING SIZE AND ESTIMATED TIME INFO
         //create labels
         guard let servings = recipe.servings else { return }
@@ -172,14 +194,14 @@ class TraditionalRecipeView: UIView {
         myScrollView.addSubview(durationLabel)
         
         // constrain labels
-        servingSizeLabel.leftAnchor.constraint(equalTo: myScrollView.leftAnchor, constant: 20).isActive = true
+        servingSizeLabel.leftAnchor.constraint(equalTo: personIcon.rightAnchor, constant: 0).isActive = true
         servingSizeLabel.topAnchor.constraint(equalTo: bgView2.topAnchor).isActive = true
         servingSizeLabel.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true
         servingSizeLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         servingSizeLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        durationLabel.leftAnchor.constraint(equalTo: myScrollView.leftAnchor, constant: 20).isActive = true
-        durationLabel.topAnchor.constraint(equalTo: servingSizeLabel.bottomAnchor, constant: 0).isActive = true
+        durationLabel.leftAnchor.constraint(equalTo: clockIcon.rightAnchor, constant: 0).isActive = true
+        durationLabel.topAnchor.constraint(equalTo: servingSizeLabel.bottomAnchor).isActive = true
         durationLabel.bottomAnchor.constraint(equalTo: bgView2.bottomAnchor).isActive = true
         durationLabel.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true
         durationLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
@@ -192,6 +214,7 @@ class TraditionalRecipeView: UIView {
         ingredientsLabel.text = "Ingredients"
         ingredientsLabel.font = UIFont(name: "GillSans-Light", size: 25)
         ingredientsLabel.textAlignment = .center
+        ingredientsLabel.textColor = UIColor.black
         
         myScrollView.addSubview(ingredientsLabel)
         
@@ -233,11 +256,12 @@ class TraditionalRecipeView: UIView {
         stepsLabel.text = "Steps"
         stepsLabel.font = UIFont(name: "GillSans-Light", size: 25)
         stepsLabel.textAlignment = .center
+        stepsLabel.textColor = UIColor.white
         
         myScrollView.addSubview(stepsLabel)
         
         //constrain label
-        stepsLabel.backgroundColor = UIColor(red: 223/255.0, green: 218/255.0, blue: 197/255.0, alpha: 1.0)
+        stepsLabel.backgroundColor = UIColor(red: 132/255.0, green: 32/255.0, blue: 43/255.0, alpha: 1.0)
         stepsLabel.leftAnchor.constraint(equalTo: myScrollView.leftAnchor, constant: 0).isActive = true
         stepsLabel.topAnchor.constraint(equalTo: ingredientsText.bottomAnchor, constant: 0).isActive = true
         stepsLabel.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true
