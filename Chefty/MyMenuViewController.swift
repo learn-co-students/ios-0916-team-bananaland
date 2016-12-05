@@ -54,7 +54,6 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
                 print("Notification dismissed")
             })
         })
-        
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
