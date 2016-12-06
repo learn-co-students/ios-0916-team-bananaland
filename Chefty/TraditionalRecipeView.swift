@@ -191,7 +191,7 @@ class TraditionalRecipeView: UIView {
             totalTimeString = "\(totalTime) minutes"
         }
         durationLabel.text = "Estimated Total Time: \(totalTimeString)"
-        durationLabel.font = titleLabel.font.withSize(20)
+        durationLabel.font = durationLabel.font.withSize(20)
         durationLabel.textAlignment = .left
         
         myScrollView.addSubview(servingSizeLabel)
