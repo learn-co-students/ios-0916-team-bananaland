@@ -68,26 +68,19 @@ class SingleStepView: UIView {
 //            }
 //      } //end of closure
         
-        // iterate through the steps and get the next one
-        print("self.store.stepCurrent: \(self.store.stepCurrent)")
-
-        self.currentStepInst = self.store.mergedStepsArray[self.store.stepCurrent]
-
+        // assign the values from the current step to the controls
+        self.duration = self.store.mergedStepsArray[self.store.stepCurrent-1].duration
         
         // unwrap values
-        if let procedureBody = self.store.mergedStepsArray[self.store.stepCurrent].procedure {
+        if let procedureBody = self.store.mergedStepsArray[self.store.stepCurrent-1].procedure {
             self.procedureBody = procedureBody
         }
         
-        if let duration = self.currentStepInst?.duration {
-            self.duration = duration
-        }
-        
-        if let stepTitle = self.currentStepInst?.stepTitle {
+        if let stepTitle = self.store.mergedStepsArray[self.store.stepCurrent-1].stepTitle {
             self.stepTitle = stepTitle
         }
         
-        if let ingredientsAny = self.currentStepInst?.ingredient {
+        if let ingredientsAny = self.store.mergedStepsArray[self.store.stepCurrent-1].ingredient {
             // the ingredients are in an array of ingredients objects, extract the descriptions and place in a string for display
             let ingredientsArr = ingredientsAny.allObjects as? [Ingredient]
             if ingredientsArr?.isEmpty == false {
@@ -99,7 +92,7 @@ class SingleStepView: UIView {
             }
         }
         
-        if let url = self.currentStepInst?.recipe?.imageURLSmall {
+        if let url = self.store.mergedStepsArray[self.store.stepCurrent-1].recipe?.imageURLSmall {
             self.imageURLString = url
         }
         
@@ -136,7 +129,7 @@ class SingleStepView: UIView {
             self.doneButton.setTitleColor(UIColor(named: .disabledText), for: .disabled)
         } else {
             self.doneButton.isEnabled = true
-            self.doneButton.setTitleColor(self.tintColor, for: .normal)   //, for: .normal)
+            self.doneButton.setTitleColor(self.tintColor, for: .normal)
         }
         
         // add objects to the view
@@ -198,14 +191,11 @@ class SingleStepView: UIView {
         self.procedureBodyTextView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 7).isActive = true
         self.procedureBodyTextView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -7).isActive = true
         self.procedureBodyTextView.bottomAnchor.constraint(equalTo: self.doneButton.bottomAnchor, constant: -40).isActive = true
-        
-
     }
     
     func onClickNextStep(){
         if store.stepCurrent < self.store.mergedStepsArray.count {
             self.store.stepCurrent += 1
-            print("stepCurrent changed to \(self.store.stepCurrent)")
             self.delegate?.goToNextStep()
         }
     }

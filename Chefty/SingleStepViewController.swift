@@ -58,13 +58,14 @@ class SingleStepViewController: UIViewController, SingleStepDelegate {
     func goToNextStep(){
         // the current step value has been updated before this function was called, so refresh the view to show the new step
         if store.stepCurrent <= self.store.mergedStepsArray.count {
+            print("goToNextStep, store.stepCurrent: \(store.stepCurrent), self.store.mergedStepsArray.count: \(self.store.mergedStepsArray.count)")
             self.loadView()
             self.viewDidLoad()
             self.viewWillAppear(false)
             if self.store.stepCurrent == self.store.mergedStepsArray.count {
                 self.store.stepCurrent = 1 // reset step position
             }
-            print("goToNextStep, store.stepCurrent: \(store.stepCurrent), self.store.mergedStepsArray.count: \(self.store.mergedStepsArray.count)")
+            
         }
     }
     
