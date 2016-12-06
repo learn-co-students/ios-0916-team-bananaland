@@ -35,7 +35,6 @@ class SingleStepView: UIView {
     let doneButton: UIButton = UIButton()
 
     override init(frame:CGRect){
-        print("init view")
         super.init(frame: frame)
         
 //        CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: "apple-pie") {
@@ -104,7 +103,7 @@ class SingleStepView: UIView {
         self.recipeUIImageView.contentMode = .scaleAspectFill
         self.recipeUIImageView.sd_setImage(with: url)
         
-        self.timeRemaingLabel.text = "Time remaining in step \(self.store.stepCurrent): \(self.duration) minutes."
+        self.timeRemaingLabel.text = "Time allotted for this step: \(self.duration) min."
         self.timeRemaingLabel.font = UIFont(name: Constants.appFont.regular.rawValue, size: Constants.fontSize.xsmall.rawValue)
         
         self.ingredientsTitle.text = "Ingredients"
@@ -121,15 +120,17 @@ class SingleStepView: UIView {
         let range = NSMakeRange(self.procedureBodyTextView.text.characters.count - 1, 0)
         self.procedureBodyTextView.scrollRangeToVisible(range)
         
-        self.doneButton.setTitle("Completed Procedure, Go to Step \(self.store.stepCurrent + 1)", for: .normal)
+        
         self.doneButton.titleLabel!.font =  UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.small.rawValue))
         self.doneButton.addTarget(self, action: #selector(SingleStepView.onClickNextStep), for: .touchUpInside)
         if self.store.stepCurrent == self.store.mergedStepsArray.count { // if on the last step, disable to next step button
             self.doneButton.isEnabled = false
             self.doneButton.setTitleColor(UIColor(named: .disabledText), for: .disabled)
+            self.doneButton.setTitle("All steps complete.", for: .normal)
         } else {
             self.doneButton.isEnabled = true
             self.doneButton.setTitleColor(self.tintColor, for: .normal)
+            self.doneButton.setTitle("Completed procedure, go to step \(self.store.stepCurrent + 1)", for: .normal)
         }
         
         // add objects to the view
@@ -144,12 +145,10 @@ class SingleStepView: UIView {
         
         // constrain the objects
         self.recipeUIImageView.translatesAutoresizingMaskIntoConstraints = false
-        self.recipeUIImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 60).isActive = true
+        self.recipeUIImageView.topAnchor.constraint(equalTo: self.topAnchor, constant: 64).isActive = true
         self.recipeUIImageView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        self.recipeUIImageView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.2).isActive = true
-        self.recipeUIImageView.heightAnchor.constraint(lessThanOrEqualToConstant: 200).isActive = true
-        self.recipeUIImageView.contentMode = UIViewContentMode.scaleAspectFill
-        self.recipeUIImageView.backgroundColor = UIColor.brown
+        self.recipeUIImageView.heightAnchor.constraint(equalToConstant: 120).isActive = true
+        self.recipeUIImageView.widthAnchor.constraint(equalToConstant: 120).isActive = true
         
         self.stepTitleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.stepTitleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 100).isActive = true
@@ -167,7 +166,7 @@ class SingleStepView: UIView {
         self.ingredientsTitle.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
         self.ingredientsTitle.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         if let text = self.ingredientsBody.text {
-            text.isEmpty ? self.ingredientsTitle.text = "" : print("ingredients exist")
+            text.isEmpty ? self.ingredientsTitle.text = "" : ()
         }
         
         self.ingredientsBody.translatesAutoresizingMaskIntoConstraints = false

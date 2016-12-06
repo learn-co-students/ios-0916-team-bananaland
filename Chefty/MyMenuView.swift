@@ -46,19 +46,16 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     override init(frame:CGRect){
         super.init(frame: frame)
         
-        self.getStepsFromRecipesSelected {
-            print("done gettting steps from recipes")
-            self.mergeRecipeSteps()
+        if self.store.mergedStepsArray.isEmpty {
+            self.getStepsFromRecipesSelected {
+                self.mergeRecipeSteps()
             
-            for step in self.recipeSteps {
-                self.store.mergedStepsArray.append(step)
+                for step in self.recipeSteps {
+                    self.store.mergedStepsArray.append(step)
+                }
             }
-            
-            print("store.mergedStepsArray.count \(self.store.mergedStepsArray.count)")
-            
         }
         //self.calculateStartTime()
-        
         
         // format the time
         let myFormatter = DateFormatter()
@@ -221,9 +218,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             }
         }
     }
-    
 
-        
     func mergeRecipeSteps() {
         
         print("added time at start of mergeRecipeSteps = \(self.addedTime)")
@@ -280,7 +275,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         }
         
         print("added time at end of mergeSteps = \(self.addedTime)")
-        
         
     }
     
