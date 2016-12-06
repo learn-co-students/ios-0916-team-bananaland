@@ -68,18 +68,18 @@ class SingleStepView: UIView {
 //      } //end of closure
         
         // assign the values from the current step to the controls
-        self.duration = self.store.mergedStepsArray[self.store.stepCurrent-1].duration
+        self.duration = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].duration
         
         // unwrap values
-        if let procedureBody = self.store.mergedStepsArray[self.store.stepCurrent-1].procedure {
+        if let procedureBody = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].procedure {
             self.procedureBody = procedureBody
         }
         
-        if let stepTitle = self.store.mergedStepsArray[self.store.stepCurrent-1].stepTitle {
+        if let stepTitle = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].stepTitle {
             self.stepTitle = stepTitle
         }
         
-        if let ingredientsAny = self.store.mergedStepsArray[self.store.stepCurrent-1].ingredient {
+        if let ingredientsAny = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].ingredient {
             // the ingredients are in an array of ingredients objects, extract the descriptions and place in a string for display
             let ingredientsArr = ingredientsAny.allObjects as? [Ingredient]
             if ingredientsArr?.isEmpty == false {
@@ -91,7 +91,7 @@ class SingleStepView: UIView {
             }
         }
         
-        if let url = self.store.mergedStepsArray[self.store.stepCurrent-1].recipe?.imageURLSmall {
+        if let url = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].recipe?.imageURLSmall {
             self.imageURLString = url
         }
         
@@ -119,18 +119,19 @@ class SingleStepView: UIView {
         self.procedureBodyTextView.font =  UIFont(name: Constants.appFont.regular.rawValue, size: Constants.fontSize.small.rawValue)
         let range = NSMakeRange(self.procedureBodyTextView.text.characters.count - 1, 0)
         self.procedureBodyTextView.scrollRangeToVisible(range)
+        self.procedureBodyTextView.isUserInteractionEnabled = false
         
         
         self.doneButton.titleLabel!.font =  UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.small.rawValue))
         self.doneButton.addTarget(self, action: #selector(SingleStepView.onClickNextStep), for: .touchUpInside)
-        if self.store.stepCurrent == self.store.mergedStepsArray.count { // if on the last step, disable to next step button
+        if UserDefaults.standard.integer(forKey: "stepCurrent") == self.store.mergedStepsArray.count { // if on the last step, disable to next step button
             self.doneButton.isEnabled = false
             self.doneButton.setTitleColor(UIColor(named: .disabledText), for: .disabled)
             self.doneButton.setTitle("All steps complete.", for: .normal)
         } else {
             self.doneButton.isEnabled = true
             self.doneButton.setTitleColor(self.tintColor, for: .normal)
-            self.doneButton.setTitle("Completed procedure, go to step \(self.store.stepCurrent + 1)", for: .normal)
+            self.doneButton.setTitle("Completed procedure, go to step \(UserDefaults.standard.integer(forKey: "stepCurrent") + 1)", for: .normal)
         }
         
         // add objects to the view
@@ -193,8 +194,9 @@ class SingleStepView: UIView {
     }
     
     func onClickNextStep(){
-        if store.stepCurrent < self.store.mergedStepsArray.count {
-            self.store.stepCurrent += 1
+        if UserDefaults.standard.integer(forKey: "stepCurrent") < self.store.mergedStepsArray.count {
+            let nextStep = UserDefaults.standard.integer(forKey: "stepCurrent") + 1
+            UserDefaults.standard.set(nextStep, forKey: "stepCurrent")
             self.delegate?.goToNextStep()
         }
     }
