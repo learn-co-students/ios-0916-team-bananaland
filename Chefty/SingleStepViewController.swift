@@ -13,7 +13,7 @@ class SingleStepViewController: UIViewController, SingleStepDelegate {
     var singleStepViewInst: SingleStepView!
     let store = DataStore.sharedInstance
 
-    override func viewDidLoad() {
+    override func viewDidLoad(){
         super.viewDidLoad()
         singleStepViewInst.delegate = self
         
@@ -35,15 +35,13 @@ class SingleStepViewController: UIViewController, SingleStepDelegate {
         self.view = self.singleStepViewInst
     }
 
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning(){
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
-    
-    override func viewWillAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool){
         self.navigationController?.navigationBar.topItem?.title = "My Menu"
-        self.title = "Step \(store.stepCurrent) of \(store.stepTotal)"
+        self.title = "Step \(store.stepCurrent) of \(self.store.mergedStepsArray.count)"
     }
     
     func goToMyMenu(){
@@ -58,14 +56,13 @@ class SingleStepViewController: UIViewController, SingleStepDelegate {
     
     func goToNextStep(){
         // the current step value has been updated before this function was called, so refresh the view to show the new step
-        if store.stepCurrent <= store.stepTotal {
+        if store.stepCurrent <= self.store.mergedStepsArray.count{
             self.loadView()
             self.viewDidLoad()
             self.viewWillAppear(false)
-            if self.store.stepCurrent == self.store.stepTotal {
+            if self.store.stepCurrent == self.store.mergedStepsArray.count{
                 self.store.stepCurrent = 1 // reset step position
             }
         }
     }
-
 }

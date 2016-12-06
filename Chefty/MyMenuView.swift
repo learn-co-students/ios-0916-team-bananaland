@@ -51,23 +51,16 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     override init(frame:CGRect){
         super.init(frame: frame)
         
-        self.setUpElements()
-        
-        self.getStepsFromRecipesSelected {
-            self.mergeRecipeSteps()
-            
-            for step in self.recipeSteps {
-                self.store.mergedStepsArray.append(step)
+        if self.store.mergedStepsArray.isEmpty {
+            self.getStepsFromRecipesSelected {
+                self.mergeRecipeSteps()
+                for step in self.recipeSteps {
+                    self.store.mergedStepsArray.append(step)
+                }
             }
         }
         
         self.calculateStartTime()
-        
-    }
-    
-    
-    //Set Up Functions
-    func setUpElements() {
         
         // format the time
         let myFormatter = DateFormatter()
@@ -245,10 +238,9 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         }
     }
     
-    
-    
-    ///Merged Steps 
-    
+
+    //Merged Steps Set Up
+
     func getStepsFromRecipesSelected(completion: @escaping () -> ()) {
         self.recipeSteps.removeAll()
         for singleRecipe in store.recipesSelected {
@@ -262,10 +254,9 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         completion()
     }
     
-    
     func mergeRecipeSteps() {
         
-        print("added time at start of mergeSteps = \(self.addedTime)")
+        print("added time at start of mergeRecipeSteps = \(self.addedTime)")
         
         self.recipeSteps = self.recipeSteps.sorted { (step1: Steps, step2: Steps) -> Bool in
             
@@ -313,10 +304,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         }
         
         print("added time at end of mergeSteps = \(self.addedTime)")
-        
     }
-    
-    
     
     func calculateStartTime() {
         

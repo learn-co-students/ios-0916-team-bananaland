@@ -25,7 +25,6 @@ class DataStore {
     var desserts: [Recipe] = []
     
     var stepCurrent: Int = 1
-    var stepTotal: Int = 15
     var mergedStepsArray: [Steps] = []
     var startCookingTime: String = ""
     
@@ -61,20 +60,6 @@ class DataStore {
         }
     }
     
-    
-    
-    func fillRecipeStepsArray(completion: @escaping () -> ()) {
-        
-        CheftyAPIClient.getRecipiesFromDB { _ in
-            
-            completion()
-
-        }
-        
-       
-    }
-    
-    
     lazy var persistentContainer: NSPersistentContainer = {
         
         let container = NSPersistentContainer(name: "Chefty") // name must match model file
@@ -107,11 +92,9 @@ class DataStore {
         
         do {
             self.recipes = try context.fetch(recipeRequest)
-            //print("self.recipes.count: \(self.recipes.count)")
         } catch let error {
             print("Error fetching data: \(error)")
         }
-        print("get Recipes from core data in data store")
     }
     
     
