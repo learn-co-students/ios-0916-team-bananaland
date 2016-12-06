@@ -20,7 +20,6 @@ class TraditionalRecipeView: UIView {
     var totalTime: Int = 0
     var gradientView : GradientView!
     
-    
     init(frame:CGRect, recipe: Recipe){
         super.init(frame: frame)
         
@@ -116,30 +115,21 @@ class TraditionalRecipeView: UIView {
         let imageURL = URL(string: recipe.imageURL!)
         myImageView.sd_setImage(with: imageURL!)
         
-        //        do {
-        //            let data = try Data(contentsOf: imageURL!)
-        //            if data.isEmpty == false {
-        //                myImageView.image = UIImage(data: data)
-        //            }
-        //        } catch {
-        //            print("error: no image")
-        //        }
-        
         //RECIPE TITLE
         //create title label
-        let titleLabel = UILabel()
-        titleLabel.text = recipe.displayName
-        titleLabel.numberOfLines = 0
-        titleLabel.font = UIFont(name: "GillSans-Light", size: 25)
-        titleLabel.textColor = UIColor.white
-        titleLabel.textAlignment = .center
-        myScrollView.addSubview(titleLabel)
+        let recipeLabel = UILabel()
+        recipeLabel.text = recipe.displayName
+        recipeLabel.numberOfLines = 0
+        recipeLabel.font = UIFont(name: "GillSans-Light", size: 25)
+        recipeLabel.textColor = UIColor.white
+        recipeLabel.textAlignment = .center
+        myScrollView.addSubview(recipeLabel)
         
         // constrain label
-        titleLabel.bottomAnchor.constraint(equalTo: myImageView.bottomAnchor).isActive = true
-        titleLabel.widthAnchor.constraint(equalTo: myImageView.widthAnchor, multiplier: 1.0).isActive = true
-        titleLabel.heightAnchor.constraint(equalTo: myImageView.heightAnchor, multiplier: 0.2).isActive = true
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        recipeLabel.bottomAnchor.constraint(equalTo: myImageView.bottomAnchor).isActive = true
+        recipeLabel.widthAnchor.constraint(equalTo: myImageView.widthAnchor, multiplier: 1.0).isActive = true
+        recipeLabel.heightAnchor.constraint(equalTo: myImageView.heightAnchor, multiplier: 0.2).isActive = true
+        recipeLabel.translatesAutoresizingMaskIntoConstraints = false
         
         //
         let bgView2 = UIView()
@@ -180,14 +170,13 @@ class TraditionalRecipeView: UIView {
         
         servingSizeLabel.text = "Serving Size: \(servings)"
         servingSizeLabel.textColor = UIColor.white
-        servingSizeLabel.font = titleLabel.font.withSize(20)
+        servingSizeLabel.font = UIFont(name: "GillSans-Light", size: 20)
         servingSizeLabel.textAlignment = .left
         
         let durationLabel = UILabel()
-        
         durationLabel.textColor = UIColor.white
         durationLabel.text = "Estimated Total Time: \(totalTime) minutes"
-        durationLabel.font = titleLabel.font.withSize(20)
+        durationLabel.font = UIFont(name: "GillSans-Light", size: 20)
         durationLabel.textAlignment = .left
         
         myScrollView.addSubview(servingSizeLabel)
@@ -241,9 +230,9 @@ class TraditionalRecipeView: UIView {
         ingredientsFrame.size.height = ingredientsContentSize.height
         ingredientsText.frame = ingredientsFrame
         
-        ingredientsText.leftAnchor.constraint(equalTo: myScrollView.leftAnchor, constant: 20).isActive = true
         ingredientsText.topAnchor.constraint(equalTo: ingredientsLabel.bottomAnchor).isActive = true
-        ingredientsText.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true
+        ingredientsText.widthAnchor.constraint(equalTo: myScrollView.widthAnchor, multiplier: 0.9).isActive = true
+        ingredientsText.centerXAnchor.constraint(equalTo: myScrollView.centerXAnchor).isActive = true
         ingredientsText.heightAnchor.constraint(equalToConstant: ingredientsText.frame.size.height).isActive = true
         ingredientsText.translatesAutoresizingMaskIntoConstraints = false
         ingredientsText.isScrollEnabled = false
@@ -267,8 +256,7 @@ class TraditionalRecipeView: UIView {
         stepsLabel.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true
         stepsLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         stepsLabel.translatesAutoresizingMaskIntoConstraints = false
-        
-        
+       
         //STEPS TEXT BOX
         //create textbox
         let stepsText = UITextView()
@@ -279,9 +267,9 @@ class TraditionalRecipeView: UIView {
         myScrollView.addSubview(stepsText)
         
         //constrain textbox
-        stepsText.leftAnchor.constraint(equalTo: myScrollView.leftAnchor, constant: 20).isActive = true
+        stepsText.centerXAnchor.constraint(equalTo: myScrollView.centerXAnchor).isActive = true
         stepsText.topAnchor.constraint(equalTo: stepsLabel.bottomAnchor).isActive = true
-        stepsText.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true
+        stepsText.widthAnchor.constraint(equalTo: myScrollView.widthAnchor, multiplier: 0.9).isActive = true
         
         stepsText.translatesAutoresizingMaskIntoConstraints = false
         stepsText.isScrollEnabled = false
@@ -293,6 +281,7 @@ class TraditionalRecipeView: UIView {
         slideButton.titleLabel?.font = UIFont(name: "GillSans-Light", size: 25)
         slideButton.titleLabel?.textColor = UIColor.white
         slideButton.backgroundColor = UIColor(red: 54/255.0, green: 30/255.0, blue: 43/255.0, alpha: 1.0)
+        slideButton.addTarget(self, action: #selector(self.infoClick), for: .touchUpInside)
         
         slideButton.topAnchor.constraint(equalTo: stepsText.bottomAnchor).isActive = true
         slideButton.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true
@@ -304,6 +293,33 @@ class TraditionalRecipeView: UIView {
     
 }
 
+
+extension TraditionalRecipeView {
+    
+    func infoClick()  {
+        
+        let storyboard: UIStoryboard = UIStoryboard (name: "Main", bundle: nil)
+        let vc: RecipePageViewController = storyboard.instantiateViewController(withIdentifier: "recipePVC") as! RecipePageViewController
+        let currentController = self.getCurrentViewController()
+        vc.steps = ingredientsArray
+        currentController?.present(vc, animated: false, completion: nil)
+        
+    }
+    
+    func getCurrentViewController() -> UIViewController? {
+        
+        if let rootController = UIApplication.shared.keyWindow?.rootViewController {
+            var currentController: UIViewController! = rootController
+            while( currentController.presentedViewController != nil ) {
+                currentController = currentController.presentedViewController
+            }
+            return currentController
+        }
+        return nil
+        
+    }
+    
+}
 
 
 

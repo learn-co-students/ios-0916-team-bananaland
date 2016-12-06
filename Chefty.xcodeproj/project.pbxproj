@@ -17,6 +17,8 @@
 		A70054E01DF60AB600427FB8 /* PersonIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70054DF1DF60AB600427FB8 /* PersonIconView.swift */; };
 		A70054E21DF60D6A00427FB8 /* ClockIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70054E11DF60D6A00427FB8 /* ClockIcon.swift */; };
 		A70054E41DF60D9900427FB8 /* ClockIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70054E31DF60D9900427FB8 /* ClockIconView.swift */; };
+		A70054EA1DF6242200427FB8 /* RecipePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70054E91DF6242200427FB8 /* RecipePageViewController.swift */; };
+		A70054EC1DF70A5400427FB8 /* SlidesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70054EB1DF70A5400427FB8 /* SlidesViewController.swift */; };
 		A72DBEAB1DE4DA6900867C86 /* MainDishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72DBEAA1DE4DA6900867C86 /* MainDishViewController.swift */; };
 		A72DBEAD1DE4DB0400867C86 /* AppetizerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72DBEAC1DE4DB0400867C86 /* AppetizerViewController.swift */; };
 		A72DBEAF1DE4DB8700867C86 /* DessertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72DBEAE1DE4DB8700867C86 /* DessertViewController.swift */; };
@@ -107,6 +109,8 @@
 		A70054DF1DF60AB600427FB8 /* PersonIconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonIconView.swift; sourceTree = "<group>"; };
 		A70054E11DF60D6A00427FB8 /* ClockIcon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockIcon.swift; sourceTree = "<group>"; };
 		A70054E31DF60D9900427FB8 /* ClockIconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockIconView.swift; sourceTree = "<group>"; };
+		A70054E91DF6242200427FB8 /* RecipePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipePageViewController.swift; sourceTree = "<group>"; };
+		A70054EB1DF70A5400427FB8 /* SlidesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlidesViewController.swift; sourceTree = "<group>"; };
 		A72DBEA31DE4A75F00867C86 /* Chefty-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Chefty-Bridging-Header.h"; sourceTree = "<group>"; };
 		A72DBEAA1DE4DA6900867C86 /* MainDishViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainDishViewController.swift; sourceTree = "<group>"; };
 		A72DBEAC1DE4DB0400867C86 /* AppetizerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppetizerViewController.swift; sourceTree = "<group>"; };
@@ -339,6 +343,8 @@
 				A7BE01441DEFC9A8009F65B1 /* TestMenuTableViewController.swift */,
 				A7BE01521DF0BBD7009F65B1 /* NewTestTraditionalRecipeViewController.swift */,
 				A7BE01581DF0D2E2009F65B1 /* TestIngredientsViewController.swift */,
+				A70054E91DF6242200427FB8 /* RecipePageViewController.swift */,
+				A70054EB1DF70A5400427FB8 /* SlidesViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -587,6 +593,8 @@
 				A7BE013B1DEF8683009F65B1 /* StyleKitName.swift in Sources */,
 				A70054E41DF60D9900427FB8 /* ClockIconView.swift in Sources */,
 				C0D2E5121DEC779500070E78 /* SingleStepViewController.swift in Sources */,
+				A70054EC1DF70A5400427FB8 /* SlidesViewController.swift in Sources */,
+				A70054EA1DF6242200427FB8 /* RecipePageViewController.swift in Sources */,
 				A7BE013A1DEF8683009F65B1 /* SlidesButton.swift in Sources */,
 				714EBD5C1DDE340800C0857A /* TraditionalRecipeView.swift in Sources */,
 				A72DBEAB1DE4DA6900867C86 /* MainDishViewController.swift in Sources */,

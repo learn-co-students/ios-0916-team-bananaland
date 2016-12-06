@@ -77,7 +77,7 @@ extension DessertViewController : UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let testView = TestTraditionalRecipeViewController()
+        let testView = TraditionalRecipeViewController()
         testView.recipe = store.desserts[indexPath.row]
         testView.modalTransitionStyle = .crossDissolve
         present(testView, animated: true, completion: nil)

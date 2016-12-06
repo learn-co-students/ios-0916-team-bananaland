@@ -45,7 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        self.window!.rootViewController = navigationController
 //        self.window!.backgroundColor = UIColor.white
 //        self.window!.makeKeyAndVisible()
-
+//
         return true
         
     }

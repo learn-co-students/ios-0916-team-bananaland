@@ -13,10 +13,8 @@ class TraditionalRecipeViewController: UIViewController {
     var traditionalRecipeView: TraditionalRecipeView!
     var recipe: Recipe?
     var backButton : BackButton!
-    var slideButton : SlidesButton!
     var addButton : AddButton!
     var isSelected = false
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,26 +51,11 @@ extension TraditionalRecipeViewController {
         backButton.isUserInteractionEnabled = true
         self.view.addSubview(backButton)
         
-        //Add Instruction Slides
-        let frame = CGRect(x: 0.0, y: 0.0, width: view.bounds.width * 0.7, height: view.bounds.height * 0.10)
-        slideButton = SlidesButton(frame: frame)
-        slideButton.center.y = view.center.y * 1.85
-        slideButton.center.x = view.center.x
-        slideButton.titleLabel?.text = "TEST BUTTON"
-        slideButton.titleLabel?.textColor = UIColor.white
-        slideButton.isUserInteractionEnabled = true
-        slideButton.addTarget(self, action: #selector(self.slideButtonTapped(sender:)), for: .touchUpInside)
-        self.view.addSubview(slideButton)
-        
         let frame2 = CGRect(x: 300, y: 20, width: 60, height: 60)
         addButton = AddButton(frame: frame2)
         addButton.addTarget(self, action: #selector(self.addButtonTapped(sender:)), for: .touchUpInside)
         self.view.addSubview(addButton)
         
-    }
-    
-    func slideButtonTapped(sender: UIButton!) {
-        print("GO TO SLIDESHOW")
     }
     
     func backButtonTapped(sender: UIButton) {
@@ -96,4 +79,6 @@ extension TraditionalRecipeViewController {
         
     }
 
+    
+    
 }
