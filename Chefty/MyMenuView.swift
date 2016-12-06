@@ -26,6 +26,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     var recipeForTraditionalRecipeView: Recipe?
     var textFieldBeingEdited: UITextField = UITextField()
     var timePicker: UIDatePicker = UIDatePicker()
+    var earliestPossibleServeTime: Date = Date()
     
     let datePickerContainerView = UIView()
     let servingTimeView = UIView()
@@ -117,8 +118,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.timePicker.backgroundColor = UIColor.white
         self.timePicker.layer.shadowOpacity = 0.5
         self.timePicker.datePickerMode = .time
-        self.timePicker.minimumDate = Date()  // change to earliest serve time when available
+        self.timePicker.minimumDate = self.earliestPossibleServeTime  // change to earliest serve time when available
         self.timePicker.minuteInterval = 15
+        
+        print("earliestPossibleServeTime: \(self.earliestPossibleServeTime)")
     }
     
     func doneClickTimePicker() {
@@ -304,8 +307,8 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         print("total cooking time: \(totalCookingDuration)")
         
         //earliest possible serving time = current time + total cooking time
-        let earliestPossibleServeTime = calendar.date(byAdding: .minute, value: Int(totalCookingDuration), to: currentTime)
-        print("earliest serve time: \(earliestPossibleServeTime)")
+        self.earliestPossibleServeTime = calendar.date(byAdding: .minute, value: Int(totalCookingDuration), to: currentTime)!
+        print("earliest serve time: \(self.earliestPossibleServeTime)")
         
         //start cooking time = serving time - total cooking duration
         let totalCookingDurationSeconds = totalCookingDuration * -60
@@ -314,14 +317,14 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         
         //check that serving time is greater than earliest possible serving time
         // --> if yes, servingTime & start cooking time will work, so don't change
-        if servingTime?.compare(earliestPossibleServeTime! as Date) == ComparisonResult.orderedDescending || servingTime?.compare(earliestPossibleServeTime! as Date) == ComparisonResult.orderedSame {
+        if servingTime?.compare(self.earliestPossibleServeTime as Date) == ComparisonResult.orderedDescending || servingTime?.compare(self.earliestPossibleServeTime as Date) == ComparisonResult.orderedSame {
             print("start cooking time and serving time remains the same")
             
         } else {
             // --> if no, serving time = earliest possible serving time, start cooking time = earliest possible serving time - total duration
             servingTime = earliestPossibleServeTime as NSDate?
             print("input time error, earliest serving time possible = \(servingTime)")
-            startCookingTime = earliestPossibleServeTime?.addingTimeInterval(TimeInterval(totalCookingDurationSeconds)) as NSDate?
+            startCookingTime = self.earliestPossibleServeTime.addingTimeInterval(TimeInterval(totalCookingDurationSeconds)) as NSDate?
         }
         print("final serving time = \(servingTime)")
         print("final start cooking time = \(startCookingTime)")
