@@ -87,7 +87,7 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         self.present(cheftyMainViewController1, animated: false, completion: nil)
     }
     
-    func goToRecipe(){
+    func goToRecipe(){ 
         let traditionalRecipeViewController1 = TraditionalRecipeViewController()
         traditionalRecipeViewController1.recipe = self.myMenuViewInst.recipeForTraditionalRecipeView
         navigationController?.pushViewController(traditionalRecipeViewController1, animated: true) // show destination with nav bar
@@ -100,7 +100,6 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         }
         let singleStepViewControllerInst = SingleStepViewController()
         navigationController?.pushViewController(singleStepViewControllerInst, animated: false) // show destination with nav bar
-        
     }
     
     func clearAllRecipes() {

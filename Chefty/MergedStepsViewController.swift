@@ -52,6 +52,15 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        UserDefaults.standard.set(indexPath.row + 1, forKey: "stepCurrent")
+        let singleStepView = SingleStepViewController()
+        navigationController?.pushViewController(singleStepView, animated: false)
+    }
+    
+
+    
+    
     func createViewAndTableView(){
         tableView.delegate = self
         tableView.dataSource = self
