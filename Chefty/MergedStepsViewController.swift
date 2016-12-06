@@ -27,7 +27,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewWillAppear(_ animated: Bool = false) {
         self.title = "Merged Recipe Steps"
         self.tableView.reloadData()
-        print("reloading data on view will appear")
     }
     
     override func didReceiveMemoryWarning() {
@@ -50,6 +49,13 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         }
         self.getImage(recipe: store.mergedStepsArray[indexPath.row].recipe!, imageView: cell.imageViewInst, view: cell)
         return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        UserDefaults.standard.set(indexPath.row + 1, forKey: "stepCurrent")
+        let singleStepView = SingleStepViewController()
+        navigationController?.pushViewController(singleStepView, animated: false)
     }
     
     

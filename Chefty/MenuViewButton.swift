@@ -8,7 +8,7 @@
 
 import Foundation
 
-@IBDesignable
+
 class MenuViewButton : UIButton {
     
     override func draw(_ rect: CGRect) {

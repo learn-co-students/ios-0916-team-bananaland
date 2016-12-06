@@ -73,10 +73,10 @@ extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let testView = TestTraditionalRecipeViewController()
-        testView.modalTransitionStyle = .crossDissolve
-        testView.recipe = store.main[indexPath.row]
-        present(testView, animated: true, completion: nil)
+        let recipeView = TraditionalRecipeViewController()
+        recipeView.modalTransitionStyle = .crossDissolve
+        recipeView.recipe = store.main[indexPath.row]
+        present(recipeView, animated: true, completion: nil)
                 
     }
     

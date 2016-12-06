@@ -41,6 +41,7 @@ struct Constants{
     enum appFont: String {
         case regular =  "HelveticaNeue"
         case bold =     "HelveticaNeue-Bold"
+        case light =    "GillSans-Light"
     }
 }
 
