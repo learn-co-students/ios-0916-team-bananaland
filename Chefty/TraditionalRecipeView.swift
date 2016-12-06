@@ -18,6 +18,7 @@ class TraditionalRecipeView: UIView {
     var combinedSteps: String = ""
     var combinedIngredients: String = ""
     var totalTime: Int = 0
+    var totalTimeString = ""
     
 
     init(frame:CGRect, recipe: Recipe){
@@ -53,7 +54,6 @@ class TraditionalRecipeView: UIView {
             stepsArray.append(procedure)
             
             totalTime += Int(step.duration)
-        
             
             guard let stepIngredient = step.ingredient else { return }
             
@@ -143,7 +143,19 @@ class TraditionalRecipeView: UIView {
         servingSizeLabel.textAlignment = .left
         
         let durationLabel = UILabel()
-        durationLabel.text = "Estimated Total Time: \(totalTime) minutes"
+        var hours = 0
+        var minutes = 0
+        if totalTime % 60 == 0 {
+            hours = totalTime / 60
+            totalTimeString = "\(hours) hours"
+        } else if totalTime > 60 {
+            hours = totalTime / 60
+            minutes = totalTime - (hours * 60)
+            totalTimeString = "\(hours) hours and \(minutes) minutes"
+        } else {
+            totalTimeString = "\(totalTime) minutes"
+        }
+        durationLabel.text = "Estimated Total Time: \(totalTimeString)"
         durationLabel.font = titleLabel.font.withSize(20)
         durationLabel.textAlignment = .left
         
