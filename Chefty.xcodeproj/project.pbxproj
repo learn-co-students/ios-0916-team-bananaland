@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01957BDF1DF5EB2600F19DA7 /* IngredientsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01957BDE1DF5EB2600F19DA7 /* IngredientsTableViewCell.swift */; };
 		01A830B31DDF82330064B9CE /* IngredientsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A830B21DDF82330064B9CE /* IngredientsController.swift */; };
 		6E4E91AA419B90E48D983D4C /* Pods_Chefty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F99EB0E7E4778030CC432A72 /* Pods_Chefty.framework */; };
 		714EBD5C1DDE340800C0857A /* TraditionalRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714EBD5B1DDE340800C0857A /* TraditionalRecipeView.swift */; };
@@ -92,6 +93,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		01957BDE1DF5EB2600F19DA7 /* IngredientsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsTableViewCell.swift; sourceTree = "<group>"; };
 		01A830B21DDF82330064B9CE /* IngredientsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsController.swift; sourceTree = "<group>"; };
 		45466194089BC863FFF4F44A /* Pods-Chefty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chefty.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chefty/Pods-Chefty.debug.xcconfig"; sourceTree = "<group>"; };
 		714EBD5B1DDE340800C0857A /* TraditionalRecipeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraditionalRecipeView.swift; sourceTree = "<group>"; };
@@ -299,6 +301,7 @@
 			children = (
 				714EBD5B1DDE340800C0857A /* TraditionalRecipeView.swift */,
 				71BDEA871DF33E890070EE12 /* MergedStepsTableViewCell.swift */,
+				01957BDE1DF5EB2600F19DA7 /* IngredientsTableViewCell.swift */,
 				A7C1E22C1DDE579D00BD8A13 /* HomePage */,
 				C054B2A11DE11C4A00F4DEB1 /* MyMenu */,
 				A7DCBF721DE5FAD100AA7629 /* TestTraditionalRecipeView.swift */,
@@ -558,6 +561,7 @@
 				C0252C631DDD16EA00046AD0 /* MyMenuViewController.swift in Sources */,
 				A7C1E1B71DDCD97300BD8A13 /* AppDelegate.swift in Sources */,
 				A7BE013E1DEF8698009F65B1 /* CheftyMainViewController.swift in Sources */,
+				01957BDF1DF5EB2600F19DA7 /* IngredientsTableViewCell.swift in Sources */,
 				A7BE01491DF0A950009F65B1 /* CookItButton.swift in Sources */,
 				C0AAB5431DDE64970055DF8B /* DataStore.swift in Sources */,
 				A7DCBF731DE5FAD100AA7629 /* TestTraditionalRecipeView.swift in Sources */,
