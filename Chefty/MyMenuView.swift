@@ -142,6 +142,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         }
         self.store.saveRecipesContext()
         
+        // recalculate start cooking time
         calculateStartTime()
     }
     
@@ -193,14 +194,30 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     }
     
     func updateTableViewNow() {
-        print("updating tableview!")
+        
+        //***TODO: why doesn't this actually update the table view on merged steps?
+        print("updateTableViewNow is starting!")
+        print("mergedSteps BEFORE updateTableView is complete: \(self.store.mergedStepsArray.count)")
+        print("recipe selected size BEFORE updateTableView is complete: \(self.store.recipesSelected.count)")
         self.getStepsFromRecipesSelected {
+            
+            print("regrabbing recipe steps inside UpdateTableViewNow")
+            
+            self.recipeSteps.removeAll()
+            
             self.mergeRecipeSteps()
+            
+            print("re merging recipe steps inside UPdate TableView Now")
             
             for step in self.recipeSteps {
                 self.store.mergedStepsArray.append(step)
             }
+            
+            print("mergedSteps AFTER updateTableView is complete: \(self.store.mergedStepsArray.count)")
         }
+        
+        calculateStartTime()
+        print("recalculating start time after changes to my menu table view")
         
         self.tableView.reloadData()
     }
@@ -266,7 +283,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     func mergeRecipeSteps() {
         
-        print("added time at start of mergeRecipeSteps = \(self.addedTime)")
+        //print("added time at start of mergeRecipeSteps = \(self.addedTime)")
         
         self.recipeSteps = self.recipeSteps.sorted { (step1: Steps, step2: Steps) -> Bool in
             
@@ -313,7 +330,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             
         }
         
-        print("added time at end of mergeSteps = \(self.addedTime)")
+        //print("added time at end of mergeSteps = \(self.addedTime)")
     }
     
     
