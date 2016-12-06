@@ -48,6 +48,8 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     var openSingleStepButton: UIBarButtonItem = UIBarButtonItem(title: "Open Step", style: .plain , target: self, action: #selector(clickOpenStep))
     
     
+    
+    
     //Initialize
     override init(frame:CGRect){
         super.init(frame: frame)
@@ -66,13 +68,22 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         
         calculateStartTime()
         
-        
         // format the time
         let myFormatter = DateFormatter()
         myFormatter.timeStyle = .short
         
-        if let servingTime = store.recipesSelected[0].servingTime {
-            self.servingTimeValue = myFormatter.string(from: servingTime as Date)
+        // set serving time to 7pm or earliest serving time, whichever is later
+        if let recipeSelected = store.recipesSelected.first {
+            if (recipeSelected.servingTime?.timeIntervalSince1970)! < self.earliestPossibleServeTime.timeIntervalSince1970 && UserDefaults.standard.integer(forKey: "stepCurrent") == 0 {
+                //print("serving time is invalid, change it to earlies serving time")
+                for recipeSelected2 in store.recipesSelected {
+                    recipeSelected2.servingTime = self.earliestPossibleServeTime as NSDate?
+                    store.saveRecipesContext()
+                }
+            } else {
+                //print("serving time is valid or stepCurrent > 0")
+            }
+            self.servingTimeValue = myFormatter.string(from: recipeSelected.servingTime as! Date)
             self.servingTimeValue = "Serving Time: " + self.servingTimeValue
         }
         
@@ -128,7 +139,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.timePicker.minimumDate = self.earliestPossibleServeTime  // change to earliest serve time when available
         self.timePicker.minuteInterval = 15
         
-        print("earliestPossibleServeTime: \(self.earliestPossibleServeTime)")
+
     }
     
     
@@ -343,8 +354,8 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             //print("total cooking time: \(totalCookingDuration)")
             
             //earliest possible serving time = current time + total cooking time
-            let earliestPossibleServeTime = calendar.date(byAdding: .minute, value: Int(totalCookingDuration), to: currentTime)
-            //print("earliest serve time: \(earliestPossibleServeTime)")
+            self.earliestPossibleServeTime = calendar.date(byAdding: .minute, value: Int(totalCookingDuration), to: currentTime)!
+            //print("earliest serve time: \(self.earliestPossibleServeTime)")
             
             //start cooking time = serving time - total cooking duration
             let totalCookingDurationSeconds = totalCookingDuration * -60
@@ -353,14 +364,14 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             
             //check that serving time is greater than earliest possible serving time
             // --> if yes, servingTime & start cooking time will work, so don't change
-            if servingTime?.compare(earliestPossibleServeTime! as Date) == ComparisonResult.orderedDescending || servingTime?.compare(earliestPossibleServeTime! as Date) == ComparisonResult.orderedSame {
+            if servingTime?.compare(self.earliestPossibleServeTime as Date) == ComparisonResult.orderedDescending || servingTime?.compare(self.earliestPossibleServeTime as Date) == ComparisonResult.orderedSame {
                 //print("start cooking time and serving time remains the same")
                 
             } else {
                 // --> if no, serving time = earliest possible serving time, start cooking time = earliest possible serving time - total duration
                 servingTime = earliestPossibleServeTime as NSDate?
                 //print("input time error, earliest serving time possible = \(servingTime)")
-                startCookingTime = earliestPossibleServeTime?.addingTimeInterval(TimeInterval(totalCookingDurationSeconds)) as NSDate?
+                startCookingTime = self.earliestPossibleServeTime.addingTimeInterval(TimeInterval(totalCookingDurationSeconds)) as NSDate?
             }
             //print("final serving time = \(servingTime)")
             //print("final start cooking time = \(startCookingTime)")
