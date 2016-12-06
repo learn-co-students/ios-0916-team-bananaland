@@ -73,9 +73,6 @@
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LAh-4A-X0D">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <connections>
-                                    <segue destination="KGd-7D-m2d" kind="embed" id="kkW-Ww-vVq"/>
-                                </connections>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f07-VE-eUp" userLabel="BackBtn" customClass="BackButton" customModule="Chefty" customModuleProvider="target">
                                 <rect key="frame" x="16" y="20" width="60" height="60"/>
@@ -127,67 +124,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Ii-UE-xJn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-168" y="-20"/>
-        </scene>
-        <!--Test Menu Table View Controller-->
-        <scene sceneID="CEW-Dz-aXG">
-            <objects>
-                <tableViewController id="KGd-7D-m2d" customClass="TestMenuTableViewController" customModule="Chefty" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="309" sectionHeaderHeight="28" sectionFooterHeight="28" id="kQ9-Bx-bU4">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="309" id="vqf-Jw-pfG" customClass="TestMenuTableViewCell" customModule="Chefty" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="320" height="309"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vqf-Jw-pfG" id="oEv-zO-FeR">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="308"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YbW-hZ-Uvo">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="308"/>
-                                        </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qaX-to-OnA">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="308"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.17834974315068494" colorSpace="calibratedWhite"/>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDn-GQ-KhO">
-                                            <rect key="frame" x="0.0" y="123" width="320" height="62"/>
-                                            <fontDescription key="fontDescription" name="GillSans-Light" family="Gill Sans" pointSize="25"/>
-                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="gDn-GQ-KhO" firstAttribute="width" secondItem="oEv-zO-FeR" secondAttribute="width" id="FYp-rS-PK8"/>
-                                        <constraint firstItem="YbW-hZ-Uvo" firstAttribute="centerX" secondItem="oEv-zO-FeR" secondAttribute="centerX" id="Jup-Hl-WWt"/>
-                                        <constraint firstItem="qaX-to-OnA" firstAttribute="centerY" secondItem="oEv-zO-FeR" secondAttribute="centerY" id="Sbs-wb-M2d"/>
-                                        <constraint firstItem="gDn-GQ-KhO" firstAttribute="centerY" secondItem="oEv-zO-FeR" secondAttribute="centerY" id="SjN-kw-U8e"/>
-                                        <constraint firstItem="gDn-GQ-KhO" firstAttribute="centerX" secondItem="oEv-zO-FeR" secondAttribute="centerX" id="chT-Wt-Rk3"/>
-                                        <constraint firstItem="YbW-hZ-Uvo" firstAttribute="width" secondItem="oEv-zO-FeR" secondAttribute="width" id="gSk-5a-P6F"/>
-                                        <constraint firstItem="qaX-to-OnA" firstAttribute="width" secondItem="oEv-zO-FeR" secondAttribute="width" id="gdD-XG-xtV"/>
-                                        <constraint firstItem="qaX-to-OnA" firstAttribute="height" secondItem="oEv-zO-FeR" secondAttribute="height" id="k5d-tO-mrW"/>
-                                        <constraint firstItem="YbW-hZ-Uvo" firstAttribute="centerY" secondItem="oEv-zO-FeR" secondAttribute="centerY" id="lQL-7o-vws"/>
-                                        <constraint firstItem="qaX-to-OnA" firstAttribute="centerX" secondItem="oEv-zO-FeR" secondAttribute="centerX" id="n1D-pv-x5N"/>
-                                        <constraint firstItem="YbW-hZ-Uvo" firstAttribute="height" secondItem="oEv-zO-FeR" secondAttribute="height" id="ndk-M0-yCV"/>
-                                        <constraint firstItem="gDn-GQ-KhO" firstAttribute="height" secondItem="oEv-zO-FeR" secondAttribute="height" multiplier="0.2" id="zzh-Pr-vUT"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="recipeLabel" destination="gDn-GQ-KhO" id="Krb-Mp-5Zs"/>
-                                    <outlet property="selectedRecipeImage" destination="YbW-hZ-Uvo" id="Iog-tv-iGm"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="KGd-7D-m2d" id="zQ0-y3-i7p"/>
-                            <outlet property="delegate" destination="KGd-7D-m2d" id="E4P-Rj-Cyz"/>
-                        </connections>
-                    </tableView>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CEi-7G-I58" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-168.11594202898553" y="726.35869565217399"/>
         </scene>
         <!--Recipe Page View Controller-->
         <scene sceneID="noL-m6-6Pe">
@@ -288,7 +224,6 @@
                                         </constraints>
                                         <connections>
                                             <action selector="cookButtonTapped:" destination="Yk5-ZK-6pz" eventType="touchUpInside" id="Szo-pC-TeE"/>
-                                            <segue destination="w2k-zh-geE" kind="presentation" modalTransitionStyle="crossDissolve" id="ieZ-Xl-nVt"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -421,8 +356,23 @@
             </objects>
             <point key="canvasLocation" x="-984" y="726"/>
         </scene>
+        <!--My Menu View Controller-->
+        <scene sceneID="sdt-AR-mnG">
+            <objects>
+                <viewController id="7zU-VT-fao" customClass="MyMenuViewController" customModule="Chefty" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="cjS-9j-zFT"/>
+                        <viewControllerLayoutGuide type="bottom" id="Yu9-LK-I1h"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mbU-eP-N2N">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hrw-Jc-CJA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-172" y="733"/>
+        </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="tLv-5K-krh"/>
-    </inferredMetricsTieBreakers>
 </document>

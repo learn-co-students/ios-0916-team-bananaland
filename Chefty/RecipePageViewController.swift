@@ -10,9 +10,10 @@ import UIKit
 
 class RecipePageViewController: UIViewController {
     
-    var scrollView : UIScrollView!
-    var pageControl : UIPageControl!
-    var page = [ViewCon]
+//    var scrollView : UIScrollView!
+//    var pageControl : UIPageControl!
+//    var page = [ViewCon]
+      var steps = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()

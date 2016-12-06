@@ -19,11 +19,11 @@
 		A70054E41DF60D9900427FB8 /* ClockIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70054E31DF60D9900427FB8 /* ClockIconView.swift */; };
 		A70054EA1DF6242200427FB8 /* RecipePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70054E91DF6242200427FB8 /* RecipePageViewController.swift */; };
 		A70054EC1DF70A5400427FB8 /* SlidesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70054EB1DF70A5400427FB8 /* SlidesViewController.swift */; };
+		A70054EF1DF7261300427FB8 /* TestMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70054EE1DF7261300427FB8 /* TestMenuView.swift */; };
 		A72DBEAB1DE4DA6900867C86 /* MainDishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72DBEAA1DE4DA6900867C86 /* MainDishViewController.swift */; };
 		A72DBEAD1DE4DB0400867C86 /* AppetizerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72DBEAC1DE4DB0400867C86 /* AppetizerViewController.swift */; };
 		A72DBEAF1DE4DB8700867C86 /* DessertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72DBEAE1DE4DB8700867C86 /* DessertViewController.swift */; };
 		A72DBEB11DE4DBD700867C86 /* SidesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72DBEB01DE4DBD700867C86 /* SidesViewController.swift */; };
-		A79D470C1DF1CEC8008380A3 /* TestDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A79D470B1DF1CEC8008380A3 /* TestDataViewController.swift */; };
 		A7B968F11DEF0B7D003C6116 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7B968F01DEF0B7D003C6116 /* Main.storyboard */; };
 		A7BCACC61DEC7E8D00DC317C /* MenuViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BCACC51DEC7E8D00DC317C /* MenuViewButton.swift */; };
 		A7BE01371DEF8683009F65B1 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE01321DEF8683009F65B1 /* BackButton.swift */; };
@@ -34,7 +34,7 @@
 		A7BE013E1DEF8698009F65B1 /* CheftyMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE013C1DEF8698009F65B1 /* CheftyMainViewController.swift */; };
 		A7BE01411DEF9420009F65B1 /* CookButtonStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE01401DEF9420009F65B1 /* CookButtonStyleKit.swift */; };
 		A7BE01431DEF950F009F65B1 /* CookButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE01421DEF950F009F65B1 /* CookButton.swift */; };
-		A7BE01451DEFC9A8009F65B1 /* TestMenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE01441DEFC9A8009F65B1 /* TestMenuTableViewController.swift */; };
+		A7BE01451DEFC9A8009F65B1 /* TestMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE01441DEFC9A8009F65B1 /* TestMenuViewController.swift */; };
 		A7BE01471DEFCB59009F65B1 /* TestMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE01461DEFCB59009F65B1 /* TestMenuTableViewCell.swift */; };
 		A7BE01491DF0A950009F65B1 /* CookItButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE01481DF0A950009F65B1 /* CookItButton.swift */; };
 		A7BE014B1DF0A971009F65B1 /* CookItButtonStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE014A1DF0A971009F65B1 /* CookItButtonStyleKit.swift */; };
@@ -55,7 +55,6 @@
 		A7C1E2361DDE611600BD8A13 /* RecipeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C1E2351DDE611600BD8A13 /* RecipeCollectionViewCell.swift */; };
 		A7C9D3F31DDF849900EA5637 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C9D3F21DDF849900EA5637 /* GradientView.swift */; };
 		A7DCBF731DE5FAD100AA7629 /* TestTraditionalRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DCBF721DE5FAD100AA7629 /* TestTraditionalRecipeView.swift */; };
-		A7DCBF751DE5FD1700AA7629 /* TestTraditionalRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DCBF741DE5FD1700AA7629 /* TestTraditionalRecipeViewController.swift */; };
 		A7DCBF771DE64E9600AA7629 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DCBF761DE64E9600AA7629 /* ContainerViewController.swift */; };
 		A7DCBF791DE951A100AA7629 /* SelectedRecipeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DCBF781DE951A100AA7629 /* SelectedRecipeButton.swift */; };
 		C0252C631DDD16EA00046AD0 /* MyMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0252C621DDD16EA00046AD0 /* MyMenuViewController.swift */; };
@@ -111,12 +110,12 @@
 		A70054E31DF60D9900427FB8 /* ClockIconView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClockIconView.swift; sourceTree = "<group>"; };
 		A70054E91DF6242200427FB8 /* RecipePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipePageViewController.swift; sourceTree = "<group>"; };
 		A70054EB1DF70A5400427FB8 /* SlidesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlidesViewController.swift; sourceTree = "<group>"; };
+		A70054EE1DF7261300427FB8 /* TestMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMenuView.swift; sourceTree = "<group>"; };
 		A72DBEA31DE4A75F00867C86 /* Chefty-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Chefty-Bridging-Header.h"; sourceTree = "<group>"; };
 		A72DBEAA1DE4DA6900867C86 /* MainDishViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainDishViewController.swift; sourceTree = "<group>"; };
 		A72DBEAC1DE4DB0400867C86 /* AppetizerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppetizerViewController.swift; sourceTree = "<group>"; };
 		A72DBEAE1DE4DB8700867C86 /* DessertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DessertViewController.swift; sourceTree = "<group>"; };
 		A72DBEB01DE4DBD700867C86 /* SidesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidesViewController.swift; sourceTree = "<group>"; };
-		A79D470B1DF1CEC8008380A3 /* TestDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestDataViewController.swift; sourceTree = "<group>"; };
 		A7B968F01DEF0B7D003C6116 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		A7BCACC51DEC7E8D00DC317C /* MenuViewButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewButton.swift; sourceTree = "<group>"; };
 		A7BE01321DEF8683009F65B1 /* BackButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
@@ -127,7 +126,7 @@
 		A7BE013C1DEF8698009F65B1 /* CheftyMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheftyMainViewController.swift; sourceTree = "<group>"; };
 		A7BE01401DEF9420009F65B1 /* CookButtonStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CookButtonStyleKit.swift; sourceTree = "<group>"; };
 		A7BE01421DEF950F009F65B1 /* CookButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CookButton.swift; sourceTree = "<group>"; };
-		A7BE01441DEFC9A8009F65B1 /* TestMenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMenuTableViewController.swift; sourceTree = "<group>"; };
+		A7BE01441DEFC9A8009F65B1 /* TestMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMenuViewController.swift; sourceTree = "<group>"; };
 		A7BE01461DEFCB59009F65B1 /* TestMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMenuTableViewCell.swift; sourceTree = "<group>"; };
 		A7BE01481DF0A950009F65B1 /* CookItButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CookItButton.swift; sourceTree = "<group>"; };
 		A7BE014A1DF0A971009F65B1 /* CookItButtonStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CookItButtonStyleKit.swift; sourceTree = "<group>"; };
@@ -150,7 +149,6 @@
 		A7C1E2351DDE611600BD8A13 /* RecipeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCollectionViewCell.swift; sourceTree = "<group>"; };
 		A7C9D3F21DDF849900EA5637 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		A7DCBF721DE5FAD100AA7629 /* TestTraditionalRecipeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTraditionalRecipeView.swift; sourceTree = "<group>"; };
-		A7DCBF741DE5FD1700AA7629 /* TestTraditionalRecipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTraditionalRecipeViewController.swift; sourceTree = "<group>"; };
 		A7DCBF761DE64E9600AA7629 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		A7DCBF781DE951A100AA7629 /* SelectedRecipeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedRecipeButton.swift; sourceTree = "<group>"; };
 		A9984F50016543896BA81B7F /* Pods-Chefty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chefty.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chefty/Pods-Chefty.release.xcconfig"; sourceTree = "<group>"; };
@@ -222,6 +220,16 @@
 				F99EB0E7E4778030CC432A72 /* Pods_Chefty.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A70054ED1DF725E900427FB8 /* TestFiles */ = {
+			isa = PBXGroup;
+			children = (
+				A70054EE1DF7261300427FB8 /* TestMenuView.swift */,
+				A7BE01461DEFCB59009F65B1 /* TestMenuTableViewCell.swift */,
+				A7BE01441DEFC9A8009F65B1 /* TestMenuViewController.swift */,
+			);
+			name = TestFiles;
 			sourceTree = "<group>";
 		};
 		A72DBEA21DE4A74E00867C86 /* Supporting Files */ = {
@@ -296,7 +304,6 @@
 				A7BCACC51DEC7E8D00DC317C /* MenuViewButton.swift */,
 				A7BE01401DEF9420009F65B1 /* CookButtonStyleKit.swift */,
 				A7BE01421DEF950F009F65B1 /* CookButton.swift */,
-				A7BE01461DEFCB59009F65B1 /* TestMenuTableViewCell.swift */,
 				A7BE01481DF0A950009F65B1 /* CookItButton.swift */,
 				A7BE014A1DF0A971009F65B1 /* CookItButtonStyleKit.swift */,
 				A7BE014C1DF0ABE1009F65B1 /* BackButtonStyleKit.swift */,
@@ -315,6 +322,7 @@
 		C0252C5D1DDCF93900046AD0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A70054ED1DF725E900427FB8 /* TestFiles */,
 				A7C1E22C1DDE579D00BD8A13 /* HomePage */,
 				C054B2A11DE11C4A00F4DEB1 /* MyMenu */,
 				714EBD5B1DDE340800C0857A /* TraditionalRecipeView.swift */,
@@ -330,8 +338,6 @@
 			children = (
 				A7C0B4551DE4ECBA0091E80C /* Recipe Categories */,
 				A7BE013C1DEF8698009F65B1 /* CheftyMainViewController.swift */,
-				A79D470B1DF1CEC8008380A3 /* TestDataViewController.swift */,
-				A7DCBF741DE5FD1700AA7629 /* TestTraditionalRecipeViewController.swift */,
 				71E655C31DDCE61700B60E0B /* TraditionalRecipeViewController.swift */,
 				717B57D91DECB539000F30CA /* MergedStepsViewController.swift */,
 				C0252C621DDD16EA00046AD0 /* MyMenuViewController.swift */,
@@ -340,7 +346,6 @@
 				A7C0B4561DE4ECE10091E80C /* RecipeTabViewController.swift */,
 				01A830B21DDF82330064B9CE /* IngredientsController.swift */,
 				A7DCBF761DE64E9600AA7629 /* ContainerViewController.swift */,
-				A7BE01441DEFC9A8009F65B1 /* TestMenuTableViewController.swift */,
 				A7BE01521DF0BBD7009F65B1 /* NewTestTraditionalRecipeViewController.swift */,
 				A7BE01581DF0D2E2009F65B1 /* TestIngredientsViewController.swift */,
 				A70054E91DF6242200427FB8 /* RecipePageViewController.swift */,
@@ -564,15 +569,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A79D470C1DF1CEC8008380A3 /* TestDataViewController.swift in Sources */,
 				A7BE014F1DF0B60B009F65B1 /* AddButtonStyleKit.swift in Sources */,
 				C0252C651DDD171A00046AD0 /* MyMenuView.swift in Sources */,
-				A7DCBF751DE5FD1700AA7629 /* TestTraditionalRecipeViewController.swift in Sources */,
 				A7BE01571DF0D0F0009F65B1 /* ShowIngredientButton.swift in Sources */,
 				A7BE01531DF0BBD7009F65B1 /* NewTestTraditionalRecipeViewController.swift in Sources */,
 				A7BE01471DEFCB59009F65B1 /* TestMenuTableViewCell.swift in Sources */,
 				C08F8B941DE34A940092144F /* Chefty.xcdatamodeld in Sources */,
-				A7BE01451DEFC9A8009F65B1 /* TestMenuTableViewController.swift in Sources */,
+				A7BE01451DEFC9A8009F65B1 /* TestMenuViewController.swift in Sources */,
 				A7BE01431DEF950F009F65B1 /* CookButton.swift in Sources */,
 				A7C1E2341DDE5D6F00BD8A13 /* CustomLayoutView.swift in Sources */,
 				A7BE01391DEF8683009F65B1 /* SegmentedControl.swift in Sources */,
@@ -611,6 +614,7 @@
 				A7C0B4571DE4ECE10091E80C /* RecipeTabViewController.swift in Sources */,
 				A7BE01511DF0B66D009F65B1 /* AddButton.swift in Sources */,
 				A7C1E2361DDE611600BD8A13 /* RecipeCollectionViewCell.swift in Sources */,
+				A70054EF1DF7261300427FB8 /* TestMenuView.swift in Sources */,
 				A7C1E2321DDE5BC200BD8A13 /* HomePageViewController.swift in Sources */,
 				A72DBEB11DE4DBD700867C86 /* SidesViewController.swift in Sources */,
 				01A830B31DDF82330064B9CE /* IngredientsController.swift in Sources */,
