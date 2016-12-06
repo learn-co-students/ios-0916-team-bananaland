@@ -31,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearace.barTintColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.headingbackground.rawValue)!)
         navigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName : UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.titleGreen.rawValue)!)]
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
+        store.showNotification = true
         
         print("TOTAL: \(self.store.recipes.count)")
         print("MAINS: \(self.store.main.count)")

@@ -17,6 +17,8 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
     var arrayOfSectionIDs = [String]()
     var arrayOfIngredientsGlobal = [[String]]()
     var arrayOfSectionLabels = [String]()
+    var selectedSection = -1
+    var isExpanded = false
     //var ingredientsPerRecipeSorted = [Ingredient]()
     
     
@@ -108,12 +110,37 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
     
     
     func numberOfSections(in tableView: UITableView) -> Int {
+        
         return store.recipesSelected.count
     }
     
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
         return store.recipesSelected[section].displayName
     }
+    
+    
+    func tableView(_ tableView: UITableView, didEndDisplayingHeaderView view: UIView, forSection section: Int) {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tappedHeader))
+        
+        tapGesture.numberOfTapsRequired = 1
+        
+        view.addGestureRecognizer(tapGesture)
+        view.tag = section
+
+    }
+    
+    func tappedHeader(sender: UITapGestureRecognizer) {
+        if isExpanded {
+            selectedSection = -1
+            isExpanded = false
+        } else {
+            selectedSection = (sender.view?.tag)!
+        }
+        tableView.reloadData()
+    }
+    
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
@@ -121,7 +148,7 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-        header.contentView.backgroundColor = UIColor(red: 150/255, green: 0/255, blue: 10/255, alpha: 1.0)
+        header.contentView.backgroundColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.deepPurple.rawValue)!)
         header.textLabel?.textColor = UIColor(red: 255/255, green: 255/255, blue: 238/255, alpha: 1.0)
         header.textLabel?.font = UIFont(name: "GillSans-Light", size: 24)
         header.alpha = 0.8
@@ -135,13 +162,22 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ingredientsPerRecipeSorted[section].count
+        
+        if selectedSection > -1 {
+            return ingredientsPerRecipeSorted[section].count
+            
+           
+        }
+        
+        return 0
+            
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = IngredientsTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "listCell")
         let ingredient = ingredientsPerRecipeSorted[indexPath.section][indexPath.row]
+        
         
         cell.selectionStyle = .none
         cell.textLabel?.text = ingredient.ingredientDescription
@@ -155,11 +191,12 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         
         return cell
     }
-    
+
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+
         print("did select")
         let ingredient = ingredientsPerRecipeSorted[indexPath.section][indexPath.row]
         
@@ -174,6 +211,8 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         tableView.reloadData()
         
     }
+    
+    
     
     
 }

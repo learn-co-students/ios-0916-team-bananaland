@@ -44,27 +44,38 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         // set the notification message
         var notificationMessage = String()
         if store.recipesSelected.count == 1 {
-            notificationMessage = "Last time you were here, you selected one recipe, lets review it."
+            notificationMessage = "\nLast time you were here, you selected one recipe, lets review it.\n\n"
         } else if store.recipesSelected.count > 1 {
-            notificationMessage = "Last time you were here, you selected \(store.recipesSelected.count) recipes, lets review them."
+            notificationMessage = "\nLast time you were here, you selected \(store.recipesSelected.count) recipes, lets review them.\n\n"
         }
         
-        notificationManagerInst.showNotification(title: "Welcome Back to Chefty", body: notificationMessage, onTap: { () -> Void in
-            let _ = self.notificationManagerInst.dismissActiveNotification(completion: { () -> Void in
-                print("Notification dismissed")
+        if store.showNotification {
+            notificationManagerInst.showNotification(title: "Welcome Back to Chefty", body: notificationMessage, onTap: { () -> Void in
+                let _ = self.notificationManagerInst.dismissActiveNotification(completion: { () -> Void in
+                    print("Notification dismissed")
+                })
             })
-        })
-        
+            store.showNotification = false  // only show notification when user enters the app
+        }
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
         self.title = "My Menu"
-        self.myMenuViewInst.openSingleStepButton.title = "Open Step \(self.store.stepCurrent)"
+        // adjust the button label if the step value is 0
+        var stepValueForButton:Int = 1
+        if UserDefaults.standard.integer(forKey: "stepCurrent") == 0 {
+            stepValueForButton = 1
+        } else {
+            stepValueForButton = UserDefaults.standard.integer(forKey: "stepCurrent")
+        }
+        self.myMenuViewInst.openSingleStepButton.title = "Open Step \(stepValueForButton)"
     }
 
     override func didReceiveMemoryWarning() { super.didReceiveMemoryWarning() }
     
-    override func loadView(){ self.view = myMenuViewInst }
+    override func loadView(){
+        self.view = myMenuViewInst
+    }
     
     func goToIngredients() {
         let ingredientsView = IngredientsController()
@@ -83,6 +94,10 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     }
     
     func goToSingleStep(){
+        // if on step 0, advance to step 1
+        if UserDefaults.standard.integer(forKey: "stepCurrent") == 0 {
+            UserDefaults.standard.set(1, forKey: "stepCurrent")
+        }
         let singleStepViewControllerInst = SingleStepViewController()
         navigationController?.pushViewController(singleStepViewControllerInst, animated: false) // show destination with nav bar
     }
