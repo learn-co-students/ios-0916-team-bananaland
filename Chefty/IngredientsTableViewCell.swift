@@ -15,7 +15,6 @@ class IngredientsTableViewCell: UITableViewCell {
     let checkedBox: UIImage = UIImage()
     
     
-    
     required init(coder aDecoder: NSCoder) { fatalError("init(coder:)") }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -42,8 +41,6 @@ class IngredientsTableViewCell: UITableViewCell {
         textLabel?.adjustsFontSizeToFitWidth = true
        
     }
-    
-
     
 }
 

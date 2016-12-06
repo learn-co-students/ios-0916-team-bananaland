@@ -9,10 +9,6 @@
 import UIKit
 import CoreData
 
-//protocol CollapsibleTableViewHeaderDelegate {
-//    func toggleSection(header: CollapsibleTableViewHeader, section: Int)
-//}
-
 class IngredientsController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let store = DataStore.sharedInstance
@@ -21,7 +17,6 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
     var arrayOfSectionIDs = [String]()
     var arrayOfIngredientsGlobal = [[String]]()
     var arrayOfSectionLabels = [String]()
-    //var collapsed = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,18 +82,6 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         return store.recipesSelected.count
     }
     
-//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let header = tableView.dequeueReusableCell(withIdentifier: "header") as? CollapsibleTableViewHeader
-//        header?.titleLabel.text = store.recipesSelected[section].displayName
-//        header?.arrowLabel.text = ">"
-//        header.setCollapsed(store.recipesSelected[section].displayName.collapsed)
-//        
-//        header.section = section
-//        header.delegate = self
-//        
-//        return header
-//    }
-    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return store.recipesSelected[section].displayName
     }
@@ -147,15 +130,16 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        print("did select")
         let ingredient = ingredientsPerRecipe[indexPath.section][indexPath.row]
         
         if ingredient.isChecked {
             ingredient.isChecked = false
             store.saveRecipesContext()
+            print("un-checked item")
         } else {
             ingredient.isChecked = true
             store.saveRecipesContext()
+            print("checked item")
         }
         
         tableView.reloadData()
@@ -163,67 +147,3 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
     }
     
 }
-
-
-//class CollapsibleTableViewHeader: UITableViewHeaderFooterView {
-//    let titleLabel = UILabel()
-//    let arrowLabel = UILabel()
-//    
-//    override init(reuseIdentifier: String?) {
-//        super.init(reuseIdentifier: reuseIdentifier)
-//        
-//        contentView.addSubview(titleLabel)
-//        contentView.addSubview(arrowLabel)
-//    }
-//    
-//    required init(coder aDecoder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-//    
-//    class CollapsibleTableViewHeader: UITableViewHeaderFooterView {
-//        var delegate: CollapsibleTableViewHeaderDelegate?
-//        var section: Int = 0
-//        
-//        override init(reuseIdentifier: String?) {
-//            super.init(reuseIdentifier: reuseIdentifier)
-//            
-//            addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tapHeader)))
-//        }
-//        
-//        required init?(coder aDecoder: NSCoder) {
-//            fatalError("init(coder:) has not been implemented")
-//        }
-//        
-//        func tapHeader(gestureRecognizer: UITapGestureRecognizer) {
-//            guard let cell = gestureRecognizer.view as? CollapsibleTableViewHeader else {
-//                return
-//            }
-//            delegate?.toggleSection(header: self, section: cell.section)
-//        }
-//        
-//        func setCollapsed(collapsed: Bool) {
-//            // Animate the arrow rotation (see Extensions.swf)
-//            arrowLabel.rotate(collapsed ? 0.0 : CGFloat(M_PI_2))
-//        }
-//    }
-//
-//}
-
-
-//extension CollapsibleTableViewController: CollapsibleTableViewHeaderDelegate {
-//    func toggleSection(header: CollapsibleTableViewHeader, section: Int) {
-//        let collapsed = !sections[section].collapsed
-//        
-//        // Toggle collapse
-//        sections[section].collapsed = collapsed
-//        header.setCollapsed(collapsed)
-//        
-//        // Adjust the height of the rows inside the section
-//        tableView.beginUpdates()
-//        for i in 0 ..< sections[section].items.count {
-//            tableView.reloadRowsAtIndexPaths([NSIndexPath(forRow: i, inSection: section)], withRowAnimation: .Automatic)
-//        }
-//        tableView.endUpdates()
-//    }
-//}
-
