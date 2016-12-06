@@ -60,12 +60,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
                 for step in self.recipeSteps {
                     self.store.mergedStepsArray.append(step)
                 }
-                
-                if self.recipeSteps.count != 0 {
-                self.calculateStartTime()
-                }
             }
         }
+        
+        calculateStartTime()
         
         
         // format the time
@@ -143,6 +141,8 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             recipeSelected.servingTime = self.timePicker.date as NSDate?
         }
         self.store.saveRecipesContext()
+        
+        calculateStartTime()
     }
     
     
@@ -227,7 +227,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     func clickOpenStep() {
         self.delegate?.goToSingleStep()
-        calculateStartTime()
     }
     
     func getBackgroundImage(recipe: Recipe, imageView: UIImageView, view: UIView) {
@@ -248,9 +247,9 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         }
     }
     
-
+    
     //Merged Steps Set Up
-
+    
     func getStepsFromRecipesSelected(completion: @escaping () -> ()) {
         self.recipeSteps.removeAll()
         for singleRecipe in store.recipesSelected {
@@ -320,48 +319,49 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     
     func calculateStartTime() {
-        
-        let currentTime = Date()
-        //print("current time: \(currentTime)")
-        let calendar = Calendar.current
-        
-        var servingTime = store.recipesSelected[0].servingTime // default or user selected serving time is same for all 4 recipes
-        //print("serving time: \(servingTime)")
-        
-        //total cooking time = smallest timeToStart from mergedSteps + addedTime
-        let totalCookingDuration = store.mergedStepsArray[0].timeToStart * -1 //+ addedTime
-        //print("time to start = \(store.mergedStepsArray[0].timeToStart)")
-        //print("added time = \(addedTime)")
-        //print("total cooking time: \(totalCookingDuration)")
-        
-        //earliest possible serving time = current time + total cooking time
-        let earliestPossibleServeTime = calendar.date(byAdding: .minute, value: Int(totalCookingDuration), to: currentTime)
-        //print("earliest serve time: \(earliestPossibleServeTime)")
-        
-        //start cooking time = serving time - total cooking duration
-        let totalCookingDurationSeconds = totalCookingDuration * -60
-        var startCookingTime = servingTime?.addingTimeInterval(TimeInterval(totalCookingDurationSeconds))
-       // print("start cooking at: \(startCookingTime)")
-        
-        //check that serving time is greater than earliest possible serving time
-        // --> if yes, servingTime & start cooking time will work, so don't change
-        if servingTime?.compare(earliestPossibleServeTime! as Date) == ComparisonResult.orderedDescending || servingTime?.compare(earliestPossibleServeTime! as Date) == ComparisonResult.orderedSame {
-            //print("start cooking time and serving time remains the same")
+        if store.mergedStepsArray.count != 0 {
+            let currentTime = Date()
+            //print("current time: \(currentTime)")
+            let calendar = Calendar.current
             
-        } else {
-            // --> if no, serving time = earliest possible serving time, start cooking time = earliest possible serving time - total duration
-            servingTime = earliestPossibleServeTime as NSDate?
-            //print("input time error, earliest serving time possible = \(servingTime)")
-            startCookingTime = earliestPossibleServeTime?.addingTimeInterval(TimeInterval(totalCookingDurationSeconds)) as NSDate?
-        }
-        //print("final serving time = \(servingTime)")
-        //print("final start cooking time = \(startCookingTime)")
-        
-        let myFormatter = DateFormatter()
-        myFormatter.timeStyle = .short
-        if let startCookingTime = startCookingTime {
-            var finalStartCookingTime = myFormatter.string(from: startCookingTime as Date)
-            store.startCookingTime = "\(finalStartCookingTime)"
+            var servingTime = store.recipesSelected[0].servingTime // default or user selected serving time is same for all 4 recipes
+            //print("serving time: \(servingTime)")
+            
+            //total cooking time = smallest timeToStart from mergedSteps + addedTime
+            let totalCookingDuration = store.mergedStepsArray[0].timeToStart * -1 //+ addedTime
+            //print("time to start = \(store.mergedStepsArray[0].timeToStart)")
+            //print("added time = \(addedTime)")
+            //print("total cooking time: \(totalCookingDuration)")
+            
+            //earliest possible serving time = current time + total cooking time
+            let earliestPossibleServeTime = calendar.date(byAdding: .minute, value: Int(totalCookingDuration), to: currentTime)
+            //print("earliest serve time: \(earliestPossibleServeTime)")
+            
+            //start cooking time = serving time - total cooking duration
+            let totalCookingDurationSeconds = totalCookingDuration * -60
+            var startCookingTime = servingTime?.addingTimeInterval(TimeInterval(totalCookingDurationSeconds))
+            // print("start cooking at: \(startCookingTime)")
+            
+            //check that serving time is greater than earliest possible serving time
+            // --> if yes, servingTime & start cooking time will work, so don't change
+            if servingTime?.compare(earliestPossibleServeTime! as Date) == ComparisonResult.orderedDescending || servingTime?.compare(earliestPossibleServeTime! as Date) == ComparisonResult.orderedSame {
+                //print("start cooking time and serving time remains the same")
+                
+            } else {
+                // --> if no, serving time = earliest possible serving time, start cooking time = earliest possible serving time - total duration
+                servingTime = earliestPossibleServeTime as NSDate?
+                //print("input time error, earliest serving time possible = \(servingTime)")
+                startCookingTime = earliestPossibleServeTime?.addingTimeInterval(TimeInterval(totalCookingDurationSeconds)) as NSDate?
+            }
+            //print("final serving time = \(servingTime)")
+            //print("final start cooking time = \(startCookingTime)")
+            
+            let myFormatter = DateFormatter()
+            myFormatter.timeStyle = .short
+            if let startCookingTime = startCookingTime {
+                var finalStartCookingTime = myFormatter.string(from: startCookingTime as Date)
+                store.startCookingTime = "\(finalStartCookingTime)"
+            }
         }
     }
 }
