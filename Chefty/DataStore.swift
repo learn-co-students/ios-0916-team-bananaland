@@ -26,6 +26,7 @@ class DataStore {
     
     var stepCurrent: Int = 1
     var mergedStepsArray: [Steps] = []
+    var startCookingTime: String = ""
     
     var showNotification = false
     

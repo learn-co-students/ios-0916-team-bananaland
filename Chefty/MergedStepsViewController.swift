@@ -20,8 +20,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         
         createViewAndTableView()
         
-      //  calculateStartTime()
-        
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
@@ -74,7 +72,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         myLabel.widthAnchor.constraint(equalTo: myView.widthAnchor, multiplier: 1.0).isActive = true
         myLabel.leftAnchor.constraint(equalTo: myView.leftAnchor).isActive = true
         myLabel.bottomAnchor.constraint(equalTo: myView.bottomAnchor).isActive = true
-        myLabel.text = "Start cooking at 4:00 pm"
+        myLabel.text = "Start cooking at \(store.startCookingTime)"
         myLabel.font = myLabel.font?.withSize(24)
         myLabel.textAlignment = .center
         
@@ -89,15 +87,9 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     
     func getImage(recipe: Recipe, imageView: UIImageView, view: UIView) {
         if let imageURLString = recipe.imageURLSmall {
-            let imageURL: URL = URL(string: imageURLString)!
-            do {
-                let data = try Data(contentsOf: imageURL)
-                if data.isEmpty == false {
-                    imageView.image = UIImage(data: data)
-                }
-            } catch {
-                print("error: no image")
-            }
+            let url = URL(string: imageURLString)
+            imageView.contentMode = .scaleAspectFit
+            imageView.sd_setImage(with: url!)
             view.addSubview(imageView)
         }
     }
