@@ -24,15 +24,15 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         self.navigationController?.setNavigationBarHidden(false, animated: .init(true))
         self.view.backgroundColor = UIColor(named: .white)
         
-        // add the menu button to the nav bar
-        let menuButton = UIBarButtonItem(title: "Select Recipes", style: .plain, target: self, action: #selector(goToHome))
-        navigationItem.leftBarButtonItems = [menuButton]
-        let menuButtonAttributes = [
-            NSFontAttributeName: UIFont(name: Constants.appFont.regular.rawValue,
-                                        size: CGFloat(Constants.fontSize.small.rawValue))!
-        ]
-        menuButton.setTitleTextAttributes(menuButtonAttributes, for: .normal)
-        
+        // add the select recipe button to the nav bar
+        let selectRecipeButton = UIBarButtonItem(title: "Select Recipes", style: .plain, target: self, action: #selector(goToHome))
+        navigationItem.leftBarButtonItems = [selectRecipeButton]
+  
+        // set color and font size of nav bar buttons
+        let labelFont : UIFont = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))!
+        let attributesNormal = [ NSFontAttributeName : labelFont ]
+        selectRecipeButton.setTitleTextAttributes(attributesNormal, for: .normal)
+
         // notification
         notificationManagerInst.notificationsPosition = LNRNotificationPosition.top
         notificationManagerInst.notificationsBackgroundColor = UIColor.white
@@ -44,24 +44,31 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         // set the notification message
         var notificationMessage = String()
         if store.recipesSelected.count == 1 {
-            notificationMessage = "Last time you were here, you selected one recipe, lets review it."
+            notificationMessage = "\nLast time you were here, you selected one recipe, lets review it.\n\n"
         } else if store.recipesSelected.count > 1 {
-            notificationMessage = "Last time you were here, you selected \(store.recipesSelected.count) recipes, lets review them."
+            notificationMessage = "\nLast time you were here, you selected \(store.recipesSelected.count) recipes, lets review them.\n\n"
         }
         
-        notificationManagerInst.showNotification(title: "Welcome Back to Chefty", body: notificationMessage, onTap: { () -> Void in
-            let _ = self.notificationManagerInst.dismissActiveNotification(completion: { () -> Void in
-                print("Notification dismissed")
+        if store.showNotification {
+            notificationManagerInst.showNotification(title: "Welcome Back to Chefty", body: notificationMessage, onTap: { () -> Void in
+                let _ = self.notificationManagerInst.dismissActiveNotification(completion: { () -> Void in
+                    print("Notification dismissed")
+                })
             })
-        })
-        
+            store.showNotification = false  // only show notification when user enters the app
+        }
     }
     
-    override func viewWillAppear(_ animated: Bool = false) { self.title = "My Menu" }
+    override func viewWillAppear(_ animated: Bool = false) {
+        self.title = "My Menu"
+        self.myMenuViewInst.openSingleStepButton.title = "Open Step \(self.store.stepCurrent)"
+    }
 
     override func didReceiveMemoryWarning() { super.didReceiveMemoryWarning() }
     
-    override func loadView(){ self.view = myMenuViewInst }
+    override func loadView(){
+        self.view = myMenuViewInst
+    }
     
     func goToIngredients() {
         let ingredientsView = IngredientsController()
@@ -69,12 +76,7 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     }
     
     func goToHome() {
-        //let cheftyMainViewController1 = CheftyMainViewController()
-        //navigationController?.pushViewController(cheftyMainViewController1, animated: false)
-        
         let cheftyMainViewController1 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "cheftyMain") as! CheftyMainViewController
-        // .instantiatViewControllerWithIdentifier() returns AnyObject! this must be downcast to utilize it
-        
         self.present(cheftyMainViewController1, animated: false, completion: nil)
     }
     

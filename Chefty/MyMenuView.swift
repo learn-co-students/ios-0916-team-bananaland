@@ -25,15 +25,50 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     let toolbar = UIToolbar()
     var recipeForTraditionalRecipeView: Recipe?
     var textFieldBeingEdited: UITextField = UITextField()
+    var timePicker: UIDatePicker = UIDatePicker()
     
     let datePickerContainerView = UIView()
+    let servingTimeView = UIView()
     var datePickerContainerViewOffScreenConstraint = NSLayoutConstraint()
     var datePickerContainerViewOnScreenConstraint = NSLayoutConstraint()
     let datePicker = UIDatePicker()
+    var servingTimeFieldLabel: UILabel = UILabel()
+    var servingTimeField: UITextField = UITextField()
+    var servingTimeValue: String = String()
+    
+    var recipeSteps = [Steps]()
+    var addedTime = 0
+    var servingTimeForDisplay = "test time here"
+    
+    let ingredientsButton: UIBarButtonItem = UIBarButtonItem(title: "Ingredients", style: .plain , target: self, action: #selector(clickIngredients))
+    let clearAllButton: UIBarButtonItem = UIBarButtonItem(title: "Clear All", style: .plain , target: self, action: #selector(onClickClearAllRecipes))
+    var openSingleStepButton: UIBarButtonItem = UIBarButtonItem(title: "Open Step", style: .plain , target: self, action: #selector(clickOpenStep))
     
     override init(frame:CGRect){
         super.init(frame: frame)
-
+        
+        if self.store.mergedStepsArray.isEmpty {
+            self.getStepsFromRecipesSelected {
+                self.mergeRecipeSteps()
+            
+                for step in self.recipeSteps {
+                    self.store.mergedStepsArray.append(step)
+                }
+            }
+            print("store.mergedStepsArray.count \(self.store.mergedStepsArray.count)")
+        }
+        
+        self.calculateStartTime()
+        
+        // format the time
+        let myFormatter = DateFormatter()
+        myFormatter.timeStyle = .short
+        
+        if let servingTime = store.recipesSelected[0].servingTime {
+            self.servingTimeValue = myFormatter.string(from: servingTime as Date)
+            self.servingTimeValue = "Serving Time: " + self.servingTimeValue
+        }
+        
         // configure controls
         self.tableView.delegate = self
         self.tableView.dataSource = self
@@ -41,98 +76,78 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         // add the controls to the view
         self.addSubview(tableView)
         self.addSubview(toolbar)
+        self.addSubview(servingTimeView)
         
         // constrain the controls
         self.toolbar.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         self.toolbar.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         self.toolbar.translatesAutoresizingMaskIntoConstraints = false
         
+        // servingtime view
+        self.servingTimeView.topAnchor.constraint(equalTo: self.topAnchor, constant: 64).isActive = true
+        self.servingTimeView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        self.servingTimeView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        self.servingTimeView.heightAnchor.constraint(equalToConstant: 48).isActive = true
+        self.servingTimeView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // define servingTimeView
+        self.servingTimeField.font = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.small.rawValue))
+        self.servingTimeField.textColor = self.tintColor
+        self.servingTimeView.addSubview(self.servingTimeField)
+        self.servingTimeField.text = self.servingTimeValue
+        self.servingTimeField.centerYAnchor.constraint(equalTo: self.servingTimeView.centerYAnchor).isActive = true
+        self.servingTimeField.leftAnchor.constraint(equalTo: self.servingTimeView.leftAnchor, constant: 10).isActive = true
+        self.servingTimeField.rightAnchor.constraint(equalTo: self.servingTimeView.rightAnchor, constant: -10).isActive = true
+        self.servingTimeField.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.servingTimeField.inputView = self.timePicker
+        self.servingTimeField.inputAccessoryView = self.createPickerToolBar()
+        
         // tableview
-        self.tableView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
-        self.tableView.bottomAnchor.constraint(equalTo: toolbar.topAnchor, constant: 0).isActive = true
+        self.tableView.topAnchor.constraint(equalTo: self.servingTimeView.topAnchor, constant: -16).isActive = true
+        self.tableView.bottomAnchor.constraint(equalTo: self.toolbar.topAnchor, constant: 0).isActive = true
         self.tableView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         
-        // toolbar buttons
-        let ingredientsButton: UIBarButtonItem = UIBarButtonItem(title: "Ingredients", style: .plain , target: self, action: #selector(clickIngredients))
-        let clearAllButton: UIBarButtonItem = UIBarButtonItem(title: "Clear All", style: .plain , target: self, action: #selector(onClickClearAllRecipes))
-        let openStep1Button: UIBarButtonItem = UIBarButtonItem(title: "Open Step \(store.stepCurrent)", style: .plain , target: self, action: #selector(clickOpenStep))
+        // toolbar
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let toolbarButtons = [ingredientsButton, spacer, clearAllButton, spacer, openStep1Button]
+        let toolbarButtons = [self.ingredientsButton, spacer, self.clearAllButton, spacer, self.openSingleStepButton]
         self.toolbar.setItems(toolbarButtons, animated: false)
         
-        // define the timePicker container view
-        self.addSubview(datePickerContainerView)
-        datePickerContainerView.translatesAutoresizingMaskIntoConstraints = false
-        datePickerContainerView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        datePickerContainerView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.33).isActive = true
-        datePickerContainerView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        datePickerContainerViewOffScreenConstraint = datePickerContainerView.topAnchor.constraint(equalTo: self.bottomAnchor)
-        datePickerContainerViewOffScreenConstraint.isActive = true
-        datePickerContainerViewOnScreenConstraint = datePickerContainerView.bottomAnchor.constraint(equalTo: self.bottomAnchor)
-        datePickerContainerViewOnScreenConstraint.isActive = false
-        
-        // create the done/cancel toolbar for the time picker
-        let pickerToolbar = UIToolbar()
-        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(self.doneClickTimePicker))
-        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancelClickTimePicker))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
-        pickerToolbar.setItems([cancelButton, spaceButton, doneButton], animated: false)
-        datePickerContainerView.addSubview(pickerToolbar)
-        pickerToolbar.translatesAutoresizingMaskIntoConstraints = false
-        pickerToolbar.leadingAnchor.constraint(equalTo: datePickerContainerView.leadingAnchor).isActive = true
-        pickerToolbar.topAnchor.constraint(equalTo: datePickerContainerView.topAnchor).isActive = true
-        pickerToolbar.widthAnchor.constraint(equalTo: datePickerContainerView.widthAnchor).isActive = true
-        pickerToolbar.heightAnchor.constraint(equalTo: datePickerContainerView.heightAnchor, multiplier: 0.2).isActive = true
-        datePickerContainerView.addSubview(pickerToolbar)
-        
-        // define datePicker
-        datePicker.backgroundColor = UIColor.white
-        datePicker.layer.shadowOpacity = 0.5
-        datePicker.datePickerMode = .time
-        datePicker.minimumDate = Date()
-        datePicker.minuteInterval = 15
-        datePickerContainerView.addSubview(datePicker)
-        datePicker.translatesAutoresizingMaskIntoConstraints = false
-        datePicker.leadingAnchor.constraint(equalTo: datePickerContainerView.leadingAnchor).isActive = true
-        datePicker.topAnchor.constraint(equalTo: pickerToolbar.bottomAnchor).isActive = true
-        datePicker.bottomAnchor.constraint(equalTo: datePickerContainerView.bottomAnchor).isActive = true
-        datePicker.widthAnchor.constraint(equalTo: datePickerContainerView.widthAnchor).isActive = true
+        // timepicker
+        self.timePicker.backgroundColor = UIColor.white
+        self.timePicker.layer.shadowOpacity = 0.5
+        self.timePicker.datePickerMode = .time
+        self.timePicker.minimumDate = Date()  // change to earliest serve time when available
+        self.timePicker.minuteInterval = 15
     }
     
     func doneClickTimePicker() {
-        // save new serving time to core data
-        store.recipesSelected[Int(self.textFieldBeingEdited.accessibilityLabel!)!].servingTime = self.datePicker.date as NSDate?
-        self.store.saveRecipesContext()
-        // update field
         let dateFormatterInst = DateFormatter()
         dateFormatterInst.dateStyle = .none
         dateFormatterInst.timeStyle = .short
-        self.textFieldBeingEdited.text = dateFormatterInst.string(from: self.datePicker.date)
-        if let cellLabel = self.textFieldBeingEdited.text { self.textFieldBeingEdited.text = "@ \(cellLabel)" }
-        self.textFieldBeingEdited.resignFirstResponder()
-        // hide the time picker
-        UIView.animate(withDuration: 0.3, animations: {
-            
-            self.datePickerContainerViewOffScreenConstraint.isActive = true
-            self.datePickerContainerViewOnScreenConstraint.isActive = false
-            self.layoutIfNeeded()
-            
-        })
+        self.servingTimeField.text = "Serving Time: \(dateFormatterInst.string(from: self.timePicker.date))"
+        self.servingTimeField.resignFirstResponder()
+        
+        // update serving time on the selected recipes
+        for recipeSelected in self.store.recipesSelected {
+            recipeSelected.servingTime = self.timePicker.date as NSDate?
+        }
+        self.store.saveRecipesContext()
     }
     
-    func cancelClickTimePicker() {
-        self.textFieldBeingEdited.resignFirstResponder()
-        // hide the time picker
-        UIView.animate(withDuration: 0.3, animations: {
-            
-            self.datePickerContainerViewOffScreenConstraint.isActive = true
-            self.datePickerContainerViewOnScreenConstraint.isActive = false
-            self.layoutIfNeeded()
-            
-        })
+    func cancelClickTimePicker() { self.servingTimeField.resignFirstResponder() }
+    
+    func createPickerToolBar() -> UIToolbar {
+        let toolbarPicker = UIToolbar()
+        let doneButton = UIBarButtonItem(title: "Done", style: UIBarButtonItemStyle.done, target: self, action: #selector(self.doneClickTimePicker))
+        let cancelButton = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(self.cancelClickTimePicker))
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        toolbarPicker.sizeToFit()
+        toolbarPicker.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        return toolbarPicker
     }
-
+    
     // setup tableview
     func numberOfSections(in tableView: UITableView) -> Int { return 1 }
     
@@ -142,11 +157,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         // set the custom cell
         let cell = MyMenuTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "prototypeCell")
         cell.delegate = self
-        cell.recipe = store.recipesSelected[indexPath.row]
         cell.deleteButton.accessibilityLabel = String(indexPath.row)
-        cell.servingTimeField.accessibilityLabel = String(indexPath.row)
         cell.selectionStyle = .none
         self.getBackgroundImage(recipe: self.store.recipesSelected[indexPath.row], imageView: cell.imageViewInst, view: cell)
+        cell.recipeDescField.text = self.store.recipesSelected[indexPath.row].displayName
         return cell
     }
     
@@ -180,7 +194,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             self.datePickerContainerViewOffScreenConstraint.isActive = false
             self.datePickerContainerViewOnScreenConstraint.isActive = true
             self.layoutIfNeeded()
-        
+            
         })
     }
     
@@ -207,4 +221,163 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             }
         }
     }
+    
+    //Merged Steps Set Up
+    
+    func getStepsFromRecipesSelected(completion: @escaping () -> ()) {
+        self.recipeSteps.removeAll()
+        for singleRecipe in store.recipesSelected {
+            DispatchQueue.main.async {
+                CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: singleRecipe.id!, completion: {
+                })
+            }
+            let allRecipeSteps = singleRecipe.step!.allObjects as! [Steps]
+            self.recipeSteps += allRecipeSteps
+        }
+        completion()
+    }
+    
+    func mergeRecipeSteps() {
+        
+        print("added time at start of mergeRecipeSteps = \(self.addedTime)")
+        
+        self.recipeSteps = self.recipeSteps.sorted { (step1: Steps, step2: Steps) -> Bool in
+            
+            //same start
+            if step1.timeToStart == step2.timeToStart {
+                
+                //different attentionNeeded
+                if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
+                    return true
+                } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
+                    addedTime += step1.timeToStart + step1.duration - step2.timeToStart
+                    return false
+                    
+                    //same attentionNeeded, add shorter duration to addedTime
+                } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
+                    if step1.duration > step2.duration {
+                        addedTime += Int(step2.duration)
+                        return false
+                    } else if step1.duration < step2.duration {
+                        addedTime += Int(step1.duration)
+                        return true
+                    }
+                }
+            }
+            
+            //overlap duration
+            if (step2.timeToStart > step1.timeToStart) && (step2.timeToStart < (step1.timeToStart + step1.duration)) {
+                
+                if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
+                    addedTime += step2.timeToStart - (step1.timeToStart + step1.duration)
+                    return true
+                    
+                } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
+                    addedTime += (step1.timeToStart + step1.duration) - step2.timeToStart
+                    return true
+                    
+                } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
+                    addedTime += (step1.timeToStart + step1.duration) - step2.timeToStart
+                    return true
+                }
+            }
+            
+            return step1.timeToStart < step2.timeToStart
+            
+        }
+        
+        print("added time at end of mergeSteps = \(self.addedTime)")
+    }
+    
+    func calculateStartTime() {
+        
+        let currentTime = Date()
+        print("current time: \(currentTime)")
+        let calendar = Calendar.current
+        
+        var servingTime = store.recipesSelected[0].servingTime // default or user selected serving time is same for all 4 recipes
+        print("serving time: \(servingTime)")
+        
+        //total cooking time = smallest timeToStart from mergedSteps + addedTime
+        var totalCookingDuration = store.mergedStepsArray[0].timeToStart * -1 //+ addedTime
+        print("time to start = \(store.mergedStepsArray[0].timeToStart)")
+        //print("added time = \(addedTime)")
+        print("total cooking time: \(totalCookingDuration)")
+        
+        //earliest possible serving time = current time + total cooking time
+        let earliestPossibleServeTime = calendar.date(byAdding: .minute, value: Int(totalCookingDuration), to: currentTime)
+        print("earliest serve time: \(earliestPossibleServeTime)")
+        
+        //start cooking time = serving time - total cooking duration
+        let totalCookingDurationSeconds = totalCookingDuration * -60
+        var startCookingTime = servingTime?.addingTimeInterval(TimeInterval(totalCookingDurationSeconds))
+        print("start cooking at: \(startCookingTime)")
+        
+        //check that serving time is greater than earliest possible serving time
+        // --> if yes, servingTime & start cooking time will work, so don't change
+        if servingTime?.compare(earliestPossibleServeTime! as Date) == ComparisonResult.orderedDescending || servingTime?.compare(earliestPossibleServeTime! as Date) == ComparisonResult.orderedSame {
+            print("start cooking time and serving time remains the same")
+            
+        } else {
+            // --> if no, serving time = earliest possible serving time, start cooking time = earliest possible serving time - total duration
+            servingTime = earliestPossibleServeTime as NSDate?
+            print("input time error, earliest serving time possible = \(servingTime)")
+            startCookingTime = earliestPossibleServeTime?.addingTimeInterval(TimeInterval(totalCookingDurationSeconds)) as NSDate?
+        }
+        print("final serving time = \(servingTime)")
+        print("final start cooking time = \(startCookingTime)")
+        
+        let myFormatter = DateFormatter()
+        myFormatter.timeStyle = .short
+        if let startCookingTime = startCookingTime {
+            var finalStartCookingTime = myFormatter.string(from: startCookingTime as Date)
+            store.startCookingTime = "\(finalStartCookingTime)"
+        }
+    }
 }
+
+
+//extensions to convert step properties duration and timeToStart to integers
+extension String {
+    func convertDurationToMinutes() -> Int {
+        
+        let separatedNum = self.components(separatedBy: ":")
+        let handleMinutesOnly = Int(separatedNum[0])
+        let handleHours = Int(separatedNum[0])
+        let handleMinutesWithHours = Int(separatedNum[1])
+        var totalMinutes: Int = 0
+        
+        switch separatedNum.count {
+        case 2:
+            totalMinutes += handleMinutesOnly!
+        case 3:
+            totalMinutes += ((handleHours! * 60) + (handleMinutesWithHours!))
+        default:
+            print("error")
+        }
+        
+        return totalMinutes
+    }
+    
+    
+    func convertTimeToStartToMinutes() -> Int {
+        let separatedNum = self.components(separatedBy: ":")
+        let handleMinutesOnly = Int(separatedNum[0])
+        let handleHours = Int(separatedNum[0])
+        let handleMinutesWithHours = Int(separatedNum[1])
+        var totalMinutes: Int = 0
+        
+        switch separatedNum.count {
+        case 2:
+            totalMinutes += handleMinutesOnly!
+        case 3:
+            totalMinutes += ((handleHours! * 60) - (handleMinutesWithHours!))
+        default:
+            print("error")
+        }
+        
+        return totalMinutes
+    }
+    
+}
+

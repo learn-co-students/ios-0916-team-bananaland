@@ -70,7 +70,7 @@ class CheftyAPIClient {
                             
                             store.saveRecipesContext()
                             store.getRecipesFromCoreData()
-                            //print("getRecipesFromCoreData in CheftyAPIClient")
+
                         }
                         completion()
                         
