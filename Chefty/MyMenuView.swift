@@ -47,15 +47,18 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         super.init(frame: frame)
         
         self.getStepsFromRecipesSelected {
+            print("done gettting steps from recipes")
             self.mergeRecipeSteps()
             
             for step in self.recipeSteps {
                 self.store.mergedStepsArray.append(step)
             }
-            self.calculateStartTime()
+            
             print("store.mergedStepsArray.count \(self.store.mergedStepsArray.count)")
+            
         }
-
+        //self.calculateStartTime()
+        
         
         // format the time
         let myFormatter = DateFormatter()
@@ -223,7 +226,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         
     func mergeRecipeSteps() {
         
-        print("added time at start of mergeSteps = \(self.addedTime)")
+        print("added time at start of mergeRecipeSteps = \(self.addedTime)")
         
         self.recipeSteps = self.recipeSteps.sorted { (step1: Steps, step2: Steps) -> Bool in
             
