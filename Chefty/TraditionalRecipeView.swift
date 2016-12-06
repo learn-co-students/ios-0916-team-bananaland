@@ -19,6 +19,7 @@ class TraditionalRecipeView: UIView {
     var combinedIngredients: String = ""
     var totalTime: Int = 0
     var gradientView : GradientView!
+    var totalTimeString = ""
     
     init(frame:CGRect, recipe: Recipe){
         super.init(frame: frame)
@@ -53,7 +54,6 @@ class TraditionalRecipeView: UIView {
             stepsArray.append(procedure)
             
             totalTime += Int(step.duration)
-            
             
             guard let stepIngredient = step.ingredient else { return }
             
@@ -177,6 +177,21 @@ class TraditionalRecipeView: UIView {
         durationLabel.textColor = UIColor.white
         durationLabel.text = "Estimated Total Time: \(totalTime) minutes"
         durationLabel.font = UIFont(name: "GillSans-Light", size: 20)
+
+        var hours = 0
+        var minutes = 0
+        if totalTime % 60 == 0 {
+            hours = totalTime / 60
+            totalTimeString = "\(hours) hours"
+        } else if totalTime > 60 {
+            hours = totalTime / 60
+            minutes = totalTime - (hours * 60)
+            totalTimeString = "\(hours) hours and \(minutes) minutes"
+        } else {
+            totalTimeString = "\(totalTime) minutes"
+        }
+        durationLabel.text = "Estimated Total Time: \(totalTimeString)"
+        durationLabel.font = titleLabel.font.withSize(20)
         durationLabel.textAlignment = .left
         
         myScrollView.addSubview(servingSizeLabel)

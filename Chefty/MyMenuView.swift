@@ -18,6 +18,8 @@ protocol MyMenuViewDelegate: class {
 
 class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTableViewCellDelegate, UIPickerViewDelegate, UITextFieldDelegate {
     
+    //Define Variables
+    
     weak var delegate: MyMenuViewDelegate?
     var sampleValue = String()
     var store = DataStore.sharedInstance
@@ -26,6 +28,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     var recipeForTraditionalRecipeView: Recipe?
     var textFieldBeingEdited: UITextField = UITextField()
     var timePicker: UIDatePicker = UIDatePicker()
+    var earliestPossibleServeTime: Date = Date()
     
     let datePickerContainerView = UIView()
     let servingTimeView = UIView()
@@ -44,21 +47,25 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     let clearAllButton: UIBarButtonItem = UIBarButtonItem(title: "Clear All", style: .plain , target: self, action: #selector(onClickClearAllRecipes))
     var openSingleStepButton: UIBarButtonItem = UIBarButtonItem(title: "Open Step", style: .plain , target: self, action: #selector(clickOpenStep))
     
+    
+    //Initialize
     override init(frame:CGRect){
         super.init(frame: frame)
         
         if self.store.mergedStepsArray.isEmpty {
-            self.getStepsFromRecipesSelected {
-                self.mergeRecipeSteps()
             
+            self.getStepsFromRecipesSelected {
+                
+                self.mergeRecipeSteps()
+                
                 for step in self.recipeSteps {
                     self.store.mergedStepsArray.append(step)
                 }
             }
-            print("store.mergedStepsArray.count \(self.store.mergedStepsArray.count)")
         }
         
-        self.calculateStartTime()
+        calculateStartTime()
+        
         
         // format the time
         let myFormatter = DateFormatter()
@@ -118,9 +125,12 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.timePicker.backgroundColor = UIColor.white
         self.timePicker.layer.shadowOpacity = 0.5
         self.timePicker.datePickerMode = .time
-        self.timePicker.minimumDate = Date()  // change to earliest serve time when available
+        self.timePicker.minimumDate = self.earliestPossibleServeTime  // change to earliest serve time when available
         self.timePicker.minuteInterval = 15
+        
+        print("earliestPossibleServeTime: \(self.earliestPossibleServeTime)")
     }
+    
     
     func doneClickTimePicker() {
         let dateFormatterInst = DateFormatter()
@@ -134,9 +144,14 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             recipeSelected.servingTime = self.timePicker.date as NSDate?
         }
         self.store.saveRecipesContext()
+        
+        // recalculate start cooking time
+        calculateStartTime()
     }
     
+    
     func cancelClickTimePicker() { self.servingTimeField.resignFirstResponder() }
+    
     
     func createPickerToolBar() -> UIToolbar {
         let toolbarPicker = UIToolbar()
@@ -147,6 +162,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         toolbarPicker.setItems([cancelButton, spaceButton, doneButton], animated: false)
         return toolbarPicker
     }
+    
     
     // setup tableview
     func numberOfSections(in tableView: UITableView) -> Int { return 1 }
@@ -180,7 +196,19 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.delegate?.goToRecipe()
     }
     
-    func updateTableViewNow() { self.tableView.reloadData() }
+    //re-call recipesSelected from API, re-sort, re-append to mergedStepsArray
+    func updateTableViewNow() {
+        self.recipeSteps.removeAll()
+        self.getStepsFromRecipesSelected {
+            self.store.mergedStepsArray.removeAll()
+            self.mergeRecipeSteps()
+            for step in self.recipeSteps {
+                self.store.mergedStepsArray.append(step)
+            }
+        }
+        calculateStartTime()
+        self.tableView.reloadData()
+    }
     
     // serving time field selected delegate method
     func servingTimeFieldSelected(_ sender: UITextField) {
@@ -194,15 +222,17 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             self.datePickerContainerViewOffScreenConstraint.isActive = false
             self.datePickerContainerViewOnScreenConstraint.isActive = true
             self.layoutIfNeeded()
-            
         })
+        
     }
     
     func clickIngredients() { self.delegate?.goToIngredients() }
     
     func onClickClearAllRecipes() { self.delegate?.clearAllRecipes() }
     
-    func clickOpenStep() { self.delegate?.goToSingleStep() }
+    func clickOpenStep() {
+        self.delegate?.goToSingleStep()
+    }
     
     func getBackgroundImage(recipe: Recipe, imageView: UIImageView, view: UIView) {
         // The tableview cells crop images nicely when they are background images. This function gets a background image, stores it in the object and then sets it on the imageView that was passed in.
@@ -222,10 +252,12 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         }
     }
     
+    
     //Merged Steps Set Up
     
     func getStepsFromRecipesSelected(completion: @escaping () -> ()) {
         self.recipeSteps.removeAll()
+       
         for singleRecipe in store.recipesSelected {
             DispatchQueue.main.async {
                 CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: singleRecipe.id!, completion: {
@@ -234,13 +266,15 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             let allRecipeSteps = singleRecipe.step!.allObjects as! [Steps]
             self.recipeSteps += allRecipeSteps
         }
+        
         completion()
     }
+    
     
     func mergeRecipeSteps() {
         
         print("added time at start of mergeRecipeSteps = \(self.addedTime)")
-        
+
         self.recipeSteps = self.recipeSteps.sorted { (step1: Steps, step2: Steps) -> Bool in
             
             //same start
@@ -286,52 +320,58 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             
         }
         
-        print("added time at end of mergeSteps = \(self.addedTime)")
+        print("added time at END of mergeRecipeSteps = \(self.addedTime)")
+        
     }
     
+    
+    
     func calculateStartTime() {
-        
-        let currentTime = Date()
-        print("current time: \(currentTime)")
-        let calendar = Calendar.current
-        
-        var servingTime = store.recipesSelected[0].servingTime // default or user selected serving time is same for all 4 recipes
-        print("serving time: \(servingTime)")
-        
-        //total cooking time = smallest timeToStart from mergedSteps + addedTime
-        var totalCookingDuration = store.mergedStepsArray[0].timeToStart * -1 //+ addedTime
-        print("time to start = \(store.mergedStepsArray[0].timeToStart)")
-        //print("added time = \(addedTime)")
-        print("total cooking time: \(totalCookingDuration)")
-        
-        //earliest possible serving time = current time + total cooking time
-        let earliestPossibleServeTime = calendar.date(byAdding: .minute, value: Int(totalCookingDuration), to: currentTime)
-        print("earliest serve time: \(earliestPossibleServeTime)")
-        
-        //start cooking time = serving time - total cooking duration
-        let totalCookingDurationSeconds = totalCookingDuration * -60
-        var startCookingTime = servingTime?.addingTimeInterval(TimeInterval(totalCookingDurationSeconds))
-        print("start cooking at: \(startCookingTime)")
-        
-        //check that serving time is greater than earliest possible serving time
-        // --> if yes, servingTime & start cooking time will work, so don't change
-        if servingTime?.compare(earliestPossibleServeTime! as Date) == ComparisonResult.orderedDescending || servingTime?.compare(earliestPossibleServeTime! as Date) == ComparisonResult.orderedSame {
-            print("start cooking time and serving time remains the same")
+
+        if store.mergedStepsArray.count != 0 {
+            let currentTime = Date()
+            //print("current time: \(currentTime)")
+            let calendar = Calendar.current
             
-        } else {
-            // --> if no, serving time = earliest possible serving time, start cooking time = earliest possible serving time - total duration
-            servingTime = earliestPossibleServeTime as NSDate?
-            print("input time error, earliest serving time possible = \(servingTime)")
-            startCookingTime = earliestPossibleServeTime?.addingTimeInterval(TimeInterval(totalCookingDurationSeconds)) as NSDate?
-        }
-        print("final serving time = \(servingTime)")
-        print("final start cooking time = \(startCookingTime)")
-        
-        let myFormatter = DateFormatter()
-        myFormatter.timeStyle = .short
-        if let startCookingTime = startCookingTime {
-            var finalStartCookingTime = myFormatter.string(from: startCookingTime as Date)
-            store.startCookingTime = "\(finalStartCookingTime)"
+            var servingTime = store.recipesSelected[0].servingTime // default or user selected serving time is same for all 4 recipes
+            //print("serving time: \(servingTime)")
+            
+            //total cooking time = smallest timeToStart from mergedSteps + addedTime
+            let totalCookingDuration = store.mergedStepsArray[0].timeToStart * -1 //+ addedTime
+            //print("time to start = \(store.mergedStepsArray[0].timeToStart)")
+            //print("added time = \(addedTime)")
+            //print("total cooking time: \(totalCookingDuration)")
+            
+            //earliest possible serving time = current time + total cooking time
+            let earliestPossibleServeTime = calendar.date(byAdding: .minute, value: Int(totalCookingDuration), to: currentTime)
+            //print("earliest serve time: \(earliestPossibleServeTime)")
+            
+            //start cooking time = serving time - total cooking duration
+            let totalCookingDurationSeconds = totalCookingDuration * -60
+            var startCookingTime = servingTime?.addingTimeInterval(TimeInterval(totalCookingDurationSeconds))
+            //print("start cooking at: \(startCookingTime)")
+            
+            //check that serving time is greater than earliest possible serving time
+            // --> if yes, servingTime & start cooking time will work, so don't change
+            if servingTime?.compare(earliestPossibleServeTime! as Date) == ComparisonResult.orderedDescending || servingTime?.compare(earliestPossibleServeTime! as Date) == ComparisonResult.orderedSame {
+                //print("start cooking time and serving time remains the same")
+                
+            } else {
+                // --> if no, serving time = earliest possible serving time, start cooking time = earliest possible serving time - total duration
+                servingTime = earliestPossibleServeTime as NSDate?
+                //print("input time error, earliest serving time possible = \(servingTime)")
+                startCookingTime = earliestPossibleServeTime?.addingTimeInterval(TimeInterval(totalCookingDurationSeconds)) as NSDate?
+            }
+            //print("final serving time = \(servingTime)")
+            //print("final start cooking time = \(startCookingTime)")
+            
+            let myFormatter = DateFormatter()
+            myFormatter.timeStyle = .short
+            if let startCookingTime = startCookingTime {
+                var finalStartCookingTime = myFormatter.string(from: startCookingTime as Date)
+                store.startCookingTime = "\(finalStartCookingTime)"
+            }
+
         }
     }
 }

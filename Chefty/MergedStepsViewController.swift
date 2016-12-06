@@ -19,11 +19,15 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         super.viewDidLoad()
         
         createViewAndTableView()
+
+        tableView.reloadData()
         
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
         self.title = "Merged Recipe Steps"
+        self.tableView.reloadData()
+        print("reloading data on view will appear")
     }
     
     override func didReceiveMemoryWarning() {
@@ -93,5 +97,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
             view.addSubview(imageView)
         }
     }
+    
+
 }
 

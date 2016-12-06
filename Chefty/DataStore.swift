@@ -24,7 +24,6 @@ class DataStore {
     var sides : [Recipe] = []
     var desserts: [Recipe] = []
     
-    var stepCurrent: Int = 1
     var mergedStepsArray: [Steps] = []
     var startCookingTime: String = ""
     

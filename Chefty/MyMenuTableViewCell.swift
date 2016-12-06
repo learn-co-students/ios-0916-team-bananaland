@@ -95,7 +95,9 @@ class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
         if let currentRowString = self.deleteButton.accessibilityLabel {
             if let currentRow = Int(currentRowString) {
                 store.setRecipeUnselected(recipe: store.recipesSelected[currentRow])
+                print("updateTableViewNow about to get called from delete function")
                 self.delegate?.updateTableViewNow()
+                
             }
         }
     }
