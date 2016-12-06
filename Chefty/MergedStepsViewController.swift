@@ -19,7 +19,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         super.viewDidLoad()
         
         createViewAndTableView()
-        
+
         tableView.reloadData()
         
     }
@@ -95,5 +95,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
             view.addSubview(imageView)
         }
     }
+    
+
 }
 

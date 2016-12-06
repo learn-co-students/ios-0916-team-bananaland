@@ -67,7 +67,5 @@ class SingleStepViewController: UIViewController, SingleStepDelegate {
             }
         }
     }
-    
-
 
 }

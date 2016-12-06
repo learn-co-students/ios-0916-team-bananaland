@@ -18,6 +18,8 @@ protocol MyMenuViewDelegate: class {
 
 class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTableViewCellDelegate, UIPickerViewDelegate, UITextFieldDelegate {
     
+    //Define Variables
+    
     weak var delegate: MyMenuViewDelegate?
     var sampleValue = String()
     var store = DataStore.sharedInstance
@@ -44,8 +46,12 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     let clearAllButton: UIBarButtonItem = UIBarButtonItem(title: "Clear All", style: .plain , target: self, action: #selector(onClickClearAllRecipes))
     var openSingleStepButton: UIBarButtonItem = UIBarButtonItem(title: "Open Step", style: .plain , target: self, action: #selector(clickOpenStep))
     
+    
+    //Initialize
     override init(frame:CGRect){
         super.init(frame: frame)
+        
+        self.setUpElements()
         
         self.getStepsFromRecipesSelected {
             self.mergeRecipeSteps()
@@ -53,11 +59,15 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             for step in self.recipeSteps {
                 self.store.mergedStepsArray.append(step)
             }
-            print("store.mergedStepsArray.count \(self.store.mergedStepsArray.count)")
         }
         
         self.calculateStartTime()
         
+    }
+    
+    
+    //Set Up Functions
+    func setUpElements() {
         
         // format the time
         let myFormatter = DateFormatter()
@@ -121,6 +131,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.timePicker.minuteInterval = 15
     }
     
+    
     func doneClickTimePicker() {
         let dateFormatterInst = DateFormatter()
         dateFormatterInst.dateStyle = .none
@@ -135,7 +146,9 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.store.saveRecipesContext()
     }
     
+    
     func cancelClickTimePicker() { self.servingTimeField.resignFirstResponder() }
+    
     
     func createPickerToolBar() -> UIToolbar {
         let toolbarPicker = UIToolbar()
@@ -146,6 +159,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         toolbarPicker.setItems([cancelButton, spaceButton, doneButton], animated: false)
         return toolbarPicker
     }
+    
     
     // setup tableview
     func numberOfSections(in tableView: UITableView) -> Int { return 1 }
@@ -179,7 +193,17 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.delegate?.goToRecipe()
     }
     
-    func updateTableViewNow() { self.tableView.reloadData() }
+    func updateTableViewNow() {
+        self.getStepsFromRecipesSelected {
+            self.mergeRecipeSteps()
+            
+            for step in self.recipeSteps {
+                self.store.mergedStepsArray.append(step)
+            }
+        }
+        
+        self.tableView.reloadData()
+    }
     
     // serving time field selected delegate method
     func servingTimeFieldSelected(_ sender: UITextField) {
@@ -194,6 +218,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             self.datePickerContainerViewOnScreenConstraint.isActive = true
             self.layoutIfNeeded()
         })
+        
     }
     
     func clickIngredients() { self.delegate?.goToIngredients() }
@@ -221,7 +246,8 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     }
     
     
-    //Merged Steps Set Up
+    
+    ///Merged Steps 
     
     func getStepsFromRecipesSelected(completion: @escaping () -> ()) {
         self.recipeSteps.removeAll()
