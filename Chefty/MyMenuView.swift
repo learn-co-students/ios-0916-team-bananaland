@@ -193,29 +193,17 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.delegate?.goToRecipe()
     }
     
+    //re-call recipesSelected from API, re-sort, re-append to mergedStepsArray
     func updateTableViewNow() {
-       
         self.recipeSteps.removeAll()
-        
         self.getStepsFromRecipesSelected {
-            
             self.store.mergedStepsArray.removeAll()
-
             self.mergeRecipeSteps()
-            
-        
-
-            print("starting to build mergedSteps array and recipe steps count = \(self.recipeSteps.count)")
             for step in self.recipeSteps {
                 self.store.mergedStepsArray.append(step)
             }
-            
-            print("mergedSteps AFTER updateTableView is complete: \(self.store.mergedStepsArray.count)")
         }
-        
         calculateStartTime()
-        print("recalculating start time after changes to my menu table view")
-        
         self.tableView.reloadData()
     }
     
@@ -266,8 +254,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     func getStepsFromRecipesSelected(completion: @escaping () -> ()) {
         self.recipeSteps.removeAll()
-        print("inside GetStepsfromRecipesSelected, after remove \(self.recipeSteps.count)")
-        print("inside GetStepsfromRecipesSelected, recipesSelected count = \(store.recipesSelected.count)")
+       
         for singleRecipe in store.recipesSelected {
             DispatchQueue.main.async {
                 CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: singleRecipe.id!, completion: {
@@ -276,14 +263,14 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             let allRecipeSteps = singleRecipe.step!.allObjects as! [Steps]
             self.recipeSteps += allRecipeSteps
         }
-            print("before closure in GetSteps, recipeSteps count to be sorted = \(self.recipeSteps.count)")
+        
         completion()
     }
     
     
     func mergeRecipeSteps() {
         
-        //print("added time at start of mergeRecipeSteps = \(self.addedTime)")
+        print("added time at start of mergeRecipeSteps = \(self.addedTime)")
 
         self.recipeSteps = self.recipeSteps.sorted { (step1: Steps, step2: Steps) -> Bool in
             
@@ -330,8 +317,8 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             
         }
         
+        print("added time at END of mergeRecipeSteps = \(self.addedTime)")
         
-        print("mergeSteps is complete and ready to append new steps to mergedSteps array")
     }
     
     
@@ -358,7 +345,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             //start cooking time = serving time - total cooking duration
             let totalCookingDurationSeconds = totalCookingDuration * -60
             var startCookingTime = servingTime?.addingTimeInterval(TimeInterval(totalCookingDurationSeconds))
-            // print("start cooking at: \(startCookingTime)")
+            //print("start cooking at: \(startCookingTime)")
             
             //check that serving time is greater than earliest possible serving time
             // --> if yes, servingTime & start cooking time will work, so don't change
