@@ -24,7 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         store.getRecipesFromCoreData()
         store.updateSelectedRecipes()
         store.populateHomeArrays()
-        UserDefaults.standard.set(0, forKey: "stepCurrent")
         
         // set nav bar color: background: red, foreground: title green
         let navigationBarAppearace = UINavigationBar.appearance()

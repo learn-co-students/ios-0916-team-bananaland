@@ -55,7 +55,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
                     self.store.mergedStepsArray.append(step)
                 }
             }
-            print("store.mergedStepsArray.count \(self.store.mergedStepsArray.count)")
         }
         
         self.calculateStartTime()

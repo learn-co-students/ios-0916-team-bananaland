@@ -195,7 +195,7 @@ class SingleStepView: UIView {
     
     func onClickNextStep(){
         if UserDefaults.standard.integer(forKey: "stepCurrent") < self.store.mergedStepsArray.count {
-            let nextStep = UserDefaults.standard.integer(forKey: "stepCurrent") + 1
+            let nextStep:Int = Int(UserDefaults.standard.integer(forKey: "stepCurrent")) + 1
             UserDefaults.standard.set(nextStep, forKey: "stepCurrent")
             self.delegate?.goToNextStep()
         }

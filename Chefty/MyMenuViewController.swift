@@ -94,7 +94,10 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     }
     
     func goToSingleStep(){
-        UserDefaults.standard.set(1, forKey: "stepCurrent")
+        // if on step 0, advance to step 1
+        if UserDefaults.standard.integer(forKey: "stepCurrent") == 0 {
+            UserDefaults.standard.set(1, forKey: "stepCurrent")
+        }
         let singleStepViewControllerInst = SingleStepViewController()
         navigationController?.pushViewController(singleStepViewControllerInst, animated: false) // show destination with nav bar
     }
