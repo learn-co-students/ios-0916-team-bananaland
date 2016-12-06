@@ -9,7 +9,7 @@
 import UIKit
 import Foundation
 
-@IBDesignable
+
 class SegmentedControl : UIControl {
     
     fileprivate var labels = [UILabel]()

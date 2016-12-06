@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if store.recipesSelected.count == 0 {
             store.getRecipesFromDB {
-                self.initialViewController = HomePageViewController()
+                self.initialViewController = CheftyMainViewController()
             }
         } else {
             self.initialViewController = MyMenuViewController()
@@ -54,6 +54,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window!.makeKeyAndVisible()
 
         return true
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -64,7 +65,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {

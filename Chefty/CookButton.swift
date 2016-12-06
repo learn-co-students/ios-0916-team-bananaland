@@ -8,7 +8,7 @@
 
 import UIKit
 
-@IBDesignable
+
 class CookButton: UIButton {
 
     override func draw(_ rect: CGRect) {

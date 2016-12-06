@@ -153,7 +153,10 @@ class CheftyMainViewController: UIViewController {
     }
         
     @IBAction func cookButtonTapped(_ sender: Any) {
-    
+        
+        let myMenu = MyMenuViewController()
+        present(myMenu, animated: true, completion: nil)
+        
     }
     
     

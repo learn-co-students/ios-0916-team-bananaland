@@ -79,7 +79,7 @@ extension SidesViewController : UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let testView = TestTraditionalRecipeViewController()
+        let testView = TraditionalRecipeViewController()
         testView.recipe = store.sides[indexPath.row]
         testView.modalTransitionStyle = .crossDissolve
         present(testView, animated: true, completion: nil)
