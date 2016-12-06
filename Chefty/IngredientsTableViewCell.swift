@@ -24,22 +24,20 @@ class IngredientsTableViewCell: UITableViewCell {
         // checkBox
         contentView.addSubview(checkBox)
         
-        checkBox.topAnchor.constraint(equalTo: self.topAnchor, constant: 3).isActive = true
-        checkBox.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -3).isActive = true
-        checkBox.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 3).isActive = true
-        checkBox.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.08).isActive = true
+        checkBox.topAnchor.constraint(equalTo: self.topAnchor, constant: 12).isActive = true
+        checkBox.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 5).isActive = true
+        checkBox.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.45).isActive = true
+        checkBox.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.05).isActive = true
         checkBox.translatesAutoresizingMaskIntoConstraints = false
         checkBox.backgroundColor = UIColor.clear
-        
-        checkBox.image = UIImage(named: "ic_check_box_outline_blank")
         
         
         //text label
         textLabel?.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        textLabel?.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 42).isActive = true
+        textLabel?.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30).isActive = true
         textLabel?.numberOfLines = 0
         textLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
-        textLabel?.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8).isActive = true
+        textLabel?.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -3).isActive = true
         textLabel?.translatesAutoresizingMaskIntoConstraints = false
         textLabel?.adjustsFontSizeToFitWidth = true
        
