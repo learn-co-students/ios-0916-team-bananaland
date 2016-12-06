@@ -65,7 +65,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         
         calculateStartTime()
         
-        
         // format the time
         let myFormatter = DateFormatter()
         myFormatter.timeStyle = .short
