@@ -58,8 +58,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         navigationController?.pushViewController(singleStepView, animated: false)
     }
     
-
-    
     
     func createViewAndTableView(){
         tableView.delegate = self
