@@ -100,6 +100,7 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         }
         let singleStepViewControllerInst = SingleStepViewController()
         navigationController?.pushViewController(singleStepViewControllerInst, animated: false) // show destination with nav bar
+        
     }
     
     func clearAllRecipes() {
