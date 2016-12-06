@@ -194,21 +194,18 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     }
     
     func updateTableViewNow() {
+       
+        self.recipeSteps.removeAll()
         
-        //***TODO: why doesn't this actually update the table view on merged steps?
-        print("updateTableViewNow is starting!")
-        print("mergedSteps BEFORE updateTableView is complete: \(self.store.mergedStepsArray.count)")
-        print("recipe selected size BEFORE updateTableView is complete: \(self.store.recipesSelected.count)")
         self.getStepsFromRecipesSelected {
             
-            print("regrabbing recipe steps inside UpdateTableViewNow")
-            
-            self.recipeSteps.removeAll()
-            
+            self.store.mergedStepsArray.removeAll()
+
             self.mergeRecipeSteps()
             
-            print("re merging recipe steps inside UPdate TableView Now")
-            
+        
+
+            print("starting to build mergedSteps array and recipe steps count = \(self.recipeSteps.count)")
             for step in self.recipeSteps {
                 self.store.mergedStepsArray.append(step)
             }
@@ -269,6 +266,8 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     func getStepsFromRecipesSelected(completion: @escaping () -> ()) {
         self.recipeSteps.removeAll()
+        print("inside GetStepsfromRecipesSelected, after remove \(self.recipeSteps.count)")
+        print("inside GetStepsfromRecipesSelected, recipesSelected count = \(store.recipesSelected.count)")
         for singleRecipe in store.recipesSelected {
             DispatchQueue.main.async {
                 CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: singleRecipe.id!, completion: {
@@ -277,6 +276,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             let allRecipeSteps = singleRecipe.step!.allObjects as! [Steps]
             self.recipeSteps += allRecipeSteps
         }
+            print("before closure in GetSteps, recipeSteps count to be sorted = \(self.recipeSteps.count)")
         completion()
     }
     
@@ -284,7 +284,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     func mergeRecipeSteps() {
         
         //print("added time at start of mergeRecipeSteps = \(self.addedTime)")
-        
+
         self.recipeSteps = self.recipeSteps.sorted { (step1: Steps, step2: Steps) -> Bool in
             
             //same start
@@ -330,7 +330,8 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             
         }
         
-        //print("added time at end of mergeSteps = \(self.addedTime)")
+        
+        print("mergeSteps is complete and ready to append new steps to mergedSteps array")
     }
     
     
