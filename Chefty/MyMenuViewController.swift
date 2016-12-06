@@ -61,7 +61,14 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     
     override func viewWillAppear(_ animated: Bool = false) {
         self.title = "My Menu"
-        self.myMenuViewInst.openSingleStepButton.title = "Open Step \(self.store.stepCurrent)"
+        // adjust the button label if the step value is 0
+        var stepValueForButton:Int = 1
+        if UserDefaults.standard.integer(forKey: "stepCurrent") == 0 {
+            stepValueForButton = 1
+        } else {
+            stepValueForButton = UserDefaults.standard.integer(forKey: "stepCurrent")
+        }
+        self.myMenuViewInst.openSingleStepButton.title = "Open Step \(stepValueForButton)"
     }
 
     override func didReceiveMemoryWarning() { super.didReceiveMemoryWarning() }
@@ -87,6 +94,10 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     }
     
     func goToSingleStep(){
+        // if on step 0, advance to step 1
+        if UserDefaults.standard.integer(forKey: "stepCurrent") == 0 {
+            UserDefaults.standard.set(1, forKey: "stepCurrent")
+        }
         let singleStepViewControllerInst = SingleStepViewController()
         navigationController?.pushViewController(singleStepViewControllerInst, animated: false) // show destination with nav bar
         

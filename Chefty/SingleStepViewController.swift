@@ -41,7 +41,7 @@ class SingleStepViewController: UIViewController, SingleStepDelegate {
 
     override func viewWillAppear(_ animated: Bool){
         self.navigationController?.navigationBar.topItem?.title = "My Menu"
-        self.title = "Step \(store.stepCurrent) of \(self.store.mergedStepsArray.count)"
+        self.title = "Step \(UserDefaults.standard.integer(forKey: "stepCurrent")) of \(self.store.mergedStepsArray.count)"
     }
     
     func goToMyMenu(){
@@ -56,12 +56,12 @@ class SingleStepViewController: UIViewController, SingleStepDelegate {
     
     func goToNextStep(){
         // the current step value has been updated before this function was called, so refresh the view to show the new step
-        if store.stepCurrent <= self.store.mergedStepsArray.count{
+        if UserDefaults.standard.integer(forKey: "stepCurrent") <= self.store.mergedStepsArray.count{
             self.loadView()
             self.viewDidLoad()
             self.viewWillAppear(false)
-            if self.store.stepCurrent == self.store.mergedStepsArray.count{
-                self.store.stepCurrent = 1 // reset step position
+            if UserDefaults.standard.integer(forKey: "stepCurrent") == self.store.mergedStepsArray.count{
+                UserDefaults.standard.set(1, forKey: "stepCurrent") // reset step position
             }
         }
     }
