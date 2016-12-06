@@ -1,17 +1,17 @@
 //
-//  MyMenuViewController.swift
+//  TestMenuViewController.swift
 //  Chefty
 //
-//  Created by Paul Tangen on 11/16/16.
+//  Created by Arvin San Miguel on 11/30/16.
 //  Copyright © 2016 com.AppRising.SML. All rights reserved.
 //
 
 import UIKit
-import AudioToolbox
+import Foundation
 import LNRSimpleNotifications
 
-class MyMenuViewController: UIViewController, MyMenuViewDelegate {
-    
+class TestMenuViewController: UIViewController, MyMenuViewDelegate {
+
     var store = DataStore.sharedInstance
     let myMenuViewInst = MyMenuView(frame: CGRect.zero)
     var sampleValue = String()
@@ -27,12 +27,12 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         // add the select recipe button to the nav bar
         let selectRecipeButton = UIBarButtonItem(title: "Select Recipes", style: .plain, target: self, action: #selector(goToHome))
         navigationItem.leftBarButtonItems = [selectRecipeButton]
-  
+        
         // set color and font size of nav bar buttons
         let labelFont : UIFont = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))!
         let attributesNormal = [ NSFontAttributeName : labelFont ]
         selectRecipeButton.setTitleTextAttributes(attributesNormal, for: .normal)
-
+        
         // notification
         notificationManagerInst.notificationsPosition = LNRNotificationPosition.top
         notificationManagerInst.notificationsBackgroundColor = UIColor.white
@@ -60,6 +60,8 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
+        
+        //Paul's Code
         self.title = "My Menu"
         // adjust the button label if the step value is 0
         var stepValueForButton:Int = 1
@@ -69,8 +71,14 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
             stepValueForButton = UserDefaults.standard.integer(forKey: "stepCurrent")
         }
         self.myMenuViewInst.openSingleStepButton.title = "Open Step \(stepValueForButton)"
+        
+        
+        //Arvin's Code
+        self.navigationController?.setNavigationBarHidden(false, animated: .init(true))
+        self.title = "My Menu"
+        //self.myMenuViewInst.openSingleStepButton.title = "Open Step \(self.store.stepCurrent)"
     }
-
+    
     override func didReceiveMemoryWarning() { super.didReceiveMemoryWarning() }
     
     override func loadView(){
@@ -87,17 +95,13 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         self.present(cheftyMainViewController1, animated: false, completion: nil)
     }
     
-    func goToRecipe(){ 
+    func goToRecipe(){
         let traditionalRecipeViewController1 = TraditionalRecipeViewController()
         traditionalRecipeViewController1.recipe = self.myMenuViewInst.recipeForTraditionalRecipeView
         navigationController?.pushViewController(traditionalRecipeViewController1, animated: true) // show destination with nav bar
     }
     
     func goToSingleStep(){
-        // if on step 0, advance to step 1
-        if UserDefaults.standard.integer(forKey: "stepCurrent") == 0 {
-            UserDefaults.standard.set(1, forKey: "stepCurrent")
-        }
         let singleStepViewControllerInst = SingleStepViewController()
         navigationController?.pushViewController(singleStepViewControllerInst, animated: false) // show destination with nav bar
     }
@@ -122,4 +126,11 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         self.present(alertController, animated: true) { }
         
     }
+
+
 }
+
+
+
+
+

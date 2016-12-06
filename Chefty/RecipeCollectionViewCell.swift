@@ -15,7 +15,6 @@ class RecipeCollectionViewCell: UICollectionViewCell {
     var imageView : UIImageView!
     var gradientView : GradientView!
     var recipeLabel : UILabel!
-    var selectButton : SelectedRecipeButton!
     var isButtonPressed = false
     var recipe : Recipe?
     var store = DataStore.sharedInstance
@@ -72,38 +71,7 @@ class RecipeCollectionViewCell: UICollectionViewCell {
         recipeLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
         recipeLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
         
-        let selectedBtnFrame = CGRect(x: bounds.width * 0.85, y: bounds.height * 0.05, width: bounds.width * 0.10, height: bounds.width * 0.10)
-        selectButton = SelectedRecipeButton(frame: selectedBtnFrame)
-        selectButton.alpha = 0.5
-        
-        selectButton.addTarget(self, action: #selector(self.selectBtnTapped(sender:)), for: .touchUpInside)
-        
-        self.contentView.addSubview(selectButton)
-        
     }
     
-    func selectBtnTapped(sender: UIButton) {
-        
-        guard let recipe = recipe else { return }
-        
-        if !isButtonPressed {
-            sender.isHighlighted = true
-            selectButton.roundFillColor = UIColor(red: 66/255.0, green: 151/255.0, blue: 254/255.0, alpha: 1.0)
-            selectButton.setNeedsDisplay()
-            isButtonPressed = true
-            store.setRecipeSelected(recipe: recipe)
-            print("SELECTED: \(store.recipesSelected.count)")
-            
-        } else {
-            sender.isHighlighted = false
-            selectButton.roundFillColor = UIColor.gray.withAlphaComponent(0.8)
-            selectButton.setNeedsDisplay()
-            isButtonPressed = false
-            store.setRecipeUnselected(recipe: recipe)
-            print("REMAINING: \(store.recipesSelected.count)")
-        }
-        
-    }
-    
-    
+
 }

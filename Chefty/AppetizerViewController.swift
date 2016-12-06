@@ -77,10 +77,10 @@ extension AppetizerViewController : UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let testView = TestTraditionalRecipeViewController()
-        testView.modalTransitionStyle = .crossDissolve
-        testView.recipe = store.appetizer[indexPath.row]
-        present(testView, animated: true, completion: nil)
+        let recipeView = TraditionalRecipeViewController()
+        recipeView.modalTransitionStyle = .crossDissolve
+        recipeView.recipe = store.appetizer[indexPath.row]
+        present(recipeView, animated: true, completion: nil)
         
     }
     

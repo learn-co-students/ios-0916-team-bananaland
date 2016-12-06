@@ -1,17 +1,18 @@
 //
-//  TestIngredientsViewController.swift
+//  SlidesViewController.swift
 //  Chefty
 //
-//  Created by Arvin San Miguel on 12/1/16.
+//  Created by Arvin San Miguel on 12/6/16.
 //  Copyright © 2016 com.AppRising.SML. All rights reserved.
 //
 
 import UIKit
 
-class TestIngredientsViewController: UIViewController {
+class SlidesViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         // Do any additional setup after loading the view.
     }
 
