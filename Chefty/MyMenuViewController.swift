@@ -20,6 +20,8 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("hi")
+        
         myMenuViewInst.delegate = self
         self.navigationController?.setNavigationBarHidden(false, animated: .init(true))
         self.view.backgroundColor = UIColor(named: .white)
@@ -84,11 +86,11 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     
     func goToHome() {
         
-//        let cheftyMainViewController1 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "cheftyMain") as! CheftyMainViewController
-//        self.present(cheftyMainViewController1, animated: false, completion: nil)
+        let finalMainViewController1 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "finalMain") as! FinalMainViewController
+        self.present(finalMainViewController1, animated: false, completion: nil)
         
         //Hooked up MainViewController
-        navigationController?.popToRootViewController(animated: true)
+       //navigationController?.popToRootViewController(animated: true)
         
     }
     
