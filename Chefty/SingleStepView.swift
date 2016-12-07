@@ -1,4 +1,4 @@
-//
+ //
 //  SingleStepView.swift
 //  Chefty
 //
@@ -65,7 +65,7 @@ class SingleStepView: UIView {
 //                    }
 //                }
 //            }
-//      } //end of closure
+
         
         // assign the values from the current step to the controls
         self.duration = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].duration
