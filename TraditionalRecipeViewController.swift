@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol RecipeViewDelegate : class {
+    func recipeSelected(_ recipe: Recipe, status: Bool)
+}
+
+
 class TraditionalRecipeViewController: UIViewController {
     
     var traditionalRecipeView: TraditionalRecipeView!
@@ -18,28 +23,16 @@ class TraditionalRecipeViewController: UIViewController {
     var store = DataStore.sharedInstance
     var removeButton : RemoveButtonView!
     
+    weak var delegate: RecipeViewDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        self.reloadInputViews()
         
         self.traditionalRecipeView.recipe = self.recipe
         self.traditionalRecipeView.getStepsandIngredients()
         self.traditionalRecipeView.setUpElements()
         setupElements()
-        
-        if store.recipesSelected.contains(recipe!) {
-            
-            removeButton.alpha = 1.0
-            addButton.alpha = 0.0
-            
-        } else {
-            
-            removeButton.alpha = 0.0
-            addButton.alpha = 1.0
-            
-        }
+        checkStatus()
         
     }
    
@@ -61,23 +54,54 @@ class TraditionalRecipeViewController: UIViewController {
     
 extension TraditionalRecipeViewController {
     
+    func checkStatus() {
+        
+        if store.recipesSelected.contains(recipe!) {
+            isSelected = true
+            removeButton.alpha = 1.0
+            addButton.alpha = 0.0
+            
+        } else {
+            isSelected = false
+            removeButton.alpha = 0.0
+            addButton.alpha = 1.0
+        }
+        
+    }
+    
     func setupElements() {
         
         //Add the backButton
-        backButton = BackButton(frame: CGRect(x: 16, y: 20, width: 60, height: 60))
+        backButton = BackButton()
+        self.view.addSubview(backButton)
+        backButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
+        backButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        backButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        backButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        backButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.addTarget(self, action: #selector(self.backButtonTapped(sender:)), for: .touchUpInside)
         backButton.isUserInteractionEnabled = true
-        self.view.addSubview(backButton)
         
-        let frame2 = CGRect(x: 300, y: 20, width: 60, height: 60)
-        addButton = AddButton(frame: frame2)
-        addButton.addTarget(self, action: #selector(self.addButtonTapped(sender:)), for: .touchUpInside)
+        
+        addButton = AddButton()
         self.view.addSubview(addButton)
+        addButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
+        addButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        addButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        addButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        addButton.translatesAutoresizingMaskIntoConstraints = false
+        addButton.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)
         
-        removeButton = RemoveButtonView(frame: frame2)
-        removeButton.addTarget(self, action: #selector(self.addButtonTapped(sender:)), for: .touchUpInside)
-        //removeButton.alpha = 0.0
+        
+        removeButton = RemoveButtonView()
         self.view.addSubview(removeButton)
+        removeButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
+        removeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
+        removeButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
+        removeButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        removeButton.translatesAutoresizingMaskIntoConstraints = false
+        removeButton.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)
+        
         
     }
     
@@ -85,7 +109,7 @@ extension TraditionalRecipeViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    func addButtonTapped(sender: UIButton) {
+    func buttonTapped(sender: UIButton) {
         
         guard let selected = recipe else { return }
         
@@ -102,7 +126,6 @@ extension TraditionalRecipeViewController {
                 
             })
             
-            
             print("Removed \(store.recipesSelected.count)")
         } else {
             
@@ -116,9 +139,10 @@ extension TraditionalRecipeViewController {
                 
             })
             
-            
             print("Added \(store.recipesSelected.count)")
         }
+        
+        delegate?.recipeSelected(recipe!, status: isSelected)
         
     }
 

@@ -33,22 +33,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
         store.showNotification = true
         
-        print("TOTAL: \(self.store.recipes.count)")
-        print("MAINS: \(self.store.main.count)")
-        print("DESSERT: \(self.store.desserts.count)")
-        print("SIDES: \(self.store.sides.count)")
-        print("APPETIZER: \(self.store.appetizer.count)")
-        
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window!.backgroundColor = UIColor.white
         
         if store.recipesSelected.count == 0 {
             
             self.initialViewController = FinalMainViewController()
+                store.getRecipesFromDB {
+                    //self.store.populateHomeArrays()
+                    print("TOTAL: \(self.store.recipes.count)")
+                    print("MAIN: \(self.store.main.count)")
+                    print("APPETIZER: \(self.store.appetizer.count)")
+                    print("SIDES: \(self.store.sides.count)")
+                    print("DESSERTS: \(self.store.desserts.count)")
+                    self.initialViewController.reloadInputViews()
+                }
             
-            store.getRecipesFromDB {
-                self.initialViewController.reloadInputViews()
-            }
         } else {
         
             self.initialViewController = MyMenuViewController()
@@ -57,7 +57,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         print(initialViewController)
         print("we are about to create the window")
-
         let navigationController = UINavigationController(rootViewController: self.initialViewController)
         self.window!.rootViewController = navigationController
         self.window!.makeKeyAndVisible()

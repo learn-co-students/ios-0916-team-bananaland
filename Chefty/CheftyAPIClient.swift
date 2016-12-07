@@ -70,8 +70,10 @@ class CheftyAPIClient {
                             
                             store.saveRecipesContext()
                             store.getRecipesFromCoreData()
-
+                            print("RECIPES COUNT FROM API : \(store.recipes.count)")
                         }
+                        //store.populateHomeArrays()
+                        
                         completion()
                         
                     } catch {

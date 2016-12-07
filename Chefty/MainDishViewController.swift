@@ -8,14 +8,43 @@
 
 import UIKit
 
-class MainDishViewController: UIViewController {
+class MainDishViewController: UIViewController, RecipeViewDelegate {
 
     var store = DataStore.sharedInstance
     var collectionView : UICollectionView!
+    var selectedRecipe : Recipe?
+    var selectedRecipeStatus = false
+    let recipeView = TraditionalRecipeViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        recipeView.delegate = self
+        setupCollectionView()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.reloadInputViews()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.reloadInputViews()
+    
+    }
+}
+
+extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func recipeSelected(_ recipe: Recipe, status: Bool) {
+        selectedRecipe = recipe
+        selectedRecipeStatus = status
+    }
+    
+    func setupCollectionView() {
         let layout = CustomLayoutView()
         let frame = CGRect(x: view.bounds.minX, y: view.bounds.minY, width: view.bounds.width, height: view.bounds.height * 0.80)
         collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
@@ -26,17 +55,6 @@ class MainDishViewController: UIViewController {
         view.addSubview(collectionView)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.reloadInputViews()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        self.reloadInputViews()
-    }
-}
-
-extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return store.main.count
@@ -76,7 +94,7 @@ extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let recipeView = TraditionalRecipeViewController()
+        
         recipeView.modalTransitionStyle = .crossDissolve
         recipeView.recipe = store.main[indexPath.row]
         present(recipeView, animated: true, completion: nil)
