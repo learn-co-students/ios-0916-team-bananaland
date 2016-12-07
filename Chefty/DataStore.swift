@@ -26,6 +26,7 @@ class DataStore {
     
     var mergedStepsArray: [Steps] = []
     var startCookingTime: String = ""
+    var addedTime = 0
     
     var earliestPossibleServeTime: Date = Date()
     
@@ -45,12 +46,6 @@ class DataStore {
         }
         
         
-        // Hi Arvin: This is being called everytime the app opens, so it add 15 recipes to core data everytime. Can a conditiona be added to limit the number of recipes on the phone? - Paul
-        
-//        CheftyAPIClient.getRecipiesFromDB { success in
-//
-//        }
-
     }
     
     
@@ -131,7 +126,7 @@ class DataStore {
             //print("serving time: \(servingTime)")
             
             //total cooking time = smallest timeToStart from mergedSteps + addedTime
-            let totalCookingDuration = self.mergedStepsArray[0].timeToStart * -1 //+ addedTime
+            let totalCookingDuration = self.mergedStepsArray[0].timeToStart * -1 + self.addedTime
             //print("time to start = \(store.mergedStepsArray[0].timeToStart)")
             //print("added time = \(addedTime)")
             //print("total cooking time: \(totalCookingDuration)")
