@@ -47,10 +47,10 @@ struct Constants{
 
 extension UIColor {
     enum ColorName : UInt32 {
-        case red =      0xcc3333ff
+        case red =      0x711220ff
         case blue =     0x336699ff
         case white =    0xffffffff
-        case beige =    0xf7e5c5ff
+        case beige =    0xD7D2B9ff
         case black =    0x999999ff
         case gray3 =    0x333333ff
         case orange =   0xFF851Bff

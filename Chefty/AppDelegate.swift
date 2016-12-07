@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var initialViewController = UIViewController()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
+        
         // if no recipes selected in CoreData, fetch from DataBase
         store.getRecipesFromCoreData()
         store.updateSelectedRecipes()
@@ -39,6 +39,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("SIDES: \(self.store.sides.count)")
         print("APPETIZER: \(self.store.appetizer.count)")
         
+        
+        // TODO: Commented out in a merge conflict. Should we remove it.
+        
+        //        if store.recipesSelected.count == 0 {
+        //            store.getRecipesFromDB {
+        //                self.initialViewController = CheftyMainViewController()
+        //            }
+        //        } else {
+        //            self.initialViewController = MyMenuViewController()
+        //        }
+        //
+        //        self.window = UIWindow(frame: UIScreen.main.bounds)
+        //        let navigationController = UINavigationController(rootViewController: self.initialViewController)
+        //        self.window!.rootViewController = navigationController
+        //        self.window!.backgroundColor = UIColor.white
+        //        self.window!.makeKeyAndVisible()
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window!.backgroundColor = UIColor.white
         
@@ -50,14 +66,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.initialViewController.reloadInputViews()
             }
         } else {
-        
+            
             self.initialViewController = MyMenuViewController()
-
+            
         }
         
         print(initialViewController)
         print("we are about to create the window")
-
+        
         let navigationController = UINavigationController(rootViewController: self.initialViewController)
         self.window!.rootViewController = navigationController
         self.window!.makeKeyAndVisible()
@@ -65,7 +81,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
         
     }
-
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

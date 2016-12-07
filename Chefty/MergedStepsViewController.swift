@@ -27,14 +27,11 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         let labelFont : UIFont = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))!
         let attributesNormal = [ NSFontAttributeName : labelFont ]
         selectRecipeButton.setTitleTextAttributes(attributesNormal, for: .normal)
-
-        
-        
         
         createViewAndTableView()
-
-        tableView.reloadData()
         
+        tableView.reloadData()
+        self.automaticallyAdjustsScrollViewInsets = false
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
@@ -55,11 +52,13 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         return store.mergedStepsArray.count
     }
     
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = MergedStepsTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
         if let stepTitle = store.mergedStepsArray[indexPath.row].stepTitle {
             cell.textLabel?.text = "\(indexPath.row + 1). \(stepTitle)"
             cell.backgroundColor = UIColor(red: 215/255, green: 210/255, blue: 185/255, alpha: 1.0)
+            cell.textLabel?.font = UIFont(name: "GillSans-Light", size: 21)
         }
         self.getImage(recipe: store.mergedStepsArray[indexPath.row].recipe!, imageView: cell.imageViewInst, view: cell)
         return cell
@@ -97,9 +96,9 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         myLabel.translatesAutoresizingMaskIntoConstraints = false
         myLabel.widthAnchor.constraint(equalTo: myView.widthAnchor, multiplier: 1.0).isActive = true
         myLabel.leftAnchor.constraint(equalTo: myView.leftAnchor).isActive = true
-        myLabel.bottomAnchor.constraint(equalTo: myView.bottomAnchor, constant: -30).isActive = true
+        myLabel.bottomAnchor.constraint(equalTo: myView.bottomAnchor, constant: -25).isActive = true
         myLabel.text = "Start cooking at \(store.startCookingTime)"
-        myLabel.font = UIFont(name: "GillSans-Light", size: 24)
+        myLabel.font = UIFont(name: "GillSans-Light", size: 30)
         myLabel.textColor = UIColor(red: 255/255, green: 255/255, blue: 238/255, alpha: 1.0)
         myLabel.textAlignment = .center
         
@@ -109,6 +108,8 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1.0).isActive = true
         tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: myView.bottomAnchor).isActive = true
+        
+        
     }
     
     
@@ -127,4 +128,5 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
 }
+
 
