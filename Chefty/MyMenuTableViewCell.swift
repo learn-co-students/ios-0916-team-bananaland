@@ -11,6 +11,7 @@ import UIKit
 protocol MyMenuTableViewCellDelegate: class {
     func updateTableViewNow()
     func servingTimeFieldSelected(_ sender: UITextField)
+    func onClickClearAllRecipes()
 }
 
 class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
@@ -95,9 +96,12 @@ class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
     func onClickDeleteAction() {
         if let currentRowString = self.deleteButton.accessibilityLabel {
             if let currentRow = Int(currentRowString) {
-                store.setRecipeUnselected(recipe: store.recipesSelected[currentRow])
-                print("updateTableViewNow about to get called from delete function")
-                self.delegate?.updateTableViewNow()
+                if store.recipesSelected.count == 1 { // only one recipe left, treat same as clear all
+                    self.delegate?.onClickClearAllRecipes()
+                } else {
+                    store.setRecipeUnselected(recipe: store.recipesSelected[currentRow])
+                    self.delegate?.updateTableViewNow()
+                }
                 
             }
         }

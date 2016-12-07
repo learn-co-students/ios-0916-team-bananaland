@@ -44,8 +44,8 @@
         createProcedureLabel()
         createExpectedCompletionLabel()
         createProcedureText()
-        createIngredientsText()
         createIngredientsLabel()
+        createIngredientsText()
         createDoneButton()
     }
     
@@ -117,7 +117,7 @@
         self.stepTitleLabel.text = self.stepTitle
         self.stepTitleLabel.textAlignment = .center
         self.stepTitleLabel.textColor = UIColor(red: 255/255, green: 255/255, blue: 238/255, alpha: 1.0)
-        self.stepTitleLabel.font =  UIFont(name: "GillSans-Light", size: 30)
+        self.stepTitleLabel.font = UIFont(name: Constants.appFont.light.rawValue, size: 30)
         self.stepTitleLabel.backgroundColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.deepPurple.rawValue)!)
         
         self.addSubview(self.stepTitleLabel)
@@ -132,10 +132,8 @@
     }
     
     func createExpectedCompletionLabel(){
-        self.stepTitleLabel.font =  UIFont(name: Constants.appFont.bold.rawValue, size: Constants.fontSize.large.rawValue)
-    
         self.expectedStepCompletionLabel.text = "Complete step by \(self.expectedStepCompletion)"
-        self.expectedStepCompletionLabel.font = UIFont(name: "GillSans-Light", size: 20)
+        self.expectedStepCompletionLabel.font = UIFont(name: Constants.appFont.light.rawValue, size: 20)
         self.expectedStepCompletionLabel.textAlignment = .left
         self.expectedStepCompletionLabel.backgroundColor = UIColor.white
         self.expectedStepCompletionLabel.textColor = UIColor.black
@@ -152,7 +150,7 @@
     func createIngredientsLabel(){
         self.ingredientsTitle.text = "Ingredients"
         self.ingredientsTitle.textAlignment = .center
-        self.ingredientsTitle.font = UIFont(name: "GillSans-Light", size: 25)
+        self.ingredientsTitle.font = UIFont(name: Constants.appFont.light.rawValue, size: 25)
         self.ingredientsTitle.backgroundColor = UIColor(red: 223/255.0, green: 218/255.0, blue: 197/255.0, alpha: 1.0)
         self.ingredientsTitle.textColor = UIColor.black
         
@@ -173,7 +171,7 @@
     
     func createIngredientsText(){
         self.ingredientsBody.text = self.ingredients
-        self.ingredientsBody.font = UIFont(name: "GillSans-Light", size: 20)
+        self.ingredientsBody.font = UIFont(name: Constants.appFont.light.rawValue, size: 20)
         self.ingredientsBody.textAlignment = .left
         
         self.addSubview(self.ingredientsBody)
@@ -189,7 +187,7 @@
     func createProcedureLabel(){
         self.procedureTitle.text = "Procedure"
         self.procedureTitle.textAlignment = .center
-        self.procedureTitle.font =  UIFont(name: "GillSans-Light", size: 25)
+        self.procedureTitle.font =  UIFont(name: Constants.appFont.light.rawValue, size: 25)
         self.procedureTitle.backgroundColor = UIColor(red: 132/255.0, green: 32/255.0, blue: 43/255.0, alpha: 1.0)
         self.procedureTitle.textColor = UIColor(red: 255/255, green: 255/255, blue: 238/255, alpha: 1.0)
         
@@ -204,7 +202,7 @@
     
     func createProcedureText(){
         self.procedureBodyTextView.backgroundColor = UIColor.white
-        self.procedureBodyTextView.font = UIFont(name: "GillSans-Light", size: 20)
+        self.procedureBodyTextView.font = UIFont(name: Constants.appFont.light.rawValue, size: 20)
         self.procedureBodyTextView.textAlignment = .left
         
         procedureBodyTextView.numberOfLines = 0
