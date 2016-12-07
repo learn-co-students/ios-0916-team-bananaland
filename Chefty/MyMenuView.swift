@@ -205,6 +205,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
                 self.store.mergedStepsArray.append(step)
             }
         }
+        UserDefaults.standard.set(0, forKey: "stepCurrent")
         calculateStartTime()
         self.tableView.reloadData()
     }
@@ -329,7 +330,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         for (index, _) in store.mergedStepsArray.enumerated() {
             print("Inside enumerated for loop")
             
-            while index < store.mergedStepsArray.count - 2 {
+            if index < store.mergedStepsArray.count - 2 {
                 
                 print("Inside while loop")
                 
@@ -372,6 +373,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
                         
                     }
                 }
+            }
+            
+            else {
+                print("stopping loop")
             }
         }
         
