@@ -119,8 +119,10 @@ class SingleStepView: UIView {
         self.expectedStepCompletionLabel.text = "Complete step by \(self.expectedStepCompletion)"
         self.expectedStepCompletionLabel.font = UIFont(name: "GillSans-Light", size: 20)
         self.expectedStepCompletionLabel.textAlignment = .left
-        self.expectedStepCompletionLabel.backgroundColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.deepPurple.rawValue)!)
-        self.expectedStepCompletionLabel.textColor = UIColor(red: 255/255, green: 255/255, blue: 238/255, alpha: 1.0)
+        self.expectedStepCompletionLabel.backgroundColor = UIColor.white
+        //(red: 132/255.0, green: 32/255.0, blue: 43/255.0, alpha: 1.0)
+        self.expectedStepCompletionLabel.textColor = UIColor.black
+        //(red: 255/255, green: 255/255, blue: 238/255, alpha: 1.0)
 
         self.ingredientsTitle.text = "Ingredients"
         self.ingredientsTitle.textAlignment = .center
@@ -191,22 +193,23 @@ class SingleStepView: UIView {
         self.stepTitleLabel.numberOfLines = 0
         self.stepTitleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         
-        self.expectedStepCompletionLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.expectedStepCompletionLabel.topAnchor.constraint(equalTo: self.stepTitleLabel.bottomAnchor).isActive = true
-        self.expectedStepCompletionLabel.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        self.expectedStepCompletionLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
-        
         self.procedureTitle.translatesAutoresizingMaskIntoConstraints = false
-        self.procedureTitle.topAnchor.constraint(equalTo: self.expectedStepCompletionLabel.bottomAnchor, constant: 20).isActive = true
+        self.procedureTitle.topAnchor.constraint(equalTo: self.recipeUIImageView.bottomAnchor).isActive = true
         self.procedureTitle.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         self.procedureTitle.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         self.procedureTitle.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
+        self.expectedStepCompletionLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.expectedStepCompletionLabel.topAnchor.constraint(equalTo: self.procedureTitle.bottomAnchor).isActive = true
+        self.expectedStepCompletionLabel.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        self.expectedStepCompletionLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
+        self.expectedStepCompletionLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
         self.procedureBodyTextView.translatesAutoresizingMaskIntoConstraints = false
-        self.procedureBodyTextView.topAnchor.constraint(equalTo: self.procedureTitle.bottomAnchor, constant: 0).isActive = true
+        self.procedureBodyTextView.topAnchor.constraint(equalTo: self.expectedStepCompletionLabel.bottomAnchor, constant: 0).isActive = true
         self.procedureBodyTextView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 7).isActive = true
         self.procedureBodyTextView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -7).isActive = true
-        self.procedureBodyTextView.bottomAnchor.constraint(equalTo: self.doneButton.bottomAnchor, constant: -40).isActive = true
+        self.procedureBodyTextView.bottomAnchor.constraint(equalTo: self.centerYAnchor, constant: 100).isActive = true
         
         self.ingredientsTitle.translatesAutoresizingMaskIntoConstraints = false
         self.ingredientsTitle.topAnchor.constraint(equalTo: self.procedureBodyTextView.bottomAnchor).isActive = true
