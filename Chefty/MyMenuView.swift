@@ -321,18 +321,12 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     }
     
     func calculateExtraTime() {
-        
-       print("calculate extra time called")
-    
         self.addedTime = 0
         
         // add extra time
         for (index, _) in store.mergedStepsArray.enumerated() {
-            print("Inside enumerated for loop")
             
             if index < store.mergedStepsArray.count - 2 {
-                
-                print("Inside while loop")
                 
                 let step1 = store.mergedStepsArray[index]
                 let step2 = store.mergedStepsArray[index + 1]
