@@ -1,4 +1,4 @@
-//
+ //
 //  SingleStepView.swift
 //  Chefty
 //
@@ -66,7 +66,7 @@ class SingleStepView: UIView {
 //                    }
 //                }
 //            }
-//      } //end of closure
+
         
         
         

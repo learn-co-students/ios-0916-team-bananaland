@@ -39,7 +39,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     var recipeSteps = [Steps]()
     var addedTime = 0
-    var servingTimeForDisplay = "test time here"
+    //var servingTimeForDisplay = "test time here"
     
     let ingredientsButton: UIBarButtonItem = UIBarButtonItem(title: "Ingredients", style: .plain , target: self, action: #selector(clickIngredients))
     let clearAllButton: UIBarButtonItem = UIBarButtonItem(title: "Clear All", style: .plain , target: self, action: #selector(onClickClearAllRecipes))
@@ -215,6 +215,8 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
                 self.store.mergedStepsArray.append(step)
             }
         }
+
+        UserDefaults.standard.set(0, forKey: "stepCurrent")
         store.calculateStartTime()
         self.tableView.reloadData()
     }
@@ -241,6 +243,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     func clickOpenStep() {
         self.delegate?.goToSingleStep()
+        calculateExtraTime()
     }
     
     func getBackgroundImage(recipe: Recipe, imageView: UIImageView, view: UIView) {
@@ -281,8 +284,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     
     func mergeRecipeSteps() {
-        
-        print("added time at start of mergeRecipeSteps = \(self.addedTime)")
 
         self.recipeSteps = self.recipeSteps.sorted { (step1: Steps, step2: Steps) -> Bool in
             
@@ -293,7 +294,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
                 if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
                     return true
                 } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
-                    addedTime += step1.timeToStart + step1.duration - step2.timeToStart
+                    addedTime += Int(step1.timeToStart) + Int(step1.duration) - Int(step2.timeToStart)
                     return false
                     
                     //same attentionNeeded, add shorter duration to addedTime
@@ -312,24 +313,85 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             if (step2.timeToStart > step1.timeToStart) && (step2.timeToStart < (step1.timeToStart + step1.duration)) {
                 
                 if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
-                    addedTime += step2.timeToStart - (step1.timeToStart + step1.duration)
+                    addedTime += Int(step2.timeToStart) - (Int(step1.timeToStart) + Int(step1.duration))
                     return true
                     
                 } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
-                    addedTime += (step1.timeToStart + step1.duration) - step2.timeToStart
+                    addedTime += (Int(step1.timeToStart) + Int(step1.duration)) - Int(step2.timeToStart)
                     return true
                     
                 } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
-                    addedTime += (step1.timeToStart + step1.duration) - step2.timeToStart
+                    addedTime += (Int(step1.timeToStart) + Int(step1.duration)) - Int(step2.timeToStart)
                     return true
                 }
             }
-            
+
             return step1.timeToStart < step2.timeToStart
             
         }
+    }
+    
+    func calculateExtraTime() {
         
-        print("added time at END of mergeRecipeSteps = \(self.addedTime)")
+       print("calculate extra time called")
+    
+        self.addedTime = 0
+        
+        // add extra time
+        for (index, _) in store.mergedStepsArray.enumerated() {
+            print("Inside enumerated for loop")
+            
+            if index < store.mergedStepsArray.count - 2 {
+                
+                print("Inside while loop")
+                
+                let step1 = store.mergedStepsArray[index]
+                let step2 = store.mergedStepsArray[index + 1]
+
+                //same start
+                if step1.timeToStart == step2.timeToStart {
+                    
+                    //different attentionNeeded
+                    if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
+                        addedTime += Int(step1.timeToStart) + Int(step1.duration) - Int(step2.timeToStart)
+                        
+                        
+                        //same attentionNeeded, add shorter duration to addedTime
+                    } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
+                        if step1.duration > step2.duration {
+                            addedTime += Int(step2.duration)
+                            
+                        } else if step1.duration < step2.duration {
+                            addedTime += Int(step1.duration)
+                            
+                        }
+                    }
+                }
+                
+                //overlap duration
+                if (step2.timeToStart > step1.timeToStart) && (step2.timeToStart < (step1.timeToStart + step1.duration)) {
+                    
+                    if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
+                        addedTime += Int(step2.timeToStart) - (Int(step1.timeToStart) + Int(step1.duration))
+                        
+                        
+                    } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
+                        addedTime += (Int(step1.timeToStart) + Int(step1.duration)) - Int(step2.timeToStart)
+                        
+                        
+                    } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
+                        addedTime += (Int(step1.timeToStart) + Int(step1.duration)) - Int(step2.timeToStart)
+                        
+                    }
+                }
+            }
+            
+            else {
+                print("stopping loop")
+            }
+        }
+        
+        print("addedTime = \(addedTime)")
         
     }
     
