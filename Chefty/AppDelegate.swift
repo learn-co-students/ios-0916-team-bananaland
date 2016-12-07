@@ -39,16 +39,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("SIDES: \(self.store.sides.count)")
         print("APPETIZER: \(self.store.appetizer.count)")
         
-//        if store.recipesSelected.count == 0 {
-//            store.getRecipesFromDB {
-//                self.initialViewController = CheftyMainViewController()
-//            }
-//        } else {
-//            self.initialViewController = MyMenuViewController()
-//        }
-//        
+        if store.recipesSelected.count == 4 {
+            //self.initialViewController = FinalMainViewController()
+            store.getRecipesFromDB {
+                self.initialViewController = FinalMainViewController()
+                
+            }
+        } else {
+            self.initialViewController = MyMenuViewController()
+        }
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let navigationController = UINavigationController(rootViewController: self.initialViewController)
+        self.window!.rootViewController = navigationController
+        self.window!.backgroundColor = UIColor.white
+        self.window!.makeKeyAndVisible()
+
+//        let finalVC = FinalMainViewController()
 //        self.window = UIWindow(frame: UIScreen.main.bounds)
-//        let navigationController = UINavigationController(rootViewController: self.initialViewController)
+//        let navigationController = UINavigationController(rootViewController: finalVC)
 //        self.window!.rootViewController = navigationController
 //        self.window!.backgroundColor = UIColor.white
 //        self.window!.makeKeyAndVisible()

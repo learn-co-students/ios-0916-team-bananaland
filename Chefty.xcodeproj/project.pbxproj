@@ -338,7 +338,6 @@
 		C0252C5D1DDCF93900046AD0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-
 				01957BDE1DF5EB2600F19DA7 /* IngredientsTableViewCell.swift */,
 				A70054ED1DF725E900427FB8 /* TestFiles */,
 				A7C1E22C1DDE579D00BD8A13 /* HomePage */,
