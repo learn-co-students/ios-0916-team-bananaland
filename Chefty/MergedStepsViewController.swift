@@ -18,8 +18,18 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.setNavigationBarHidden(false, animated: .init(true))
+        self.view.backgroundColor = UIColor(named: .white)
+        
+        let selectRecipeButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(goToSingleStep))
+        navigationItem.leftBarButtonItems = [selectRecipeButton]
+        
+        let labelFont : UIFont = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))!
+        let attributesNormal = [ NSFontAttributeName : labelFont ]
+        selectRecipeButton.setTitleTextAttributes(attributesNormal, for: .normal)
+        
         createViewAndTableView()
-
+        
         tableView.reloadData()
         self.automaticallyAdjustsScrollViewInsets = false
     }
@@ -42,13 +52,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         return store.mergedStepsArray.count
     }
     
-    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
-        header.contentView.backgroundColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.deepPurple.rawValue)!)
-        header.textLabel?.textColor = UIColor(red: 255/255, green: 255/255, blue: 238/255, alpha: 1.0)
-        header.textLabel?.font = UIFont(name: "GillSans-Light", size: 30)
-        header.alpha = 0.8
-    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = MergedStepsTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
@@ -57,7 +60,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
             cell.backgroundColor = UIColor(red: 215/255, green: 210/255, blue: 185/255, alpha: 1.0)
             cell.textLabel?.font = UIFont(name: "GillSans-Light", size: 21)
         }
-        
         self.getImage(recipe: store.mergedStepsArray[indexPath.row].recipe!, imageView: cell.imageViewInst, view: cell)
         return cell
     }
@@ -106,7 +108,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1.0).isActive = true
         tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: myView.bottomAnchor).isActive = true
-       
+        
         
     }
     
@@ -120,6 +122,11 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
-
+    func goToSingleStep(){
+        let singleStepViewControllerInst = SingleStepViewController()
+        navigationController?.pushViewController(singleStepViewControllerInst, animated: false)
+    }
+    
 }
+
 
