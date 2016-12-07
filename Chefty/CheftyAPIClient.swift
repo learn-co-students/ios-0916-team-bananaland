@@ -59,12 +59,12 @@ class CheftyAPIClient {
                                 recipeInst.sortValue = Int16(sortValueString)!
                             }
                             
-                            
-                            if recipeInst.id == "apple-pie" || recipeInst.id == "yummy-baked-potato-skins" || recipeInst.id == "chicken-breasts" || recipeInst.id == "black-bean-couscous-salad" {
-                                recipeInst.selected = true as Bool
-                            } else {
-                                recipeInst.selected = false as Bool
-                            }
+                            // create 4 selected recipes
+//                            if recipeInst.id == "apple-pie" || recipeInst.id == "yummy-baked-potato-skins" || recipeInst.id == "chicken-breasts" || recipeInst.id == "black-bean-couscous-salad" {
+//                                recipeInst.selected = true as Bool
+//                            } else {
+//                                recipeInst.selected = false as Bool
+//                            }
                             
                             store.recipes.append(recipeInst)
                             

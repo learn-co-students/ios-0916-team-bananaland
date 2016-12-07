@@ -36,6 +36,8 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     var servingTimeFieldLabel: UILabel = UILabel()
     var servingTimeField: UITextField = UITextField()
     var servingTimeValue: String = String()
+    var startCookingTimeValue: String = String()
+    var startCookingTimeField: UITextField = UITextField()
     
     var recipeSteps = [Steps]()
 
@@ -43,9 +45,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     let ingredientsButton: UIBarButtonItem = UIBarButtonItem(title: "Ingredients", style: .plain , target: self, action: #selector(clickIngredients))
     let clearAllButton: UIBarButtonItem = UIBarButtonItem(title: "Clear All", style: .plain , target: self, action: #selector(onClickClearAllRecipes))
     var openSingleStepButton: UIBarButtonItem = UIBarButtonItem(title: "Open Step", style: .plain , target: self, action: #selector(clickOpenStep))
-    
-    
-    
     
     //Initialize
     override init(frame:CGRect){
@@ -72,13 +71,13 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         // set serving time to 7pm or earliest serving time, whichever is later
         if let recipeSelected = store.recipesSelected.first {
             if (recipeSelected.servingTime?.timeIntervalSince1970)! < store.earliestPossibleServeTime.timeIntervalSince1970 && UserDefaults.standard.integer(forKey: "stepCurrent") == 0 {
-                print("serving time is invalid, change it to earlies serving time")
+                //print("serving time is invalid, change it to earlies serving time")
                 for recipeSelected2 in store.recipesSelected {
                     recipeSelected2.servingTime = store.earliestPossibleServeTime as NSDate?
                     store.saveRecipesContext()
                 }
             } else {
-                print("serving time is valid or stepCurrent > 0")
+                //print("serving time is valid or stepCurrent > 0")
             }
             self.servingTimeValue = myFormatter.string(from: recipeSelected.servingTime as! Date)
             self.servingTimeValue = " Serving Time: " + self.servingTimeValue
@@ -124,10 +123,29 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         
         self.servingTimeField.topAnchor.constraint(equalTo: self.servingTimeView.topAnchor).isActive = true
         
+        // TODO: Commenting out for merge conflict. Revisit this.
+//        self.servingTimeField.font = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))
+//        self.servingTimeField.textColor = self.tintColor
+//        self.servingTimeView.addSubview(self.servingTimeField)
+//        self.servingTimeField.text = self.servingTimeValue
+//        self.servingTimeField.centerYAnchor.constraint(equalTo: self.servingTimeView.centerYAnchor).isActive = true
+//        self.servingTimeField.leftAnchor.constraint(equalTo: self.servingTimeView.leftAnchor, constant: 10).isActive = true
+//        self.servingTimeField.rightAnchor.constraint(equalTo: self.servingTimeView.centerXAnchor, constant: -10).isActive = true
+
         self.servingTimeField.translatesAutoresizingMaskIntoConstraints = false
         
         self.servingTimeField.inputView = self.timePicker
         self.servingTimeField.inputAccessoryView = self.createPickerToolBar()
+        
+        // define startCookingTime
+        self.startCookingTimeField.font = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))
+        self.startCookingTimeField.isUserInteractionEnabled = false
+        self.servingTimeView.addSubview(self.startCookingTimeField)
+        self.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"
+        self.startCookingTimeField.centerYAnchor.constraint(equalTo: self.servingTimeView.centerYAnchor).isActive = true
+        self.startCookingTimeField.leftAnchor.constraint(equalTo: self.servingTimeView.centerXAnchor, constant: 10).isActive = true
+        self.startCookingTimeField.rightAnchor.constraint(equalTo: self.servingTimeView.rightAnchor, constant: -10).isActive = true
+        self.startCookingTimeField.translatesAutoresizingMaskIntoConstraints = false
         
         // tableview
         self.tableView.topAnchor.constraint(equalTo: self.servingTimeView.topAnchor, constant: -16).isActive = true
@@ -160,6 +178,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         dateFormatterInst.dateStyle = .none
         dateFormatterInst.timeStyle = .short
         self.servingTimeField.text = "Serving Time: \(dateFormatterInst.string(from: self.timePicker.date))"
+        
         self.servingTimeField.resignFirstResponder()
         
         // update serving time on the selected recipes
@@ -170,6 +189,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         
         // recalculate start cooking time
         store.calculateStartTime()
+        self.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"
     }
     
     
@@ -232,6 +252,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
 
         UserDefaults.standard.set(0, forKey: "stepCurrent")
         store.calculateStartTime()
+        self.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"
         self.tableView.reloadData()
     }
     

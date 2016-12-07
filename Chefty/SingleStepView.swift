@@ -38,7 +38,6 @@ class SingleStepView: UIView {
     override init(frame:CGRect){
         super.init(frame: frame)
         self.backgroundColor = UIColor.white
-        print("***** SingleStepView *******")
         
 //        CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: "apple-pie") {
         
@@ -81,6 +80,8 @@ class SingleStepView: UIView {
         self.store.mergedStepsArray = tempMergedStepsArray // restore the mergedStepsArray
         store.calculateStartTime() // restore the start time for the all steps
         
+        print("self.store.mergedStepsArray.count \(self.store.mergedStepsArray.count)")
+        
         // unwrap values
         if let procedureBody = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].procedure {
             self.procedureBody = procedureBody
@@ -101,10 +102,10 @@ class SingleStepView: UIView {
                 }
             }
         }
-        
-        if let url = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].recipe?.imageURLSmall {
-            self.imageURLString = url
-            guard let url = URL(string: self.imageURLString) else { return }
+
+        if let imageURLString = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].recipe?.imageURLSmall {
+            print("imageURLString: \(imageURLString)")
+            let url = URL(string: imageURLString)
             self.recipeUIImageView.contentMode = .scaleAspectFill
             self.recipeUIImageView.sd_setImage(with: url)
         }
@@ -112,9 +113,7 @@ class SingleStepView: UIView {
         // configure controls
         self.stepTitleLabel.text = self.stepTitle
         self.stepTitleLabel.font =  UIFont(name: Constants.appFont.bold.rawValue, size: Constants.fontSize.large.rawValue)
-        
-        
-        
+    
         self.expectedStepCompletionLabel.text = "Complete step by \(self.expectedStepCompletion)"
         self.expectedStepCompletionLabel.font = UIFont(name: Constants.appFont.regular.rawValue, size: Constants.fontSize.xsmall.rawValue)
         
