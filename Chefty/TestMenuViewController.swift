@@ -60,6 +60,20 @@ class TestMenuViewController: UIViewController, MyMenuViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
+        
+        //Paul's Code
+        self.title = "My Menu"
+        // adjust the button label if the step value is 0
+        var stepValueForButton:Int = 1
+        if UserDefaults.standard.integer(forKey: "stepCurrent") == 0 {
+            stepValueForButton = 1
+        } else {
+            stepValueForButton = UserDefaults.standard.integer(forKey: "stepCurrent")
+        }
+        self.myMenuViewInst.openSingleStepButton.title = "Open Step \(stepValueForButton)"
+        
+        
+        //Arvin's Code
         self.navigationController?.setNavigationBarHidden(false, animated: .init(true))
         self.title = "My Menu"
         //self.myMenuViewInst.openSingleStepButton.title = "Open Step \(self.store.stepCurrent)"
