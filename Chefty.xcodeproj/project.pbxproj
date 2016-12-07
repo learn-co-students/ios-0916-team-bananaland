@@ -11,6 +11,7 @@
 		01A830B31DDF82330064B9CE /* IngredientsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A830B21DDF82330064B9CE /* IngredientsController.swift */; };
 		6E4E91AA419B90E48D983D4C /* Pods_Chefty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F99EB0E7E4778030CC432A72 /* Pods_Chefty.framework */; };
 		714EBD5C1DDE340800C0857A /* TraditionalRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 714EBD5B1DDE340800C0857A /* TraditionalRecipeView.swift */; };
+		715836781DF86C0300B694C8 /* TraditionalRecipeSecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715836771DF86C0300B694C8 /* TraditionalRecipeSecondViewController.swift */; };
 		717B57DA1DECB539000F30CA /* MergedStepsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717B57D91DECB539000F30CA /* MergedStepsViewController.swift */; };
 		71BDEA881DF33E890070EE12 /* MergedStepsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71BDEA871DF33E890070EE12 /* MergedStepsTableViewCell.swift */; };
 		71E655C41DDCE61700B60E0B /* TraditionalRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71E655C31DDCE61700B60E0B /* TraditionalRecipeViewController.swift */; };
@@ -108,6 +109,7 @@
 		01A830B21DDF82330064B9CE /* IngredientsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsController.swift; sourceTree = "<group>"; };
 		45466194089BC863FFF4F44A /* Pods-Chefty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chefty.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Chefty/Pods-Chefty.debug.xcconfig"; sourceTree = "<group>"; };
 		714EBD5B1DDE340800C0857A /* TraditionalRecipeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraditionalRecipeView.swift; sourceTree = "<group>"; };
+		715836771DF86C0300B694C8 /* TraditionalRecipeSecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TraditionalRecipeSecondViewController.swift; sourceTree = "<group>"; };
 		717B57D91DECB539000F30CA /* MergedStepsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MergedStepsViewController.swift; sourceTree = "<group>"; };
 		71BDEA871DF33E890070EE12 /* MergedStepsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MergedStepsTableViewCell.swift; sourceTree = "<group>"; };
 		71E655C31DDCE61700B60E0B /* TraditionalRecipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TraditionalRecipeViewController.swift; path = ../TraditionalRecipeViewController.swift; sourceTree = "<group>"; };
@@ -338,7 +340,6 @@
 		C0252C5D1DDCF93900046AD0 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-
 				01957BDE1DF5EB2600F19DA7 /* IngredientsTableViewCell.swift */,
 				A70054ED1DF725E900427FB8 /* TestFiles */,
 				A7C1E22C1DDE579D00BD8A13 /* HomePage */,
@@ -369,6 +370,7 @@
 				A70054E91DF6242200427FB8 /* RecipePageViewController.swift */,
 				A70054EB1DF70A5400427FB8 /* SlidesViewController.swift */,
 				A70054F01DF7507500427FB8 /* FinalMainViewController.swift */,
+				715836771DF86C0300B694C8 /* TraditionalRecipeSecondViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -595,6 +597,7 @@
 				A7BE01471DEFCB59009F65B1 /* TestMenuTableViewCell.swift in Sources */,
 				C08F8B941DE34A940092144F /* Chefty.xcdatamodeld in Sources */,
 				A7BE01451DEFC9A8009F65B1 /* TestMenuViewController.swift in Sources */,
+				715836781DF86C0300B694C8 /* TraditionalRecipeSecondViewController.swift in Sources */,
 				A7BE01431DEF950F009F65B1 /* CookButton.swift in Sources */,
 				A7C1E2341DDE5D6F00BD8A13 /* CustomLayoutView.swift in Sources */,
 				A7BE01391DEF8683009F65B1 /* SegmentedControl.swift in Sources */,
