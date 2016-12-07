@@ -37,6 +37,8 @@ class SingleStepView: UIView {
 
     override init(frame:CGRect){
         super.init(frame: frame)
+        self.backgroundColor = UIColor.white
+        print("***** SingleStepView *******")
         
 //        CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: "apple-pie") {
         
