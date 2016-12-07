@@ -39,20 +39,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("SIDES: \(self.store.sides.count)")
         print("APPETIZER: \(self.store.appetizer.count)")
         
-//        if store.recipesSelected.count == 0 {
-//            store.getRecipesFromDB {
-//                self.initialViewController = CheftyMainViewController()
-//            }
-//        } else {
-//            self.initialViewController = MyMenuViewController()
-//        }
-//        
-//        self.window = UIWindow(frame: UIScreen.main.bounds)
-//        let navigationController = UINavigationController(rootViewController: self.initialViewController)
-//        self.window!.rootViewController = navigationController
-//        self.window!.backgroundColor = UIColor.white
-//        self.window!.makeKeyAndVisible()
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window!.backgroundColor = UIColor.white
+        
+        if store.recipesSelected.count == 0 {
+            
+            self.initialViewController = FinalMainViewController()
+            
+            store.getRecipesFromDB {
+                self.initialViewController.reloadInputViews()
+            }
+        } else {
+        
+            self.initialViewController = MyMenuViewController()
 
+        }
+        
+        print(initialViewController)
+        print("we are about to create the window")
+
+        let navigationController = UINavigationController(rootViewController: self.initialViewController)
+        self.window!.rootViewController = navigationController
+        self.window!.makeKeyAndVisible()
+        
         return true
         
     }

@@ -11,8 +11,8 @@ import UIKit
 class FinalMainViewController: UIViewController {
     
     var containerView : UIView!
-    @IBOutlet weak var bgView: UIView!
-    @IBOutlet weak var controller: SegmentedControl!
+    var bgView: UIView!
+    var controller: SegmentedControl!
     var presentingVC : UIViewController!
     var store = DataStore.sharedInstance
     var previousSelectedSegment = 1
@@ -22,6 +22,7 @@ class FinalMainViewController: UIViewController {
         // Do any additional setup after loading the view.
         setupView()
         print(store.recipesSelected.count)
+        print("viewDidLoad of final")
     }
     
     override func viewDidLayoutSubviews() {
@@ -37,6 +38,9 @@ class FinalMainViewController: UIViewController {
     
     private func setupElements() {
         
+        self.edgesForExtendedLayout = .bottom
+        self.extendedLayoutIncludesOpaqueBars = true
+        
         //Setup navigation Buttons
         let selectedRecipeIcon = CookButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         let selectedRecipeButton = UIBarButtonItem()
@@ -48,6 +52,25 @@ class FinalMainViewController: UIViewController {
         navigationItem.rightBarButtonItem = selectedRecipeButton
         navigationItem.titleView = CheftyTitleView(frame: CGRect(x: 0, y: 0, width: 160, height: 50))
         navigationItem.titleView?.backgroundColor = UIColor.clear
+        
+        bgView = UIView()
+        bgView.backgroundColor = UIColor(red: 132/255.0, green: 32/255.0, blue: 43/255.0, alpha: 1.0)
+        view.addSubview(bgView)
+        bgView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        bgView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        bgView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        bgView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        bgView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        bgView.translatesAutoresizingMaskIntoConstraints = false
+        
+        controller = SegmentedControl()
+        bgView.addSubview(controller)
+        controller.topAnchor.constraint(equalTo: bgView.topAnchor).isActive = true
+        controller.leftAnchor.constraint(equalTo: bgView.leftAnchor).isActive = true
+        controller.rightAnchor.constraint(equalTo: bgView.rightAnchor).isActive = true
+        controller.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        controller.translatesAutoresizingMaskIntoConstraints = false
+        
         
         containerView = UIView()
         view.addSubview(containerView)
@@ -63,8 +86,8 @@ class FinalMainViewController: UIViewController {
         
         controller.addTarget(self, action: #selector(selectionDidChange(sender:)), for: .valueChanged)
         controller.selectedIndex = 0
-//        presentingVC = appetizerVC
-        //setupRecipeView(remove: appetizerVC, add: mainDishVC)
+//      presentingVC = appetizerVC
+//      setupRecipeView(remove: appetizerVC, add: mainDishVC)
     }
     
     func selectionDidChange(sender: UIControl) {
@@ -178,9 +201,10 @@ class FinalMainViewController: UIViewController {
     }
     
     func cookButtonTapped(sender: UIBarButtonItem) {
+        
         let myMenu = MyMenuViewController()
         navigationController?.pushViewController(myMenu, animated: true)
-        
+        //navigationController?.popToRootViewController(animated: true)
     }
     
 }

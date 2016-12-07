@@ -67,7 +67,10 @@
         self.store.mergedStepsArray = tempMergedStepsArray // restore the mergedStepsArray
         store.calculateStartTime() // restore the start time for the all steps
         
+
         
+        // unwrap values
+
         if let procedureBody = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].procedure {
             self.procedureBody = procedureBody
         }
@@ -86,10 +89,10 @@
                 }
             }
         }
-        
-        if let url = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].recipe?.imageURLSmall {
-            self.imageURLString = url
-            guard let url = URL(string: self.imageURLString) else { return }
+
+        if let imageURLString = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].recipe?.imageURLSmall {
+            print("imageURLString: \(imageURLString)")
+            let url = URL(string: imageURLString)
             self.recipeUIImageView.contentMode = .scaleAspectFill
             self.recipeUIImageView.sd_setImage(with: url)
         }
@@ -129,6 +132,8 @@
     }
     
     func createExpectedCompletionLabel(){
+        self.stepTitleLabel.font =  UIFont(name: Constants.appFont.bold.rawValue, size: Constants.fontSize.large.rawValue)
+    
         self.expectedStepCompletionLabel.text = "Complete step by \(self.expectedStepCompletion)"
         self.expectedStepCompletionLabel.font = UIFont(name: "GillSans-Light", size: 20)
         self.expectedStepCompletionLabel.textAlignment = .left
