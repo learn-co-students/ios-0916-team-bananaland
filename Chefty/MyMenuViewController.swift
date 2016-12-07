@@ -86,14 +86,14 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     
     func goToHome() {
         
-        let finalMainViewController1 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "finalMain") as! FinalMainViewController
-        self.present(finalMainViewController1, animated: false, completion: nil)
+//        let finalMainViewController1 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "finalMain") as! FinalMainViewController
+//        self.present(finalMainViewController1, animated: false, completion: nil)
 
 //        //Hooked up MainViewController
-//        navigationController?.popToRootViewController(animated: true)
+        navigationController?.popToRootViewController(animated: true)
         
-        let finalVC = FinalMainViewController()
-        navigationController?.pushViewController(finalVC, animated: true)
+//        let finalVC = FinalMainViewController()
+//        navigationController?.pushViewController(finalVC, animated: true)
         
     }
     

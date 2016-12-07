@@ -39,28 +39,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("SIDES: \(self.store.sides.count)")
         print("APPETIZER: \(self.store.appetizer.count)")
         
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window!.backgroundColor = UIColor.white
+        
         if store.recipesSelected.count == 0 {
-//            self.initialViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mainNav")// as! UINavigationController
-//            
+            
+            self.initialViewController = FinalMainViewController()
+            
             store.getRecipesFromDB {
-                print("just got recipies from DB")
-//                self.initialViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "mainNav") as! UINavigationController
-
+                self.initialViewController.reloadInputViews()
             }
         } else {
+        
             self.initialViewController = MyMenuViewController()
+
         }
         
-
+        print(initialViewController)
         print("we are about to create the window")
 
-        self.window = UIWindow(frame: UIScreen.main.bounds)
         let navigationController = UINavigationController(rootViewController: self.initialViewController)
         self.window!.rootViewController = navigationController
-        self.window!.backgroundColor = UIColor.white
         self.window!.makeKeyAndVisible()
-
-
+        
         return true
         
     }

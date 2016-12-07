@@ -21,15 +21,31 @@ class TraditionalRecipeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        self.reloadInputViews()
+        
         self.traditionalRecipeView.recipe = self.recipe
         self.traditionalRecipeView.getStepsandIngredients()
         self.traditionalRecipeView.setUpElements()
         setupElements()
+        
+        if store.recipesSelected.contains(recipe!) {
+            
+            removeButton.alpha = 1.0
+            addButton.alpha = 0.0
+            
+        } else {
+            
+            removeButton.alpha = 0.0
+            addButton.alpha = 1.0
+            
+        }
+        
     }
-    
-    
-    override func viewWillAppear(_ animated: Bool = false) {
+   
+    override func viewWillAppear(_ animated: Bool) {
 //        self.title = "Recipe"
+        super.viewWillAppear(animated)
     }
     
     override func didReceiveMemoryWarning() {
@@ -60,7 +76,7 @@ extension TraditionalRecipeViewController {
         
         removeButton = RemoveButtonView(frame: frame2)
         removeButton.addTarget(self, action: #selector(self.addButtonTapped(sender:)), for: .touchUpInside)
-        removeButton.alpha = 0.0
+        //removeButton.alpha = 0.0
         self.view.addSubview(removeButton)
         
     }
@@ -99,6 +115,7 @@ extension TraditionalRecipeViewController {
                 self.addButton.alpha = 0.0
                 
             })
+            
             
             print("Added \(store.recipesSelected.count)")
         }
