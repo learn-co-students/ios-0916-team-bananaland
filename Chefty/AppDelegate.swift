@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearace.barTintColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.headingbackground.rawValue)!)
         navigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName : UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.titleGreen.rawValue)!)]
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
-        store.showNotification = true
+        store.showNotification = false
         
         print("TOTAL: \(self.store.recipes.count)")
         print("MAINS: \(self.store.main.count)")
@@ -46,11 +46,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             self.initialViewController = FinalMainViewController()
             
-            store.getRecipesFromDB {
-                self.initialViewController.reloadInputViews()
+            // if no recipes, fetch them from the API
+            if self.store.recipes.count == 0 {
+                store.getRecipesFromDB {
+                    self.initialViewController.reloadInputViews()
+                }
             }
         } else {
-        
+            // we have recipes seelcted, show them
+            store.showNotification = true
             self.initialViewController = MyMenuViewController()
 
         }

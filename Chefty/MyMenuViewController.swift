@@ -85,16 +85,8 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     }
     
     func goToHome() {
-        
-//        let finalMainViewController1 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "finalMain") as! FinalMainViewController
-//        self.present(finalMainViewController1, animated: false, completion: nil)
-
-//        //Hooked up MainViewController
-        navigationController?.popToRootViewController(animated: true)
-        
-//        let finalVC = FinalMainViewController()
-//        navigationController?.pushViewController(finalVC, animated: true)
-        
+        let finalMainViewController1 = FinalMainViewController()
+        navigationController?.pushViewController(finalMainViewController1, animated: true) // show destination with nav bar
     }
     
     func goToRecipe(){ 
@@ -116,8 +108,11 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         for recipeInst in store.recipesSelected {
             store.setRecipeUnselected(recipe: recipeInst)
         }
-        myMenuViewInst.tableView.reloadData()
+        
+        myMenuViewInst.updateTableViewNow()
         myMenuViewInst.tableView.tableFooterView = UIView()  // this removes the grid lines between the rows
+        
+        UserDefaults.standard.set(0, forKey: "stepCurrent")
         
         // show prompt
         let message1 = "All the recipes have been removed from the menu."
