@@ -15,6 +15,8 @@ class TraditionalRecipeViewController: UIViewController {
     var backButton : BackButton!
     var addButton : AddButton!
     var isSelected = false
+    var store = DataStore.sharedInstance
+    var removeButton : RemoveButtonView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,29 +58,53 @@ extension TraditionalRecipeViewController {
         addButton.addTarget(self, action: #selector(self.addButtonTapped(sender:)), for: .touchUpInside)
         self.view.addSubview(addButton)
         
+        removeButton = RemoveButtonView(frame: frame2)
+        removeButton.addTarget(self, action: #selector(self.addButtonTapped(sender:)), for: .touchUpInside)
+        removeButton.alpha = 0.0
+        self.view.addSubview(removeButton)
+        
     }
     
     func backButtonTapped(sender: UIButton) {
-        print("pressed")
         dismiss(animated: true, completion: nil)
     }
     
     func addButtonTapped(sender: UIButton) {
         
-        guard let recipeName = recipe?.displayName else { return }
+        guard let selected = recipe else { return }
+        
+        if store.recipesSelected.count >= 4 { print("NOT ADDED");return }
         
         if isSelected {
-            //store.setRecipeUnselected(recipe: recipe)
+            store.setRecipeUnselected(recipe: selected)
             isSelected = false
-            print("Removed \(recipeName)")
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                
+                self.removeButton.alpha = 0.0
+                self.addButton.alpha = 1.0
+                
+            })
+            
+            
+            print("Removed \(store.recipesSelected.count)")
         } else {
-            //store.setRecipeSelected(recipe: recipe)
+            
+            store.setRecipeSelected(recipe: selected)
             isSelected = true
-            print("Added \(recipeName)")
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                
+                self.removeButton.alpha = 1.0
+                self.addButton.alpha = 0.0
+                
+            })
+
+            
+            
+            print("Added \(store.recipesSelected.count)")
         }
         
     }
 
-    
-    
 }

@@ -20,10 +20,15 @@
 		A70054EA1DF6242200427FB8 /* RecipePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70054E91DF6242200427FB8 /* RecipePageViewController.swift */; };
 		A70054EC1DF70A5400427FB8 /* SlidesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70054EB1DF70A5400427FB8 /* SlidesViewController.swift */; };
 		A70054EF1DF7261300427FB8 /* TestMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70054EE1DF7261300427FB8 /* TestMenuView.swift */; };
+		A70054F11DF7507500427FB8 /* FinalMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A70054F01DF7507500427FB8 /* FinalMainViewController.swift */; };
 		A72DBEAB1DE4DA6900867C86 /* MainDishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72DBEAA1DE4DA6900867C86 /* MainDishViewController.swift */; };
 		A72DBEAD1DE4DB0400867C86 /* AppetizerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72DBEAC1DE4DB0400867C86 /* AppetizerViewController.swift */; };
 		A72DBEAF1DE4DB8700867C86 /* DessertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72DBEAE1DE4DB8700867C86 /* DessertViewController.swift */; };
 		A72DBEB11DE4DBD700867C86 /* SidesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A72DBEB01DE4DBD700867C86 /* SidesViewController.swift */; };
+		A7B1D57B1DF78588004CF90C /* CheftyTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1D57A1DF78588004CF90C /* CheftyTitle.swift */; };
+		A7B1D57D1DF78630004CF90C /* CheftyTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1D57C1DF78630004CF90C /* CheftyTitleView.swift */; };
+		A7B1D57F1DF78A8E004CF90C /* RemoveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1D57E1DF78A8E004CF90C /* RemoveButton.swift */; };
+		A7B1D5811DF78ABE004CF90C /* RemoveButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7B1D5801DF78ABE004CF90C /* RemoveButtonView.swift */; };
 		A7B968F11DEF0B7D003C6116 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A7B968F01DEF0B7D003C6116 /* Main.storyboard */; };
 		A7BCACC61DEC7E8D00DC317C /* MenuViewButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BCACC51DEC7E8D00DC317C /* MenuViewButton.swift */; };
 		A7BE01371DEF8683009F65B1 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE01321DEF8683009F65B1 /* BackButton.swift */; };
@@ -111,11 +116,16 @@
 		A70054E91DF6242200427FB8 /* RecipePageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipePageViewController.swift; sourceTree = "<group>"; };
 		A70054EB1DF70A5400427FB8 /* SlidesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlidesViewController.swift; sourceTree = "<group>"; };
 		A70054EE1DF7261300427FB8 /* TestMenuView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestMenuView.swift; sourceTree = "<group>"; };
+		A70054F01DF7507500427FB8 /* FinalMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FinalMainViewController.swift; sourceTree = "<group>"; };
 		A72DBEA31DE4A75F00867C86 /* Chefty-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Chefty-Bridging-Header.h"; sourceTree = "<group>"; };
 		A72DBEAA1DE4DA6900867C86 /* MainDishViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainDishViewController.swift; sourceTree = "<group>"; };
 		A72DBEAC1DE4DB0400867C86 /* AppetizerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppetizerViewController.swift; sourceTree = "<group>"; };
 		A72DBEAE1DE4DB8700867C86 /* DessertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DessertViewController.swift; sourceTree = "<group>"; };
 		A72DBEB01DE4DBD700867C86 /* SidesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SidesViewController.swift; sourceTree = "<group>"; };
+		A7B1D57A1DF78588004CF90C /* CheftyTitle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheftyTitle.swift; sourceTree = "<group>"; };
+		A7B1D57C1DF78630004CF90C /* CheftyTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheftyTitleView.swift; sourceTree = "<group>"; };
+		A7B1D57E1DF78A8E004CF90C /* RemoveButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveButton.swift; sourceTree = "<group>"; };
+		A7B1D5801DF78ABE004CF90C /* RemoveButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoveButtonView.swift; sourceTree = "<group>"; };
 		A7B968F01DEF0B7D003C6116 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		A7BCACC51DEC7E8D00DC317C /* MenuViewButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuViewButton.swift; sourceTree = "<group>"; };
 		A7BE01321DEF8683009F65B1 /* BackButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
@@ -315,6 +325,10 @@
 				A70054DF1DF60AB600427FB8 /* PersonIconView.swift */,
 				A70054E11DF60D6A00427FB8 /* ClockIcon.swift */,
 				A70054E31DF60D9900427FB8 /* ClockIconView.swift */,
+				A7B1D57A1DF78588004CF90C /* CheftyTitle.swift */,
+				A7B1D57C1DF78630004CF90C /* CheftyTitleView.swift */,
+				A7B1D57E1DF78A8E004CF90C /* RemoveButton.swift */,
+				A7B1D5801DF78ABE004CF90C /* RemoveButtonView.swift */,
 			);
 			name = HomePage;
 			sourceTree = "<group>";
@@ -350,6 +364,7 @@
 				A7BE01581DF0D2E2009F65B1 /* TestIngredientsViewController.swift */,
 				A70054E91DF6242200427FB8 /* RecipePageViewController.swift */,
 				A70054EB1DF70A5400427FB8 /* SlidesViewController.swift */,
+				A70054F01DF7507500427FB8 /* FinalMainViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -580,6 +595,7 @@
 				A7C1E2341DDE5D6F00BD8A13 /* CustomLayoutView.swift in Sources */,
 				A7BE01391DEF8683009F65B1 /* SegmentedControl.swift in Sources */,
 				C054B2A01DE1185C00F4DEB1 /* MyMenuTableViewCell.swift in Sources */,
+				A7B1D57D1DF78630004CF90C /* CheftyTitleView.swift in Sources */,
 				C0252C631DDD16EA00046AD0 /* MyMenuViewController.swift in Sources */,
 				A7C1E1B71DDCD97300BD8A13 /* AppDelegate.swift in Sources */,
 				A7BE013E1DEF8698009F65B1 /* CheftyMainViewController.swift in Sources */,
@@ -612,6 +628,7 @@
 				A70054E01DF60AB600427FB8 /* PersonIconView.swift in Sources */,
 				C08FBF881DE6329300699D9C /* GradientViewLeftToRight.swift in Sources */,
 				A7C0B4571DE4ECE10091E80C /* RecipeTabViewController.swift in Sources */,
+				A70054F11DF7507500427FB8 /* FinalMainViewController.swift in Sources */,
 				A7BE01511DF0B66D009F65B1 /* AddButton.swift in Sources */,
 				A7C1E2361DDE611600BD8A13 /* RecipeCollectionViewCell.swift in Sources */,
 				A70054EF1DF7261300427FB8 /* TestMenuView.swift in Sources */,
@@ -619,12 +636,15 @@
 				A72DBEB11DE4DBD700867C86 /* SidesViewController.swift in Sources */,
 				01A830B31DDF82330064B9CE /* IngredientsController.swift in Sources */,
 				A7BCACC61DEC7E8D00DC317C /* MenuViewButton.swift in Sources */,
+				A7B1D57B1DF78588004CF90C /* CheftyTitle.swift in Sources */,
 				A7DCBF791DE951A100AA7629 /* SelectedRecipeButton.swift in Sources */,
 				A72DBEAF1DE4DB8700867C86 /* DessertViewController.swift in Sources */,
 				C0252C6A1DDD243100046AD0 /* Constants.swift in Sources */,
+				A7B1D5811DF78ABE004CF90C /* RemoveButtonView.swift in Sources */,
 				A7BE01411DEF9420009F65B1 /* CookButtonStyleKit.swift in Sources */,
 				A7BE014D1DF0ABE1009F65B1 /* BackButtonStyleKit.swift in Sources */,
 				C0AAB5491DDE677C0055DF8B /* Secrets.swift in Sources */,
+				A7B1D57F1DF78A8E004CF90C /* RemoveButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

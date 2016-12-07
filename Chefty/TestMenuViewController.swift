@@ -62,7 +62,7 @@ class TestMenuViewController: UIViewController, MyMenuViewDelegate {
     override func viewWillAppear(_ animated: Bool = false) {
         self.navigationController?.setNavigationBarHidden(false, animated: .init(true))
         self.title = "My Menu"
-        self.myMenuViewInst.openSingleStepButton.title = "Open Step \(self.store.stepCurrent)"
+        //self.myMenuViewInst.openSingleStepButton.title = "Open Step \(self.store.stepCurrent)"
     }
     
     override func didReceiveMemoryWarning() { super.didReceiveMemoryWarning() }
