@@ -28,11 +28,14 @@ class SingleStepViewController: UIViewController, SingleStepDelegate {
         // add buttons to nav bar
         navigationItem.leftBarButtonItem = myMenuButton
         navigationItem.rightBarButtonItem = allStepsButton
+        
+        self.view.backgroundColor = UIColor(red: 215/255, green: 210/255, blue: 185/255, alpha: 1.0)
     }
     
     override func loadView(){
         self.singleStepViewInst = SingleStepView(frame: CGRect.zero)
         self.view = self.singleStepViewInst
+       
     }
 
     override func didReceiveMemoryWarning(){

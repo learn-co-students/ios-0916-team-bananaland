@@ -40,8 +40,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     var startCookingTimeField: UITextField = UITextField()
     
     var recipeSteps = [Steps]()
-    var addedTime = 0
-    //var servingTimeForDisplay = "test time here"
+
     
     let ingredientsButton: UIBarButtonItem = UIBarButtonItem(title: "Ingredients", style: .plain , target: self, action: #selector(clickIngredients))
     let clearAllButton: UIBarButtonItem = UIBarButtonItem(title: "Clear All", style: .plain , target: self, action: #selector(onClickClearAllRecipes))
@@ -306,16 +305,13 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
                 if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
                     return true
                 } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
-                    addedTime += Int(step1.timeToStart) + Int(step1.duration) - Int(step2.timeToStart)
                     return false
                     
                     //same attentionNeeded, add shorter duration to addedTime
                 } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
                     if step1.duration > step2.duration {
-                        addedTime += Int(step2.duration)
                         return false
                     } else if step1.duration < step2.duration {
-                        addedTime += Int(step1.duration)
                         return true
                     }
                 }
@@ -325,37 +321,28 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             if (step2.timeToStart > step1.timeToStart) && (step2.timeToStart < (step1.timeToStart + step1.duration)) {
                 
                 if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
-                    addedTime += Int(step2.timeToStart) - (Int(step1.timeToStart) + Int(step1.duration))
                     return true
                     
                 } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
-                    addedTime += (Int(step1.timeToStart) + Int(step1.duration)) - Int(step2.timeToStart)
                     return true
                     
                 } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
-                    addedTime += (Int(step1.timeToStart) + Int(step1.duration)) - Int(step2.timeToStart)
                     return true
                 }
             }
-
             return step1.timeToStart < step2.timeToStart
-            
         }
     }
     
-    func calculateExtraTime() {
-        
-       print("calculate extra time called")
     
-        self.addedTime = 0
+    
+    func calculateExtraTime() {
+        store.addedTime = 0
         
         // add extra time
         for (index, _) in store.mergedStepsArray.enumerated() {
-            print("Inside enumerated for loop")
             
             if index < store.mergedStepsArray.count - 2 {
-                
-                print("Inside while loop")
                 
                 let step1 = store.mergedStepsArray[index]
                 let step2 = store.mergedStepsArray[index + 1]
@@ -365,16 +352,16 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
                     
                     //different attentionNeeded
                     if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
-                        addedTime += Int(step1.timeToStart) + Int(step1.duration) - Int(step2.timeToStart)
+                        store.addedTime += Int(step1.timeToStart) + Int(step1.duration) - Int(step2.timeToStart)
                         
                         
                         //same attentionNeeded, add shorter duration to addedTime
                     } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
                         if step1.duration > step2.duration {
-                            addedTime += Int(step2.duration)
+                            store.addedTime += Int(step2.duration)
                             
                         } else if step1.duration < step2.duration {
-                            addedTime += Int(step1.duration)
+                            store.addedTime += Int(step1.duration)
                             
                         }
                     }
@@ -384,15 +371,15 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
                 if (step2.timeToStart > step1.timeToStart) && (step2.timeToStart < (step1.timeToStart + step1.duration)) {
                     
                     if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
-                        addedTime += Int(step2.timeToStart) - (Int(step1.timeToStart) + Int(step1.duration))
+                        store.addedTime += Int(step2.timeToStart) - (Int(step1.timeToStart) + Int(step1.duration))
                         
                         
                     } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
-                        addedTime += (Int(step1.timeToStart) + Int(step1.duration)) - Int(step2.timeToStart)
+                        store.addedTime += (Int(step1.timeToStart) + Int(step1.duration)) - Int(step2.timeToStart)
                         
                         
                     } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
-                        addedTime += (Int(step1.timeToStart) + Int(step1.duration)) - Int(step2.timeToStart)
+                        store.addedTime += (Int(step1.timeToStart) + Int(step1.duration)) - Int(step2.timeToStart)
                         
                     }
                 }
@@ -403,7 +390,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             }
         }
         
-        print("addedTime = \(addedTime)")
+        print("addedTime = \(store.addedTime)")
         
     }
     

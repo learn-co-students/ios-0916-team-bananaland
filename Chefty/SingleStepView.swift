@@ -113,7 +113,7 @@ class SingleStepView: UIView {
         // configure controls
         self.stepTitleLabel.text = self.stepTitle
         self.stepTitleLabel.font =  UIFont(name: Constants.appFont.bold.rawValue, size: Constants.fontSize.large.rawValue)
-        
+    
         self.expectedStepCompletionLabel.text = "Complete step by \(self.expectedStepCompletion)"
         self.expectedStepCompletionLabel.font = UIFont(name: Constants.appFont.regular.rawValue, size: Constants.fontSize.xsmall.rawValue)
         

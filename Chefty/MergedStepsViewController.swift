@@ -25,7 +25,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
-        self.title = "Merged Recipe Steps"
+        self.title = "All Steps"
         self.tableView.reloadData()
     }
     
@@ -42,10 +42,18 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         return store.mergedStepsArray.count
     }
     
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+        header.contentView.backgroundColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.deepPurple.rawValue)!)
+        header.textLabel?.textColor = UIColor(red: 255/255, green: 255/255, blue: 238/255, alpha: 1.0)
+        header.textLabel?.font = UIFont(name: "GillSans-Light", size: 24)
+        header.alpha = 0.8
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = MergedStepsTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
         if let stepTitle = store.mergedStepsArray[indexPath.row].stepTitle {
-            cell.textLabel?.text = "\(stepTitle) (\(store.mergedStepsArray[indexPath.row].timeToStart))"
+            cell.textLabel?.text = "\(indexPath.row + 1). \(stepTitle)"
         }
         self.getImage(recipe: store.mergedStepsArray[indexPath.row].recipe!, imageView: cell.imageViewInst, view: cell)
         return cell
@@ -72,7 +80,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         self.view.addSubview(myLabel)
         
         
-        myView.backgroundColor = UIColor.white
+        myView.backgroundColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.deepPurple.rawValue)!)
         myView.translatesAutoresizingMaskIntoConstraints = false
         myView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
         myView.heightAnchor.constraint(equalToConstant: 150).isActive = true
@@ -83,9 +91,10 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         myLabel.translatesAutoresizingMaskIntoConstraints = false
         myLabel.widthAnchor.constraint(equalTo: myView.widthAnchor, multiplier: 1.0).isActive = true
         myLabel.leftAnchor.constraint(equalTo: myView.leftAnchor).isActive = true
-        myLabel.bottomAnchor.constraint(equalTo: myView.bottomAnchor).isActive = true
+        myLabel.bottomAnchor.constraint(equalTo: myView.bottomAnchor, constant: -30).isActive = true
         myLabel.text = "Start cooking at \(store.startCookingTime)"
-        myLabel.font = myLabel.font?.withSize(24)
+        myLabel.font = UIFont(name: "GillSans-Light", size: 24)
+        myLabel.textColor = UIColor(red: 255/255, green: 255/255, blue: 238/255, alpha: 1.0)
         myLabel.textAlignment = .center
         
         
