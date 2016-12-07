@@ -41,7 +41,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     var recipeSteps = [Steps]()
 
-    
     let ingredientsButton: UIBarButtonItem = UIBarButtonItem(title: "Ingredients", style: .plain , target: self, action: #selector(clickIngredients))
     let clearAllButton: UIBarButtonItem = UIBarButtonItem(title: "Clear All", style: .plain , target: self, action: #selector(onClickClearAllRecipes))
     var openSingleStepButton: UIBarButtonItem = UIBarButtonItem(title: "Open Step", style: .plain , target: self, action: #selector(clickOpenStep))
@@ -169,6 +168,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.timePicker.minimumDate = store.earliestPossibleServeTime  // change to earliest serve time when available
         self.timePicker.minuteInterval = 15
         
+        print("self.store.mergedStepsArray.count: \(self.store.mergedStepsArray.count)")
 
     }
     
