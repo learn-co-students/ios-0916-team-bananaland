@@ -20,16 +20,16 @@ class SingleStepViewController: UIViewController, SingleStepDelegate {
         // create buttons for nav bar
         let myMenuButton = UIBarButtonItem(title: "My Menu", style: .plain, target: self, action: #selector(goToMyMenu))
         let allStepsButton = UIBarButtonItem(title: "All Steps", style: .plain, target: self, action: #selector(goToMergedSteps))
+        
         // set font size of nav bar buttons
         let labelFont: UIFont = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))!
         let attributesTextNormal = [ NSFontAttributeName : labelFont ]
         allStepsButton.setTitleTextAttributes(attributesTextNormal, for: .normal)
         myMenuButton.setTitleTextAttributes(attributesTextNormal, for: UIControlState.normal)
+        
         // add buttons to nav bar
         navigationItem.leftBarButtonItem = myMenuButton
         navigationItem.rightBarButtonItem = allStepsButton
-        
-        //self.view.backgroundColor = UIColor(red: 215/255, green: 210/255, blue: 185/255, alpha: 1.0)
         self.view.backgroundColor = UIColor.white
     }
     

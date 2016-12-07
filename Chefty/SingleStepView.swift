@@ -31,9 +31,10 @@ class SingleStepView: UIView {
     let ingredientsTitle: UILabel = UILabel()
     let ingredientsBody: UILabel = UILabel()
     let procedureTitle: UILabel = UILabel()
-    let procedureBodyTextView: UITextView = UITextView()
+    let procedureBodyTextView: UILabel = UILabel()
     let recipeUIImageView: UIImageView = UIImageView()
     let doneButton: UIButton = UIButton()
+    let myScrollView: UIScrollView = UIScrollView()
 
     override init(frame:CGRect){
         super.init(frame: frame)
@@ -141,15 +142,15 @@ class SingleStepView: UIView {
         self.procedureTitle.backgroundColor = UIColor(red: 132/255.0, green: 32/255.0, blue: 43/255.0, alpha: 1.0)
         self.procedureTitle.textColor = UIColor(red: 255/255, green: 255/255, blue: 238/255, alpha: 1.0)
 
-        self.procedureBodyTextView.text = self.procedureBody
-        //self.procedureBodyTextView.font =  UIFont(name: Constants.appFont.regular.rawValue, size: Constants.fontSize.small.rawValue)
         self.procedureBodyTextView.backgroundColor = UIColor.white
         self.procedureBodyTextView.font = UIFont(name: "GillSans-Light", size: 20)
         self.procedureBodyTextView.textAlignment = .left
-            //UIColor(red: 215/255, green: 210/255, blue: 185/255, alpha: 1.0)
         
-        let range = NSMakeRange(self.procedureBodyTextView.text.characters.count - 1, 0)
-        self.procedureBodyTextView.scrollRangeToVisible(range)
+        procedureBodyTextView.numberOfLines = 0
+        procedureBodyTextView.lineBreakMode = .byWordWrapping
+        
+        //let range = NSMakeRange(self.procedureBodyTextView.text.characters.count - 1, 0)
+      //  self.procedureBodyTextView.scrollRangeToVisible(range)
         self.procedureBodyTextView.isUserInteractionEnabled = false
         
         
@@ -201,15 +202,16 @@ class SingleStepView: UIView {
         
         self.expectedStepCompletionLabel.translatesAutoresizingMaskIntoConstraints = false
         self.expectedStepCompletionLabel.topAnchor.constraint(equalTo: self.procedureTitle.bottomAnchor).isActive = true
-        self.expectedStepCompletionLabel.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        self.expectedStepCompletionLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
+        self.expectedStepCompletionLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 7).isActive = true
+        self.expectedStepCompletionLabel.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -7)
         self.expectedStepCompletionLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         self.procedureBodyTextView.translatesAutoresizingMaskIntoConstraints = false
         self.procedureBodyTextView.topAnchor.constraint(equalTo: self.expectedStepCompletionLabel.bottomAnchor, constant: 0).isActive = true
         self.procedureBodyTextView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 7).isActive = true
         self.procedureBodyTextView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -7).isActive = true
-        self.procedureBodyTextView.bottomAnchor.constraint(equalTo: self.centerYAnchor, constant: 100).isActive = true
+        //self.procedureBodyTextView.bottomAnchor.constraint(equalTo: self.centerYAnchor, constant: 100).isActive = true
+
         
         self.ingredientsTitle.translatesAutoresizingMaskIntoConstraints = false
         self.ingredientsTitle.topAnchor.constraint(equalTo: self.procedureBodyTextView.bottomAnchor).isActive = true
@@ -237,6 +239,12 @@ class SingleStepView: UIView {
         self.doneButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
         
         
+        
+        
+        
+        self.procedureBodyTextView.text = self.procedureBody
+
+        
     }
     
     func onClickNextStep(){
@@ -250,5 +258,22 @@ class SingleStepView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func layoutSubviews() {
+        
+        print("\n")
+        print(#function)
+        
+        procedureBodyTextView.frame = CGRect(x: 0, y: 0, width: bounds.width, height: 0)
+        procedureBodyTextView.sizeToFit()
+        procedureBodyTextView.frame.size = procedureBodyTextView.bounds.size
+    }
 
 }
+ 
+// extension UILabel {
+//    
+//    open override func layoutSubviews() {
+//        
+//    }
+// }
