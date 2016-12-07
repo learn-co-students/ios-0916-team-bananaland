@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var initialViewController = UIViewController()
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-
+        
         // if no recipes selected in CoreData, fetch from DataBase
         store.getRecipesFromCoreData()
         store.updateSelectedRecipes()
@@ -32,12 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName : UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.titleGreen.rawValue)!)]
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
         store.showNotification = false
-        
-        print("TOTAL: \(self.store.recipes.count)")
-        print("MAINS: \(self.store.main.count)")
-        print("DESSERT: \(self.store.desserts.count)")
-        print("SIDES: \(self.store.sides.count)")
-        print("APPETIZER: \(self.store.appetizer.count)")
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window!.backgroundColor = UIColor.white
@@ -56,12 +50,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             // we have recipes seelcted, show them
             store.showNotification = true
             self.initialViewController = MyMenuViewController()
-
         }
         
         print(initialViewController)
         print("we are about to create the window")
-
+        
         let navigationController = UINavigationController(rootViewController: self.initialViewController)
         self.window!.rootViewController = navigationController
         self.window!.makeKeyAndVisible()
@@ -69,7 +62,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
         
     }
-
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
