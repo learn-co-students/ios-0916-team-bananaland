@@ -54,7 +54,7 @@
     }
     
     
-    // pull data
+    // get data
     
     func calculateData() {
         
@@ -67,7 +67,7 @@
         self.store.mergedStepsArray = tempMergedStepsArray // restore the mergedStepsArray
         store.calculateStartTime() // restore the start time for the all steps
         
-        // unwrap values
+        
         if let procedureBody = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].procedure {
             self.procedureBody = procedureBody
         }
@@ -77,7 +77,6 @@
         }
         
         if let ingredientsAny = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].ingredient {
-            // the ingredients are in an array of ingredients objects, extract the descriptions and place in a string for display
             let ingredientsArr = ingredientsAny.allObjects as? [Ingredient]
             if ingredientsArr?.isEmpty == false {
                 for ingredient in ingredientsArr! {
