@@ -191,7 +191,7 @@ class TraditionalRecipeView: UIView {
             totalTimeString = "\(totalTime) minutes"
         }
         durationLabel.text = "Estimated Total Time: \(totalTimeString)"
-        durationLabel.font = durationLabel.font.withSize(20)
+        durationLabel.font = UIFont(name: "GillSans-Light", size: 20)
         durationLabel.textAlignment = .left
         
         myScrollView.addSubview(servingSizeLabel)
@@ -290,13 +290,13 @@ class TraditionalRecipeView: UIView {
         stepsText.isScrollEnabled = false
         stepsText.isUserInteractionEnabled = false
         
-        let slideButton = UIButton()
+        let slideButton = UIView()
         myScrollView.addSubview(slideButton)
-        slideButton.setTitle("Start Slide", for: .normal)
-        slideButton.titleLabel?.font = UIFont(name: "GillSans-Light", size: 25)
-        slideButton.titleLabel?.textColor = UIColor.white
+        //slideButton.setTitle("Start Slide", for: .normal)
+        //slideButton.titleLabel?.font = UIFont(name: "GillSans-Light", size: 25)
+        //slideButton.titleLabel?.textColor = UIColor.white
         slideButton.backgroundColor = UIColor(red: 54/255.0, green: 30/255.0, blue: 43/255.0, alpha: 1.0)
-        slideButton.addTarget(self, action: #selector(self.infoClick), for: .touchUpInside)
+        //slideButton.addTarget(self, action: #selector(self.infoClick), for: .touchUpInside)
         
         slideButton.topAnchor.constraint(equalTo: stepsText.bottomAnchor).isActive = true
         slideButton.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true

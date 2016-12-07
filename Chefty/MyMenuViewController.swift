@@ -83,8 +83,13 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     }
     
     func goToHome() {
-        let cheftyMainViewController1 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "cheftyMain") as! CheftyMainViewController
-        self.present(cheftyMainViewController1, animated: false, completion: nil)
+        
+//        let cheftyMainViewController1 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "cheftyMain") as! CheftyMainViewController
+//        self.present(cheftyMainViewController1, animated: false, completion: nil)
+        
+        //Hooked up MainViewController
+        navigationController?.popToRootViewController(animated: true)
+        
     }
     
     func goToRecipe(){ 
