@@ -99,8 +99,6 @@ extension TraditionalRecipeViewController {
                 self.addButton.alpha = 0.0
                 
             })
-
-            
             
             print("Added \(store.recipesSelected.count)")
         }

@@ -88,9 +88,12 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         
         let finalMainViewController1 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "finalMain") as! FinalMainViewController
         self.present(finalMainViewController1, animated: false, completion: nil)
+
+//        //Hooked up MainViewController
+//        navigationController?.popToRootViewController(animated: true)
         
-        //Hooked up MainViewController
-       //navigationController?.popToRootViewController(animated: true)
+        let finalVC = FinalMainViewController()
+        navigationController?.pushViewController(finalVC, animated: true)
         
     }
     

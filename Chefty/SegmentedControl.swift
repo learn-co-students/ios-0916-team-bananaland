@@ -33,13 +33,13 @@ class SegmentedControl : UIControl {
         }
     }
     
-    @IBInspectable var unselectedLabelColor : UIColor = UIColor.white {
+    @IBInspectable var unselectedLabelColor : UIColor = UIColor.white.withAlphaComponent(0.7) {
         didSet {
             setSelectedColors()
         }
     }
     
-    @IBInspectable var thumbColor : UIColor = UIColor.black {
+    @IBInspectable var thumbColor : UIColor = UIColor(red: 223/255.0, green: 218/255.0, blue: 197/255.0, alpha: 1.0) {
         didSet {
             setSelectedColors()
         }
