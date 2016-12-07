@@ -300,7 +300,7 @@ class TraditionalRecipeView: UIView {
         
         slideButton.topAnchor.constraint(equalTo: stepsText.bottomAnchor).isActive = true
         slideButton.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true
-        slideButton.heightAnchor.constraint(equalToConstant: 75).isActive = true
+        slideButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
         slideButton.bottomAnchor.constraint(equalTo: myScrollView.bottomAnchor).isActive = true
         slideButton.translatesAutoresizingMaskIntoConstraints = false
     
