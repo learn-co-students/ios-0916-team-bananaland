@@ -29,7 +29,8 @@ class SingleStepViewController: UIViewController, SingleStepDelegate {
         navigationItem.leftBarButtonItem = myMenuButton
         navigationItem.rightBarButtonItem = allStepsButton
         
-        self.view.backgroundColor = UIColor(red: 215/255, green: 210/255, blue: 185/255, alpha: 1.0)
+        //self.view.backgroundColor = UIColor(red: 215/255, green: 210/255, blue: 185/255, alpha: 1.0)
+        self.view.backgroundColor = UIColor.white
     }
     
     override func loadView(){

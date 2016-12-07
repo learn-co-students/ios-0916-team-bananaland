@@ -111,24 +111,43 @@ class SingleStepView: UIView {
         
         // configure controls
         self.stepTitleLabel.text = self.stepTitle
-        self.stepTitleLabel.font =  UIFont(name: Constants.appFont.bold.rawValue, size: Constants.fontSize.large.rawValue)
+        self.stepTitleLabel.textAlignment = .center
+        self.stepTitleLabel.textColor = UIColor(red: 255/255, green: 255/255, blue: 238/255, alpha: 1.0)
+        self.stepTitleLabel.font =  UIFont(name: "GillSans-Light", size: 30)
+        self.stepTitleLabel.backgroundColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.deepPurple.rawValue)!)
         
-        
-        
+        //***
         self.expectedStepCompletionLabel.text = "Complete step by \(self.expectedStepCompletion)"
-        self.expectedStepCompletionLabel.font = UIFont(name: Constants.appFont.regular.rawValue, size: Constants.fontSize.xsmall.rawValue)
+        //self.expectedStepCompletionLabel.font = UIFont(name: Constants.appFont.regular.rawValue, size: Constants.fontSize.xsmall.rawValue)
+        self.expectedStepCompletionLabel.font = UIFont(name: "GillSans-Light", size: 24)
+        
         
         self.ingredientsTitle.text = "Ingredients"
-        self.ingredientsTitle.font =  UIFont(name: Constants.appFont.bold.rawValue, size: Constants.fontSize.medium.rawValue)
+        self.ingredientsTitle.textAlignment = .center
+        self.ingredientsTitle.font = UIFont(name: "GillSans-Light", size: 25)
+        self.ingredientsTitle.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 238/255, alpha: 1.0)
+        self.ingredientsTitle.textColor = UIColor.black
+
         
+        //***
         self.ingredientsBody.text = self.ingredients
         self.ingredientsBody.font =  UIFont(name: Constants.appFont.regular.rawValue, size: Constants.fontSize.small.rawValue)
         
-        self.procedureTitle.text = "Procedure"
-        self.procedureTitle.font =  UIFont(name: Constants.appFont.bold.rawValue, size: Constants.fontSize.medium.rawValue)
         
+        self.procedureTitle.text = "Procedure"
+        //***
+        //self.procedureTitle.font =  UIFont(name: Constants.appFont.bold.rawValue, size: Constants.fontSize.medium.rawValue)
+        self.procedureTitle.font =  UIFont(name: "GillSans-Light", size: 25)
+        self.procedureTitle.backgroundColor = UIColor(red: 132/255.0, green: 32/255.0, blue: 43/255.0, alpha: 1.0)
+        self.procedureTitle.textColor = UIColor.black
+
+        
+
         self.procedureBodyTextView.text = self.procedureBody
         self.procedureBodyTextView.font =  UIFont(name: Constants.appFont.regular.rawValue, size: Constants.fontSize.small.rawValue)
+        self.procedureBodyTextView.backgroundColor = UIColor.white
+            //UIColor(red: 215/255, green: 210/255, blue: 185/255, alpha: 1.0)
+        
         let range = NSMakeRange(self.procedureBodyTextView.text.characters.count - 1, 0)
         self.procedureBodyTextView.scrollRangeToVisible(range)
         self.procedureBodyTextView.isUserInteractionEnabled = false
@@ -165,9 +184,10 @@ class SingleStepView: UIView {
         self.recipeUIImageView.widthAnchor.constraint(equalToConstant: 120).isActive = true
         
         self.stepTitleLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.stepTitleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 100).isActive = true
-        self.stepTitleLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
-        self.stepTitleLabel.rightAnchor.constraint(equalTo: self.recipeUIImageView.leftAnchor, constant: -40).isActive = true
+        self.stepTitleLabel.topAnchor.constraint(equalTo: self.recipeUIImageView.topAnchor).isActive = true
+        self.stepTitleLabel.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        self.stepTitleLabel.rightAnchor.constraint(equalTo: self.recipeUIImageView.leftAnchor).isActive = true
+        self.stepTitleLabel.bottomAnchor.constraint(equalTo: self.recipeUIImageView.bottomAnchor).isActive = true
         self.stepTitleLabel.numberOfLines = 0
         self.stepTitleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         
@@ -177,8 +197,8 @@ class SingleStepView: UIView {
         
         self.ingredientsTitle.translatesAutoresizingMaskIntoConstraints = false
         self.ingredientsTitle.topAnchor.constraint(equalTo: self.stepTitleLabel.bottomAnchor, constant: 40).isActive = true
-        self.ingredientsTitle.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
-        self.ingredientsTitle.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
+        self.ingredientsTitle.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        self.ingredientsTitle.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         if let text = self.ingredientsBody.text {
             text.isEmpty ? self.ingredientsTitle.text = "" : ()
         }

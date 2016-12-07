@@ -18,6 +18,19 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationController?.setNavigationBarHidden(false, animated: .init(true))
+        self.view.backgroundColor = UIColor(named: .white)
+        
+        let selectRecipeButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(goToSingleStep))
+        navigationItem.leftBarButtonItems = [selectRecipeButton]
+        
+        let labelFont : UIFont = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))!
+        let attributesNormal = [ NSFontAttributeName : labelFont ]
+        selectRecipeButton.setTitleTextAttributes(attributesNormal, for: .normal)
+
+        
+        
+        
         createViewAndTableView()
 
         tableView.reloadData()
@@ -108,6 +121,10 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
     
-
+    func goToSingleStep(){
+        let singleStepViewControllerInst = SingleStepViewController()
+        navigationController?.pushViewController(singleStepViewControllerInst, animated: false)
+    }
+    
 }
 
