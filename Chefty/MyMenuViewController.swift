@@ -44,9 +44,9 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         // set the notification message
         var notificationMessage = String()
         if store.recipesSelected.count == 1 {
-            notificationMessage = "\nLast time you were here, you selected one recipe, lets review it.\n\n"
+            notificationMessage = "\nLast time you were here, you selected one recipe: let's review it!\n\n"
         } else if store.recipesSelected.count > 1 {
-            notificationMessage = "\nLast time you were here, you selected \(store.recipesSelected.count) recipes, lets review them.\n\n"
+            notificationMessage = "\nLast time you were here, you selected \(store.recipesSelected.count) recipes: let's review them!\n\n"
         }
         
         if store.showNotification {
