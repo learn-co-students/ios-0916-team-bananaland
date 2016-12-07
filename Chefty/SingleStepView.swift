@@ -44,8 +44,8 @@
         createProcedureLabel()
         createExpectedCompletionLabel()
         createProcedureText()
-        createIngredientsLabel()
         createIngredientsText()
+        createIngredientsLabel()
         createDoneButton()
     }
     

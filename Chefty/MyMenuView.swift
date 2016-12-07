@@ -48,8 +48,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     //Initialize
     override init(frame:CGRect){
         super.init(frame: frame)
+        print("initializing my menu view")
         
         if self.store.mergedStepsArray.isEmpty {
+            print("merging steps")
             
             self.getStepsFromRecipesSelected {
                 
