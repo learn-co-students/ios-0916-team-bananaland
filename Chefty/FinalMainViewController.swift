@@ -1,39 +1,61 @@
 //
-//  CheftyMainViewController.swift
+//  FinalMainViewController.swift
 //  Chefty
 //
-//  Created by Arvin San Miguel on 11/30/16.
+//  Created by Arvin San Miguel on 12/6/16.
 //  Copyright © 2016 com.AppRising.SML. All rights reserved.
 //
 
 import UIKit
 
-class CheftyMainViewController: UIViewController {
-
+class FinalMainViewController: UIViewController {
     
+    var containerView : UIView!
+    @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var controller: SegmentedControl!
-    @IBOutlet weak var background: UIView!
-    @IBOutlet weak var containerView: UIView!
-    
     var presentingVC : UIViewController!
+    var store = DataStore.sharedInstance
+    var previousSelectedSegment = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Do any additional setup after loading the view.
         setupView()
-        
+        print(store.recipesSelected.count)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
-    
     private func setupView() {
+        setupElements()
         setupSegmentedControl()
         updateView()
+    }
+    
+    
+    private func setupElements() {
+        
+        //Setup navigation Buttons
+        let selectedRecipeIcon = CookButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        let selectedRecipeButton = UIBarButtonItem()
+        selectedRecipeButton.customView = selectedRecipeIcon
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.cookButtonTapped(sender:)))
+        tap.numberOfTapsRequired = 1
+        selectedRecipeIcon.addGestureRecognizer(tap)
+        
+        navigationItem.rightBarButtonItem = selectedRecipeButton
+        navigationItem.titleView = CheftyTitleView(frame: CGRect(x: 0, y: 0, width: 160, height: 50))
+        navigationItem.titleView?.backgroundColor = UIColor.clear
+        
+        containerView = UIView()
+        view.addSubview(containerView)
+        containerView.topAnchor.constraint(equalTo: bgView.bottomAnchor).isActive = true
+        containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        containerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        containerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        containerView.translatesAutoresizingMaskIntoConstraints = false
         
     }
     
@@ -41,8 +63,8 @@ class CheftyMainViewController: UIViewController {
         
         controller.addTarget(self, action: #selector(selectionDidChange(sender:)), for: .valueChanged)
         controller.selectedIndex = 0
-        presentingVC = mainDishVC
-        
+//        presentingVC = appetizerVC
+        //setupRecipeView(remove: appetizerVC, add: mainDishVC)
     }
     
     func selectionDidChange(sender: UIControl) {
@@ -109,19 +131,19 @@ class CheftyMainViewController: UIViewController {
         switch controller.selectedIndex {
             
         case 0 :
-            
+            if previousSelectedSegment == controller.selectedIndex { return }
             setupRecipeView(remove: presentingVC, add: mainDishVC)
             
         case 1 :
-            
+            if previousSelectedSegment == controller.selectedIndex { return }
             setupRecipeView(remove: presentingVC, add: appetizerVC)
             
         case 2 :
-            
+            if previousSelectedSegment == controller.selectedIndex { return }
             setupRecipeView(remove: presentingVC, add: sidesVC)
             
         case 3 :
-            
+            if previousSelectedSegment == controller.selectedIndex { return }
             setupRecipeView(remove: presentingVC, add: dessertVC)
             
             
@@ -131,13 +153,15 @@ class CheftyMainViewController: UIViewController {
         
     }
     
-    private func setupRecipeView(remove presentingViewController: UIViewController, add newViewController: UIViewController) {
+    private func setupRecipeView(remove presentingViewController: UIViewController?, add newViewController: UIViewController) {
         
         add(asChildViewController: newViewController)
-        animateTransition(from: presentingViewController, to: newViewController)
-        remove(asChildViewController: presentingViewController)
+        if let presentingViewController = presentingViewController {
+            animateTransition(from: presentingViewController, to: newViewController)
+            remove(asChildViewController: presentingViewController)
+        }
         presentingVC = newViewController
-        
+        previousSelectedSegment = controller.selectedIndex
     }
     
     
@@ -152,13 +176,11 @@ class CheftyMainViewController: UIViewController {
         }, completion: nil)
         
     }
-        
-    @IBAction func cookButtonTapped(_ sender: Any) {
-        
+    
+    func cookButtonTapped(sender: UIBarButtonItem) {
         let myMenu = MyMenuViewController()
-        present(myMenu, animated: true, completion: nil)
+        navigationController?.pushViewController(myMenu, animated: true)
         
     }
-    
     
 }

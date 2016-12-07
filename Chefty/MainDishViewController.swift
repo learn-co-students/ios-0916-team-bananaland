@@ -31,6 +31,9 @@ class MainDishViewController: UIViewController {
         self.reloadInputViews()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.reloadInputViews()
+    }
 }
 
 extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDataSource {

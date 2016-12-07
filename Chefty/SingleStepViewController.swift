@@ -61,7 +61,7 @@ class SingleStepViewController: UIViewController, SingleStepDelegate {
             self.viewDidLoad()
             self.viewWillAppear(false)
             if UserDefaults.standard.integer(forKey: "stepCurrent") == self.store.mergedStepsArray.count{
-                UserDefaults.standard.set(1, forKey: "stepCurrent") // reset step position
+                UserDefaults.standard.set(0, forKey: "stepCurrent") // reset step position
             }
         }
     }
