@@ -39,40 +39,7 @@ class SingleStepView: UIView {
     override init(frame:CGRect){
         super.init(frame: frame)
         self.backgroundColor = UIColor.white
-        print("***** SingleStepView *******")
-        
-//        CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: "apple-pie") {
-        
-            // print the content of the requested recipe
-
-//            for recipe in self.store.recipes {
-//                if "apple-pie" == recipe.id {
-//                    print(recipe.imageURLSmall)
-//                    let allSteps = recipe.step?.allObjects as! [Steps]
-//                    for step in allSteps {
-//                        print("\n")
-//                        print("stepTitle: \(step.stepTitle!)")
-//                        print("stepNumber: \(step.stepNumber)")
-//                        print("timeToStart: \(step.timeToStart)")
-//                        print("duration: \(step.duration)")
-//                        print("fullAttentionRequired: \(step.fullAttentionRequired)")
-//                        print("procedure: \(step.procedure!)")
-//                        if let ingredientsAny = step.ingredient {
-//                            for ingredientAny in ingredientsAny {
-//                                let ingredient = ingredientAny as? Ingredient;
-//                                if let ingredientUnwrapped = ingredient {
-//                                    print("ingredientDescription: \(ingredientUnwrapped.ingredientDescription)")
-//                                    print("ingredientIsChecked: \(ingredientUnwrapped.isChecked)")
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-
-        
-        
-        
+    
         // get the expected completion time for the step
         let tempMergedStepsArray = self.store.mergedStepsArray
         let remainingStepsArray: [Steps] = Array(self.store.mergedStepsArray.dropFirst(UserDefaults.standard.integer(forKey: "stepCurrent")))
@@ -149,8 +116,6 @@ class SingleStepView: UIView {
         procedureBodyTextView.numberOfLines = 0
         procedureBodyTextView.lineBreakMode = .byWordWrapping
         
-        //let range = NSMakeRange(self.procedureBodyTextView.text.characters.count - 1, 0)
-      //  self.procedureBodyTextView.scrollRangeToVisible(range)
         self.procedureBodyTextView.isUserInteractionEnabled = false
         
         
@@ -164,8 +129,6 @@ class SingleStepView: UIView {
             self.doneButton.isEnabled = true
             self.doneButton.setTitleColor(self.tintColor, for: .normal)
             self.doneButton.setTitle("Next", for: .normal)
-                
-                //Completed procedure, go to step \(UserDefaults.standard.integer(forKey: "stepCurrent") + 1)", for: .normal)
         }
         
         // add objects to the view
@@ -210,11 +173,10 @@ class SingleStepView: UIView {
         self.procedureBodyTextView.topAnchor.constraint(equalTo: self.expectedStepCompletionLabel.bottomAnchor, constant: 0).isActive = true
         self.procedureBodyTextView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 7).isActive = true
         self.procedureBodyTextView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -7).isActive = true
-        //self.procedureBodyTextView.bottomAnchor.constraint(equalTo: self.centerYAnchor, constant: 100).isActive = true
 
         
         self.ingredientsTitle.translatesAutoresizingMaskIntoConstraints = false
-        self.ingredientsTitle.topAnchor.constraint(equalTo: self.procedureBodyTextView.bottomAnchor).isActive = true
+        self.ingredientsTitle.topAnchor.constraint(equalTo: self.procedureBodyTextView.bottomAnchor, constant: 7).isActive = true
         self.ingredientsTitle.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         self.ingredientsTitle.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         self.ingredientsTitle.heightAnchor.constraint(equalToConstant: 50).isActive = true
