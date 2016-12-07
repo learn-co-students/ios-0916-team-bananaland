@@ -118,34 +118,35 @@ class SingleStepView: UIView {
         
         //***
         self.expectedStepCompletionLabel.text = "Complete step by \(self.expectedStepCompletion)"
-        //self.expectedStepCompletionLabel.font = UIFont(name: Constants.appFont.regular.rawValue, size: Constants.fontSize.xsmall.rawValue)
-        self.expectedStepCompletionLabel.font = UIFont(name: "GillSans-Light", size: 24)
+        self.expectedStepCompletionLabel.font = UIFont(name: "GillSans-Light", size: 20)
+        self.expectedStepCompletionLabel.textAlignment = .center
         
         
         self.ingredientsTitle.text = "Ingredients"
         self.ingredientsTitle.textAlignment = .center
         self.ingredientsTitle.font = UIFont(name: "GillSans-Light", size: 25)
-        self.ingredientsTitle.backgroundColor = UIColor(red: 255/255, green: 255/255, blue: 238/255, alpha: 1.0)
+        self.ingredientsTitle.backgroundColor = UIColor(red: 223/255.0, green: 218/255.0, blue: 197/255.0, alpha: 1.0)
         self.ingredientsTitle.textColor = UIColor.black
 
         
         //***
         self.ingredientsBody.text = self.ingredients
-        self.ingredientsBody.font =  UIFont(name: Constants.appFont.regular.rawValue, size: Constants.fontSize.small.rawValue)
-        
+        self.ingredientsBody.font = UIFont(name: "GillSans-Light", size: 20)
+        self.ingredientsBody.textAlignment = .left
         
         self.procedureTitle.text = "Procedure"
-        //***
-        //self.procedureTitle.font =  UIFont(name: Constants.appFont.bold.rawValue, size: Constants.fontSize.medium.rawValue)
+        self.procedureTitle.textAlignment = .center
         self.procedureTitle.font =  UIFont(name: "GillSans-Light", size: 25)
         self.procedureTitle.backgroundColor = UIColor(red: 132/255.0, green: 32/255.0, blue: 43/255.0, alpha: 1.0)
-        self.procedureTitle.textColor = UIColor.black
+        self.procedureTitle.textColor = UIColor.white
 
         
 
         self.procedureBodyTextView.text = self.procedureBody
-        self.procedureBodyTextView.font =  UIFont(name: Constants.appFont.regular.rawValue, size: Constants.fontSize.small.rawValue)
+        //self.procedureBodyTextView.font =  UIFont(name: Constants.appFont.regular.rawValue, size: Constants.fontSize.small.rawValue)
         self.procedureBodyTextView.backgroundColor = UIColor.white
+        self.procedureBodyTextView.font = UIFont(name: "GillSans-Light", size: 20)
+        self.procedureBodyTextView.textAlignment = .left
             //UIColor(red: 215/255, green: 210/255, blue: 185/255, alpha: 1.0)
         
         let range = NSMakeRange(self.procedureBodyTextView.text.characters.count - 1, 0)
@@ -162,7 +163,9 @@ class SingleStepView: UIView {
         } else {
             self.doneButton.isEnabled = true
             self.doneButton.setTitleColor(self.tintColor, for: .normal)
-            self.doneButton.setTitle("Completed procedure, go to step \(UserDefaults.standard.integer(forKey: "stepCurrent") + 1)", for: .normal)
+            self.doneButton.setTitle("Next", for: .normal)
+                
+                //Completed procedure, go to step \(UserDefaults.standard.integer(forKey: "stepCurrent") + 1)", for: .normal)
         }
         
         // add objects to the view
@@ -193,18 +196,23 @@ class SingleStepView: UIView {
         
         self.expectedStepCompletionLabel.translatesAutoresizingMaskIntoConstraints = false
         self.expectedStepCompletionLabel.topAnchor.constraint(equalTo: self.stepTitleLabel.bottomAnchor, constant: 20).isActive = true
-        self.expectedStepCompletionLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
+        self.expectedStepCompletionLabel.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        self.expectedStepCompletionLabel.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         
         self.ingredientsTitle.translatesAutoresizingMaskIntoConstraints = false
-        self.ingredientsTitle.topAnchor.constraint(equalTo: self.stepTitleLabel.bottomAnchor, constant: 40).isActive = true
+        self.ingredientsTitle.topAnchor.constraint(equalTo: self.expectedStepCompletionLabel.bottomAnchor).isActive = true
         self.ingredientsTitle.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         self.ingredientsTitle.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        self.ingredientsTitle.heightAnchor.constraint(equalToConstant: 50).isActive = true
         if let text = self.ingredientsBody.text {
             text.isEmpty ? self.ingredientsTitle.text = "" : ()
         }
+        if self.ingredientsBody.text == "" {
+            self.ingredientsTitle.isHidden = true
+        }
         
         self.ingredientsBody.translatesAutoresizingMaskIntoConstraints = false
-        self.ingredientsBody.topAnchor.constraint(equalTo: self.ingredientsTitle.bottomAnchor, constant: 0).isActive = true
+        self.ingredientsBody.topAnchor.constraint(equalTo: self.ingredientsTitle.bottomAnchor, constant: 2).isActive = true
         self.ingredientsBody.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
         self.ingredientsBody.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         self.ingredientsBody.numberOfLines = 0
@@ -217,7 +225,9 @@ class SingleStepView: UIView {
         
         self.procedureTitle.translatesAutoresizingMaskIntoConstraints = false
         self.procedureTitle.topAnchor.constraint(equalTo: self.ingredientsBody.bottomAnchor, constant: 20).isActive = true
-        self.procedureTitle.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
+        self.procedureTitle.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        self.procedureTitle.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        self.procedureTitle.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         self.procedureBodyTextView.translatesAutoresizingMaskIntoConstraints = false
         self.procedureBodyTextView.topAnchor.constraint(equalTo: self.procedureTitle.bottomAnchor, constant: 0).isActive = true
