@@ -108,35 +108,20 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.servingTimeView.translatesAutoresizingMaskIntoConstraints = false
         
         // define servingTimeView
-        self.servingTimeField.font = UIFont(name: Constants.appFont.bold.rawValue, size: CGFloat(Constants.fontSize.medium.rawValue))
         self.servingTimeField.backgroundColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.beige.rawValue)!)
-        
-        self.servingTimeField.textColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.deepPurple.rawValue)!)
-
+        self.servingTimeField.font = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))
+        self.servingTimeField.textColor = self.tintColor
         self.servingTimeView.addSubview(self.servingTimeField)
         self.servingTimeField.text = self.servingTimeValue
         self.servingTimeField.centerYAnchor.constraint(equalTo: self.servingTimeView.centerYAnchor).isActive = true
         self.servingTimeField.leftAnchor.constraint(equalTo: self.servingTimeView.leftAnchor).isActive = true
-
-        
         self.servingTimeField.rightAnchor.constraint(equalTo: self.servingTimeView.rightAnchor).isActive = true
-
-        
         self.servingTimeField.topAnchor.constraint(equalTo: self.servingTimeView.topAnchor).isActive = true
-        
-        // TODO: Commenting out for merge conflict. Revisit this.
-//        self.servingTimeField.font = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))
-//        self.servingTimeField.textColor = self.tintColor
-//        self.servingTimeView.addSubview(self.servingTimeField)
-//        self.servingTimeField.text = self.servingTimeValue
-//        self.servingTimeField.centerYAnchor.constraint(equalTo: self.servingTimeView.centerYAnchor).isActive = true
-//        self.servingTimeField.leftAnchor.constraint(equalTo: self.servingTimeView.leftAnchor, constant: 10).isActive = true
-//        self.servingTimeField.rightAnchor.constraint(equalTo: self.servingTimeView.centerXAnchor, constant: -10).isActive = true
-
         self.servingTimeField.translatesAutoresizingMaskIntoConstraints = false
         
         self.servingTimeField.inputView = self.timePicker
         self.servingTimeField.inputAccessoryView = self.createPickerToolBar()
+        self.servingTimeField.textAlignment = .left
         
         // define startCookingTime
         self.startCookingTimeField.font = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))
@@ -147,6 +132,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.startCookingTimeField.leftAnchor.constraint(equalTo: self.servingTimeView.centerXAnchor, constant: 10).isActive = true
         self.startCookingTimeField.rightAnchor.constraint(equalTo: self.servingTimeView.rightAnchor, constant: -10).isActive = true
         self.startCookingTimeField.translatesAutoresizingMaskIntoConstraints = false
+        self.startCookingTimeField.textAlignment = .right
         
         // tableview
         self.tableView.topAnchor.constraint(equalTo: self.servingTimeView.topAnchor, constant: -16).isActive = true
