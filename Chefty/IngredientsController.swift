@@ -54,9 +54,7 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
                             
                         }
                     }
-                    print("NUMBER OF STEPS WITH INGREDIENTS: \(self.ingredientsPerRecipe.count)")
                 }
-                print("Size of ingredients per recipe: \(self.ingredientsPerRecipe[index].count)")
                 
                 OperationQueue.main.addOperation {
                     self.tableView.reloadData()
@@ -152,11 +150,9 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         if ingredient.isChecked {
             ingredient.isChecked = false
             store.saveRecipesContext()
-            print("un-checked item")
         } else {
             ingredient.isChecked = true
             store.saveRecipesContext()
-            print("checked item")
         }
         
         tableView.reloadData()

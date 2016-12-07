@@ -91,7 +91,6 @@
         }
 
         if let imageURLString = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].recipe?.imageURLSmall {
-            print("imageURLString: \(imageURLString)")
             let url = URL(string: imageURLString)
             self.recipeUIImageView.contentMode = .scaleAspectFill
             self.recipeUIImageView.sd_setImage(with: url)

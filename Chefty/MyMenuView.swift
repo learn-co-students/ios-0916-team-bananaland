@@ -48,10 +48,8 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     //Initialize
     override init(frame:CGRect){
         super.init(frame: frame)
-        print("initializing my menu view")
         
         if self.store.mergedStepsArray.isEmpty {
-            print("merging steps")
             
             self.getStepsFromRecipesSelected {
                 
@@ -72,13 +70,13 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         // set serving time to 7pm or earliest serving time, whichever is later
         if let recipeSelected = store.recipesSelected.first {
             if (recipeSelected.servingTime?.timeIntervalSince1970)! < store.earliestPossibleServeTime.timeIntervalSince1970 && UserDefaults.standard.integer(forKey: "stepCurrent") == 0 {
-                //print("serving time is invalid, change it to earlies serving time")
+                
                 for recipeSelected2 in store.recipesSelected {
                     recipeSelected2.servingTime = store.earliestPossibleServeTime as NSDate?
                     store.saveRecipesContext()
                 }
             } else {
-                //print("serving time is valid or stepCurrent > 0")
+                
             }
             self.servingTimeValue = myFormatter.string(from: recipeSelected.servingTime as! Date)
             self.servingTimeValue = "Serving Time: " + self.servingTimeValue
@@ -152,8 +150,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.timePicker.datePickerMode = .time
         self.timePicker.minimumDate = store.earliestPossibleServeTime  // change to earliest serve time when available
         self.timePicker.minuteInterval = 15
-        
-        print("self.store.mergedStepsArray.count: \(self.store.mergedStepsArray.count)")
 
     }
     
@@ -398,8 +394,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
                 print("stopping loop")
             }
         }
-        
-        print("addedTime = \(store.addedTime)")
         
     }
     

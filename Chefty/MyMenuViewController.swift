@@ -20,8 +20,6 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("hi")
-        
         myMenuViewInst.delegate = self
         self.navigationController?.setNavigationBarHidden(false, animated: .init(true))
         self.view.backgroundColor = UIColor(named: .white)

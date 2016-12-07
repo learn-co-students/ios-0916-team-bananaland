@@ -52,9 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.initialViewController = MyMenuViewController()
         }
         
-        print(initialViewController)
-        print("we are about to create the window")
-        
         let navigationController = UINavigationController(rootViewController: self.initialViewController)
         self.window!.rootViewController = navigationController
         self.window!.makeKeyAndVisible()
