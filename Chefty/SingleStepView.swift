@@ -104,15 +104,16 @@ class SingleStepView: UIView {
         
         if let url = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].recipe?.imageURLSmall {
             self.imageURLString = url
+            guard let url = URL(string: self.imageURLString) else { return }
+            self.recipeUIImageView.contentMode = .scaleAspectFill
+            self.recipeUIImageView.sd_setImage(with: url)
         }
         
         // configure controls
         self.stepTitleLabel.text = self.stepTitle
         self.stepTitleLabel.font =  UIFont(name: Constants.appFont.bold.rawValue, size: Constants.fontSize.large.rawValue)
         
-        guard let url = URL(string: self.imageURLString) else { fatalError() }
-        self.recipeUIImageView.contentMode = .scaleAspectFill
-        self.recipeUIImageView.sd_setImage(with: url)
+        
         
         self.expectedStepCompletionLabel.text = "Complete step by \(self.expectedStepCompletion)"
         self.expectedStepCompletionLabel.font = UIFont(name: Constants.appFont.regular.rawValue, size: Constants.fontSize.xsmall.rawValue)
