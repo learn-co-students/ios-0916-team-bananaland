@@ -19,7 +19,6 @@ protocol MyMenuViewDelegate: class {
 class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTableViewCellDelegate, UIPickerViewDelegate, UITextFieldDelegate {
     
     //Define Variables
-    
     weak var delegate: MyMenuViewDelegate?
     var sampleValue = String()
     var store = DataStore.sharedInstance
@@ -28,7 +27,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     var recipeForTraditionalRecipeView: Recipe?
     var textFieldBeingEdited: UITextField = UITextField()
     var timePicker: UIDatePicker = UIDatePicker()
-    var earliestPossibleServeTime: Date = Date()
     
     let datePickerContainerView = UIView()
     let servingTimeView = UIView()
@@ -38,15 +36,15 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     var servingTimeFieldLabel: UILabel = UILabel()
     var servingTimeField: UITextField = UITextField()
     var servingTimeValue: String = String()
+    var startCookingTimeValue: String = String()
+    var startCookingTimeField: UITextField = UITextField()
     
     var recipeSteps = [Steps]()
-    var addedTime = 0
-    //var servingTimeForDisplay = "test time here"
+
     
     let ingredientsButton: UIBarButtonItem = UIBarButtonItem(title: "Ingredients", style: .plain , target: self, action: #selector(clickIngredients))
     let clearAllButton: UIBarButtonItem = UIBarButtonItem(title: "Clear All", style: .plain , target: self, action: #selector(onClickClearAllRecipes))
     var openSingleStepButton: UIBarButtonItem = UIBarButtonItem(title: "Open Step", style: .plain , target: self, action: #selector(clickOpenStep))
-    
     
     //Initialize
     override init(frame:CGRect){
@@ -64,14 +62,24 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             }
         }
         
-        calculateStartTime()
+        store.calculateStartTime()
         
         // format the time
         let myFormatter = DateFormatter()
         myFormatter.timeStyle = .short
         
-        if let servingTime = store.recipesSelected[0].servingTime {
-            self.servingTimeValue = myFormatter.string(from: servingTime as Date)
+        // set serving time to 7pm or earliest serving time, whichever is later
+        if let recipeSelected = store.recipesSelected.first {
+            if (recipeSelected.servingTime?.timeIntervalSince1970)! < store.earliestPossibleServeTime.timeIntervalSince1970 && UserDefaults.standard.integer(forKey: "stepCurrent") == 0 {
+                //print("serving time is invalid, change it to earlies serving time")
+                for recipeSelected2 in store.recipesSelected {
+                    recipeSelected2.servingTime = store.earliestPossibleServeTime as NSDate?
+                    store.saveRecipesContext()
+                }
+            } else {
+                //print("serving time is valid or stepCurrent > 0")
+            }
+            self.servingTimeValue = myFormatter.string(from: recipeSelected.servingTime as! Date)
             self.servingTimeValue = "Serving Time: " + self.servingTimeValue
         }
         
@@ -97,17 +105,27 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.servingTimeView.translatesAutoresizingMaskIntoConstraints = false
         
         // define servingTimeView
-        self.servingTimeField.font = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.small.rawValue))
+        self.servingTimeField.font = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))
         self.servingTimeField.textColor = self.tintColor
         self.servingTimeView.addSubview(self.servingTimeField)
         self.servingTimeField.text = self.servingTimeValue
         self.servingTimeField.centerYAnchor.constraint(equalTo: self.servingTimeView.centerYAnchor).isActive = true
         self.servingTimeField.leftAnchor.constraint(equalTo: self.servingTimeView.leftAnchor, constant: 10).isActive = true
-        self.servingTimeField.rightAnchor.constraint(equalTo: self.servingTimeView.rightAnchor, constant: -10).isActive = true
+        self.servingTimeField.rightAnchor.constraint(equalTo: self.servingTimeView.centerXAnchor, constant: -10).isActive = true
         self.servingTimeField.translatesAutoresizingMaskIntoConstraints = false
         
         self.servingTimeField.inputView = self.timePicker
         self.servingTimeField.inputAccessoryView = self.createPickerToolBar()
+        
+        // define startCookingTime
+        self.startCookingTimeField.font = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))
+        self.startCookingTimeField.isUserInteractionEnabled = false
+        self.servingTimeView.addSubview(self.startCookingTimeField)
+        self.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"
+        self.startCookingTimeField.centerYAnchor.constraint(equalTo: self.servingTimeView.centerYAnchor).isActive = true
+        self.startCookingTimeField.leftAnchor.constraint(equalTo: self.servingTimeView.centerXAnchor, constant: 10).isActive = true
+        self.startCookingTimeField.rightAnchor.constraint(equalTo: self.servingTimeView.rightAnchor, constant: -10).isActive = true
+        self.startCookingTimeField.translatesAutoresizingMaskIntoConstraints = false
         
         // tableview
         self.tableView.topAnchor.constraint(equalTo: self.servingTimeView.topAnchor, constant: -16).isActive = true
@@ -124,10 +142,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.timePicker.backgroundColor = UIColor.white
         self.timePicker.layer.shadowOpacity = 0.5
         self.timePicker.datePickerMode = .time
-        self.timePicker.minimumDate = self.earliestPossibleServeTime  // change to earliest serve time when available
+        self.timePicker.minimumDate = store.earliestPossibleServeTime  // change to earliest serve time when available
         self.timePicker.minuteInterval = 15
         
-        print("earliestPossibleServeTime: \(self.earliestPossibleServeTime)")
+
     }
     
     
@@ -136,6 +154,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         dateFormatterInst.dateStyle = .none
         dateFormatterInst.timeStyle = .short
         self.servingTimeField.text = "Serving Time: \(dateFormatterInst.string(from: self.timePicker.date))"
+        
         self.servingTimeField.resignFirstResponder()
         
         // update serving time on the selected recipes
@@ -145,7 +164,8 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.store.saveRecipesContext()
         
         // recalculate start cooking time
-        calculateStartTime()
+        store.calculateStartTime()
+        self.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"
     }
     
     
@@ -205,8 +225,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
                 self.store.mergedStepsArray.append(step)
             }
         }
+
         UserDefaults.standard.set(0, forKey: "stepCurrent")
-        calculateStartTime()
+        store.calculateStartTime()
+        self.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"
         self.tableView.reloadData()
     }
     
@@ -283,16 +305,13 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
                 if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
                     return true
                 } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
-                    addedTime += Int(step1.timeToStart) + Int(step1.duration) - Int(step2.timeToStart)
                     return false
                     
                     //same attentionNeeded, add shorter duration to addedTime
                 } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
                     if step1.duration > step2.duration {
-                        addedTime += Int(step2.duration)
                         return false
                     } else if step1.duration < step2.duration {
-                        addedTime += Int(step1.duration)
                         return true
                     }
                 }
@@ -302,37 +321,28 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             if (step2.timeToStart > step1.timeToStart) && (step2.timeToStart < (step1.timeToStart + step1.duration)) {
                 
                 if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
-                    addedTime += Int(step2.timeToStart) - (Int(step1.timeToStart) + Int(step1.duration))
                     return true
                     
                 } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
-                    addedTime += (Int(step1.timeToStart) + Int(step1.duration)) - Int(step2.timeToStart)
                     return true
                     
                 } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
-                    addedTime += (Int(step1.timeToStart) + Int(step1.duration)) - Int(step2.timeToStart)
                     return true
                 }
             }
-
             return step1.timeToStart < step2.timeToStart
-            
         }
     }
     
-    func calculateExtraTime() {
-        
-       print("calculate extra time called")
     
-        self.addedTime = 0
+    
+    func calculateExtraTime() {
+        store.addedTime = 0
         
         // add extra time
         for (index, _) in store.mergedStepsArray.enumerated() {
-            print("Inside enumerated for loop")
             
             if index < store.mergedStepsArray.count - 2 {
-                
-                print("Inside while loop")
                 
                 let step1 = store.mergedStepsArray[index]
                 let step2 = store.mergedStepsArray[index + 1]
@@ -342,16 +352,16 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
                     
                     //different attentionNeeded
                     if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
-                        addedTime += Int(step1.timeToStart) + Int(step1.duration) - Int(step2.timeToStart)
+                        store.addedTime += Int(step1.timeToStart) + Int(step1.duration) - Int(step2.timeToStart)
                         
                         
                         //same attentionNeeded, add shorter duration to addedTime
                     } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
                         if step1.duration > step2.duration {
-                            addedTime += Int(step2.duration)
+                            store.addedTime += Int(step2.duration)
                             
                         } else if step1.duration < step2.duration {
-                            addedTime += Int(step1.duration)
+                            store.addedTime += Int(step1.duration)
                             
                         }
                     }
@@ -361,15 +371,15 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
                 if (step2.timeToStart > step1.timeToStart) && (step2.timeToStart < (step1.timeToStart + step1.duration)) {
                     
                     if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
-                        addedTime += Int(step2.timeToStart) - (Int(step1.timeToStart) + Int(step1.duration))
+                        store.addedTime += Int(step2.timeToStart) - (Int(step1.timeToStart) + Int(step1.duration))
                         
                         
                     } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
-                        addedTime += (Int(step1.timeToStart) + Int(step1.duration)) - Int(step2.timeToStart)
+                        store.addedTime += (Int(step1.timeToStart) + Int(step1.duration)) - Int(step2.timeToStart)
                         
                         
                     } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
-                        addedTime += (Int(step1.timeToStart) + Int(step1.duration)) - Int(step2.timeToStart)
+                        store.addedTime += (Int(step1.timeToStart) + Int(step1.duration)) - Int(step2.timeToStart)
                         
                     }
                 }
@@ -380,60 +390,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             }
         }
         
-        print("addedTime = \(addedTime)")
+        print("addedTime = \(store.addedTime)")
         
     }
     
-    
-    
-    func calculateStartTime() {
-
-        if store.mergedStepsArray.count != 0 {
-            let currentTime = Date()
-            //print("current time: \(currentTime)")
-            let calendar = Calendar.current
-            
-            var servingTime = store.recipesSelected[0].servingTime // default or user selected serving time is same for all 4 recipes
-            //print("serving time: \(servingTime)")
-            
-            //total cooking time = smallest timeToStart from mergedSteps + addedTime
-            let totalCookingDuration = store.mergedStepsArray[0].timeToStart * -1 //+ addedTime
-            //print("time to start = \(store.mergedStepsArray[0].timeToStart)")
-            //print("added time = \(addedTime)")
-            //print("total cooking time: \(totalCookingDuration)")
-            
-            //earliest possible serving time = current time + total cooking time
-            let earliestPossibleServeTime = calendar.date(byAdding: .minute, value: Int(totalCookingDuration), to: currentTime)
-            //print("earliest serve time: \(earliestPossibleServeTime)")
-            
-            //start cooking time = serving time - total cooking duration
-            let totalCookingDurationSeconds = totalCookingDuration * -60
-            var startCookingTime = servingTime?.addingTimeInterval(TimeInterval(totalCookingDurationSeconds))
-            //print("start cooking at: \(startCookingTime)")
-            
-            //check that serving time is greater than earliest possible serving time
-            // --> if yes, servingTime & start cooking time will work, so don't change
-            if servingTime?.compare(earliestPossibleServeTime! as Date) == ComparisonResult.orderedDescending || servingTime?.compare(earliestPossibleServeTime! as Date) == ComparisonResult.orderedSame {
-                //print("start cooking time and serving time remains the same")
-                
-            } else {
-                // --> if no, serving time = earliest possible serving time, start cooking time = earliest possible serving time - total duration
-                servingTime = earliestPossibleServeTime as NSDate?
-                //print("input time error, earliest serving time possible = \(servingTime)")
-                startCookingTime = earliestPossibleServeTime?.addingTimeInterval(TimeInterval(totalCookingDurationSeconds)) as NSDate?
-            }
-            //print("final serving time = \(servingTime)")
-            //print("final start cooking time = \(startCookingTime)")
-            
-            let myFormatter = DateFormatter()
-            myFormatter.timeStyle = .short
-            if let startCookingTime = startCookingTime {
-                var finalStartCookingTime = myFormatter.string(from: startCookingTime as Date)
-                store.startCookingTime = "\(finalStartCookingTime)"
-            }
-
-        }
-    }
 }
 
 

@@ -20,6 +20,8 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("hi")
+        
         myMenuViewInst.delegate = self
         self.navigationController?.setNavigationBarHidden(false, animated: .init(true))
         self.view.backgroundColor = UIColor(named: .white)
@@ -44,9 +46,9 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         // set the notification message
         var notificationMessage = String()
         if store.recipesSelected.count == 1 {
-            notificationMessage = "\nLast time you were here, you selected one recipe, lets review it.\n\n"
+            notificationMessage = "\nLast time you were here, you selected one recipe: let's review it!\n\n"
         } else if store.recipesSelected.count > 1 {
-            notificationMessage = "\nLast time you were here, you selected \(store.recipesSelected.count) recipes, lets review them.\n\n"
+            notificationMessage = "\nLast time you were here, you selected \(store.recipesSelected.count) recipes: let's review them!\n\n"
         }
         
         if store.showNotification {
@@ -84,9 +86,9 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     
     func goToHome() {
         
-//        let cheftyMainViewController1 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "cheftyMain") as! CheftyMainViewController
-//        self.present(cheftyMainViewController1, animated: false, completion: nil)
-        
+        let finalMainViewController1 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "finalMain") as! FinalMainViewController
+        self.present(finalMainViewController1, animated: false, completion: nil)
+
 //        //Hooked up MainViewController
 //        navigationController?.popToRootViewController(animated: true)
         

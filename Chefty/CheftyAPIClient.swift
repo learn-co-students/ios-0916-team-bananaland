@@ -40,9 +40,9 @@ class CheftyAPIClient {
                                 recipeInst.imageURL = unwrappedImageURL as String
                             }
                             
-//                            if let unwrappedImageURLSmall = recipeDict["imageURLSmall"] {
-//                                recipeInst.imageURLSmall = unwrappedImageURLSmall as String
-//                            }
+                            if let unwrappedImageURLSmall = recipeDict["imageURLSmall"] {
+                                recipeInst.imageURLSmall = unwrappedImageURLSmall as String
+                            }
                             
                             if let unwrappedServings = recipeDict["servings"] {
                                 recipeInst.servings = unwrappedServings as String
@@ -59,7 +59,7 @@ class CheftyAPIClient {
                                 recipeInst.sortValue = Int16(sortValueString)!
                             }
                             
-                            
+                            // create 4 selected recipes
                             if recipeInst.id == "apple-pie" || recipeInst.id == "yummy-baked-potato-skins" || recipeInst.id == "chicken-breasts" || recipeInst.id == "black-bean-couscous-salad" {
                                 recipeInst.selected = true as Bool
                             } else {

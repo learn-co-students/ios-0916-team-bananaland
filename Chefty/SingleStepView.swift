@@ -18,7 +18,7 @@ class SingleStepView: UIView {
     let store = DataStore.sharedInstance
     var currentStepInst: Steps?
     var procedureBody: String = String()
-    var duration: Int32 = Int32()
+    var expectedStepCompletion: String = String()
     var stepTitle: String = String()
     var ingredients: String = String()
     var recipeImage: UIImage = UIImage()
@@ -27,6 +27,7 @@ class SingleStepView: UIView {
     // initialize controls
     let stepTitleLabel: UILabel = UILabel()
     let timeRemaingLabel: UILabel = UILabel()
+    let expectedStepCompletionLabel: UILabel = UILabel()
     let ingredientsTitle: UILabel = UILabel()
     let ingredientsBody: UILabel = UILabel()
     let procedureTitle: UILabel = UILabel()
@@ -36,6 +37,7 @@ class SingleStepView: UIView {
 
     override init(frame:CGRect){
         super.init(frame: frame)
+        self.backgroundColor = UIColor.white
         
 //        CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: "apple-pie") {
         
@@ -67,8 +69,18 @@ class SingleStepView: UIView {
 //            }
 
         
-        // assign the values from the current step to the controls
-        self.duration = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].duration
+        
+        
+        // get the expected completion time for the step
+        let tempMergedStepsArray = self.store.mergedStepsArray
+        let remainingStepsArray: [Steps] = Array(self.store.mergedStepsArray.dropFirst(UserDefaults.standard.integer(forKey: "stepCurrent")))
+        self.store.mergedStepsArray = remainingStepsArray
+        store.calculateStartTime()
+        self.expectedStepCompletion = store.startCookingTime // now we have the completion time as if this were the first step
+        self.store.mergedStepsArray = tempMergedStepsArray // restore the mergedStepsArray
+        store.calculateStartTime() // restore the start time for the all steps
+        
+        print("self.store.mergedStepsArray.count \(self.store.mergedStepsArray.count)")
         
         // unwrap values
         if let procedureBody = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].procedure {
@@ -90,21 +102,20 @@ class SingleStepView: UIView {
                 }
             }
         }
-        
-        if let url = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].recipe?.imageURLSmall {
-            self.imageURLString = url
+
+        if let imageURLString = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].recipe?.imageURLSmall {
+            print("imageURLString: \(imageURLString)")
+            let url = URL(string: imageURLString)
+            self.recipeUIImageView.contentMode = .scaleAspectFill
+            self.recipeUIImageView.sd_setImage(with: url)
         }
         
         // configure controls
         self.stepTitleLabel.text = self.stepTitle
         self.stepTitleLabel.font =  UIFont(name: Constants.appFont.bold.rawValue, size: Constants.fontSize.large.rawValue)
-        
-        guard let url = URL(string: self.imageURLString) else { fatalError() }
-        self.recipeUIImageView.contentMode = .scaleAspectFill
-        self.recipeUIImageView.sd_setImage(with: url)
-        
-        self.timeRemaingLabel.text = "Time allotted for this step: \(self.duration) min."
-        self.timeRemaingLabel.font = UIFont(name: Constants.appFont.regular.rawValue, size: Constants.fontSize.xsmall.rawValue)
+    
+        self.expectedStepCompletionLabel.text = "Complete step by \(self.expectedStepCompletion)"
+        self.expectedStepCompletionLabel.font = UIFont(name: Constants.appFont.regular.rawValue, size: Constants.fontSize.xsmall.rawValue)
         
         self.ingredientsTitle.text = "Ingredients"
         self.ingredientsTitle.font =  UIFont(name: Constants.appFont.bold.rawValue, size: Constants.fontSize.medium.rawValue)
@@ -143,6 +154,7 @@ class SingleStepView: UIView {
         self.addSubview(self.procedureTitle)
         self.addSubview(self.procedureBodyTextView)
         self.addSubview(self.doneButton)
+        self.addSubview(self.expectedStepCompletionLabel)
         
         // constrain the objects
         self.recipeUIImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -158,12 +170,12 @@ class SingleStepView: UIView {
         self.stepTitleLabel.numberOfLines = 0
         self.stepTitleLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
         
-        self.timeRemaingLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.timeRemaingLabel.topAnchor.constraint(equalTo: self.stepTitleLabel.topAnchor, constant: 60).isActive = true
-        self.timeRemaingLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
+        self.expectedStepCompletionLabel.translatesAutoresizingMaskIntoConstraints = false
+        self.expectedStepCompletionLabel.topAnchor.constraint(equalTo: self.stepTitleLabel.bottomAnchor, constant: 20).isActive = true
+        self.expectedStepCompletionLabel.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
         
         self.ingredientsTitle.translatesAutoresizingMaskIntoConstraints = false
-        self.ingredientsTitle.topAnchor.constraint(equalTo: self.timeRemaingLabel.bottomAnchor, constant: 40).isActive = true
+        self.ingredientsTitle.topAnchor.constraint(equalTo: self.stepTitleLabel.bottomAnchor, constant: 40).isActive = true
         self.ingredientsTitle.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
         self.ingredientsTitle.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         if let text = self.ingredientsBody.text {
