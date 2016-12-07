@@ -40,9 +40,9 @@ class CheftyAPIClient {
                                 recipeInst.imageURL = unwrappedImageURL as String
                             }
                             
-//                            if let unwrappedImageURLSmall = recipeDict["imageURLSmall"] {
-//                                recipeInst.imageURLSmall = unwrappedImageURLSmall as String
-//                            }
+                            if let unwrappedImageURLSmall = recipeDict["imageURLSmall"] {
+                                recipeInst.imageURLSmall = unwrappedImageURLSmall as String
+                            }
                             
                             if let unwrappedServings = recipeDict["servings"] {
                                 recipeInst.servings = unwrappedServings as String

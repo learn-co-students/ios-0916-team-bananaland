@@ -81,7 +81,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
                 print("serving time is valid or stepCurrent > 0")
             }
             self.servingTimeValue = myFormatter.string(from: recipeSelected.servingTime as! Date)
-            self.servingTimeValue = "Serving Time: " + self.servingTimeValue
+            self.servingTimeValue = " Serving Time: " + self.servingTimeValue
         }
         
         // configure controls
@@ -95,6 +95,8 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         
         // constrain the controls
         self.toolbar.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        self.toolbar.barTintColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.beige.rawValue)!)
+
         self.toolbar.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         self.toolbar.translatesAutoresizingMaskIntoConstraints = false
         
@@ -106,13 +108,22 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.servingTimeView.translatesAutoresizingMaskIntoConstraints = false
         
         // define servingTimeView
-        self.servingTimeField.font = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.small.rawValue))
-        self.servingTimeField.textColor = self.tintColor
+        self.servingTimeField.font = UIFont(name: Constants.appFont.bold.rawValue, size: CGFloat(Constants.fontSize.medium.rawValue))
+        self.servingTimeField.backgroundColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.beige.rawValue)!)
+        
+        self.servingTimeField.textColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.deepPurple.rawValue)!)
+
         self.servingTimeView.addSubview(self.servingTimeField)
         self.servingTimeField.text = self.servingTimeValue
         self.servingTimeField.centerYAnchor.constraint(equalTo: self.servingTimeView.centerYAnchor).isActive = true
-        self.servingTimeField.leftAnchor.constraint(equalTo: self.servingTimeView.leftAnchor, constant: 10).isActive = true
-        self.servingTimeField.rightAnchor.constraint(equalTo: self.servingTimeView.rightAnchor, constant: -10).isActive = true
+        self.servingTimeField.leftAnchor.constraint(equalTo: self.servingTimeView.leftAnchor).isActive = true
+
+        
+        self.servingTimeField.rightAnchor.constraint(equalTo: self.servingTimeView.rightAnchor).isActive = true
+
+        
+        self.servingTimeField.topAnchor.constraint(equalTo: self.servingTimeView.topAnchor).isActive = true
+        
         self.servingTimeField.translatesAutoresizingMaskIntoConstraints = false
         
         self.servingTimeField.inputView = self.timePicker
@@ -127,6 +138,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         // toolbar
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let toolbarButtons = [self.ingredientsButton, spacer, self.clearAllButton, spacer, self.openSingleStepButton]
+        
+
+
+        
         self.toolbar.setItems(toolbarButtons, animated: false)
         
         // timepicker

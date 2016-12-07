@@ -61,6 +61,7 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     
     override func viewWillAppear(_ animated: Bool = false) {
         self.title = "My Menu"
+        
         // adjust the button label if the step value is 0
         var stepValueForButton:Int = 1
         if UserDefaults.standard.integer(forKey: "stepCurrent") == 0 {
