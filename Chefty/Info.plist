@@ -30,14 +30,10 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>MaterialIcons-Regular.otf</string>
-		<string>analogclock.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
-<<<<<<< HEAD
 	<string>Main</string>
 	<key>UIMainStoryboardFile</key>
-=======
->>>>>>> master
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
