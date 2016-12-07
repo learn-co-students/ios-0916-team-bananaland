@@ -25,7 +25,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
-        self.title = "Merged Recipe Steps"
+        self.title = "All Steps"
         self.tableView.reloadData()
     }
     
