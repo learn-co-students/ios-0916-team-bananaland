@@ -72,7 +72,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         self.view.addSubview(myLabel)
         
         
-        myView.backgroundColor = UIColor.white
+        myView.backgroundColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.deepPurple.rawValue)!)
         myView.translatesAutoresizingMaskIntoConstraints = false
         myView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
         myView.heightAnchor.constraint(equalToConstant: 150).isActive = true
@@ -83,9 +83,10 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         myLabel.translatesAutoresizingMaskIntoConstraints = false
         myLabel.widthAnchor.constraint(equalTo: myView.widthAnchor, multiplier: 1.0).isActive = true
         myLabel.leftAnchor.constraint(equalTo: myView.leftAnchor).isActive = true
-        myLabel.bottomAnchor.constraint(equalTo: myView.bottomAnchor).isActive = true
+        myLabel.bottomAnchor.constraint(equalTo: myView.bottomAnchor, constant: -30).isActive = true
         myLabel.text = "Start cooking at \(store.startCookingTime)"
-        myLabel.font = myLabel.font?.withSize(24)
+        myLabel.font = UIFont(name: "GillSans-Light", size: 24)
+        myLabel.textColor = UIColor(red: 255/255, green: 255/255, blue: 238/255, alpha: 1.0)
         myLabel.textAlignment = .center
         
         
