@@ -29,6 +29,15 @@ class TraditionalRecipeViewController: UIViewController {
         super.viewDidLoad()
 
         self.reloadInputViews()
+        
+        // add the select recipe button to the nav bar
+        let myMenuButton = UIBarButtonItem(title: "My Menu", style: .plain, target: self, action: #selector(goToMyMenu))
+        navigationItem.leftBarButtonItems = [myMenuButton]
+        
+        // set color and font size of nav bar buttons
+        let labelFont : UIFont = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))!
+        let attributesNormal = [ NSFontAttributeName : labelFont ]
+        myMenuButton.setTitleTextAttributes(attributesNormal, for: .normal)
 
         
         self.traditionalRecipeView.recipe = self.recipe
@@ -39,6 +48,8 @@ class TraditionalRecipeViewController: UIViewController {
    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.title = "Recipe"
     }
     
     override func didReceiveMemoryWarning() {
@@ -144,6 +155,12 @@ extension TraditionalRecipeViewController {
         }
         delegate?.recipeSelected(recipe!, status: isSelected)
         
+    }
+    
+    
+    func goToMyMenu(){
+        let myMenuViewControllerInst = MyMenuViewController()
+        navigationController?.pushViewController(myMenuViewControllerInst, animated: false) // show destination with nav bar
     }
 
 }

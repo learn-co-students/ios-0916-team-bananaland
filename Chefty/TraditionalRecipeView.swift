@@ -285,25 +285,12 @@ class TraditionalRecipeView: UIView {
         stepsText.centerXAnchor.constraint(equalTo: myScrollView.centerXAnchor).isActive = true
         stepsText.topAnchor.constraint(equalTo: stepsLabel.bottomAnchor).isActive = true
         stepsText.widthAnchor.constraint(equalTo: myScrollView.widthAnchor, multiplier: 0.9).isActive = true
+        stepsText.bottomAnchor.constraint(equalTo: myScrollView.bottomAnchor).isActive = true
         
         stepsText.translatesAutoresizingMaskIntoConstraints = false
         stepsText.isScrollEnabled = false
         stepsText.isUserInteractionEnabled = false
-        
-        let slideButton = UIView()
-        self.myScrollView.addSubview(slideButton)
-        //slideButton.setTitle("Start Slide", for: .normal)
-        //slideButton.titleLabel?.font = UIFont(name: "GillSans-Light", size: 25)
-        //slideButton.titleLabel?.textColor = UIColor.white
-        slideButton.backgroundColor = UIColor(red: 54/255.0, green: 30/255.0, blue: 43/255.0, alpha: 1.0)
-        //slideButton.addTarget(self, action: #selector(self.infoClick), for: .touchUpInside)
-        
-        slideButton.topAnchor.constraint(equalTo: stepsText.bottomAnchor).isActive = true
-        slideButton.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true
-        slideButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        slideButton.bottomAnchor.constraint(equalTo: myScrollView.bottomAnchor).isActive = true
-        slideButton.translatesAutoresizingMaskIntoConstraints = false
-    
+            
     }
     
 }
