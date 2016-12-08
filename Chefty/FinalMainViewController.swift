@@ -22,6 +22,8 @@ class FinalMainViewController: UIViewController {
         // Do any additional setup after loading the view.
         setupView()
 
+        self.navigationItem.setHidesBackButton(true, animated: false)
+
     }
     
     override func viewDidLayoutSubviews() {

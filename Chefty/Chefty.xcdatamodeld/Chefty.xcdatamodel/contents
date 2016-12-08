@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11542" systemVersion="16B2657" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11542" systemVersion="15G1108" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Ingredient" representedClassName="Ingredient" syncable="YES" codeGenerationType="class">
         <attribute name="ingredientDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isChecked" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="step" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Steps" inverseName="ingredient" inverseEntity="Steps" syncable="YES"/>
+        <relationship name="step" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Step" inverseName="ingredients" inverseEntity="Step" syncable="YES"/>
     </entity>
     <entity name="Recipe" representedClassName="Recipe" syncable="YES" codeGenerationType="class">
         <attribute name="displayName" optional="YES" attributeType="String" syncable="YES"/>
@@ -15,21 +15,21 @@
         <attribute name="servingTime" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="sortValue" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="type" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="step" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Steps" inverseName="recipe" inverseEntity="Steps" syncable="YES"/>
+        <relationship name="steps" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Step" inverseName="recipe" inverseEntity="Step" syncable="YES"/>
     </entity>
-    <entity name="Steps" representedClassName="Steps" syncable="YES" codeGenerationType="class">
+    <entity name="Step" representedClassName="Step" syncable="YES" codeGenerationType="class">
         <attribute name="duration" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="fullAttentionRequired" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="procedure" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="stepNumber" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="stepTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="timeToStart" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="ingredient" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ingredient" inverseName="step" inverseEntity="Ingredient" syncable="YES"/>
-        <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Recipe" inverseName="step" inverseEntity="Recipe" syncable="YES"/>
+        <relationship name="ingredients" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Ingredient" inverseName="step" inverseEntity="Ingredient" syncable="YES"/>
+        <relationship name="recipe" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Recipe" inverseName="steps" inverseEntity="Recipe" syncable="YES"/>
     </entity>
     <elements>
         <element name="Ingredient" positionX="-252" positionY="83" width="128" height="88"/>
         <element name="Recipe" positionX="178" positionY="27" width="128" height="195"/>
-        <element name="Steps" positionX="-36" positionY="21" width="128" height="165"/>
+        <element name="Step" positionX="-36" positionY="21" width="128" height="165"/>
     </elements>
 </model>
