@@ -71,8 +71,10 @@ class CheftyAPIClient {
                             
                             store.saveRecipesContext()
                             store.getRecipesFromCoreData()
-
+                            
                         }
+                        
+                        store.populateHomeArrays()
                         completion()
                         
                     } catch {

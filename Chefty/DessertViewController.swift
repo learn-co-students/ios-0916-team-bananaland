@@ -24,6 +24,7 @@ class DessertViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.backgroundColor = UIColor.clear
         view.addSubview(collectionView)
+        
     }
     
        
