@@ -169,7 +169,7 @@ class TraditionalRecipeView: UIView {
         guard let servings = recipe.servings else { return }
         let servingSizeLabel = UILabel()
         
-        servingSizeLabel.text = "Serving Size: \(servings)"
+        servingSizeLabel.text = "\(servings) servings"
         servingSizeLabel.textColor = UIColor.white
         servingSizeLabel.font = UIFont(name: Constants.appFont.light.rawValue, size: 20)
         servingSizeLabel.textAlignment = .left
@@ -191,8 +191,10 @@ class TraditionalRecipeView: UIView {
         } else {
             totalTimeString = "\(totalTime) min"
         }
-        durationLabel.text = "Estimated Total Time: \(totalTimeString)"
+
         durationLabel.font = UIFont(name: Constants.appFont.light.rawValue, size: 20)
+        durationLabel.text = "\(totalTimeString)"
+        durationLabel.font = UIFont(name: "GillSans-Light", size: 20)
         durationLabel.textAlignment = .left
         
         self.myScrollView.addSubview(servingSizeLabel)
@@ -236,7 +238,6 @@ class TraditionalRecipeView: UIView {
         ingredientsText.text = combinedIngredients
         ingredientsText.font = UIFont(name: Constants.appFont.light.rawValue, size: 20)
         ingredientsText.textAlignment = .left
-        print(ingredientsArray)
         self.myScrollView.addSubview(ingredientsText)
         
         // constrain textbox

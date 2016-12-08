@@ -21,8 +21,6 @@ class FinalMainViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupView()
-        print(store.recipesSelected.count)
-        print("viewDidLoad of final")
     }
     
     override func viewDidLayoutSubviews() {

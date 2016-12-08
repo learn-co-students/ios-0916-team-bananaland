@@ -19,7 +19,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         super.viewDidLoad()
         
         self.navigationController?.setNavigationBarHidden(false, animated: .init(true))
-        self.view.backgroundColor = UIColor(named: .white)
         
         let selectRecipeButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(goToSingleStep))
         navigationItem.leftBarButtonItems = [selectRecipeButton]

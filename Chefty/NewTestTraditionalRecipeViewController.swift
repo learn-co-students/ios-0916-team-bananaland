@@ -36,7 +36,6 @@ class NewTestTraditionalRecipeViewController: UIViewController {
     }
     
     func backButtonTapped(sender: UIButton) {
-        print("pressed")
         dismiss(animated: true, completion: nil)
     }
     

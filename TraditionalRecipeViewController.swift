@@ -87,7 +87,7 @@ extension TraditionalRecipeViewController {
         
         guard let selected = recipe else { return }
         
-        if store.recipesSelected.count >= 4 { print("NOT ADDED");return }
+        if store.recipesSelected.count >= 4 { return }
         
         if isSelected {
             store.setRecipeUnselected(recipe: selected)
@@ -101,8 +101,7 @@ extension TraditionalRecipeViewController {
             })
             
             
-            print("Removed \(store.recipesSelected.count)")
-        } else {
+            } else {
             
             store.setRecipeSelected(recipe: selected)
             isSelected = true
@@ -115,7 +114,6 @@ extension TraditionalRecipeViewController {
             })
             
             
-            print("Added \(store.recipesSelected.count)")
         }
         
     }

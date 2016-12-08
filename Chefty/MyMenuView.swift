@@ -48,10 +48,8 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     //Initialize
     override init(frame:CGRect){
         super.init(frame: frame)
-        print("initializing my menu view")
         
         if self.store.mergedStepsArray.isEmpty {
-            print("merging steps")
             
             self.getStepsFromRecipesSelected {
                 
@@ -72,16 +70,16 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         // set serving time to 7pm or earliest serving time, whichever is later
         if let recipeSelected = store.recipesSelected.first {
             if (recipeSelected.servingTime?.timeIntervalSince1970)! < store.earliestPossibleServeTime.timeIntervalSince1970 && UserDefaults.standard.integer(forKey: "stepCurrent") == 0 {
-                //print("serving time is invalid, change it to earlies serving time")
+                
                 for recipeSelected2 in store.recipesSelected {
                     recipeSelected2.servingTime = store.earliestPossibleServeTime as NSDate?
                     store.saveRecipesContext()
                 }
             } else {
-                //print("serving time is valid or stepCurrent > 0")
+                
             }
             self.servingTimeValue = myFormatter.string(from: recipeSelected.servingTime as! Date)
-            self.servingTimeValue = " Serving Time: " + self.servingTimeValue
+            self.servingTimeValue = "Serving Time: " + self.servingTimeValue
         }
         
         // configure controls
@@ -106,22 +104,22 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.servingTimeView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         self.servingTimeView.heightAnchor.constraint(equalToConstant: 48).isActive = true
         self.servingTimeView.translatesAutoresizingMaskIntoConstraints = false
+        self.servingTimeView.backgroundColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.beige.rawValue)!)
         
         // define servingTimeView
-        self.servingTimeField.backgroundColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.beige.rawValue)!)
         self.servingTimeField.font = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))
         self.servingTimeField.textColor = self.tintColor
         self.servingTimeView.addSubview(self.servingTimeField)
         self.servingTimeField.text = self.servingTimeValue
         self.servingTimeField.centerYAnchor.constraint(equalTo: self.servingTimeView.centerYAnchor).isActive = true
-        self.servingTimeField.leftAnchor.constraint(equalTo: self.servingTimeView.leftAnchor).isActive = true
-        self.servingTimeField.rightAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        self.servingTimeField.leftAnchor.constraint(equalTo: self.servingTimeView.centerXAnchor).isActive = true
+        self.servingTimeField.rightAnchor.constraint(equalTo: self.servingTimeView.rightAnchor, constant: -16).isActive = true
         self.servingTimeField.topAnchor.constraint(equalTo: self.servingTimeView.topAnchor).isActive = true
         self.servingTimeField.translatesAutoresizingMaskIntoConstraints = false
         
         self.servingTimeField.inputView = self.timePicker
         self.servingTimeField.inputAccessoryView = self.createPickerToolBar()
-        self.servingTimeField.textAlignment = .left
+        self.servingTimeField.textAlignment = .right
         
         // define startCookingTime
         self.startCookingTimeField.font = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))
@@ -129,10 +127,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.servingTimeView.addSubview(self.startCookingTimeField)
         self.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"
         self.startCookingTimeField.centerYAnchor.constraint(equalTo: self.servingTimeView.centerYAnchor).isActive = true
-        self.startCookingTimeField.leftAnchor.constraint(equalTo: self.centerXAnchor, constant: 10).isActive = true
-        self.startCookingTimeField.rightAnchor.constraint(equalTo: self.servingTimeView.rightAnchor, constant: -10).isActive = true
+        self.startCookingTimeField.leftAnchor.constraint(equalTo: self.servingTimeView.leftAnchor, constant: 16).isActive = true
+        self.startCookingTimeField.rightAnchor.constraint(equalTo: self.servingTimeView.centerXAnchor).isActive = true
         self.startCookingTimeField.translatesAutoresizingMaskIntoConstraints = false
-        self.startCookingTimeField.textAlignment = .right
+        self.startCookingTimeField.textAlignment = .left
         
         // tableview
         self.tableView.topAnchor.constraint(equalTo: self.servingTimeView.topAnchor, constant: -16).isActive = true
@@ -143,10 +141,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         // toolbar
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let toolbarButtons = [self.ingredientsButton, spacer, self.clearAllButton, spacer, self.openSingleStepButton]
-        
 
-
-        
         self.toolbar.setItems(toolbarButtons, animated: false)
         
         // timepicker
@@ -155,8 +150,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.timePicker.datePickerMode = .time
         self.timePicker.minimumDate = store.earliestPossibleServeTime  // change to earliest serve time when available
         self.timePicker.minuteInterval = 15
-        
-        print("self.store.mergedStepsArray.count: \(self.store.mergedStepsArray.count)")
 
     }
     
@@ -401,8 +394,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
                 print("stopping loop")
             }
         }
-        
-        print("addedTime = \(store.addedTime)")
         
     }
     

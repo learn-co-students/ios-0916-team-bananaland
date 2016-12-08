@@ -91,7 +91,6 @@
         }
 
         if let imageURLString = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].recipe?.imageURLSmall {
-            print("imageURLString: \(imageURLString)")
             let url = URL(string: imageURLString)
             self.recipeUIImageView.contentMode = .scaleAspectFill
             self.recipeUIImageView.sd_setImage(with: url)
@@ -164,9 +163,6 @@
         if let text = self.ingredientsBody.text {
             text.isEmpty ? self.ingredientsTitle.text = "" : ()
         }
-        if self.ingredientsBody.text == "" {
-            self.ingredientsTitle.isHidden = true
-        }
     }
     
     func createIngredientsText(){
@@ -182,6 +178,10 @@
         self.ingredientsBody.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         self.ingredientsBody.numberOfLines = 0
         self.ingredientsBody.lineBreakMode = NSLineBreakMode.byWordWrapping
+        
+        if self.ingredientsBody.text == "" {
+            self.ingredientsTitle.isHidden = true
+        }
     }
     
     func createProcedureLabel(){
