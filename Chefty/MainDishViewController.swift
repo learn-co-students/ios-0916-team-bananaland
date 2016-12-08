@@ -95,7 +95,6 @@ extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        
         recipeView.modalTransitionStyle = .crossDissolve
         recipeView.recipe = store.main[indexPath.row]
         present(recipeView, animated: true, completion: nil)

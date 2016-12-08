@@ -27,10 +27,7 @@ class TraditionalRecipeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.reloadInputViews()
-
-        
         self.traditionalRecipeView.recipe = self.recipe
         setupElements()
         checkStatus()
@@ -46,6 +43,7 @@ class TraditionalRecipeViewController: UIViewController {
     }
     
     override func loadView(){
+        
         print("self.recipe?.displayName: \(self.recipe?.displayName)")
         self.traditionalRecipeView = TraditionalRecipeView(frame: CGRect.zero, recipe: recipe!)
         self.view = self.traditionalRecipeView
@@ -142,6 +140,7 @@ extension TraditionalRecipeViewController {
             })
 
         }
+        
         delegate?.recipeSelected(recipe!, status: isSelected)
         
     }
