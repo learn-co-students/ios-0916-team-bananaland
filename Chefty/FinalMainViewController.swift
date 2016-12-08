@@ -201,10 +201,11 @@ class FinalMainViewController: UIViewController {
     }
     
     func cookButtonTapped(sender: UIBarButtonItem) {
-        
-        let myMenu = MyMenuViewController()
-        navigationController?.pushViewController(myMenu, animated: true)
-        //navigationController?.popToRootViewController(animated: true)
+        if self.store.recipesSelected.isEmpty == false {
+            let myMenu = MyMenuViewController()
+            navigationController?.pushViewController(myMenu, animated: true)
+            //navigationController?.popToRootViewController(animated: true)
+        }
     }
     
 }

@@ -31,9 +31,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearace.barTintColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.headingbackground.rawValue)!)
         navigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName : UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.titleGreen.rawValue)!)]
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
-
-        store.showNotification = true
-        //store.showNotification = false
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window!.backgroundColor = UIColor.white
