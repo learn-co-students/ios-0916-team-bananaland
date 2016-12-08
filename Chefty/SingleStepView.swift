@@ -221,15 +221,15 @@
     }
     
     func createDoneButton() {
-        self.doneButton.titleLabel!.font =  UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.small.rawValue))
+        self.doneButton.titleLabel!.font =  UIFont(name: Constants.appFont.light.rawValue, size: CGFloat(20))
         self.doneButton.addTarget(self, action: #selector(SingleStepView.onClickNextStep), for: .touchUpInside)
         if UserDefaults.standard.integer(forKey: "stepCurrent") == self.store.mergedStepsArray.count { // if on the last step, disable to next step button
             self.doneButton.isEnabled = false
             self.doneButton.setTitleColor(UIColor(named: .disabledText), for: .disabled)
-            self.doneButton.setTitle("All steps complete.", for: .normal)
+            self.doneButton.setTitle("All steps complete", for: .normal)
         } else {
             self.doneButton.isEnabled = true
-            self.doneButton.setTitleColor(self.tintColor, for: .normal)
+            self.doneButton.setTitleColor(UIColor.black, for: .normal)
             self.doneButton.setTitle("Next", for: .normal)
         }
         
