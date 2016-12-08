@@ -39,12 +39,12 @@ class TraditionalRecipeView: UIView {
         
         let recipeIDRequest = recipe.id
         
-        CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: recipeIDRequest!) {
+        CheftyAPIClient.getStepsAndIngredients(recipe: recipe) {
         }
         
-        guard let recipeStep = recipe.step else { return }
+        guard let recipeStep = recipe.steps else { return }
         
-        var steps = recipeStep.allObjects as! [Steps]
+        var steps = recipeStep.allObjects as! [Step]
         
         steps = steps.sorted(by: { $0.timeToStart < $1.timeToStart } )
         
@@ -55,7 +55,7 @@ class TraditionalRecipeView: UIView {
             
             totalTime += Int(step.duration)
             
-            guard let stepIngredient = step.ingredient else { return }
+            guard let stepIngredient = step.ingredients else { return }
             
             let ingredientsPerStep = stepIngredient.allObjects as! [Ingredient]
             if ingredientsPerStep.isEmpty == false {

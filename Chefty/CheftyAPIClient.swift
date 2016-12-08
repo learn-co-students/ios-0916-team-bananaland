@@ -97,20 +97,23 @@ class CheftyAPIClient {
         return servingTime
     }
 
-    class func getStepsAndIngredients(recipeIDRequest: String, completion: @escaping () -> Void){
+    class func getStepsAndIngredients(recipe: Recipe, completion: @escaping () -> Void){
         let store = DataStore.sharedInstance
-        let urlString = "\(Secrets.cheftyAPIURL)/getRecipeSteps.php?key=\(Secrets.cheftyKey)&recipe=\(recipeIDRequest)"
+        let urlString = "\(Secrets.cheftyAPIURL)/getRecipeSteps.php?key=\(Secrets.cheftyKey)&recipe=\(recipe.id!)"
         let url = URL(string: urlString)
         var recipeRequested:Recipe?
         let context = store.persistentContainer.viewContext
         
+        recipeRequested = recipe
+        
         // get the recipe with the id that was requested
-        for recipe in store.recipes {
-            recipeIDRequest == recipe.id ? recipeRequested = recipe : ()
-        }
+//        for recipe in store.recipes {
+//            print("What is recipe: \(recipe)")
+//            recipeIDRequest == recipe.id ? recipeRequested = recipe : ()
+//        }
     
         if let recipeRequestedUnwrapped = recipeRequested {
-            if let recipeStepsEmptyBeforeAPIRequest = recipeRequestedUnwrapped.step?.allObjects.isEmpty {
+            if let recipeStepsEmptyBeforeAPIRequest = recipeRequestedUnwrapped.steps?.allObjects.isEmpty {
                 // fetch steps if needed
                 if recipeStepsEmptyBeforeAPIRequest {
                     //print("no steps found, fetch them!!")
@@ -126,7 +129,7 @@ class CheftyAPIClient {
                                         // if the step is related to the recipeRequested, get the steps and add them to the recipe in CD
                                         if recipeRequested?.id == recipeIdFromStep {
                                             
-                                            let newStep: Steps = Steps(context: context)
+                                            let newStep: Step = Step(context: context)
                                             
                                             if let stepTitleUnwrapped = stepsDict["stepTitle"] as? String {
                                                 newStep.stepTitle = stepTitleUnwrapped   // getting STEP TITLES
@@ -166,7 +169,7 @@ class CheftyAPIClient {
                                             let timeToStartInt = unwrappedTimeToStart.convertTimeToStartToMinutes()
                                             newStep.timeToStart = Int32(timeToStartInt) // getting TIME TO START
                                             
-                                            recipeRequested?.addToStep(newStep)  // add step to recipe
+                                            recipeRequested?.addToSteps(newStep)  // add step to recipe
                                             
                                             // add ingredients to the step
                                             
@@ -181,7 +184,7 @@ class CheftyAPIClient {
                                                             let newIngredient: Ingredient = Ingredient(context: context)
                                                             newIngredient.isChecked = false   // setting default value for isChecked
                                                             newIngredient.ingredientDescription = ingredient  // getting ingredientDescription
-                                                            newStep.addToIngredient(newIngredient)
+                                                            newStep.addToIngredients(newIngredient)
 //                                                            print("ingredient attribute: \(newIngredient.ingredientDescription)")
                                                         }
                                                     } else {

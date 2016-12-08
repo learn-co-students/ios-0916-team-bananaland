@@ -65,6 +65,11 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     override func viewWillAppear(_ animated: Bool = false) {
         self.title = "My Menu"
         
+        let color = UIColor(red: 0.875, green: 0.855, blue: 0.773, alpha: 1.000)
+        let textStyle = NSMutableParagraphStyle()
+        let textFontAttributes = [NSFontAttributeName: UIFont(name: "GillSans-Bold", size: 25)!, NSForegroundColorAttributeName: color, NSParagraphStyleAttributeName: textStyle]
+        self.navigationController?.navigationBar.titleTextAttributes = textFontAttributes
+        
         // adjust the button label if the step value is 0
         var stepValueForButton:Int = 1
         if UserDefaults.standard.integer(forKey: "stepCurrent") == 0 {
@@ -82,6 +87,7 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     }
     
     func goToIngredients() {
+        print("goToIngredients getting called")
         let ingredientsView = IngredientsController()
         navigationController?.pushViewController(ingredientsView, animated: true)
     }

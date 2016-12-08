@@ -39,7 +39,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     var startCookingTimeValue: String = String()
     var startCookingTimeField: UITextField = UITextField()
     
-    var recipeSteps = [Steps]()
+    var recipeSteps = [Step]()
 
     let ingredientsButton: UIBarButtonItem = UIBarButtonItem(title: "Ingredients", style: .plain , target: self, action: #selector(clickIngredients))
     let clearAllButton: UIBarButtonItem = UIBarButtonItem(title: "Clear All", style: .plain , target: self, action: #selector(onClickClearAllRecipes))
@@ -95,7 +95,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         
         // constrain the controls
         self.toolbar.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        self.toolbar.barTintColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.beige.rawValue)!)
+        
+        
+        ////////// TODO: Discuss with team ///////////////////////////////
+        self.toolbar.barTintColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.red.rawValue)!) // was beige before
 
         self.toolbar.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         self.toolbar.translatesAutoresizingMaskIntoConstraints = false
@@ -257,7 +260,9 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         
     }
     
-    func clickIngredients() { self.delegate?.goToIngredients() }
+    func clickIngredients() {
+        print("clickIngredients getting called")
+        self.delegate?.goToIngredients() }
     
     func onClickClearAllRecipes() { self.delegate?.clearAllRecipes() }
     
@@ -292,10 +297,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
        
         for singleRecipe in store.recipesSelected {
             DispatchQueue.main.async {
-                CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: singleRecipe.id!, completion: {
+                CheftyAPIClient.getStepsAndIngredients(recipe: singleRecipe, completion: {
                 })
             }
-            let allRecipeSteps = singleRecipe.step!.allObjects as! [Steps]
+            let allRecipeSteps = singleRecipe.steps!.allObjects as! [Step]
             self.recipeSteps += allRecipeSteps
         }
         
@@ -305,7 +310,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     func mergeRecipeSteps() {
 
-        self.recipeSteps = self.recipeSteps.sorted { (step1: Steps, step2: Steps) -> Bool in
+        self.recipeSteps = self.recipeSteps.sorted { (step1: Step, step2: Step) -> Bool in
             
             //same start
             if step1.timeToStart == step2.timeToStart {

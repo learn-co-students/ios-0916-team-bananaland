@@ -16,7 +16,7 @@
     
     weak var delegate: SingleStepDelegate?
     let store = DataStore.sharedInstance
-    var currentStepInst: Steps?
+    var currentStepInst: Step?
     var procedureBody: String = String()
     var expectedStepCompletion: String = String()
     var stepTitle: String = String()
@@ -60,7 +60,7 @@
         
         // get the expected completion time for the step
         let tempMergedStepsArray = self.store.mergedStepsArray
-        let remainingStepsArray: [Steps] = Array(self.store.mergedStepsArray.dropFirst(UserDefaults.standard.integer(forKey: "stepCurrent")))
+        let remainingStepsArray: [Step] = Array(self.store.mergedStepsArray.dropFirst(UserDefaults.standard.integer(forKey: "stepCurrent")))
         self.store.mergedStepsArray = remainingStepsArray
         store.calculateStartTime()
         self.expectedStepCompletion = store.startCookingTime // now we have the completion time as if this were the first step
@@ -79,7 +79,7 @@
             self.stepTitle = stepTitle
         }
         
-        if let ingredientsAny = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].ingredient {
+        if let ingredientsAny = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].ingredients {
             let ingredientsArr = ingredientsAny.allObjects as? [Ingredient]
             if ingredientsArr?.isEmpty == false {
                 for ingredient in ingredientsArr! {

@@ -12,7 +12,7 @@ import CoreData
 class IngredientsController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let store = DataStore.sharedInstance
-    var ingredientsPerRecipe = [[Ingredient]]()
+    var ingredientsPerRecipe = [String: [Ingredient]]()
     var tableView = UITableView()
     var arrayOfSectionIDs = [String]()
     var arrayOfIngredientsGlobal = [[String]]()
@@ -30,40 +30,53 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         let attributesNormal = [ NSFontAttributeName : labelFont ]
         myMenuButton.setTitleTextAttributes(attributesNormal, for: .normal)
         
-        
-        for (index, recipeSelected) in store.recipesSelected.enumerated() {
+        for recipeSelected in store.recipesSelected {
             
-            self.ingredientsPerRecipe.append([Ingredient]())
-            
-            CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: recipeSelected.id!, completion:{ ingredients in
+            CheftyAPIClient.getStepsAndIngredients(recipe: recipeSelected, completion:{ ingredients in
                 
                 // build separate arrays of recipeSteps
-                let stepsFromRecipe:[Steps] = recipeSelected.step!.allObjects as! [Steps]
+                let stepsFromRecipe:[Step] = recipeSelected.steps!.allObjects as! [Step]
                 
-                // looping to get array of ingredients per existence in recipe step
                 for step in stepsFromRecipe {
                     
-                    // getting number of ingredients per recipe step that has ingredients
-                    if let stepIngredient = step.ingredient {
-                        let ingredientFromStepsArray = stepIngredient.allObjects as! [Ingredient]
+                    if let ingredients = step.ingredients {
                         
-                        if ingredientFromStepsArray.isEmpty == false {
-                            for ingredient in ingredientFromStepsArray {
-                                self.ingredientsPerRecipe[index].append(ingredient)
+                        let ingredientsFromSteps = ingredients.allObjects as! [Ingredient]
+                        
+                        if let recipeName = recipeSelected.displayName {
+                            
+                            if self.ingredientsPerRecipe.keys.contains(recipeName) {
+                                
+                                self.ingredientsPerRecipe[recipeName]!.append(contentsOf: ingredientsFromSteps)
+                                
+                            } else {
+                                
+                                self.ingredientsPerRecipe.updateValue(ingredientsFromSteps, forKey: recipeName)
+            
                             }
                             
+                            dump(self.ingredientsPerRecipe)
+
                         }
+                        
+                    } else {
+                        
+                        print("NO STEP!")
+                        
                     }
-                    print("NUMBER OF STEPS WITH INGREDIENTS: \(self.ingredientsPerRecipe.count)")
+                    
                 }
-                print("Size of ingredients per recipe: \(self.ingredientsPerRecipe[index].count)")
                 
-                OperationQueue.main.addOperation {
+                
+                DispatchQueue.main.async {
+                    
                     self.tableView.reloadData()
+                    
+                    
                 }
+                
             })
         }
-        
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -113,7 +126,7 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         header.textLabel?.font = UIFont(name: "GillSans-Light", size: 24)
         header.alpha = 0.8
     }
-
+    
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         tableView.allowsMultipleSelection = true
@@ -122,16 +135,24 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ingredientsPerRecipe[section].count
+        
+        guard let recipe = store.recipesSelected[section].displayName else { return 0 }
+        guard let ingredients = ingredientsPerRecipe[recipe] else { return 0 }
+        
+        return ingredients.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = IngredientsTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "listCell")
-        let ingredient = ingredientsPerRecipe[indexPath.section][indexPath.row]
+        
+        guard let recipe = store.recipesSelected[indexPath.section].displayName else { return cell }
+        guard let ingredients = ingredientsPerRecipe[recipe] else { return cell }
+        let ingredient = ingredients[indexPath.row]
+        let ingredientName = ingredient.ingredientDescription
         
         cell.selectionStyle = .none
-        cell.textLabel?.text = ingredient.ingredientDescription
+        cell.textLabel?.text = ingredientName
         cell.textLabel?.font = UIFont(name: "GillSans-Light", size: 16.5)
         cell.backgroundColor = UIColor(red: 215/255, green: 210/255, blue: 185/255, alpha: 1.0)
         
@@ -147,7 +168,9 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let ingredient = ingredientsPerRecipe[indexPath.section][indexPath.row]
+        guard let recipe = store.recipesSelected[indexPath.section].displayName else { return }
+        guard let ingredients = ingredientsPerRecipe[recipe] else { return }
+        let ingredient = ingredients[indexPath.row]
         
         if ingredient.isChecked {
             ingredient.isChecked = false
