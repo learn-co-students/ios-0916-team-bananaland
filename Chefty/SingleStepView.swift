@@ -188,7 +188,7 @@
         self.procedureTitle.text = "Procedure"
         self.procedureTitle.textAlignment = .center
         self.procedureTitle.font =  UIFont(name: Constants.appFont.light.rawValue, size: 25)
-        self.procedureTitle.backgroundColor = UIColor(red: 132/255.0, green: 32/255.0, blue: 43/255.0, alpha: 1.0)
+        self.procedureTitle.backgroundColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.headingbackground.rawValue)!)
         self.procedureTitle.textColor = UIColor(red: 255/255, green: 255/255, blue: 238/255, alpha: 1.0)
         
         self.addSubview(self.procedureTitle)

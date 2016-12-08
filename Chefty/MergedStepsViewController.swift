@@ -84,7 +84,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         let myLabel = UILabel()
         self.view.addSubview(myLabel)
         
-        
         myView.backgroundColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.deepPurple.rawValue)!)
         myView.translatesAutoresizingMaskIntoConstraints = false
         myView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
