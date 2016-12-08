@@ -76,9 +76,9 @@ extension TraditionalRecipeViewController {
         backButton = BackButton()
         self.view.addSubview(backButton)
         backButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
-        backButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
-        backButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        backButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        backButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 19).isActive = true
+        backButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        backButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
         backButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.addTarget(self, action: #selector(self.backButtonTapped(sender:)), for: .touchUpInside)
         backButton.isUserInteractionEnabled = true
@@ -88,9 +88,9 @@ extension TraditionalRecipeViewController {
         addButton = AddButton()
         self.view.addSubview(addButton)
         addButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
-        addButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
-        addButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        addButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        addButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 19).isActive = true
+        addButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        addButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
         addButton.translatesAutoresizingMaskIntoConstraints = false
         addButton.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)
         
@@ -98,9 +98,9 @@ extension TraditionalRecipeViewController {
         removeButton = RemoveButtonView()
         self.view.addSubview(removeButton)
         removeButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
-        removeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
-        removeButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        removeButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        removeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 19).isActive = true
+        removeButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        removeButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
         removeButton.translatesAutoresizingMaskIntoConstraints = false
         removeButton.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)
         
