@@ -55,8 +55,7 @@ extension UIColor {
         case gray3 =    0x333333ff
         case orange =   0xFF851Bff
         case disabledText =         0xCCCCCCff
-        case headingbackground =    0x84202Bff   
-        
+        case headingbackground =    0x84202Bff        
         case titleGreen =           0xDFDAC5ff
         case lightPurpleGray =      0x8A7C8Bff
         case deepPurple =           0x23141Cff

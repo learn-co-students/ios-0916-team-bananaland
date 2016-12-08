@@ -45,10 +45,8 @@
 		A7BE014D1DF0ABE1009F65B1 /* BackButtonStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE014C1DF0ABE1009F65B1 /* BackButtonStyleKit.swift */; };
 		A7BE014F1DF0B60B009F65B1 /* AddButtonStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE014E1DF0B60B009F65B1 /* AddButtonStyleKit.swift */; };
 		A7BE01511DF0B66D009F65B1 /* AddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE01501DF0B66D009F65B1 /* AddButton.swift */; };
-		A7BE01531DF0BBD7009F65B1 /* NewTestTraditionalRecipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE01521DF0BBD7009F65B1 /* NewTestTraditionalRecipeViewController.swift */; };
 		A7BE01551DF0D0B2009F65B1 /* ShowIngredientStyleKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE01541DF0D0B2009F65B1 /* ShowIngredientStyleKit.swift */; };
 		A7BE01571DF0D0F0009F65B1 /* ShowIngredientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE01561DF0D0F0009F65B1 /* ShowIngredientButton.swift */; };
-		A7BE01591DF0D2E2009F65B1 /* TestIngredientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7BE01581DF0D2E2009F65B1 /* TestIngredientsViewController.swift */; };
 		A7C0B4571DE4ECE10091E80C /* RecipeTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C0B4561DE4ECE10091E80C /* RecipeTabViewController.swift */; };
 		A7C0B4591DE4F7540091E80C /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = A7C0B4581DE4F7540091E80C /* bg.png */; };
 		A7C1E1B71DDCD97300BD8A13 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C1E1B61DDCD97300BD8A13 /* AppDelegate.swift */; };
@@ -58,7 +56,6 @@
 		A7C1E2341DDE5D6F00BD8A13 /* CustomLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C1E2331DDE5D6F00BD8A13 /* CustomLayoutView.swift */; };
 		A7C1E2361DDE611600BD8A13 /* RecipeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C1E2351DDE611600BD8A13 /* RecipeCollectionViewCell.swift */; };
 		A7C9D3F31DDF849900EA5637 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7C9D3F21DDF849900EA5637 /* GradientView.swift */; };
-		A7DCBF731DE5FAD100AA7629 /* TestTraditionalRecipeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DCBF721DE5FAD100AA7629 /* TestTraditionalRecipeView.swift */; };
 		A7DCBF771DE64E9600AA7629 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DCBF761DE64E9600AA7629 /* ContainerViewController.swift */; };
 		A7DCBF791DE951A100AA7629 /* SelectedRecipeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7DCBF781DE951A100AA7629 /* SelectedRecipeButton.swift */; };
 		C0252C631DDD16EA00046AD0 /* MyMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0252C621DDD16EA00046AD0 /* MyMenuViewController.swift */; };
@@ -140,10 +137,8 @@
 		A7BE014C1DF0ABE1009F65B1 /* BackButtonStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BackButtonStyleKit.swift; sourceTree = "<group>"; };
 		A7BE014E1DF0B60B009F65B1 /* AddButtonStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddButtonStyleKit.swift; sourceTree = "<group>"; };
 		A7BE01501DF0B66D009F65B1 /* AddButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddButton.swift; sourceTree = "<group>"; };
-		A7BE01521DF0BBD7009F65B1 /* NewTestTraditionalRecipeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewTestTraditionalRecipeViewController.swift; sourceTree = "<group>"; };
 		A7BE01541DF0D0B2009F65B1 /* ShowIngredientStyleKit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowIngredientStyleKit.swift; sourceTree = "<group>"; };
 		A7BE01561DF0D0F0009F65B1 /* ShowIngredientButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowIngredientButton.swift; sourceTree = "<group>"; };
-		A7BE01581DF0D2E2009F65B1 /* TestIngredientsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestIngredientsViewController.swift; sourceTree = "<group>"; };
 		A7C0B4561DE4ECE10091E80C /* RecipeTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeTabViewController.swift; sourceTree = "<group>"; };
 		A7C0B4581DE4F7540091E80C /* bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bg.png; sourceTree = "<group>"; };
 		A7C1E1B31DDCD97300BD8A13 /* Chefty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chefty.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -155,7 +150,6 @@
 		A7C1E2331DDE5D6F00BD8A13 /* CustomLayoutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomLayoutView.swift; sourceTree = "<group>"; };
 		A7C1E2351DDE611600BD8A13 /* RecipeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecipeCollectionViewCell.swift; sourceTree = "<group>"; };
 		A7C9D3F21DDF849900EA5637 /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		A7DCBF721DE5FAD100AA7629 /* TestTraditionalRecipeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTraditionalRecipeView.swift; sourceTree = "<group>"; };
 		A7DCBF761DE64E9600AA7629 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		A7DCBF781DE951A100AA7629 /* SelectedRecipeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectedRecipeButton.swift; sourceTree = "<group>"; };
 		A9984F50016543896BA81B7F /* Pods-Chefty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chefty.release.xcconfig"; path = "Pods/Target Support Files/Pods-Chefty/Pods-Chefty.release.xcconfig"; sourceTree = "<group>"; };
@@ -327,7 +321,6 @@
 				C054B2A11DE11C4A00F4DEB1 /* MyMenu */,
 				714EBD5B1DDE340800C0857A /* TraditionalRecipeView.swift */,
 				71BDEA871DF33E890070EE12 /* MergedStepsTableViewCell.swift */,
-				A7DCBF721DE5FAD100AA7629 /* TestTraditionalRecipeView.swift */,
 				C0D2E5131DEC77D200070E78 /* SingleStepView.swift */,
 			);
 			name = Views;
@@ -346,8 +339,6 @@
 				A7C0B4561DE4ECE10091E80C /* RecipeTabViewController.swift */,
 				01A830B21DDF82330064B9CE /* IngredientsController.swift */,
 				A7DCBF761DE64E9600AA7629 /* ContainerViewController.swift */,
-				A7BE01521DF0BBD7009F65B1 /* NewTestTraditionalRecipeViewController.swift */,
-				A7BE01581DF0D2E2009F65B1 /* TestIngredientsViewController.swift */,
 				A70054E91DF6242200427FB8 /* RecipePageViewController.swift */,
 				A70054EB1DF70A5400427FB8 /* SlidesViewController.swift */,
 				A70054F01DF7507500427FB8 /* FinalMainViewController.swift */,
@@ -572,9 +563,7 @@
 				A7BE014F1DF0B60B009F65B1 /* AddButtonStyleKit.swift in Sources */,
 				C0252C651DDD171A00046AD0 /* MyMenuView.swift in Sources */,
 				A7BE01571DF0D0F0009F65B1 /* ShowIngredientButton.swift in Sources */,
-				A7BE01531DF0BBD7009F65B1 /* NewTestTraditionalRecipeViewController.swift in Sources */,
 				C08F8B941DE34A940092144F /* Chefty.xcdatamodeld in Sources */,
-				A7BE01451DEFC9A8009F65B1 /* TestMenuViewController.swift in Sources */,
 				715836781DF86C0300B694C8 /* TraditionalRecipeSecondViewController.swift in Sources */,
 				A7BE01431DEF950F009F65B1 /* CookButton.swift in Sources */,
 				A7C1E2341DDE5D6F00BD8A13 /* CustomLayoutView.swift in Sources */,
@@ -587,10 +576,8 @@
 				01957BDF1DF5EB2600F19DA7 /* IngredientsTableViewCell.swift in Sources */,
 				A7BE01491DF0A950009F65B1 /* CookItButton.swift in Sources */,
 				C0AAB5431DDE64970055DF8B /* DataStore.swift in Sources */,
-				A7DCBF731DE5FAD100AA7629 /* TestTraditionalRecipeView.swift in Sources */,
 				A7C9D3F31DDF849900EA5637 /* GradientView.swift in Sources */,
 				71E655C41DDCE61700B60E0B /* TraditionalRecipeViewController.swift in Sources */,
-				A7BE01591DF0D2E2009F65B1 /* TestIngredientsViewController.swift in Sources */,
 				C0D2E5141DEC77D200070E78 /* SingleStepView.swift in Sources */,
 				A70054DE1DF60A6400427FB8 /* PersonIcon.swift in Sources */,
 				A72DBEAD1DE4DB0400867C86 /* AppetizerViewController.swift in Sources */,
