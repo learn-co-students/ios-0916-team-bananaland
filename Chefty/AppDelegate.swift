@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // if no recipes selected in CoreData, fetch from DataBase
         store.getRecipesFromCoreData()
         store.updateSelectedRecipes()
-        store.populateHomeArrays()
+        //store.populateHomeArrays()
         
         // set nav bar color: background: red, foreground: title green
         let navigationBarAppearace = UINavigationBar.appearance()
@@ -39,14 +39,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if store.recipesSelected.count == 0 {
             
             self.initialViewController = FinalMainViewController()
+            
                 store.getRecipesFromDB {
-                    //self.store.populateHomeArrays()
-                    print("TOTAL: \(self.store.recipes.count)")
-                    print("MAIN: \(self.store.main.count)")
-                    print("APPETIZER: \(self.store.appetizer.count)")
-                    print("SIDES: \(self.store.sides.count)")
-                    print("DESSERTS: \(self.store.desserts.count)")
-                    self.initialViewController.reloadInputViews()
+                    OperationQueue.main.addOperation {
+                        self.initialViewController.reloadInputViews()
+                    }
+                    
                 }
             
         } else {

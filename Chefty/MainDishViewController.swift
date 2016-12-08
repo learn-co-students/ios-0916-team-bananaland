@@ -21,20 +21,21 @@ class MainDishViewController: UIViewController, RecipeViewDelegate {
         
         recipeView.delegate = self
         setupCollectionView()
-        
+        print("MAIN \(store.main.count)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.reloadInputViews()
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
         super.viewDidAppear(animated)
-        self.reloadInputViews()
-    
+        collectionView.reloadData()
+        
     }
+
 }
 
 extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDataSource {
