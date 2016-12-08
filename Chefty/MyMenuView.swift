@@ -39,11 +39,12 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     var startCookingTimeValue: String = String()
     var startCookingTimeField: UITextField = UITextField()
     
-    var recipeSteps = [Steps]()
+    var recipeSteps = [Step]()
 
     let ingredientsButton: UIBarButtonItem = UIBarButtonItem(title: "Ingredients", style: .plain , target: self, action: #selector(clickIngredients))
     let clearAllButton: UIBarButtonItem = UIBarButtonItem(title: "Clear All", style: .plain , target: self, action: #selector(onClickClearAllRecipes))
     var openSingleStepButton: UIBarButtonItem = UIBarButtonItem(title: "Open Step", style: .plain , target: self, action: #selector(clickOpenStep))
+    
     
     //Initialize
     override init(frame:CGRect){
@@ -93,8 +94,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         
         // constrain the controls
         self.toolbar.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        self.toolbar.barTintColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.beige.rawValue)!)
-
+        self.toolbar.barTintColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.headingbackground.rawValue)!)
         self.toolbar.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         self.toolbar.translatesAutoresizingMaskIntoConstraints = false
         
@@ -104,7 +104,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.servingTimeView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         self.servingTimeView.heightAnchor.constraint(equalToConstant: 48).isActive = true
         self.servingTimeView.translatesAutoresizingMaskIntoConstraints = false
-        self.servingTimeView.backgroundColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.beige.rawValue)!)
+        self.servingTimeView.backgroundColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.deepPurple.rawValue)!)
         
         // define servingTimeView
         self.servingTimeField.font = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))
@@ -123,6 +123,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         
         // define startCookingTime
         self.startCookingTimeField.font = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))
+        self.startCookingTimeField.textColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.beige.rawValue)!)
         self.startCookingTimeField.isUserInteractionEnabled = false
         self.servingTimeView.addSubview(self.startCookingTimeField)
         self.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"
@@ -141,7 +142,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         // toolbar
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let toolbarButtons = [self.ingredientsButton, spacer, self.clearAllButton, spacer, self.openSingleStepButton]
-
+        ingredientsButton.tintColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.beige.rawValue)!)
+        clearAllButton.tintColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.beige.rawValue)!)
+        openSingleStepButton.tintColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.beige.rawValue)!)
+        
         self.toolbar.setItems(toolbarButtons, animated: false)
         
         // timepicker
@@ -159,7 +163,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         dateFormatterInst.dateStyle = .none
         dateFormatterInst.timeStyle = .short
         self.servingTimeField.text = "Serving Time: \(dateFormatterInst.string(from: self.timePicker.date))"
-        
         self.servingTimeField.resignFirstResponder()
         
         // update serving time on the selected recipes
@@ -253,7 +256,9 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         
     }
     
-    func clickIngredients() { self.delegate?.goToIngredients() }
+    func clickIngredients() {
+        print("clickIngredients getting called")
+        self.delegate?.goToIngredients() }
     
     func onClickClearAllRecipes() { self.delegate?.clearAllRecipes() }
     
@@ -288,10 +293,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
        
         for singleRecipe in store.recipesSelected {
             DispatchQueue.main.async {
-                CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: singleRecipe.id!, completion: {
+                CheftyAPIClient.getStepsAndIngredients(recipe: singleRecipe, completion: {
                 })
             }
-            let allRecipeSteps = singleRecipe.step!.allObjects as! [Steps]
+            let allRecipeSteps = singleRecipe.steps!.allObjects as! [Step]
             self.recipeSteps += allRecipeSteps
         }
         
@@ -301,7 +306,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     func mergeRecipeSteps() {
 
-        self.recipeSteps = self.recipeSteps.sorted { (step1: Steps, step2: Steps) -> Bool in
+        self.recipeSteps = self.recipeSteps.sorted { (step1: Step, step2: Step) -> Bool in
             
             //same start
             if step1.timeToStart == step2.timeToStart {
@@ -391,7 +396,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             }
             
             else {
-                print("stopping loop")
+                
             }
         }
         

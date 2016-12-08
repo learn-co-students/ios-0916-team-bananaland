@@ -39,25 +39,29 @@ class TraditionalRecipeView: UIView {
         
         guard let recipe = self.recipe else { return }
         
-        CheftyAPIClient.getStepsAndIngredients(recipeIDRequest: recipe.id!) {
         
-            guard let recipeStep = recipe.step else { return }
-        
-            var steps = recipeStep.allObjects as! [Steps]
-        
+        CheftyAPIClient.getStepsAndIngredients(recipe: recipe) {
+            
+            
+            guard let recipeStep = recipe.steps else { return }
+            
+            var steps = recipeStep.allObjects as! [Step]
+            
             steps = steps.sorted(by: { $0.timeToStart < $1.timeToStart } )
-        
+            
             for step in steps {
                 guard let procedure = step.procedure else { return }
                 self.stepsArray.append(procedure)
                 
                 self.totalTime += Int(step.duration)
-            
-                guard let stepIngredient = step.ingredient else { return }
-            
+                
+                
+                guard let stepIngredient = step.ingredients else { return }
+                
+                
                 let ingredientsPerStep = stepIngredient.allObjects as! [Ingredient]
                 if ingredientsPerStep.isEmpty == false {
-                
+                    
                     for ingredient in ingredientsPerStep {
                         guard let ingredientDescription = ingredient.ingredientDescription else { return }
                         self.ingredientsArray.append(ingredientDescription)
@@ -178,7 +182,7 @@ class TraditionalRecipeView: UIView {
         durationLabel.textColor = UIColor.white
         durationLabel.text = "Estimated Total Time: \(totalTime) minutes"
         durationLabel.font = UIFont(name: Constants.appFont.light.rawValue, size: 20)
-
+        
         var hours = 0
         var minutes = 0
         if totalTime % 60 == 0 {
@@ -191,7 +195,7 @@ class TraditionalRecipeView: UIView {
         } else {
             totalTimeString = "\(totalTime) min"
         }
-
+        
         durationLabel.font = UIFont(name: Constants.appFont.light.rawValue, size: 20)
         durationLabel.text = "\(totalTimeString)"
         durationLabel.font = UIFont(name: "GillSans-Light", size: 20)
@@ -271,7 +275,7 @@ class TraditionalRecipeView: UIView {
         stepsLabel.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true
         stepsLabel.heightAnchor.constraint(equalToConstant: 50).isActive = true
         stepsLabel.translatesAutoresizingMaskIntoConstraints = false
-       
+        
         //STEPS TEXT BOX
         //create textbox
         let stepsText = UITextView()
@@ -285,25 +289,11 @@ class TraditionalRecipeView: UIView {
         stepsText.centerXAnchor.constraint(equalTo: myScrollView.centerXAnchor).isActive = true
         stepsText.topAnchor.constraint(equalTo: stepsLabel.bottomAnchor).isActive = true
         stepsText.widthAnchor.constraint(equalTo: myScrollView.widthAnchor, multiplier: 0.9).isActive = true
+        stepsText.bottomAnchor.constraint(equalTo: myScrollView.bottomAnchor).isActive = true
         
         stepsText.translatesAutoresizingMaskIntoConstraints = false
         stepsText.isScrollEnabled = false
         stepsText.isUserInteractionEnabled = false
-        
-        let slideButton = UIView()
-        self.myScrollView.addSubview(slideButton)
-        //slideButton.setTitle("Start Slide", for: .normal)
-        //slideButton.titleLabel?.font = UIFont(name: "GillSans-Light", size: 25)
-        //slideButton.titleLabel?.textColor = UIColor.white
-        slideButton.backgroundColor = UIColor(red: 54/255.0, green: 30/255.0, blue: 43/255.0, alpha: 1.0)
-        //slideButton.addTarget(self, action: #selector(self.infoClick), for: .touchUpInside)
-        
-        slideButton.topAnchor.constraint(equalTo: stepsText.bottomAnchor).isActive = true
-        slideButton.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true
-        slideButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        slideButton.bottomAnchor.constraint(equalTo: myScrollView.bottomAnchor).isActive = true
-        slideButton.translatesAutoresizingMaskIntoConstraints = false
-    
     }
     
 }

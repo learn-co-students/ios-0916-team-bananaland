@@ -28,6 +28,16 @@ class TraditionalRecipeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.reloadInputViews()
+      
+        // add the select recipe button to the nav bar
+        let myMenuButton = UIBarButtonItem(title: "My Menu", style: .plain, target: self, action: #selector(goToMyMenu))
+        navigationItem.leftBarButtonItems = [myMenuButton]
+        
+        // set color and font size of nav bar buttons
+        let labelFont : UIFont = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))!
+        let attributesNormal = [ NSFontAttributeName : labelFont ]
+        myMenuButton.setTitleTextAttributes(attributesNormal, for: .normal)
+
         self.traditionalRecipeView.recipe = self.recipe
         setupElements()
         checkStatus()
@@ -36,6 +46,8 @@ class TraditionalRecipeViewController: UIViewController {
    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.title = "Recipe"
     }
     
     override func didReceiveMemoryWarning() {
@@ -74,9 +86,9 @@ extension TraditionalRecipeViewController {
         backButton = BackButton()
         self.view.addSubview(backButton)
         backButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 0).isActive = true
-        backButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
-        backButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        backButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        backButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 19).isActive = true
+        backButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        backButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
         backButton.translatesAutoresizingMaskIntoConstraints = false
         backButton.addTarget(self, action: #selector(self.backButtonTapped(sender:)), for: .touchUpInside)
         backButton.isUserInteractionEnabled = true
@@ -86,9 +98,9 @@ extension TraditionalRecipeViewController {
         addButton = AddButton()
         self.view.addSubview(addButton)
         addButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
-        addButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
-        addButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        addButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        addButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 19).isActive = true
+        addButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        addButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
         addButton.translatesAutoresizingMaskIntoConstraints = false
         addButton.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)
         
@@ -96,9 +108,9 @@ extension TraditionalRecipeViewController {
         removeButton = RemoveButtonView()
         self.view.addSubview(removeButton)
         removeButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
-        removeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive = true
-        removeButton.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        removeButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
+        removeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 19).isActive = true
+        removeButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
+        removeButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
         removeButton.translatesAutoresizingMaskIntoConstraints = false
         removeButton.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)
         
@@ -143,6 +155,12 @@ extension TraditionalRecipeViewController {
         
         delegate?.recipeSelected(recipe!, status: isSelected)
         
+    }
+    
+    
+    func goToMyMenu(){
+        let myMenuViewControllerInst = MyMenuViewController()
+        navigationController?.pushViewController(myMenuViewControllerInst, animated: false) // show destination with nav bar
     }
 
 }

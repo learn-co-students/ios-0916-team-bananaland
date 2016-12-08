@@ -443,7 +443,7 @@
 				TargetAttributes = {
 					A7C1E1B21DDCD97300BD8A13 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = CJ24M7DKLZ;
+						DevelopmentTeam = DE558V7Q6K;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
@@ -736,11 +736,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = CJ24M7DKLZ;
+				DEVELOPMENT_TEAM = DE558V7Q6K;
 				INFOPLIST_FILE = Chefty/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AppRising.SML.Chefty2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.CheftyTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chefty/Chefty-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -756,11 +756,11 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = CJ24M7DKLZ;
+				DEVELOPMENT_TEAM = DE558V7Q6K;
 				INFOPLIST_FILE = Chefty/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AppRising.SML.Chefty2;
+				PRODUCT_BUNDLE_IDENTIFIER = com.CheftyTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Chefty/Chefty-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
