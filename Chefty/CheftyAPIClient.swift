@@ -36,6 +36,7 @@ class CheftyAPIClient {
                                 recipeInst.id = unwrappedRecipeID as String
                             }
                             
+                            
                             if let unwrappedImageURL = recipeDict["imageURL"] {
                                 recipeInst.imageURL = unwrappedImageURL as String
                             }
@@ -114,7 +115,6 @@ class CheftyAPIClient {
             if let recipeStepsEmptyBeforeAPIRequest = recipeRequestedUnwrapped.step?.allObjects.isEmpty {
                 // fetch steps if needed
                 if recipeStepsEmptyBeforeAPIRequest {
-                    //print("no steps found, fetch them!!")
                     if let unwrappedUrl = url{
                         let session = URLSession.shared
                         let task = session.dataTask(with: unwrappedUrl) { (data, response, error) in
@@ -177,13 +177,11 @@ class CheftyAPIClient {
                                                 let ingredientsStringArray = ingredientsRawUnwrapped as? [String]
                                                 if let ingredientsStringArray = ingredientsStringArray {
                                                     if ingredientsStringArray.isEmpty == false {
-                                                        //print("We DO have ingredient for this step.")
                                                         for ingredient in ingredientsStringArray {
                                                             let newIngredient: Ingredient = Ingredient(context: context)
                                                             newIngredient.isChecked = false   // setting default value for isChecked
                                                             newIngredient.ingredientDescription = ingredient  // getting ingredientDescription
                                                             newStep.addToIngredient(newIngredient)
-//                                                            print("ingredient attribute: \(newIngredient.ingredientDescription)")
                                                         }
                                                     } else {
                                                         //print("We DO NOT have ingredient for this step.")

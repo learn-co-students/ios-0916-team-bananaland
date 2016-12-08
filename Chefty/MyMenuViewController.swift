@@ -20,8 +20,6 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("hi")
-        
         myMenuViewInst.delegate = self
         self.navigationController?.setNavigationBarHidden(false, animated: .init(true))
         self.view.backgroundColor = UIColor(named: .white)
@@ -29,6 +27,7 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         // add the select recipe button to the nav bar
         let selectRecipeButton = UIBarButtonItem(title: "Select Recipes", style: .plain, target: self, action: #selector(goToHome))
         navigationItem.leftBarButtonItems = [selectRecipeButton]
+        
   
         // set color and font size of nav bar buttons
         let labelFont : UIFont = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))!
@@ -63,6 +62,7 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     
     override func viewWillAppear(_ animated: Bool = false) {
         self.title = "My Menu"
+        
         // adjust the button label if the step value is 0
         var stepValueForButton:Int = 1
         if UserDefaults.standard.integer(forKey: "stepCurrent") == 0 {
@@ -85,16 +85,8 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     }
     
     func goToHome() {
-        
-//        let finalMainViewController1 = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "finalMain") as! FinalMainViewController
-//        self.present(finalMainViewController1, animated: false, completion: nil)
-
-//        //Hooked up MainViewController
-        navigationController?.popToRootViewController(animated: true)
-        
-//        let finalVC = FinalMainViewController()
-//        navigationController?.pushViewController(finalVC, animated: true)
-        
+        let finalMainViewController1 = FinalMainViewController()
+        navigationController?.pushViewController(finalMainViewController1, animated: true) // show destination with nav bar
     }
     
     func goToRecipe(){ 
@@ -116,8 +108,11 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         for recipeInst in store.recipesSelected {
             store.setRecipeUnselected(recipe: recipeInst)
         }
-        myMenuViewInst.tableView.reloadData()
+        
+        myMenuViewInst.updateTableViewNow()
         myMenuViewInst.tableView.tableFooterView = UIView()  // this removes the grid lines between the rows
+        
+        UserDefaults.standard.set(0, forKey: "stepCurrent")
         
         // show prompt
         let message1 = "All the recipes have been removed from the menu."

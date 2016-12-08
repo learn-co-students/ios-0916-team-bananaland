@@ -21,6 +21,16 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // add the select recipe button to the nav bar
+        let myMenuButton = UIBarButtonItem(title: "My Menu", style: .plain, target: self, action: #selector(goToMyMenu))
+        navigationItem.leftBarButtonItems = [myMenuButton]
+        
+        // set color and font size of nav bar buttons
+        let labelFont : UIFont = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))!
+        let attributesNormal = [ NSFontAttributeName : labelFont ]
+        myMenuButton.setTitleTextAttributes(attributesNormal, for: .normal)
+        
+        
         for (index, recipeSelected) in store.recipesSelected.enumerated() {
             
             self.ingredientsPerRecipe.append([Ingredient]())
@@ -44,9 +54,7 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
                             
                         }
                     }
-                    print("NUMBER OF STEPS WITH INGREDIENTS: \(self.ingredientsPerRecipe.count)")
                 }
-                print("Size of ingredients per recipe: \(self.ingredientsPerRecipe[index].count)")
                 
                 OperationQueue.main.addOperation {
                     self.tableView.reloadData()
@@ -68,6 +76,12 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         
     }
+    
+    func goToMyMenu(){
+        let myMenuViewControllerInst = MyMenuViewController()
+        navigationController?.pushViewController(myMenuViewControllerInst, animated: false) // show destination with nav bar
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         self.title = "Ingredients"
@@ -116,6 +130,7 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         
         cell.selectionStyle = .none
         cell.textLabel?.text = ingredient.ingredientDescription
+        cell.textLabel?.font = UIFont(name: "GillSans-Light", size: 16.5)
         cell.backgroundColor = UIColor(red: 215/255, green: 210/255, blue: 185/255, alpha: 1.0)
         
         if ingredient.isChecked {
@@ -135,11 +150,9 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         if ingredient.isChecked {
             ingredient.isChecked = false
             store.saveRecipesContext()
-            print("un-checked item")
         } else {
             ingredient.isChecked = true
             store.saveRecipesContext()
-            print("checked item")
         }
         
         tableView.reloadData()

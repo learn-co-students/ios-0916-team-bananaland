@@ -11,6 +11,7 @@ import UIKit
 protocol MyMenuTableViewCellDelegate: class {
     func updateTableViewNow()
     func servingTimeFieldSelected(_ sender: UITextField)
+    func onClickClearAllRecipes()
 }
 
 class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
@@ -40,7 +41,7 @@ class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
         
         //layout GradientView
         gradientView = GradientView(frame: imageViewInst.frame)
-        gradientView.layer.cornerRadius = 10.0
+//        gradientView.layer.cornerRadius = 10.0
         gradientView.layer.masksToBounds = true
         self.contentView.addSubview(gradientView)
         
@@ -51,7 +52,7 @@ class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
         gradientView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
         
         gradientViewLeftToRight = GradientViewLeftToRight(frame: imageViewInst.frame)
-        gradientViewLeftToRight.layer.cornerRadius = 10.0
+//        gradientViewLeftToRight.layer.cornerRadius = 10.0
         gradientViewLeftToRight.layer.masksToBounds = true
         self.contentView.addSubview(gradientViewLeftToRight)
         
@@ -66,7 +67,8 @@ class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
         // recipeDesc label
         self.recipeDescField.textColor = UIColor.white
         self.recipeDescField.isUserInteractionEnabled = false
-        self.recipeDescField.font =  UIFont(name: Constants.appFont.bold.rawValue, size: CGFloat(Constants.fontSize.medium.rawValue))
+        self.recipeDescField.font = UIFont(name: "GillSans-Light", size: 30)
+//        self.recipeDescField.font =  UIFont(name: Constants.appFont.bold.rawValue, size: CGFloat(Constants.fontSize.medium.rawValue))
         contentView.addSubview(self.recipeDescField)
         self.recipeDescField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
         self.recipeDescField.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10).isActive = true
@@ -80,8 +82,8 @@ class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
         deleteButton.setTitleColor(UIColor(named: .white), for: .normal)
         deleteButton.addTarget(self, action: #selector(MyMenuTableViewCell.onClickDeleteAction), for: UIControlEvents.touchUpInside)
         contentView.addSubview(deleteButton)
-        deleteButton.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
-        deleteButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
+        deleteButton.topAnchor.constraint(equalTo: self.topAnchor, constant: -1).isActive = true
+        deleteButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -1).isActive = true
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -94,9 +96,12 @@ class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
     func onClickDeleteAction() {
         if let currentRowString = self.deleteButton.accessibilityLabel {
             if let currentRow = Int(currentRowString) {
-                store.setRecipeUnselected(recipe: store.recipesSelected[currentRow])
-                print("updateTableViewNow about to get called from delete function")
-                self.delegate?.updateTableViewNow()
+                if store.recipesSelected.count == 1 { // only one recipe left, treat same as clear all
+                    self.delegate?.onClickClearAllRecipes()
+                } else {
+                    store.setRecipeUnselected(recipe: store.recipesSelected[currentRow])
+                    self.delegate?.updateTableViewNow()
+                }
                 
             }
         }
