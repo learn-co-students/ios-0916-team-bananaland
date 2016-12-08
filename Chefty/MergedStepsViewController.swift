@@ -121,6 +121,12 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func goToSingleStep(){
+        //if on last step, send back to last step
+        if UserDefaults.standard.integer(forKey: "stepCurrent")-1 < 0 {
+            let nextStep:Int = store.mergedStepsArray.count
+            UserDefaults.standard.set(nextStep, forKey: "stepCurrent")
+        }
+        //else send back to current step
         let singleStepViewControllerInst = SingleStepViewController()
         navigationController?.pushViewController(singleStepViewControllerInst, animated: false)
     }

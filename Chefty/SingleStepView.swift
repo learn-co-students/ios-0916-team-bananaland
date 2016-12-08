@@ -221,7 +221,7 @@
     }
     
     func createDoneButton() {
-        self.doneButton.titleLabel!.font =  UIFont(name: Constants.appFont.light.rawValue, size: CGFloat(20))
+        self.doneButton.titleLabel!.font =  UIFont(name: "GillSans-Bold", size: Constants.fontSize.small.rawValue)
         self.doneButton.addTarget(self, action: #selector(SingleStepView.onClickNextStep), for: .touchUpInside)
         if UserDefaults.standard.integer(forKey: "stepCurrent") == self.store.mergedStepsArray.count { // if on the last step, disable to next step button
             self.doneButton.isEnabled = false

@@ -395,7 +395,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             }
             
             else {
-                print("stopping loop")
+                
             }
         }
         
