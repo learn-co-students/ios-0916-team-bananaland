@@ -20,13 +20,10 @@ class TraditionalRecipeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
+
         self.reloadInputViews()
         
         self.traditionalRecipeView.recipe = self.recipe
-        self.traditionalRecipeView.getStepsandIngredients()
-        self.traditionalRecipeView.setUpElements()
         setupElements()
         
         if store.recipesSelected.contains(recipe!) {
@@ -44,7 +41,6 @@ class TraditionalRecipeViewController: UIViewController {
     }
    
     override func viewWillAppear(_ animated: Bool) {
-//        self.title = "Recipe"
         super.viewWillAppear(animated)
     }
     
@@ -53,7 +49,8 @@ class TraditionalRecipeViewController: UIViewController {
     }
     
     override func loadView(){
-        traditionalRecipeView = TraditionalRecipeView(frame: CGRect.zero, recipe: recipe!)
+        print("self.recipe?.displayName: \(self.recipe?.displayName)")
+        self.traditionalRecipeView = TraditionalRecipeView(frame: CGRect.zero, recipe: recipe!)
         self.view = self.traditionalRecipeView
         
     }
@@ -68,6 +65,7 @@ extension TraditionalRecipeViewController {
         backButton.addTarget(self, action: #selector(self.backButtonTapped(sender:)), for: .touchUpInside)
         backButton.isUserInteractionEnabled = true
         self.view.addSubview(backButton)
+        self.view.bringSubview(toFront: backButton)
         
         let frame2 = CGRect(x: 300, y: 20, width: 60, height: 60)
         addButton = AddButton(frame: frame2)

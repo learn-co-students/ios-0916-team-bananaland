@@ -115,7 +115,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.servingTimeField.text = self.servingTimeValue
         self.servingTimeField.centerYAnchor.constraint(equalTo: self.servingTimeView.centerYAnchor).isActive = true
         self.servingTimeField.leftAnchor.constraint(equalTo: self.servingTimeView.leftAnchor).isActive = true
-        self.servingTimeField.rightAnchor.constraint(equalTo: self.servingTimeView.rightAnchor).isActive = true
+        self.servingTimeField.rightAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         self.servingTimeField.topAnchor.constraint(equalTo: self.servingTimeView.topAnchor).isActive = true
         self.servingTimeField.translatesAutoresizingMaskIntoConstraints = false
         
@@ -129,7 +129,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.servingTimeView.addSubview(self.startCookingTimeField)
         self.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"
         self.startCookingTimeField.centerYAnchor.constraint(equalTo: self.servingTimeView.centerYAnchor).isActive = true
-        self.startCookingTimeField.leftAnchor.constraint(equalTo: self.servingTimeView.centerXAnchor, constant: 10).isActive = true
+        self.startCookingTimeField.leftAnchor.constraint(equalTo: self.centerXAnchor, constant: 10).isActive = true
         self.startCookingTimeField.rightAnchor.constraint(equalTo: self.servingTimeView.rightAnchor, constant: -10).isActive = true
         self.startCookingTimeField.translatesAutoresizingMaskIntoConstraints = false
         self.startCookingTimeField.textAlignment = .right
