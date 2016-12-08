@@ -15,6 +15,9 @@ class AppetizerViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("APPETIZER VC: \(store.appetizer.count)")
+        
         // Do any additional setup after loading the view.
         let layout = CustomLayoutView()
         let frame = CGRect(x: view.bounds.minX, y: view.bounds.minY, width: view.bounds.width, height: view.bounds.height * 0.80)
@@ -24,13 +27,13 @@ class AppetizerViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.backgroundColor = UIColor.clear
         view.addSubview(collectionView)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.reloadInputViews()
     }
-
     
 }
 

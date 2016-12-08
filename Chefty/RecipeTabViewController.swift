@@ -21,8 +21,6 @@ class RecipeTabViewController: UITabBarController {
         self.tabBar.backgroundColor = UIColor.clear
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.black], for: .normal)
         UITabBarItem.appearance().setTitleTextAttributes([NSForegroundColorAttributeName : UIColor.darkGray], for: .selected)
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -64,7 +64,7 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
                         print("NO STEP!")
                         
                     }
-                    
+
                 }
                 
                 
@@ -175,11 +175,9 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         if ingredient.isChecked {
             ingredient.isChecked = false
             store.saveRecipesContext()
-            print("un-checked item")
         } else {
             ingredient.isChecked = true
             store.saveRecipesContext()
-            print("checked item")
         }
         
         tableView.reloadData()

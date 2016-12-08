@@ -20,8 +20,6 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("hi")
-        
         myMenuViewInst.delegate = self
         self.navigationController?.setNavigationBarHidden(false, animated: .init(true))
         self.view.backgroundColor = UIColor(named: .white)
@@ -29,7 +27,6 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         // add the select recipe button to the nav bar
         let selectRecipeButton = UIBarButtonItem(title: "Select Recipes", style: .plain, target: self, action: #selector(goToHome))
         navigationItem.leftBarButtonItems = [selectRecipeButton]
-        
   
         // set color and font size of nav bar buttons
         let labelFont : UIFont = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))!

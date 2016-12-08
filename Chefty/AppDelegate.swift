@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // if no recipes selected in CoreData, fetch from DataBase
         store.getRecipesFromCoreData()
         store.updateSelectedRecipes()
-        store.populateHomeArrays()
+        //store.populateHomeArrays()
         
         // set nav bar color: background: red, foreground: title green
         let navigationBarAppearace = UINavigationBar.appearance()
@@ -31,7 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigationBarAppearace.barTintColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.headingbackground.rawValue)!)
         navigationBarAppearace.titleTextAttributes = [NSForegroundColorAttributeName : UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.titleGreen.rawValue)!)]
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
-        store.showNotification = false
+
+        store.showNotification = true
+        //store.showNotification = false
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window!.backgroundColor = UIColor.white
@@ -40,27 +42,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             self.initialViewController = FinalMainViewController()
             
-            // if no recipes, fetch them from the API
-            if self.store.recipes.count == 0 {
-                store.getRecipesFromDB {
-                    self.initialViewController.reloadInputViews()
+               store.getRecipesFromDB {
+                    OperationQueue.main.addOperation {
+                        self.initialViewController.reloadInputViews()
+                    }
                 }
-            }
+            
         } else {
             // we have recipes seelcted, show them
             store.showNotification = true
             self.initialViewController = MyMenuViewController()
         }
         
-        print(initialViewController)
-        print("we are about to create the window")
-        
+
         let navigationController = UINavigationController(rootViewController: self.initialViewController)
         self.window!.rootViewController = navigationController
         self.window!.makeKeyAndVisible()
         
         return true
-        
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

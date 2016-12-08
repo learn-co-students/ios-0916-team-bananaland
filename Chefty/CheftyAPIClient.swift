@@ -59,20 +59,15 @@ class CheftyAPIClient {
                                 let sortValueString = unwrappedSortValue as String
                                 recipeInst.sortValue = Int16(sortValueString)!
                             }
-                            
-                            // create 4 selected recipes
-//                            if recipeInst.id == "apple-pie" || recipeInst.id == "yummy-baked-potato-skins" || recipeInst.id == "chicken-breasts" || recipeInst.id == "black-bean-couscous-salad" {
-//                                recipeInst.selected = true as Bool
-//                            } else {
-//                                recipeInst.selected = false as Bool
-//                            }
-                            
+                        
                             store.recipes.append(recipeInst)
                             
                             store.saveRecipesContext()
                             store.getRecipesFromCoreData()
-
+                            
                         }
+                        
+                        store.populateHomeArrays()
                         completion()
                         
                     } catch {
@@ -105,18 +100,11 @@ class CheftyAPIClient {
         let context = store.persistentContainer.viewContext
         
         recipeRequested = recipe
-        
-        // get the recipe with the id that was requested
-//        for recipe in store.recipes {
-//            print("What is recipe: \(recipe)")
-//            recipeIDRequest == recipe.id ? recipeRequested = recipe : ()
-//        }
     
         if let recipeRequestedUnwrapped = recipeRequested {
             if let recipeStepsEmptyBeforeAPIRequest = recipeRequestedUnwrapped.steps?.allObjects.isEmpty {
                 // fetch steps if needed
                 if recipeStepsEmptyBeforeAPIRequest {
-                    //print("no steps found, fetch them!!")
                     if let unwrappedUrl = url{
                         let session = URLSession.shared
                         let task = session.dataTask(with: unwrappedUrl) { (data, response, error) in
@@ -179,13 +167,13 @@ class CheftyAPIClient {
                                                 let ingredientsStringArray = ingredientsRawUnwrapped as? [String]
                                                 if let ingredientsStringArray = ingredientsStringArray {
                                                     if ingredientsStringArray.isEmpty == false {
-                                                        //print("We DO have ingredient for this step.")
                                                         for ingredient in ingredientsStringArray {
                                                             let newIngredient: Ingredient = Ingredient(context: context)
                                                             newIngredient.isChecked = false   // setting default value for isChecked
                                                             newIngredient.ingredientDescription = ingredient  // getting ingredientDescription
+
                                                             newStep.addToIngredients(newIngredient)
-//                                                            print("ingredient attribute: \(newIngredient.ingredientDescription)")
+
                                                         }
                                                     } else {
                                                         //print("We DO NOT have ingredient for this step.")

@@ -21,8 +21,9 @@ class FinalMainViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupView()
-        print(store.recipesSelected.count)
-        print("viewDidLoad of final")
+
+        self.navigationItem.setHidesBackButton(true, animated: false)
+
     }
     
     override func viewDidLayoutSubviews() {
@@ -86,8 +87,9 @@ class FinalMainViewController: UIViewController {
         
         controller.addTarget(self, action: #selector(selectionDidChange(sender:)), for: .valueChanged)
         controller.selectedIndex = 0
-//      presentingVC = appetizerVC
-//      setupRecipeView(remove: appetizerVC, add: mainDishVC)
+//       presentingVC = appetizerVC
+//        setupRecipeView(remove: appetizerVC, add: mainDishVC)
+        
     }
     
     func selectionDidChange(sender: UIControl) {
