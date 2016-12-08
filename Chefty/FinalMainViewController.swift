@@ -96,7 +96,7 @@ class FinalMainViewController: UIViewController {
         updateView()
     }
     
-    private lazy var mainDishVC : MainDishViewController = {
+     lazy var mainDishVC : MainDishViewController = {
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         var vc = storyboard.instantiateViewController(withIdentifier: "MainDishVC") as! MainDishViewController

@@ -39,9 +39,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             self.initialViewController = FinalMainViewController()
             
+            let destVC = initialViewController as! FinalMainViewController
+            
                store.getRecipesFromDB {
                     OperationQueue.main.addOperation {
                         self.initialViewController.reloadInputViews()
+                        print("We are done loading the data.")
+                        destVC.mainDishVC.collectionView.reloadData()
                     }
                 }
             

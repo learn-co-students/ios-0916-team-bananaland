@@ -27,9 +27,8 @@ class TraditionalRecipeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.reloadInputViews()
-        
+      
         // add the select recipe button to the nav bar
         let myMenuButton = UIBarButtonItem(title: "My Menu", style: .plain, target: self, action: #selector(goToMyMenu))
         navigationItem.leftBarButtonItems = [myMenuButton]
@@ -39,7 +38,6 @@ class TraditionalRecipeViewController: UIViewController {
         let attributesNormal = [ NSFontAttributeName : labelFont ]
         myMenuButton.setTitleTextAttributes(attributesNormal, for: .normal)
 
-        
         self.traditionalRecipeView.recipe = self.recipe
         setupElements()
         checkStatus()
@@ -57,6 +55,7 @@ class TraditionalRecipeViewController: UIViewController {
     }
     
     override func loadView(){
+        
         print("self.recipe?.displayName: \(self.recipe?.displayName)")
         self.traditionalRecipeView = TraditionalRecipeView(frame: CGRect.zero, recipe: recipe!)
         self.view = self.traditionalRecipeView
@@ -153,6 +152,7 @@ extension TraditionalRecipeViewController {
             })
 
         }
+        
         delegate?.recipeSelected(recipe!, status: isSelected)
         
     }
