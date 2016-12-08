@@ -290,7 +290,6 @@ class TraditionalRecipeView: UIView {
         stepsText.translatesAutoresizingMaskIntoConstraints = false
         stepsText.isScrollEnabled = false
         stepsText.isUserInteractionEnabled = false
-            
     }
     
 }
