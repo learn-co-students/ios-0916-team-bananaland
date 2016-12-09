@@ -48,15 +48,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         destVC.mainDishVC.collectionView.reloadData()
                     }
                 }
+            
+        } else {
+            
+            // we have recipes seelcted, show them
+            store.showNotification = true
+            self.initialViewController = MyMenuViewController()
+            
         }
-//        } else {
-//            // we have recipes seelcted, show them
-//            
-//            store.showNotification = true
-//            self.initialViewController = MyMenuViewController()
-//            
-//        }
-        
+    
         let navigationController = UINavigationController(rootViewController: self.initialViewController)
         self.window!.rootViewController = navigationController
         self.window!.makeKeyAndVisible()
