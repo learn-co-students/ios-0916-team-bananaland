@@ -167,26 +167,17 @@ class DataStore {
         self.recipeSteps.removeAll()
         print("2. recipe steps: \(self.recipeSteps.count)")
         
-        
-        
-        for singleRecipe in self.recipesSelected {
+        for (index, singleRecipe) in self.recipesSelected.enumerated() {
             
             CheftyAPIClient.getStepsAndIngredients(recipe: singleRecipe, completion: {
-                
-                DispatchQueue.main.async {
                     
                     let allRecipeSteps = singleRecipe.steps!.allObjects as! [Step]
                     self.recipeSteps += allRecipeSteps
-                    
-                    
-                    
-                    completion()
-                    
-                }
                 
+                if index == (self.recipesSelected.count - 1) {
+                    completion()
+                }
             })
-            
-            
         }
         
         print("3. recipe steps: \(self.recipeSteps.count)")
