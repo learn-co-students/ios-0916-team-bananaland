@@ -21,6 +21,8 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("we're in the view did load!")
+        
         // add the select recipe button to the nav bar
         let myMenuButton = UIBarButtonItem(title: "My Menu", style: .plain, target: self, action: #selector(goToMyMenu))
         navigationItem.leftBarButtonItems = [myMenuButton]
@@ -30,53 +32,41 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         let attributesNormal = [ NSFontAttributeName : labelFont ]
         myMenuButton.setTitleTextAttributes(attributesNormal, for: .normal)
         
+        var ingredientsForRecipe = [String: [Ingredient]]()
+    
         for recipeSelected in store.recipesSelected {
             
-            CheftyAPIClient.getStepsAndIngredients(recipe: recipeSelected, completion:{ ingredients in
-                
-                // build separate arrays of recipeSteps
-                let stepsFromRecipe:[Step] = recipeSelected.steps!.allObjects as! [Step]
-                
-                for step in stepsFromRecipe {
-                    
-                    if let ingredients = step.ingredients {
-                        
-                        let ingredientsFromSteps = ingredients.allObjects as! [Ingredient]
-                        
-                        if let recipeName = recipeSelected.displayName {
-                            
-                            if self.ingredientsPerRecipe.keys.contains(recipeName) {
-                                
-                                self.ingredientsPerRecipe[recipeName]!.append(contentsOf: ingredientsFromSteps)
-                                
-                            } else {
-                                
-                                self.ingredientsPerRecipe.updateValue(ingredientsFromSteps, forKey: recipeName)
+            let recipeDisplayName = recipeSelected.displayName
+            var ingredientsToCollect = [Ingredient]()
             
-                            }
+            CheftyAPIClient.getStepsAndIngredients(recipe: recipeSelected, completion: {
+        
+                for step in recipeSelected.steps! {
+                    
+                    let singleStep = step as! Step
+                    
+                    if let ingredients = singleStep.ingredients {
+                        
+                        for ingredient in ingredients {
                             
-                            dump(self.ingredientsPerRecipe)
-
+                            let singleIngredient = ingredient as! Ingredient
+                            ingredientsToCollect.append(singleIngredient)
+                            
                         }
                         
-                    } else {
-                        
-                        print("NO STEP!")
-                        
                     }
+                    
+                }
+                
+                ingredientsForRecipe.updateValue(ingredientsToCollect, forKey: recipeDisplayName!)
 
-                }
-                
-                
-                DispatchQueue.main.async {
-                    
-                    self.tableView.reloadData()
-                    
-                    
-                }
-                
             })
+        
         }
+        
+        self.ingredientsPerRecipe = ingredientsForRecipe
+        
+        dump(self.ingredientsPerRecipe)
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -90,16 +80,15 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         
+        self.title = "Ingredients"
+        
+        print("we're at the end of the view did load")
+        
     }
     
     func goToMyMenu(){
         let myMenuViewControllerInst = MyMenuViewController()
         navigationController?.pushViewController(myMenuViewControllerInst, animated: false) // show destination with nav bar
-    }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.title = "Ingredients"
     }
     
     override func didReceiveMemoryWarning() {
@@ -139,10 +128,13 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         guard let recipe = store.recipesSelected[section].displayName else { return 0 }
         guard let ingredients = ingredientsPerRecipe[recipe] else { return 0 }
         
+        print("rows in section \(ingredients.count)")
+        
         return ingredients.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         
         let cell = IngredientsTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "listCell")
         
@@ -150,6 +142,8 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         guard let ingredients = ingredientsPerRecipe[recipe] else { return cell }
         let ingredient = ingredients[indexPath.row]
         let ingredientName = ingredient.ingredientDescription
+        
+        print(ingredients.count)
         
         cell.selectionStyle = .none
         cell.textLabel?.text = ingredientName
@@ -162,6 +156,8 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         } else {
             cell.checkBox.image = UIImage(named: "ic_check_box_outline_blank_2x")
         }
+        
+        print("creating a cell for \(ingredientName)")
         
         return cell
     }
