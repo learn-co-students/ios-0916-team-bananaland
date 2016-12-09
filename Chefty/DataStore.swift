@@ -142,12 +142,14 @@ class DataStore {
             //check that serving time is greater than earliest possible serving time
             // --> if yes, servingTime & start cooking time will work, so don't change
             if servingTime?.compare(self.earliestPossibleServeTime as Date) == ComparisonResult.orderedDescending || servingTime?.compare(self.earliestPossibleServeTime as Date) == ComparisonResult.orderedSame {
-                
+                print("case 1 start cooking time = \(startCookingTime)")
             } else {
                 // --> if no, serving time = earliest possible serving time, start cooking time = earliest possible serving time - total duration
                 servingTime = self.earliestPossibleServeTime as NSDate?
                
                 startCookingTime = self.earliestPossibleServeTime.addingTimeInterval(TimeInterval(totalCookingDurationSeconds)) as NSDate?
+                
+                print("case 2 start cooking time = \(startCookingTime)")
             }
                         
             let myFormatter = DateFormatter()
