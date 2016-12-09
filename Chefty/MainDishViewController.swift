@@ -7,6 +7,9 @@
 //
 
 import UIKit
+protocol MainDishViewDelegate: class {
+    func goToRecipe()
+}
 
 class MainDishViewController: UIViewController, RecipeViewDelegate {
 
@@ -14,12 +17,13 @@ class MainDishViewController: UIViewController, RecipeViewDelegate {
     var collectionView : UICollectionView!
     var selectedRecipe : Recipe?
     var selectedRecipeStatus = false
-    let recipeView = TraditionalRecipeViewController()
+    //let recipeView = TraditionalRecipeViewController() // this needs to be created everytime
+    weak var delegate: MainDishViewDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        recipeView.delegate = self
+        //recipeView.delegate = self
         setupCollectionView()
         print("MAIN \(store.main.count)")
     }
@@ -95,10 +99,11 @@ extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        let recipeView = TraditionalRecipeViewController() // create a new VC before moving to the VC
         recipeView.modalTransitionStyle = .crossDissolve
-        recipeView.recipe = store.main[indexPath.row]
+        recipeView.recipe = store.main[indexPath.row] // sets recipe on the traditional recipe view controller
         present(recipeView, animated: true, completion: nil)
-                
+        
     }
     
 }

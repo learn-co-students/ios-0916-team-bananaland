@@ -76,8 +76,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
                     recipeSelected2.servingTime = store.earliestPossibleServeTime as NSDate?
                     store.saveRecipesContext()
                 }
-            } else {
-                
             }
             self.servingTimeValue = myFormatter.string(from: recipeSelected.servingTime as! Date)
             self.servingTimeValue = "Serving Time: " + self.servingTimeValue

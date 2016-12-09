@@ -37,17 +37,21 @@ class TraditionalRecipeViewController: UIViewController {
         let labelFont : UIFont = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))!
         let attributesNormal = [ NSFontAttributeName : labelFont ]
         myMenuButton.setTitleTextAttributes(attributesNormal, for: .normal)
+        
+        print(" --------- recipe selected in recipe view controller: \(self.recipe?.displayName) ------- ")
 
         self.traditionalRecipeView.recipe = self.recipe
         setupElements()
         checkStatus()
         
+        print(" -------- traditional recipe: \(self.traditionalRecipeView.recipe?.displayName) in viewDidLoad ------- ")
     }
    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         self.title = "Recipe"
+        
+        print(" -------- traditional recipe: \(self.traditionalRecipeView.recipe?.displayName) in viewWillAppear in VC ------- ")
     }
     
     override func didReceiveMemoryWarning() {
