@@ -27,6 +27,11 @@ class TraditionalRecipeView: UIView {
     init(frame:CGRect, recipe: Recipe){
         super.init(frame: frame)
         self.recipe = recipe
+    
+        CheftyAPIClient.getStepsAndIngredients(recipe: recipe, completion: {
+            
+        })
+        
         self.getStepsandIngredients()
     }
     
