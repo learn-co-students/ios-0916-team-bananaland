@@ -50,6 +50,8 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     override init(frame:CGRect){
         super.init(frame: frame)
         
+        print("merged steps on init: \(store.mergedStepsArray.count)")
+        
         if self.store.mergedStepsArray.isEmpty {
             
             self.getStepsFromRecipesSelected {
@@ -62,7 +64,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             }
         }
         
+        print("merged steps on init: \(store.mergedStepsArray.count)")
+        
         store.calculateStartTime()
+        print("self.startCookingTimeField.text = Start Cooking: \(store.startCookingTime)")
         
         // format the time
         let myFormatter = DateFormatter()
@@ -240,6 +245,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         print("about to call calculate start time inside updatetableview")
         store.calculateStartTime()
         self.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"
+        //print("self.startCookingTimeField.text = Start Cooking: \(store.startCookingTime)")
         self.tableView.reloadData()
         print("end update function")
     }
