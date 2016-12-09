@@ -121,12 +121,15 @@ extension TraditionalRecipeViewController {
         dismiss(animated: true, completion: nil)
     }
     
+
     func onClickDeleteAction() {
         if let recipe = recipe {
             store.setRecipeUnselected(recipe: recipe)
             // show the control to set the opposite state
             self.removeButton.isHidden = true
             self.addButton.isHidden = false
+
+
         }
     }
     
