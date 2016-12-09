@@ -8,42 +8,50 @@
 
 import XCTest
 import CoreData
+@testable import Chefty
 
 class CheftyTests: XCTestCase {
     
+    let store = DataStore.sharedInstance
+    
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        // create a recipe and put it in core data
+        CheftyAPIClient.createRecipe(displayName: "Tuna Sandwich", recipeID: "tuna-sandwich", imageURL: "http://api.ptangen.com/images/sweetPotatoFriesSmall.jpeg", imageURLSmall: "http://api.ptangen.com/images/sweetPotatoFriesSmall.jpeg", servings: "2", type: "main", sortValue: "2")
+        
+        // pull the recipe object out of the datastore and set it as selected, add to recipesSelected
+        var recipeForTesting: Recipe?
+        for recipe in store.recipes {
+            recipe.id == "tuna-sandwich" ? recipeForTesting = recipe : ()
+        }
+        if let recipeForTesting = recipeForTesting {
+            store.setRecipeSelected(recipe: recipeForTesting)
+        }
     }
     
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        // This method is called after the invocation of each test method in the class.
         super.tearDown()
-    }
-    
-    class MockDataProvider: NSObject {
         
-        var context: NSManagedObjectContext?
-//        weak var tableView: UITableView!
-//        func addRecipe(personInfo: PersonInfo) { }
-//        func fetch() { }
-//        func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int { return 1 }
-//        func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//            return UITableViewCell()
-//        }
+        for recipeInst in self.store.recipesSelected {
+            self.store.setRecipeUnselected(recipe: recipeInst)
+        }
+    }
+    
+    func testSelectedRecipe() {
         
-        let recipeInst = NSEntityDescription.insertNewObject(forEntityName: "Recipe", into: context) as! Recipe
-    }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+        // pull a recipe out of the datastore
+        var recipeForTesting: Recipe?
+        for recipe in store.recipes {
+            recipe.id == "tuna-sandwich" ? recipeForTesting = recipe : ()
+        }
+        
+        // test for the properties
+        if let recipeForTesting = recipeForTesting {
+            XCTAssert(recipeForTesting.servings == "2")
+            XCTAssert(recipeForTesting.selected == true)
+            XCTAssert(store.recipesSelected.count == 1)
         }
     }
     
