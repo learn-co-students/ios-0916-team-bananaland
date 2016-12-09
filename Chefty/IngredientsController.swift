@@ -10,120 +10,104 @@ import UIKit
 import CoreData
 
 class IngredientsController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
+
     let store = DataStore.sharedInstance
     var ingredientsPerRecipe = [String: [Ingredient]]()
     var tableView = UITableView()
     var arrayOfSectionIDs = [String]()
     var arrayOfIngredientsGlobal = [[String]]()
     var arrayOfSectionLabels = [String]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        print("we're in the view did load!")
+
         // add the select recipe button to the nav bar
         let myMenuButton = UIBarButtonItem(title: "My Menu", style: .plain, target: self, action: #selector(goToMyMenu))
         navigationItem.leftBarButtonItems = [myMenuButton]
-        
+
         // set color and font size of nav bar buttons
         let labelFont : UIFont = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))!
         let attributesNormal = [ NSFontAttributeName : labelFont ]
         myMenuButton.setTitleTextAttributes(attributesNormal, for: .normal)
-        
+
+        var ingredientsForRecipe = [String: [Ingredient]]()
+
         for recipeSelected in store.recipesSelected {
-            
-            CheftyAPIClient.getStepsAndIngredients(recipe: recipeSelected, completion:{ ingredients in
-                
-                // build separate arrays of recipeSteps
-                let stepsFromRecipe:[Step] = recipeSelected.steps!.allObjects as! [Step]
-                
-                for step in stepsFromRecipe {
-                    
-                    if let ingredients = step.ingredients {
-                        
-                        let ingredientsFromSteps = ingredients.allObjects as! [Ingredient]
-                        
-                        if let recipeName = recipeSelected.displayName {
+
+            let recipeDisplayName = recipeSelected.displayName
+            var ingredientsToCollect = [Ingredient]()
+
+            CheftyAPIClient.getStepsAndIngredients(recipe: recipeSelected, completion: {
+
+                for step in recipeSelected.steps! {
+
+                    let singleStep = step as! Step
+
+                    if let ingredients = singleStep.ingredients {
+
+                        for ingredient in ingredients {
                             
-                            if self.ingredientsPerRecipe.keys.contains(recipeName) {
-                                
-                                self.ingredientsPerRecipe[recipeName]!.append(contentsOf: ingredientsFromSteps)
-                                print("desc: \(self.ingredientsPerRecipe[recipeName]![0].ingredientDescription)")
-                                
-                            } else {
-                                
-                                self.ingredientsPerRecipe.updateValue(ingredientsFromSteps, forKey: recipeName)
-            
-                            }
-                            
-                            //dump(self.ingredientsPerRecipe)
+                            let singleIngredient = ingredient as! Ingredient
+                            ingredientsToCollect.append(singleIngredient)
+
                         }
-                        
-                    } else {
-                        
-                        print("NO ingredients for STEP!")
-                        
+
                     }
+
                 }
-                print("finished for loop")
-//                self.tableView.reloadData()
-//                
-//                DispatchQueue.main.async {
-//                    print("DispatchQueue.main.async in ingredients")
-//                    self.tableView.reloadData()
-//                    
-//                    
-//                }
-                
-                OperationQueue.main.addOperation {
-                    print("OperationQueue.main.addOperation in ingredients")
-                    self.tableView.reloadData()
-                }
-                
+
+                ingredientsForRecipe.updateValue(ingredientsToCollect, forKey: recipeDisplayName!)
+
             })
+
         }
-        
+
+        self.ingredientsPerRecipe = ingredientsForRecipe
+
+        dump(self.ingredientsPerRecipe)
+
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "listCell")
-        
+
         self.view.addSubview(self.tableView)
-        
+
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
         self.tableView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         self.tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         self.tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        
+
+        self.title = "Ingredients"
+
+        print("we're at the end of the view did load")
+
     }
-    
+
     func goToMyMenu(){
         let myMenuViewControllerInst = MyMenuViewController()
         navigationController?.pushViewController(myMenuViewControllerInst, animated: false) // show destination with nav bar
     }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.title = "Ingredients"
-    }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    
+
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return store.recipesSelected.count
     }
-    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return store.recipesSelected[section].displayName
     }
-    
+
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
     }
-    
+
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
         header.contentView.backgroundColor = UIColor(named: UIColor.ColorName(rawValue: UIColor.ColorName.deepPurple.rawValue)!)
@@ -131,52 +115,59 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         header.textLabel?.font = UIFont(name: "GillSans-Light", size: 24)
         header.alpha = 0.8
     }
-    
+
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         tableView.allowsMultipleSelection = true
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.sizeToFit()
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+
         guard let recipe = store.recipesSelected[section].displayName else { return 0 }
         guard let ingredients = ingredientsPerRecipe[recipe] else { return 0 }
-        
+
+        print("rows in section \(ingredients.count)")
+
         return ingredients.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
+
         let cell = IngredientsTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "listCell")
-        
+
         guard let recipe = store.recipesSelected[indexPath.section].displayName else { return cell }
         guard let ingredients = ingredientsPerRecipe[recipe] else { return cell }
         let ingredient = ingredients[indexPath.row]
         let ingredientName = ingredient.ingredientDescription
-        
+
+        print(ingredients.count)
+
         cell.selectionStyle = .none
         cell.textLabel?.text = ingredientName
         cell.textLabel?.font = UIFont(name: "GillSans-Light", size: 16.5)
         cell.backgroundColor = UIColor(red: 215/255, green: 210/255, blue: 185/255, alpha: 1.0)
-        
+
         if ingredient.isChecked {
             cell.checkBox.image = UIImage(named: "ic_check_box_2x")
-            
+
         } else {
             cell.checkBox.image = UIImage(named: "ic_check_box_outline_blank_2x")
         }
-        
+
+        print("creating a cell for \(ingredientName)")
+
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+
         guard let recipe = store.recipesSelected[indexPath.section].displayName else { return }
         guard let ingredients = ingredientsPerRecipe[recipe] else { return }
         let ingredient = ingredients[indexPath.row]
-        
+
         if ingredient.isChecked {
             ingredient.isChecked = false
             store.saveRecipesContext()
@@ -184,9 +175,9 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
             ingredient.isChecked = true
             store.saveRecipesContext()
         }
-        
+
         tableView.reloadData()
-        
+
     }
-    
+
 }
