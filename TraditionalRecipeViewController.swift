@@ -19,7 +19,9 @@ class TraditionalRecipeViewController: UIViewController {
     var recipe: Recipe?
     var backButton : BackButton!
     var addButton : AddButton!
-    //var isSelected = false
+    
+    var isSelected = false // TODO: Someone commented this out. In the merge, we uncommented it. What up?
+    
     var store = DataStore.sharedInstance
     var removeButton : RemoveButtonView!
     
@@ -28,7 +30,7 @@ class TraditionalRecipeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.reloadInputViews()
-      
+        
         // add the select recipe button to the nav bar
         let myMenuButton = UIBarButtonItem(title: "My Menu", style: .plain, target: self, action: #selector(goToMyMenu))
         navigationItem.leftBarButtonItems = [myMenuButton]
@@ -39,14 +41,14 @@ class TraditionalRecipeViewController: UIViewController {
         myMenuButton.setTitleTextAttributes(attributesNormal, for: .normal)
         
         print(" --------- recipe selected in recipe view controller: \(self.recipe?.displayName) ------- ")
-
+        
         self.traditionalRecipeView.recipe = self.recipe
         setupElements()
         checkStatus()
         
         print(" -------- traditional recipe: \(self.traditionalRecipeView.recipe?.displayName) in viewDidLoad ------- ")
     }
-   
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.title = "Recipe"
@@ -66,7 +68,7 @@ class TraditionalRecipeViewController: UIViewController {
         
     }
 }
-    
+
 extension TraditionalRecipeViewController {
     
     func checkStatus() {
@@ -94,7 +96,7 @@ extension TraditionalRecipeViewController {
         backButton.isUserInteractionEnabled = true
         
         self.view.addSubview(backButton)
-
+        
         addButton = AddButton()
         self.view.addSubview(addButton)
         addButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 0).isActive = true
@@ -121,15 +123,71 @@ extension TraditionalRecipeViewController {
         dismiss(animated: true, completion: nil)
     }
     
-
+    func buttonTapped(sender: UIButton) {
+        print("Calling button tapped")
+        
+        //*** put merge stuff and calculate time stuff here again
+        store.getStepsFromRecipesSelected {
+            self.store.mergedStepsArray.removeAll()
+            self.store.mergeRecipeSteps()
+            for step in self.store.recipeSteps {
+                self.store.mergedStepsArray.append(step)
+            }
+        }
+        print("merged step count = \(store.mergedStepsArray.count)")
+        UserDefaults.standard.set(0, forKey: "stepCurrent")
+        print("about to call calculate start time inside updatetableview")
+        if store.mergedStepsArray.count > 0 {
+            store.calculateStartTime()
+            store.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"
+        }
+        
+        
+        
+        guard let selected = recipe else { return }
+        
+        if store.recipesSelected.count >= 4 { return }
+        
+        if isSelected {
+            
+            store.setRecipeUnselected(recipe: selected)
+            isSelected = false
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                
+                self.removeButton.alpha = 0.0
+                self.addButton.alpha = 1.0
+                
+            })
+            
+        } else {
+            print("will set recipe as selected")
+            print("recipe selected count before adding \(store.recipesSelected.count)")
+            store.setRecipeSelected(recipe: selected)
+            print("recipe selected count after adding \(store.recipesSelected.count)")
+            isSelected = true
+            
+            UIView.animate(withDuration: 0.3, animations: {
+                
+                self.removeButton.alpha = 1.0
+                self.addButton.alpha = 0.0
+                
+            })
+            
+            
+        }
+        
+    }
+    
+    
     func onClickDeleteAction() {
         if let recipe = recipe {
             store.setRecipeUnselected(recipe: recipe)
             // show the control to set the opposite state
             self.removeButton.isHidden = true
             self.addButton.isHidden = false
-
-
+            
+            
         }
     }
     
@@ -141,11 +199,12 @@ extension TraditionalRecipeViewController {
             self.addButton.isHidden = true
         }
     }
-
+    
     
     func goToMyMenu(){
         let myMenuViewControllerInst = MyMenuViewController()
         navigationController?.pushViewController(myMenuViewControllerInst, animated: false) // show destination with nav bar
     }
-
+    
 }
+

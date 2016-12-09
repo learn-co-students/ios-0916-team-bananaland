@@ -48,19 +48,27 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     override init(frame:CGRect){
         super.init(frame: frame)
         
-//        if self.store.mergedStepsArray.isEmpty {
-//            
-//            self.getStepsFromRecipesSelected {
-//                
-//                self.mergeRecipeSteps()
-//                
-//                for step in self.recipeSteps {
-//                    self.store.mergedStepsArray.append(step)
-//                }
-//            }
-//        }
+        // TODO: As of merge we commented this out. But I think we MIGHT need it, do some research. Is it being done by the datastore now?
+        
+        print("merged steps on init: \(store.mergedStepsArray.count)")
+        
+        if self.store.mergedStepsArray.isEmpty {
+            
+            store.getStepsFromRecipesSelected {
+                
+                self.store.mergeRecipeSteps()
+                
+                for step in self.store.recipeSteps {
+                    self.store.mergedStepsArray.append(step)
+                }
+            }
+        }
+
+        
+        print("merged steps on init: \(store.mergedStepsArray.count)")
         
         store.calculateStartTime()
+        print("self.startCookingTimeField.text = Start Cooking: \(store.startCookingTime)")
         
         // format the time
         let myFormatter = DateFormatter()
@@ -237,8 +245,11 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         print("merged step count = \(store.mergedStepsArray.count)")
         UserDefaults.standard.set(0, forKey: "stepCurrent")
         print("about to call calculate start time inside updatetableview")
-        store.calculateStartTime()
-        self.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"
+        if store.mergedStepsArray.count > 0 {
+            store.calculateStartTime()
+            self.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"
+        }
+        //print("self.startCookingTimeField.text = Start Cooking: \(store.startCookingTime)")
         self.tableView.reloadData()
         print("end update function")
     }
@@ -263,7 +274,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         print("clickIngredients getting called")
         self.delegate?.goToIngredients() }
     
-    func onClickClearAllRecipes() { self.delegate?.clearAllRecipes() }
+    func onClickClearAllRecipes() {
+        print("click clear all")
+        self.delegate?.clearAllRecipes()
+    }
     
     func clickOpenStep() {
 //        self.recipeSteps.removeAll()
