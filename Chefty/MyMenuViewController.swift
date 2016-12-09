@@ -57,6 +57,9 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
             })
             store.showNotification = false  // only show notification when user enters the app
         }
+        
+        print("recipesSelected: \(store.recipesSelected.count)")
+        print("mergedSteps: \(store.mergedStepsArray.count)")
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
@@ -110,8 +113,8 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     }
     
     func clearAllRecipes() {
-        for recipeInst in store.recipesSelected {
-            store.setRecipeUnselected(recipe: recipeInst)
+        for recipeInst in self.store.recipesSelected {
+            self.store.setRecipeUnselected(recipe: recipeInst)
         }
         
         myMenuViewInst.updateTableViewNow()

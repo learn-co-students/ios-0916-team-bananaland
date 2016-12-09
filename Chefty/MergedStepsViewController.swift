@@ -54,10 +54,11 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = MergedStepsTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "cell")
+        cell.selectionStyle = .none
         if let stepTitle = store.mergedStepsArray[indexPath.row].stepTitle {
-            cell.textLabel?.text = "\(indexPath.row + 1). \(stepTitle)"
+            cell.textLabelInst.text = "\(indexPath.row + 1). \(stepTitle)"
             cell.backgroundColor = UIColor(red: 215/255, green: 210/255, blue: 185/255, alpha: 1.0)
-            cell.textLabel?.font = UIFont(name: "GillSans-Light", size: 21)
+            cell.textLabelInst.font = UIFont(name: Constants.appFont.light.rawValue, size: 21)
         }
         self.getImage(recipe: store.mergedStepsArray[indexPath.row].recipe!, imageView: cell.imageViewInst, view: cell)
         return cell

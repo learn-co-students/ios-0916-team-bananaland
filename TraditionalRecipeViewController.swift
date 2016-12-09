@@ -19,7 +19,7 @@ class TraditionalRecipeViewController: UIViewController {
     var recipe: Recipe?
     var backButton : BackButton!
     var addButton : AddButton!
-    var isSelected = false
+    //var isSelected = false
     var store = DataStore.sharedInstance
     var removeButton : RemoveButtonView!
     
@@ -37,17 +37,21 @@ class TraditionalRecipeViewController: UIViewController {
         let labelFont : UIFont = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))!
         let attributesNormal = [ NSFontAttributeName : labelFont ]
         myMenuButton.setTitleTextAttributes(attributesNormal, for: .normal)
+        
+        print(" --------- recipe selected in recipe view controller: \(self.recipe?.displayName) ------- ")
 
         self.traditionalRecipeView.recipe = self.recipe
         setupElements()
         checkStatus()
         
+        print(" -------- traditional recipe: \(self.traditionalRecipeView.recipe?.displayName) in viewDidLoad ------- ")
     }
    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         self.title = "Recipe"
+        
+        print(" -------- traditional recipe: \(self.traditionalRecipeView.recipe?.displayName) in viewWillAppear in VC ------- ")
     }
     
     override func didReceiveMemoryWarning() {
@@ -56,7 +60,7 @@ class TraditionalRecipeViewController: UIViewController {
     
     override func loadView(){
         
-        print("self.recipe?.displayName: \(self.recipe?.displayName)")
+        //print("self.recipe?.displayName: \(self.recipe?.displayName)")
         self.traditionalRecipeView = TraditionalRecipeView(frame: CGRect.zero, recipe: recipe!)
         self.view = self.traditionalRecipeView
         
@@ -68,16 +72,12 @@ extension TraditionalRecipeViewController {
     func checkStatus() {
         
         if store.recipesSelected.contains(recipe!) {
-            isSelected = true
-            removeButton.alpha = 1.0
-            addButton.alpha = 0.0
-            
+            self.removeButton.isHidden = false
+            self.addButton.isHidden = true
         } else {
-            isSelected = false
-            removeButton.alpha = 0.0
-            addButton.alpha = 1.0
+            self.removeButton.isHidden = true
+            self.addButton.isHidden = false
         }
-        
     }
     
     func setupElements() {
@@ -102,7 +102,7 @@ extension TraditionalRecipeViewController {
         addButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
         addButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
         addButton.translatesAutoresizingMaskIntoConstraints = false
-        addButton.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)
+        addButton.addTarget(self, action: #selector(onClickAddAction), for: .touchUpInside)
         
         
         removeButton = RemoveButtonView()
@@ -112,7 +112,7 @@ extension TraditionalRecipeViewController {
         removeButton.heightAnchor.constraint(equalToConstant: 55).isActive = true
         removeButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
         removeButton.translatesAutoresizingMaskIntoConstraints = false
-        removeButton.addTarget(self, action: #selector(self.buttonTapped(sender:)), for: .touchUpInside)
+        removeButton.addTarget(self, action: #selector(onClickDeleteAction), for: .touchUpInside)
         
         
     }
@@ -121,42 +121,27 @@ extension TraditionalRecipeViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    func buttonTapped(sender: UIButton) {
-        
-        guard let selected = recipe else { return }
-        
-        if store.recipesSelected.count >= 4 { return }
-        
-        if isSelected {
-            
-            store.setRecipeUnselected(recipe: selected)
-            isSelected = false
-            
-            UIView.animate(withDuration: 0.3, animations: {
-                
-                self.removeButton.alpha = 0.0
-                self.addButton.alpha = 1.0
-                
-            })
-    
-        } else {
-            
-            store.setRecipeSelected(recipe: selected)
-            isSelected = true
-            
-            UIView.animate(withDuration: 0.3, animations: {
-                
-                self.removeButton.alpha = 1.0
-                self.addButton.alpha = 0.0
-                
-            })
+
+    func onClickDeleteAction() {
+        if let recipe = recipe {
+            store.setRecipeUnselected(recipe: recipe)
+            // show the control to set the opposite state
+            self.removeButton.isHidden = true
+            self.addButton.isHidden = false
+
 
         }
-        
-        delegate?.recipeSelected(recipe!, status: isSelected)
-        
     }
     
+    func onClickAddAction() {
+        if let recipe = recipe {
+            store.setRecipeSelected(recipe: recipe)
+            // show the control to set the opposite state
+            self.removeButton.isHidden = false
+            self.addButton.isHidden = true
+        }
+    }
+
     
     func goToMyMenu(){
         let myMenuViewControllerInst = MyMenuViewController()

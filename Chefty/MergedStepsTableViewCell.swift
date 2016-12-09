@@ -11,6 +11,7 @@ import Foundation
 class MergedStepsTableViewCell: UITableViewCell {
     
     var imageViewInst:UIImageView = UIImageView()
+    var textLabelInst:UILabel = UILabel()
     
     required init(coder aDecoder: NSCoder) { fatalError("init(coder:)") }
     
@@ -25,11 +26,11 @@ class MergedStepsTableViewCell: UITableViewCell {
         imageViewInst.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.08).isActive = true
         imageViewInst.translatesAutoresizingMaskIntoConstraints = false
         
-        
         //text label
-        textLabel?.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        textLabel?.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 50).isActive = true
-        textLabel?.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(textLabelInst)
+        textLabelInst.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        textLabelInst.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 44).isActive = true
+        textLabelInst.translatesAutoresizingMaskIntoConstraints = false
     }
     
 }
