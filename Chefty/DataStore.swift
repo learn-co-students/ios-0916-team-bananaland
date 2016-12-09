@@ -117,7 +117,6 @@ class DataStore {
     }
     
     func calculateStartTime() {
-        print("calculate start time")
         
         if self.recipesSelected.count != 0 && self.mergedStepsArray.count != 0 {
             
@@ -167,4 +166,126 @@ class DataStore {
         }
     }
     
+    
+    //merged steps stuff!
+    
+    var recipeSteps: [Step] = []
+    var startCookingTimeField = UITextField()
+    
+    func getStepsFromRecipesSelected(completion: @escaping () -> ()) {
+        self.recipeSteps.removeAll()
+        
+        for singleRecipe in self.recipesSelected {
+            DispatchQueue.main.async {
+                CheftyAPIClient.getStepsAndIngredients(recipe: singleRecipe, completion: {
+                })
+            }
+            let allRecipeSteps = singleRecipe.steps!.allObjects as! [Step]
+            self.recipeSteps += allRecipeSteps
+        }
+        
+        completion()
+    }
+    
+    
+    func mergeRecipeSteps() {
+        print("starting to merge recipe steps. recipe steps count = \(self.recipeSteps.count)")
+        
+        self.recipeSteps = self.recipeSteps.sorted { (step1: Step, step2: Step) -> Bool in
+            
+            //same start
+            if step1.timeToStart == step2.timeToStart {
+                
+                //different attentionNeeded
+                if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
+                    return true
+                } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
+                    return false
+                    
+                    //same attentionNeeded, add shorter duration to addedTime
+                } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
+                    if step1.duration > step2.duration {
+                        return false
+                    } else if step1.duration < step2.duration {
+                        return true
+                    }
+                }
+            }
+            
+            //overlap duration
+            if (step2.timeToStart > step1.timeToStart) && (step2.timeToStart < (step1.timeToStart + step1.duration)) {
+                
+                if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
+                    return true
+                    
+                } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
+                    return true
+                    
+                } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
+                    return true
+                }
+            }
+            return step1.timeToStart < step2.timeToStart
+        }
+    }
+    
+    
+    
+    func calculateExtraTime() {
+        self.addedTime = 0
+        
+        // add extra time
+        for (index, _) in self.mergedStepsArray.enumerated() {
+            
+            if index < self.mergedStepsArray.count - 2 {
+                
+                let step1 = self.mergedStepsArray[index]
+                let step2 = self.mergedStepsArray[index + 1]
+                
+                //same start
+                if step1.timeToStart == step2.timeToStart {
+                    
+                    //different attentionNeeded
+                    if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
+                        self.addedTime += Int(step1.timeToStart) + Int(step1.duration) - Int(step2.timeToStart)
+                        
+                        
+                        //same attentionNeeded, add shorter duration to addedTime
+                    } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
+                        if step1.duration > step2.duration {
+                            self.addedTime += Int(step2.duration)
+                            
+                        } else if step1.duration < step2.duration {
+                            self.addedTime += Int(step1.duration)
+                            
+                        }
+                    }
+                }
+                
+                //overlap duration
+                if (step2.timeToStart > step1.timeToStart) && (step2.timeToStart < (step1.timeToStart + step1.duration)) {
+                    
+                    if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
+                        self.addedTime += Int(step2.timeToStart) - (Int(step1.timeToStart) + Int(step1.duration))
+                        
+                        
+                    } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
+                        self.addedTime += (Int(step1.timeToStart) + Int(step1.duration)) - Int(step2.timeToStart)
+                        
+                        
+                    } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
+                        self.addedTime += (Int(step1.timeToStart) + Int(step1.duration)) - Int(step2.timeToStart)
+                        
+                    }
+                }
+            }
+                
+            else {
+                
+            }
+        }
+        
+    }
+    
 }
+
