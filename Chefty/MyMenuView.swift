@@ -64,9 +64,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             }
         }
 
-        
-        print("merged steps on init: \(store.mergedStepsArray.count)")
-        
         store.calculateStartTime()
         print("self.startCookingTimeField.text = Start Cooking: \(store.startCookingTime)")
         
