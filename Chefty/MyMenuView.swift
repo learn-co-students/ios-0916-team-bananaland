@@ -225,6 +225,8 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     //re-call recipesSelected from API, re-sort, re-append to mergedStepsArray
     func updateTableViewNow() {
+        print("update table view getting called")
+        print("recipe steps count before remove all is \(self.recipeSteps.count)")
         self.recipeSteps.removeAll()
         self.getStepsFromRecipesSelected {
             self.store.mergedStepsArray.removeAll()
@@ -233,11 +235,13 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
                 self.store.mergedStepsArray.append(step)
             }
         }
-
+        print("merged step count = \(store.mergedStepsArray.count)")
         UserDefaults.standard.set(0, forKey: "stepCurrent")
+        print("about to call calculate start time inside updatetableview")
         store.calculateStartTime()
         self.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"
         self.tableView.reloadData()
+        print("end update function")
     }
     
     // serving time field selected delegate method
@@ -263,6 +267,15 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     func onClickClearAllRecipes() { self.delegate?.clearAllRecipes() }
     
     func clickOpenStep() {
+        self.recipeSteps.removeAll()
+        self.getStepsFromRecipesSelected {
+            self.store.mergedStepsArray.removeAll()
+            self.mergeRecipeSteps()
+            for step in self.recipeSteps {
+                self.store.mergedStepsArray.append(step)
+            }
+        }
+        print("merged step count = \(store.mergedStepsArray.count)")
         self.delegate?.goToSingleStep()
         calculateExtraTime()
     }
@@ -305,6 +318,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     
     func mergeRecipeSteps() {
+        print("starting to merge recipe steps. recipe steps count = \(self.recipeSteps.count)")
 
         self.recipeSteps = self.recipeSteps.sorted { (step1: Step, step2: Step) -> Bool in
             

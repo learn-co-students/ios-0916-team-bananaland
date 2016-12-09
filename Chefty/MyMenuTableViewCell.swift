@@ -94,6 +94,7 @@ class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
     }
     
     func onClickDeleteAction() {
+        print("deleted an item")
         if let currentRowString = self.deleteButton.accessibilityLabel {
             if let currentRow = Int(currentRowString) {
                 if store.recipesSelected.count == 1 { // only one recipe left, treat same as clear all
