@@ -164,7 +164,7 @@ class TraditionalRecipeView: UIView {
         clockIcon.leftAnchor.constraint(equalTo: myScrollView.leftAnchor, constant: 20).isActive = true
         clockIcon.topAnchor.constraint(equalTo: personIcon.bottomAnchor).isActive = true
         clockIcon.widthAnchor.constraint(equalTo: myScrollView.widthAnchor, multiplier: 0.1).isActive = true
-        clockIcon.bottomAnchor.constraint(equalTo: bgView2.bottomAnchor).isActive = true
+        //clockIcon.bottomAnchor.constraint(equalTo: bgView2.bottomAnchor).isActive = true
         clockIcon.heightAnchor.constraint(equalToConstant: 30).isActive = true
         clockIcon.translatesAutoresizingMaskIntoConstraints = false
         
@@ -213,7 +213,7 @@ class TraditionalRecipeView: UIView {
         
         durationLabel.leftAnchor.constraint(equalTo: clockIcon.rightAnchor, constant: 0).isActive = true
         durationLabel.topAnchor.constraint(equalTo: servingSizeLabel.bottomAnchor).isActive = true
-        durationLabel.bottomAnchor.constraint(equalTo: bgView2.bottomAnchor).isActive = true
+        //durationLabel.bottomAnchor.constraint(equalTo: bgView2.bottomAnchor).isActive = true
         durationLabel.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true
         durationLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         durationLabel.translatesAutoresizingMaskIntoConstraints = false
