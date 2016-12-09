@@ -107,7 +107,6 @@ class DataStore {
     func setRecipeSelected(recipe: Recipe) {
         recipe.selected = true
         self.updateSelectedRecipes()
-        print("recipe \(recipe.displayName), selected = \(recipe.selected), recipeSelected.count = \(self.recipesSelected.count)")
         self.saveRecipesContext()
         self.updateSelectedRecipes()
         
@@ -121,9 +120,13 @@ class DataStore {
                 for step in self.recipeSteps {
                     self.mergedStepsArray.append(step)
                 }
+                print("recipeSelected.count before calculateStartTime = \(self.recipesSelected.count)")
+
+                self.calculateStartTime()
             }
-        print("recipesSelected: \(self.recipesSelected.count)")
-        print("mergedSteps: \(self.mergedStepsArray.count)")
+        print("recipe \(recipe.displayName), selected = \(recipe.selected), recipeSelected.count = \(self.recipesSelected.count)")
+        print("recipesSelectedcount: \(self.recipesSelected.count)")
+        print("mergedStepsCount: \(self.mergedStepsArray.count)")
     }
     
     func setRecipeUnselected(recipe: Recipe) {
@@ -142,6 +145,7 @@ class DataStore {
                 for step in self.recipeSteps {
                     self.mergedStepsArray.append(step)
                 }
+                self.calculateStartTime()
             }
         print("recipesSelected: \(self.recipesSelected.count)")
         print("mergedSteps: \(self.mergedStepsArray.count)")
@@ -244,7 +248,7 @@ class DataStore {
             myFormatter.timeStyle = .short
             if let startCookingTime = startCookingTime {
                 let finalStartCookingTime = myFormatter.string(from: startCookingTime as Date)
-                print("final start cooking time: \(finalStartCookingTime)")
+                //print("final start cooking time: \(finalStartCookingTime)")
                 self.startCookingTime = "\(finalStartCookingTime)"
                 print("start cooking time: \(startCookingTime)")
             }

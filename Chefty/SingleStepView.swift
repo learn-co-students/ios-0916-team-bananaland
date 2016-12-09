@@ -67,10 +67,7 @@
         self.store.mergedStepsArray = tempMergedStepsArray // restore the mergedStepsArray
         store.calculateStartTime() // restore the start time for the all steps
         
-
-        
         // unwrap values
-
         if let procedureBody = self.store.mergedStepsArray[UserDefaults.standard.integer(forKey: "stepCurrent")-1].procedure {
             self.procedureBody = procedureBody
         }
