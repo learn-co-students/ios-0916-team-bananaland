@@ -101,7 +101,6 @@ class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
                     self.delegate?.onClickClearAllRecipes()
                 } else {
                     store.setRecipeUnselected(recipe: store.recipesSelected[currentRow])
-                    store.calculateStartTime()
                     self.delegate?.updateTableViewNow()
                 }
                 

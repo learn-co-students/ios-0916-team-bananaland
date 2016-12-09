@@ -243,8 +243,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         print("merged step count = \(store.mergedStepsArray.count)")
         UserDefaults.standard.set(0, forKey: "stepCurrent")
         print("about to call calculate start time inside updatetableview")
-        store.calculateStartTime()
-        self.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"
+        if store.mergedStepsArray.count > 0 {
+            store.calculateStartTime()
+            self.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"
+        }
         //print("self.startCookingTimeField.text = Start Cooking: \(store.startCookingTime)")
         self.tableView.reloadData()
         print("end update function")
@@ -270,7 +272,10 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         print("clickIngredients getting called")
         self.delegate?.goToIngredients() }
     
-    func onClickClearAllRecipes() { self.delegate?.clearAllRecipes() }
+    func onClickClearAllRecipes() {
+        print("click clear all")
+        self.delegate?.clearAllRecipes()
+    }
     
     func clickOpenStep() {
         self.recipeSteps.removeAll()

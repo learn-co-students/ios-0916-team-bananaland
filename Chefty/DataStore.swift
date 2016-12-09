@@ -117,9 +117,12 @@ class DataStore {
     }
     
     func calculateStartTime() {
+        print("calculate start time")
         
-        if self.mergedStepsArray.count != 0 {
-        
+        if self.recipesSelected.count != 0 && self.mergedStepsArray.count != 0 {
+            
+            print(" calc start recipes selected: \(self.recipesSelected.count), merged: \(self.mergedStepsArray.count)")
+
             let currentTime = Date()
             //print("Current time: \(currentTime)")
             let calendar = Calendar.current
@@ -128,8 +131,8 @@ class DataStore {
            // print("serving time = \(servingTime)")
             
             //total cooking time = smallest timeToStart from mergedSteps + addedTime
-            let totalCookingDuration = self.mergedStepsArray[0].timeToStart * -1 + self.addedTime
-            //print("cooking duration: \(totalCookingDuration)")
+            let totalCookingDuration = self.mergedStepsArray[0].timeToStart * -1 //+ self.addedTime
+            print("cooking duration: \(totalCookingDuration)")
             //earliest possible serving time = current time + total cooking time
             self.earliestPossibleServeTime = calendar.date(byAdding: .minute, value: Int(totalCookingDuration), to: currentTime)!
             //print("earliest possible = \(self.earliestPossibleServeTime)")
