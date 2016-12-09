@@ -32,15 +32,13 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         let attributesNormal = [ NSFontAttributeName : labelFont ]
         myMenuButton.setTitleTextAttributes(attributesNormal, for: .normal)
 
-        var ingredientsForRecipe = [String: [Ingredient]]()
-
         for recipeSelected in store.recipesSelected {
 
             let recipeDisplayName = recipeSelected.displayName
             var ingredientsToCollect = [Ingredient]()
 
             CheftyAPIClient.getStepsAndIngredients(recipe: recipeSelected, completion: {
-
+                
                 for step in recipeSelected.steps! {
 
                     let singleStep = step as! Step
@@ -53,24 +51,27 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
                             ingredientsToCollect.append(singleIngredient)
 
                         }
-
                     }
-
                 }
 
-                ingredientsForRecipe.updateValue(ingredientsToCollect, forKey: recipeDisplayName!)
+                self.ingredientsPerRecipe.updateValue(ingredientsToCollect, forKey: recipeDisplayName!)
+                
+                OperationQueue.main.addOperation {
+                    self.tableView.reloadData()
+                }
 
             })
-
         }
-
-        self.ingredientsPerRecipe = ingredientsForRecipe
-
-        dump(self.ingredientsPerRecipe)
 
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "listCell")
+        tableView.register(IngredientsTableViewCell.self, forCellReuseIdentifier: "listCell")
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        tableView.allowsMultipleSelection = true
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.sizeToFit()
+        tableView.backgroundColor = UIColor(red: 215/255, green: 210/255, blue: 185/255, alpha: 1.0)
+
 
         self.view.addSubview(self.tableView)
 
@@ -116,13 +117,6 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         header.alpha = 0.8
     }
 
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
-        tableView.allowsMultipleSelection = true
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.sizeToFit()
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         guard let recipe = store.recipesSelected[section].displayName else { return 0 }
@@ -134,7 +128,6 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
 
         let cell = IngredientsTableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: "listCell")
 
