@@ -71,6 +71,8 @@
 		C0AAB5431DDE64970055DF8B /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB5421DDE64970055DF8B /* DataStore.swift */; };
 		C0AAB5471DDE67300055DF8B /* CheftyAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB5461DDE67300055DF8B /* CheftyAPIClient.swift */; };
 		C0AAB5491DDE677C0055DF8B /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB5481DDE677C0055DF8B /* Secrets.swift */; };
+		C0BFDB981DFB27100029EF84 /* CheftyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BFDB971DFB27100029EF84 /* CheftyTests.swift */; };
+		C0BFDBA21DFB2F880029EF84 /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BFDBA11DFB2F880029EF84 /* Dog.swift */; };
 		C0D2E4FA1DEC6C7700070E78 /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4E31DEC6C7700070E78 /* Contents.json */; };
 		C0D2E4FB1DEC6C7700070E78 /* Icon-App-20x20@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4E41DEC6C7700070E78 /* Icon-App-20x20@1x.png */; };
 		C0D2E4FC1DEC6C7700070E78 /* Icon-App-20x20@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4E51DEC6C7700070E78 /* Icon-App-20x20@2x.png */; };
@@ -96,6 +98,16 @@
 		C0D2E5141DEC77D200070E78 /* SingleStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2E5131DEC77D200070E78 /* SingleStepView.swift */; };
 		C0DBD0611DDD25E800B9B9FF /* MaterialIcons-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C0252C661DDD23AD00046AD0 /* MaterialIcons-Regular.otf */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		C0BFDB9A1DFB27100029EF84 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A7C1E1AB1DDCD97300BD8A13 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A7C1E1B21DDCD97300BD8A13;
+			remoteInfo = Chefty;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		01957BDE1DF5EB2600F19DA7 /* IngredientsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IngredientsTableViewCell.swift; sourceTree = "<group>"; };
@@ -167,6 +179,10 @@
 		C0AAB5421DDE64970055DF8B /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		C0AAB5461DDE67300055DF8B /* CheftyAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheftyAPIClient.swift; sourceTree = "<group>"; };
 		C0AAB5481DDE677C0055DF8B /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
+		C0BFDB951DFB27100029EF84 /* CheftyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CheftyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0BFDB971DFB27100029EF84 /* CheftyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheftyTests.swift; sourceTree = "<group>"; };
+		C0BFDB991DFB27100029EF84 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0BFDBA11DFB2F880029EF84 /* Dog.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dog.swift; sourceTree = "<group>"; };
 		C0D2E4E31DEC6C7700070E78 /* Contents.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Contents.json; sourceTree = "<group>"; };
 		C0D2E4E41DEC6C7700070E78 /* Icon-App-20x20@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-20x20@1x.png"; sourceTree = "<group>"; };
 		C0D2E4E51DEC6C7700070E78 /* Icon-App-20x20@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-20x20@2x.png"; sourceTree = "<group>"; };
@@ -199,6 +215,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E4E91AA419B90E48D983D4C /* Pods_Chefty.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0BFDB921DFB27100029EF84 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				A7C1E1B51DDCD97300BD8A13 /* Chefty */,
+				C0BFDB961DFB27100029EF84 /* CheftyTests */,
 				A7C1E1B41DDCD97300BD8A13 /* Products */,
 				08009A34701E90F087C0AD2E /* Pods */,
 				260E46DA6F0C18E8E392F9E6 /* Frameworks */,
@@ -263,6 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				A7C1E1B31DDCD97300BD8A13 /* Chefty.app */,
+				C0BFDB951DFB27100029EF84 /* CheftyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -353,6 +378,7 @@
 				C0AAB5421DDE64970055DF8B /* DataStore.swift */,
 				C0AAB5461DDE67300055DF8B /* CheftyAPIClient.swift */,
 				C0AAB5481DDE677C0055DF8B /* Secrets.swift */,
+				C0BFDBA11DFB2F880029EF84 /* Dog.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -378,6 +404,15 @@
 				C08FBF871DE6329300699D9C /* GradientViewLeftToRight.swift */,
 			);
 			name = MyMenu;
+			sourceTree = "<group>";
+		};
+		C0BFDB961DFB27100029EF84 /* CheftyTests */ = {
+			isa = PBXGroup;
+			children = (
+				C0BFDB971DFB27100029EF84 /* CheftyTests.swift */,
+				C0BFDB991DFB27100029EF84 /* Info.plist */,
+			);
+			path = CheftyTests;
 			sourceTree = "<group>";
 		};
 		C0D2E4E21DEC6C7700070E78 /* AppIcon.appiconset */ = {
@@ -431,6 +466,24 @@
 			productReference = A7C1E1B31DDCD97300BD8A13 /* Chefty.app */;
 			productType = "com.apple.product-type.application";
 		};
+		C0BFDB941DFB27100029EF84 /* CheftyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C0BFDB9C1DFB27100029EF84 /* Build configuration list for PBXNativeTarget "CheftyTests" */;
+			buildPhases = (
+				C0BFDB911DFB27100029EF84 /* Sources */,
+				C0BFDB921DFB27100029EF84 /* Frameworks */,
+				C0BFDB931DFB27100029EF84 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C0BFDB9B1DFB27100029EF84 /* PBXTargetDependency */,
+			);
+			name = CheftyTests;
+			productName = CheftyTests;
+			productReference = C0BFDB951DFB27100029EF84 /* CheftyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -446,6 +499,11 @@
 						DevelopmentTeam = KXY9EDFTF5;
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
+					};
+					C0BFDB941DFB27100029EF84 = {
+						CreatedOnToolsVersion = 8.1;
+						ProvisioningStyle = Automatic;
+						TestTargetID = A7C1E1B21DDCD97300BD8A13;
 					};
 				};
 			};
@@ -463,6 +521,7 @@
 			projectRoot = "";
 			targets = (
 				A7C1E1B21DDCD97300BD8A13 /* Chefty */,
+				C0BFDB941DFB27100029EF84 /* CheftyTests */,
 			);
 		};
 /* End PBXProject section */
@@ -502,6 +561,13 @@
 				C0D2E4FA1DEC6C7700070E78 /* Contents.json in Resources */,
 				C0DBD0611DDD25E800B9B9FF /* MaterialIcons-Regular.otf in Resources */,
 				C0D2E5041DEC6C7700070E78 /* Icon-App-57x57@1x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0BFDB931DFB27100029EF84 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -568,6 +634,7 @@
 				A7BE01431DEF950F009F65B1 /* CookButton.swift in Sources */,
 				A7C1E2341DDE5D6F00BD8A13 /* CustomLayoutView.swift in Sources */,
 				A7BE01391DEF8683009F65B1 /* SegmentedControl.swift in Sources */,
+				C0BFDBA21DFB2F880029EF84 /* Dog.swift in Sources */,
 				C054B2A01DE1185C00F4DEB1 /* MyMenuTableViewCell.swift in Sources */,
 				A7B1D57D1DF78630004CF90C /* CheftyTitleView.swift in Sources */,
 				C0252C631DDD16EA00046AD0 /* MyMenuViewController.swift in Sources */,
@@ -620,7 +687,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C0BFDB911DFB27100029EF84 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C0BFDB981DFB27100029EF84 /* CheftyTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C0BFDB9B1DFB27100029EF84 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A7C1E1B21DDCD97300BD8A13 /* Chefty */;
+			targetProxy = C0BFDB9A1DFB27100029EF84 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A7C1E1C21DDCD97300BD8A13 /* LaunchScreen.storyboard */ = {
@@ -660,6 +743,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -712,6 +796,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -779,6 +864,32 @@
 			};
 			name = Release;
 		};
+		C0BFDB9D1DFB27100029EF84 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = CheftyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flatironschool.team-banana-land.CheftyTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Chefty.app/Chefty";
+			};
+			name = Debug;
+		};
+		C0BFDB9E1DFB27100029EF84 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = CheftyTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.flatironschool.team-banana-land.CheftyTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Chefty.app/Chefty";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -799,6 +910,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		C0BFDB9C1DFB27100029EF84 /* Build configuration list for PBXNativeTarget "CheftyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0BFDB9D1DFB27100029EF84 /* Debug */,
+				C0BFDB9E1DFB27100029EF84 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 

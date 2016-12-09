@@ -53,6 +53,10 @@ class DataStore {
         
     }
     
+    func sampleFunc() -> Bool {
+        return true
+    }
+    
     
     func getRecipesFromDB(completion: @escaping () -> ()) {
         CheftyAPIClient.getRecipiesFromDB {_ in
