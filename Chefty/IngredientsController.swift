@@ -70,7 +70,7 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         tableView.allowsMultipleSelection = true
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.sizeToFit()
-//        tableView.backgroundColor
+        tableView.backgroundColor = UIColor(red: 215/255, green: 210/255, blue: 185/255, alpha: 1.0)
 
 
         self.view.addSubview(self.tableView)
