@@ -7,6 +7,9 @@
 //
 
 import UIKit
+protocol MainDishViewDelegate: class {
+    func goToRecipe()
+}
 
 class MainDishViewController: UIViewController, RecipeViewDelegate {
 
@@ -14,12 +17,12 @@ class MainDishViewController: UIViewController, RecipeViewDelegate {
     var collectionView : UICollectionView!
     var selectedRecipe : Recipe?
     var selectedRecipeStatus = false
-    let recipeView = TraditionalRecipeViewController()
+    weak var delegate: MainDishViewDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        recipeView.delegate = self
+        //recipeView.delegate = self
         setupCollectionView()
         print("MAIN \(store.main.count)")
     }
@@ -91,7 +94,7 @@ extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDat
         recipeView.modalTransitionStyle = .crossDissolve
         recipeView.recipe = store.main[indexPath.row]
         present(recipeView, animated: true, completion: nil)
-                
+        
     }
     
 }
