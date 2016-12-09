@@ -266,6 +266,15 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     func onClickClearAllRecipes() { self.delegate?.clearAllRecipes() }
     
     func clickOpenStep() {
+        self.recipeSteps.removeAll()
+        self.getStepsFromRecipesSelected {
+            self.store.mergedStepsArray.removeAll()
+            self.mergeRecipeSteps()
+            for step in self.recipeSteps {
+                self.store.mergedStepsArray.append(step)
+            }
+        }
+        print("merged step count = \(store.mergedStepsArray.count)")
         self.delegate?.goToSingleStep()
         calculateExtraTime()
     }

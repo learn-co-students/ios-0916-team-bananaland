@@ -122,6 +122,7 @@ extension TraditionalRecipeViewController {
     }
     
     func buttonTapped(sender: UIButton) {
+        print("Calling button tapped")
         
         guard let selected = recipe else { return }
         
@@ -140,8 +141,10 @@ extension TraditionalRecipeViewController {
             })
     
         } else {
-            
+            print("will set recipe as selected")
+            print("recipe selected count before adding \(store.recipesSelected.count)")
             store.setRecipeSelected(recipe: selected)
+            print("recipe selected count after adding \(store.recipesSelected.count)")
             isSelected = true
             
             UIView.animate(withDuration: 0.3, animations: {
