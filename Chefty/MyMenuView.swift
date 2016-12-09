@@ -237,6 +237,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         }
         print("merged step count = \(store.mergedStepsArray.count)")
         UserDefaults.standard.set(0, forKey: "stepCurrent")
+        print("about to call calculate start time inside updatetableview")
         store.calculateStartTime()
         self.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"
         self.tableView.reloadData()

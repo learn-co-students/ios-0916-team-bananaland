@@ -118,15 +118,18 @@ class DataStore {
         
         if self.mergedStepsArray.count != 0 {
             let currentTime = Date()
+            print("Current time: \(currentTime)")
             let calendar = Calendar.current
             
             var servingTime = self.recipesSelected[0].servingTime // default or user selected serving time is same for all 4 recipes
+            print("serving time = \(servingTime)")
             
             //total cooking time = smallest timeToStart from mergedSteps + addedTime
             let totalCookingDuration = self.mergedStepsArray[0].timeToStart * -1 + self.addedTime
-            
+            print("cooking duration: \(totalCookingDuration)")
             //earliest possible serving time = current time + total cooking time
             self.earliestPossibleServeTime = calendar.date(byAdding: .minute, value: Int(totalCookingDuration), to: currentTime)!
+            print("earliest possible = \(self.earliestPossibleServeTime)")
             
             
             //start cooking time = serving time - total cooking duration
@@ -148,7 +151,9 @@ class DataStore {
             myFormatter.timeStyle = .short
             if let startCookingTime = startCookingTime {
                 let finalStartCookingTime = myFormatter.string(from: startCookingTime as Date)
+                print("final start cooking time: \(finalStartCookingTime)")
                 self.startCookingTime = "\(finalStartCookingTime)"
+                print("start cooking time: \(startCookingTime)")
             }
             
         }
