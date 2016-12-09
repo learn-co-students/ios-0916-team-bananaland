@@ -60,13 +60,9 @@ class CheftyAPIClient {
                                 recipeInst.sortValue = Int16(sortValueString)!
                             }
                         
-                            store.recipes.append(recipeInst)
-                            
-                            store.saveRecipesContext()
-                            store.getRecipesFromCoreData()
-                            
                         }
-                        
+                        store.saveRecipesContext()
+                        store.getRecipesFromCoreData()
                         store.populateHomeArrays()
                         completion()
                         

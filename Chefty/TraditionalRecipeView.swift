@@ -28,9 +28,9 @@ class TraditionalRecipeView: UIView {
         super.init(frame: frame)
         self.recipe = recipe
     
-        CheftyAPIClient.getStepsAndIngredients(recipe: recipe, completion: {
-            
-        })
+//        CheftyAPIClient.getStepsAndIngredients(recipe: recipe, completion: {
+//            
+//        })
         
         self.getStepsandIngredients()
     }
