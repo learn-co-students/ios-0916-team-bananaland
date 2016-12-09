@@ -32,6 +32,9 @@ class DataStore {
     
     var earliestPossibleServeTime: Date = Date()
     
+    var startCookingTimeField = UITextField() // TODO: Moving this up here after mege. Jim thinks a textField should not be stored as a property in the datastore. A viewcontroller should be in control of that, the text within the textfield can be stored in the datastore as a STring which ultimately gets displayed in a textfield on the viewcontroller.. but don't store the textfield here.
+
+    
     var showNotification = false
     
     func populateHomeArrays () {
@@ -127,11 +130,13 @@ class DataStore {
         print("recipe \(recipe.displayName), selected = \(recipe.selected), recipeSelected.count = \(self.recipesSelected.count)")
         print("recipesSelectedcount: \(self.recipesSelected.count)")
         print("mergedStepsCount: \(self.mergedStepsArray.count)")
+        self.calculateStartTime()
     }
     
     func setRecipeUnselected(recipe: Recipe) {
         recipe.selected = false
         self.updateSelectedRecipes()
+        
         print("recipe \(recipe.displayName), selected = \(recipe.selected), recipeSelected.count = \(self.recipesSelected.count)")
         self.saveRecipesContext()
         
@@ -149,6 +154,8 @@ class DataStore {
             }
         print("recipesSelected: \(self.recipesSelected.count)")
         print("mergedSteps: \(self.mergedStepsArray.count)")
+        
+        self.calculateStartTime()
     }
     
     
@@ -213,20 +220,23 @@ class DataStore {
     
     func calculateStartTime() {
         
-        if self.mergedStepsArray.count != 0 {
+        if self.recipesSelected.count != 0 && self.mergedStepsArray.count != 0 {
+            
+            print(" calc start recipes selected: \(self.recipesSelected.count), merged: \(self.mergedStepsArray.count)")
+
             let currentTime = Date()
-            print("Current time: \(currentTime)")
+            //print("Current time: \(currentTime)")
             let calendar = Calendar.current
             
             var servingTime = self.recipesSelected[0].servingTime // default or user selected serving time is same for all 4 recipes
-            print("serving time = \(servingTime)")
+           // print("serving time = \(servingTime)")
             
             //total cooking time = smallest timeToStart from mergedSteps + addedTime
-            let totalCookingDuration = self.mergedStepsArray[0].timeToStart * -1 + self.addedTime
+            let totalCookingDuration = self.mergedStepsArray[0].timeToStart * -1 //+ self.addedTime
             print("cooking duration: \(totalCookingDuration)")
             //earliest possible serving time = current time + total cooking time
             self.earliestPossibleServeTime = calendar.date(byAdding: .minute, value: Int(totalCookingDuration), to: currentTime)!
-            print("earliest possible = \(self.earliestPossibleServeTime)")
+            //print("earliest possible = \(self.earliestPossibleServeTime)")
             
             
             //start cooking time = serving time - total cooking duration
@@ -236,12 +246,14 @@ class DataStore {
             //check that serving time is greater than earliest possible serving time
             // --> if yes, servingTime & start cooking time will work, so don't change
             if servingTime?.compare(self.earliestPossibleServeTime as Date) == ComparisonResult.orderedDescending || servingTime?.compare(self.earliestPossibleServeTime as Date) == ComparisonResult.orderedSame {
-                
+                print("case 1 start cooking time = \(startCookingTime)")
             } else {
                 // --> if no, serving time = earliest possible serving time, start cooking time = earliest possible serving time - total duration
                 servingTime = self.earliestPossibleServeTime as NSDate?
                
                 startCookingTime = self.earliestPossibleServeTime.addingTimeInterval(TimeInterval(totalCookingDurationSeconds)) as NSDate?
+                
+                print("case 2 start cooking time = \(startCookingTime)")
             }
                         
             let myFormatter = DateFormatter()
@@ -250,10 +262,132 @@ class DataStore {
                 let finalStartCookingTime = myFormatter.string(from: startCookingTime as Date)
                 //print("final start cooking time: \(finalStartCookingTime)")
                 self.startCookingTime = "\(finalStartCookingTime)"
-                print("start cooking time: \(startCookingTime)")
+                //print("start cooking time: \(startCookingTime)")
             }
             
         }
     }
     
+    
+    //merged steps stuff!
+    
+//    var recipeSteps: [Step] = []
+//    var startCookingTimeField = UITextField()
+//    
+//    func getStepsFromRecipesSelected(completion: @escaping () -> ()) {
+//        self.recipeSteps.removeAll()
+//        
+//        for singleRecipe in self.recipesSelected {
+//            DispatchQueue.main.async {
+//                CheftyAPIClient.getStepsAndIngredients(recipe: singleRecipe, completion: {
+//                })
+//            }
+//            let allRecipeSteps = singleRecipe.steps!.allObjects as! [Step]
+//            self.recipeSteps += allRecipeSteps
+//        }
+//        
+//        completion()
+//    }
+    
+    
+//    func mergeRecipeSteps() {
+//        print("starting to merge recipe steps. recipe steps count = \(self.recipeSteps.count)")
+//        
+//        self.recipeSteps = self.recipeSteps.sorted { (step1: Step, step2: Step) -> Bool in
+//            
+//            //same start
+//            if step1.timeToStart == step2.timeToStart {
+//                
+//                //different attentionNeeded
+//                if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
+//                    return true
+//                } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
+//                    return false
+//                    
+//                    //same attentionNeeded, add shorter duration to addedTime
+//                } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
+//                    if step1.duration > step2.duration {
+//                        return false
+//                    } else if step1.duration < step2.duration {
+//                        return true
+//                    }
+//                }
+//            }
+//            
+//            //overlap duration
+//            if (step2.timeToStart > step1.timeToStart) && (step2.timeToStart < (step1.timeToStart + step1.duration)) {
+//                
+//                if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
+//                    return true
+//                    
+//                } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
+//                    return true
+//                    
+//                } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
+//                    return true
+//                }
+//            }
+//            return step1.timeToStart < step2.timeToStart
+//        }
+//    }
+    
+    
+    
+    func calculateExtraTime() {
+        self.addedTime = 0
+        
+        // add extra time
+        for (index, _) in self.mergedStepsArray.enumerated() {
+            
+            if index < self.mergedStepsArray.count - 2 {
+                
+                let step1 = self.mergedStepsArray[index]
+                let step2 = self.mergedStepsArray[index + 1]
+                
+                //same start
+                if step1.timeToStart == step2.timeToStart {
+                    
+                    //different attentionNeeded
+                    if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
+                        self.addedTime += Int(step1.timeToStart) + Int(step1.duration) - Int(step2.timeToStart)
+                        
+                        
+                        //same attentionNeeded, add shorter duration to addedTime
+                    } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
+                        if step1.duration > step2.duration {
+                            self.addedTime += Int(step2.duration)
+                            
+                        } else if step1.duration < step2.duration {
+                            self.addedTime += Int(step1.duration)
+                            
+                        }
+                    }
+                }
+                
+                //overlap duration
+                if (step2.timeToStart > step1.timeToStart) && (step2.timeToStart < (step1.timeToStart + step1.duration)) {
+                    
+                    if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
+                        self.addedTime += Int(step2.timeToStart) - (Int(step1.timeToStart) + Int(step1.duration))
+                        
+                        
+                    } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
+                        self.addedTime += (Int(step1.timeToStart) + Int(step1.duration)) - Int(step2.timeToStart)
+                        
+                        
+                    } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
+                        self.addedTime += (Int(step1.timeToStart) + Int(step1.duration)) - Int(step2.timeToStart)
+                        
+                    }
+                }
+            }
+                
+            else {
+                
+            }
+        }
+        
+    }
+    
 }
+
