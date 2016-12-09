@@ -94,13 +94,13 @@ class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
     }
     
     func onClickDeleteAction() {
-        print("deleted an item")
+        print(" ** deleted an item in the my menu page ** ")
         if let currentRowString = self.deleteButton.accessibilityLabel {
             if let currentRow = Int(currentRowString) {
-                if store.recipesSelected.count == 1 { // only one recipe left, treat same as clear all
+                if self.store.recipesSelected.count == 1 { // only one recipe left, treat same as clear all
                     self.delegate?.onClickClearAllRecipes()
                 } else {
-                    store.setRecipeUnselected(recipe: store.recipesSelected[currentRow])
+                    self.store.setRecipeUnselected(recipe: self.store.recipesSelected[currentRow])
                     self.delegate?.updateTableViewNow()
                 }
                 

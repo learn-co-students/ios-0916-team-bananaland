@@ -48,6 +48,7 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
                             if self.ingredientsPerRecipe.keys.contains(recipeName) {
                                 
                                 self.ingredientsPerRecipe[recipeName]!.append(contentsOf: ingredientsFromSteps)
+                                print("desc: \(self.ingredientsPerRecipe[recipeName]![0].ingredientDescription)")
                                 
                             } else {
                                 
@@ -55,24 +56,28 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
             
                             }
                             
-                            dump(self.ingredientsPerRecipe)
-
+                            //dump(self.ingredientsPerRecipe)
                         }
                         
                     } else {
                         
-                        print("NO STEP!")
+                        print("NO ingredients for STEP!")
                         
                     }
-
                 }
+                print("finished for loop")
+//                self.tableView.reloadData()
+//                
+//                DispatchQueue.main.async {
+//                    print("DispatchQueue.main.async in ingredients")
+//                    self.tableView.reloadData()
+//                    
+//                    
+//                }
                 
-                
-                DispatchQueue.main.async {
-                    
+                OperationQueue.main.addOperation {
+                    print("OperationQueue.main.addOperation in ingredients")
                     self.tableView.reloadData()
-                    
-                    
                 }
                 
             })

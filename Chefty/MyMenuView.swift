@@ -38,8 +38,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     var servingTimeValue: String = String()
     var startCookingTimeValue: String = String()
     var startCookingTimeField: UITextField = UITextField()
-    
-    var recipeSteps = [Step]()
 
     let ingredientsButton: UIBarButtonItem = UIBarButtonItem(title: "Ingredients", style: .plain , target: self, action: #selector(clickIngredients))
     let clearAllButton: UIBarButtonItem = UIBarButtonItem(title: "Clear All", style: .plain , target: self, action: #selector(onClickClearAllRecipes))
@@ -50,19 +48,22 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     override init(frame:CGRect){
         super.init(frame: frame)
         
+        // TODO: As of merge we commented this out. But I think we MIGHT need it, do some research. Is it being done by the datastore now?
+        
         print("merged steps on init: \(store.mergedStepsArray.count)")
         
         if self.store.mergedStepsArray.isEmpty {
             
-            self.getStepsFromRecipesSelected {
+            store.getStepsFromRecipesSelected {
                 
-                self.mergeRecipeSteps()
+                self.store.mergeRecipeSteps()
                 
-                for step in self.recipeSteps {
+                for step in self.store.recipeSteps {
                     self.store.mergedStepsArray.append(step)
                 }
             }
         }
+
         
         print("merged steps on init: \(store.mergedStepsArray.count)")
         
@@ -81,8 +82,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
                     recipeSelected2.servingTime = store.earliestPossibleServeTime as NSDate?
                     store.saveRecipesContext()
                 }
-            } else {
-                
             }
             self.servingTimeValue = myFormatter.string(from: recipeSelected.servingTime as! Date)
             self.servingTimeValue = "Serving Time: " + self.servingTimeValue
@@ -159,6 +158,9 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.timePicker.datePickerMode = .time
         self.timePicker.minimumDate = store.earliestPossibleServeTime  // change to earliest serve time when available
         self.timePicker.minuteInterval = 15
+        
+        print("recipesSelected: \(store.recipesSelected.count)")
+        print("mergedSteps: \(store.mergedStepsArray.count)")
 
     }
     
@@ -231,15 +233,15 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     //re-call recipesSelected from API, re-sort, re-append to mergedStepsArray
     func updateTableViewNow() {
         print("update table view getting called")
-        print("recipe steps count before remove all is \(self.recipeSteps.count)")
-        self.recipeSteps.removeAll()
-        self.getStepsFromRecipesSelected {
-            self.store.mergedStepsArray.removeAll()
-            self.mergeRecipeSteps()
-            for step in self.recipeSteps {
-                self.store.mergedStepsArray.append(step)
-            }
-        }
+        //print("recipe steps count before remove all is \(self.recipeSteps.count)")
+        //self.recipeSteps.removeAll()
+//        self.getStepsFromRecipesSelected {
+//            self.store.mergedStepsArray.removeAll()
+//            self.mergeRecipeSteps()
+//            for step in self.recipeSteps {
+//                self.store.mergedStepsArray.append(step)
+//            }
+//        }
         print("merged step count = \(store.mergedStepsArray.count)")
         UserDefaults.standard.set(0, forKey: "stepCurrent")
         print("about to call calculate start time inside updatetableview")
@@ -278,17 +280,17 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     }
     
     func clickOpenStep() {
-        self.recipeSteps.removeAll()
-        self.getStepsFromRecipesSelected {
-            self.store.mergedStepsArray.removeAll()
-            self.mergeRecipeSteps()
-            for step in self.recipeSteps {
-                self.store.mergedStepsArray.append(step)
-            }
-        }
+//        self.recipeSteps.removeAll()
+//        self.getStepsFromRecipesSelected {
+//            self.store.mergedStepsArray.removeAll()
+//            self.mergeRecipeSteps()
+//            for step in self.recipeSteps {
+//                self.store.mergedStepsArray.append(step)
+//            }
+//        }
         print("merged step count = \(store.mergedStepsArray.count)")
         self.delegate?.goToSingleStep()
-        calculateExtraTime()
+        //calculateExtraTime()
     }
     
     func getBackgroundImage(recipe: Recipe, imageView: UIImageView, view: UIView) {
@@ -307,124 +309,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
                 }
             }
         }
-    }
-    
-    
-    //Merged Steps Set Up
-    
-    func getStepsFromRecipesSelected(completion: @escaping () -> ()) {
-        self.recipeSteps.removeAll()
-       
-        for singleRecipe in store.recipesSelected {
-            DispatchQueue.main.async {
-                CheftyAPIClient.getStepsAndIngredients(recipe: singleRecipe, completion: {
-                })
-            }
-            let allRecipeSteps = singleRecipe.steps!.allObjects as! [Step]
-            self.recipeSteps += allRecipeSteps
-        }
-        
-        completion()
-    }
-    
-    
-    func mergeRecipeSteps() {
-        print("starting to merge recipe steps. recipe steps count = \(self.recipeSteps.count)")
-
-        self.recipeSteps = self.recipeSteps.sorted { (step1: Step, step2: Step) -> Bool in
-            
-            //same start
-            if step1.timeToStart == step2.timeToStart {
-                
-                //different attentionNeeded
-                if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
-                    return true
-                } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
-                    return false
-                    
-                    //same attentionNeeded, add shorter duration to addedTime
-                } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
-                    if step1.duration > step2.duration {
-                        return false
-                    } else if step1.duration < step2.duration {
-                        return true
-                    }
-                }
-            }
-            
-            //overlap duration
-            if (step2.timeToStart > step1.timeToStart) && (step2.timeToStart < (step1.timeToStart + step1.duration)) {
-                
-                if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
-                    return true
-                    
-                } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
-                    return true
-                    
-                } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
-                    return true
-                }
-            }
-            return step1.timeToStart < step2.timeToStart
-        }
-    }
-    
-    
-    
-    func calculateExtraTime() {
-        store.addedTime = 0
-        
-        // add extra time
-        for (index, _) in store.mergedStepsArray.enumerated() {
-            
-            if index < store.mergedStepsArray.count - 2 {
-                
-                let step1 = store.mergedStepsArray[index]
-                let step2 = store.mergedStepsArray[index + 1]
-
-                //same start
-                if step1.timeToStart == step2.timeToStart {
-                    
-                    //different attentionNeeded
-                    if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
-                        store.addedTime += Int(step1.timeToStart) + Int(step1.duration) - Int(step2.timeToStart)
-                        
-                        
-                        //same attentionNeeded, add shorter duration to addedTime
-                    } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
-                        if step1.duration > step2.duration {
-                            store.addedTime += Int(step2.duration)
-                            
-                        } else if step1.duration < step2.duration {
-                            store.addedTime += Int(step1.duration)
-                            
-                        }
-                    }
-                }
-                
-                //overlap duration
-                if (step2.timeToStart > step1.timeToStart) && (step2.timeToStart < (step1.timeToStart + step1.duration)) {
-                    
-                    if step1.fullAttentionRequired == false && step2.fullAttentionRequired == true {
-                        store.addedTime += Int(step2.timeToStart) - (Int(step1.timeToStart) + Int(step1.duration))
-                        
-                        
-                    } else if step1.fullAttentionRequired == true && step2.fullAttentionRequired == false {
-                        store.addedTime += (Int(step1.timeToStart) + Int(step1.duration)) - Int(step2.timeToStart)
-                        
-                        
-                    } else if step1.fullAttentionRequired == step2.fullAttentionRequired {
-                        store.addedTime += (Int(step1.timeToStart) + Int(step1.duration)) - Int(step2.timeToStart)
-                        
-                    }
-                }
-            }
-            
-            else {
-                
-            }
-        }
-        
     }
     
 }

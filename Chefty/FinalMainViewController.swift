@@ -23,6 +23,9 @@ class FinalMainViewController: UIViewController {
         setupView()
 
         self.navigationItem.setHidesBackButton(true, animated: false)
+        
+        print("recipesSelected: \(store.recipesSelected.count)")
+        print("mergedSteps: \(store.mergedStepsArray.count)")
 
     }
     
