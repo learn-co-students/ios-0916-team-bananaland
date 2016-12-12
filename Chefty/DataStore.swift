@@ -158,9 +158,7 @@ class DataStore {
     //Merged Steps Set Up
     
     func getStepsFromRecipesSelected(completion: @escaping () -> ()) {
-        print("1. recipe steps: \(self.recipeSteps.count)")
         self.recipeSteps.removeAll()
-        print("2. recipe steps: \(self.recipeSteps.count)")
         
         for (index, singleRecipe) in self.recipesSelected.enumerated() {
             
@@ -174,16 +172,10 @@ class DataStore {
                 }
             })
         }
-        
-        print("3. recipe steps: \(self.recipeSteps.count)")
-        
-        
-        print("6. recipe steps: \(self.recipeSteps.count)")
     }
     
     
     func mergeRecipeSteps() {
-        print("4. recipe steps: \(self.recipeSteps.count)")
         
         self.recipeSteps = self.recipeSteps.sorted { (step1: Step, step2: Step) -> Bool in
             
@@ -221,8 +213,6 @@ class DataStore {
             }
             return step1.timeToStart < step2.timeToStart
         }
-        
-        print("5. recipe steps: \(self.recipeSteps.count)")
     }
     
     func calculateStartTime() {
