@@ -71,7 +71,6 @@
 		C0AAB5431DDE64970055DF8B /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB5421DDE64970055DF8B /* DataStore.swift */; };
 		C0AAB5471DDE67300055DF8B /* CheftyAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB5461DDE67300055DF8B /* CheftyAPIClient.swift */; };
 		C0AAB5491DDE677C0055DF8B /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB5481DDE677C0055DF8B /* Secrets.swift */; };
-		C0BFDB981DFB27100029EF84 /* CheftyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BFDB971DFB27100029EF84 /* CheftyTests.swift */; };
 		C0BFDBA21DFB2F880029EF84 /* Dog.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BFDBA11DFB2F880029EF84 /* Dog.swift */; };
 		C0D2E4FA1DEC6C7700070E78 /* Contents.json in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4E31DEC6C7700070E78 /* Contents.json */; };
 		C0D2E4FB1DEC6C7700070E78 /* Icon-App-20x20@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C0D2E4E41DEC6C7700070E78 /* Icon-App-20x20@1x.png */; };
@@ -97,6 +96,8 @@
 		C0D2E5121DEC779500070E78 /* SingleStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2E5111DEC779500070E78 /* SingleStepViewController.swift */; };
 		C0D2E5141DEC77D200070E78 /* SingleStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2E5131DEC77D200070E78 /* SingleStepView.swift */; };
 		C0DBD0611DDD25E800B9B9FF /* MaterialIcons-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = C0252C661DDD23AD00046AD0 /* MaterialIcons-Regular.otf */; };
+		C0EF6E3B1DFE11B600BBDD02 /* CheftyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BFDB971DFB27100029EF84 /* CheftyTests.swift */; };
+		C0EF6E3E1DFE136900BBDD02 /* APITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0EF6E3D1DFE136900BBDD02 /* APITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -206,6 +207,7 @@
 		C0D2E4F91DEC6C7700070E78 /* Icon-Small-50x50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50x50@2x.png"; sourceTree = "<group>"; };
 		C0D2E5111DEC779500070E78 /* SingleStepViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleStepViewController.swift; sourceTree = "<group>"; };
 		C0D2E5131DEC77D200070E78 /* SingleStepView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleStepView.swift; sourceTree = "<group>"; };
+		C0EF6E3D1DFE136900BBDD02 /* APITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APITests.swift; sourceTree = "<group>"; };
 		F99EB0E7E4778030CC432A72 /* Pods_Chefty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chefty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -410,6 +412,7 @@
 			isa = PBXGroup;
 			children = (
 				C0BFDB971DFB27100029EF84 /* CheftyTests.swift */,
+				C0EF6E3D1DFE136900BBDD02 /* APITests.swift */,
 				C0BFDB991DFB27100029EF84 /* Info.plist */,
 			);
 			path = CheftyTests;
@@ -691,7 +694,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0BFDB981DFB27100029EF84 /* CheftyTests.swift in Sources */,
+				C0EF6E3E1DFE136900BBDD02 /* APITests.swift in Sources */,
+				C0EF6E3B1DFE11B600BBDD02 /* CheftyTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -918,6 +922,7 @@
 				C0BFDB9E1DFB27100029EF84 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

@@ -26,10 +26,7 @@ class DataStore {
     
     var mergedStepsArray: [Step] = [] {
         didSet {
-            
-            
-            
-            
+
         }
     }
     var startCookingTime: String = ""
