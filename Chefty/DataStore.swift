@@ -26,10 +26,7 @@ class DataStore {
     
     var mergedStepsArray: [Step] = [] {
         didSet {
-            
-            
-            
-            
+
         }
     }
     var startCookingTime: String = ""
@@ -56,10 +53,8 @@ class DataStore {
                 
             }
         }
-        
-        
     }
-    
+
     
     func getRecipesFromDB(completion: @escaping () -> ()) {
         CheftyAPIClient.getRecipiesFromDB {_ in

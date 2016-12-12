@@ -25,46 +25,16 @@ class CheftyAPIClient {
                         let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: String]]
                         
                         for recipeDict in responseJSON {
-                            let context = store.persistentContainer.viewContext
-                            let recipeInst = NSEntityDescription.insertNewObject(forEntityName: "Recipe", into: context) as! Recipe
+                            // unwrap the incoming data and create recipes in core data
+                            guard let unwrappedDisplayName = recipeDict["displayName"] else { fatalError() }
+                            guard let unwrappedRecipeID = recipeDict["id"] else { fatalError() }
+                            guard let unwrappedImageURL = recipeDict["imageURL"] else { fatalError() }
+                            guard let unwrappedImageURLSmall = recipeDict["imageURLSmall"] else { fatalError() }
+                            guard let unwrappedServings = recipeDict["servings"] else { fatalError() }
+                            guard let unwrappedRecipeType = recipeDict["type"] else { fatalError() }
+                            guard let unwrappedSortValue = recipeDict["sortValue"] else { fatalError() }
                             
-                            if let unwrappedDisplayName = recipeDict["displayName"] {
-                                recipeInst.displayName =  unwrappedDisplayName as String
-                            }
-                            
-                            if let unwrappedRecipeID = recipeDict["id"] {
-                                recipeInst.id = unwrappedRecipeID as String
-                            }
-                            
-                            
-                            if let unwrappedImageURL = recipeDict["imageURL"] {
-                                recipeInst.imageURL = unwrappedImageURL as String
-                            }
-                            
-                            if let unwrappedImageURLSmall = recipeDict["imageURLSmall"] {
-                                recipeInst.imageURLSmall = unwrappedImageURLSmall as String
-                            }
-                            
-                            if let unwrappedServings = recipeDict["servings"] {
-                                recipeInst.servings = unwrappedServings as String
-                            }
-                            
-                            if let unwrappedRecipeType = recipeDict["type"] {
-                                recipeInst.type = unwrappedRecipeType as String
-                            }
-                            
-                            recipeInst.servingTime = self.getServingTime() as NSDate?
-                            
-                            if let unwrappedSortValue = recipeDict["sortValue"] {
-                                let sortValueString = unwrappedSortValue as String
-                                recipeInst.sortValue = Int16(sortValueString)!
-                            }
-                        
-                            store.recipes.append(recipeInst)
-                            
-                            store.saveRecipesContext()
-                            store.getRecipesFromCoreData()
-                            
+                            self.createRecipe(displayName: unwrappedDisplayName, recipeID: unwrappedRecipeID, imageURL: unwrappedImageURL, imageURLSmall: unwrappedImageURLSmall, servings: unwrappedServings, type: unwrappedRecipeType, sortValue: unwrappedSortValue)
                         }
                         
                         store.populateHomeArrays()
@@ -78,6 +48,31 @@ class CheftyAPIClient {
             task.resume()
         }
     }
+    
+    class func createRecipe(displayName: String, recipeID: String, imageURL: String, imageURLSmall: String, servings: String, type: String, sortValue: String) {
+        
+        let store = DataStore.sharedInstance
+        
+        // create the core data object
+        let context = store.persistentContainer.viewContext
+        let recipeInst = NSEntityDescription.insertNewObject(forEntityName: "Recipe", into: context) as! Recipe
+        
+        // set the properties
+        recipeInst.displayName = displayName
+        recipeInst.id = recipeID
+        recipeInst.imageURL = imageURL
+        recipeInst.imageURLSmall = imageURLSmall
+        recipeInst.servings = servings
+        recipeInst.type = type
+        recipeInst.servingTime = self.getServingTime() as NSDate?
+        recipeInst.sortValue = Int16(sortValue)!
+        
+        // add new recipe to dataStore/coredata
+        store.recipes.append(recipeInst)
+        store.saveRecipesContext()
+        store.getRecipesFromCoreData()
+    }
+    
     
     class func getServingTime () -> Date {
         let calendarInst = Calendar(identifier: .gregorian)

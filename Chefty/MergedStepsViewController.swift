@@ -26,6 +26,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         let labelFont : UIFont = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))!
         let attributesNormal = [ NSFontAttributeName : labelFont ]
         selectRecipeButton.setTitleTextAttributes(attributesNormal, for: .normal)
+        self.tableView.backgroundColor = UIColor(red: 215/255, green: 210/255, blue: 185/255, alpha: 1.0)
         
         createViewAndTableView()
         
@@ -49,7 +50,7 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("\n")
-        print("Count of merged Steps Array = \(store.mergedStepsArray.count)")
+        //print("Count of merged Steps Array = \(store.mergedStepsArray.count)")
         return store.mergedStepsArray.count
     }
     
