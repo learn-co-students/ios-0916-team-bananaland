@@ -53,9 +53,7 @@
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     // get data
-    
     func calculateData() {
         
         // get the expected completion time for the step
@@ -94,11 +92,7 @@
         }
     }
     
-    
-    
-    
     //create labels
-    
     func createRecipeImage(){
         self.addSubview(self.recipeUIImageView)
         
@@ -201,10 +195,8 @@
         self.procedureBodyTextView.backgroundColor = UIColor.white
         self.procedureBodyTextView.font = UIFont(name: Constants.appFont.light.rawValue, size: 20)
         self.procedureBodyTextView.textAlignment = .left
-        
-        procedureBodyTextView.numberOfLines = 0
-        procedureBodyTextView.lineBreakMode = .byWordWrapping
-        
+        self.procedureBodyTextView.numberOfLines = 0
+        self.procedureBodyTextView.lineBreakMode = .byWordWrapping
         self.procedureBodyTextView.isUserInteractionEnabled = false
         
         self.addSubview(self.procedureBodyTextView)
@@ -213,7 +205,6 @@
         self.procedureBodyTextView.topAnchor.constraint(equalTo: self.expectedStepCompletionLabel.bottomAnchor, constant: 0).isActive = true
         self.procedureBodyTextView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 7).isActive = true
         self.procedureBodyTextView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -7).isActive = true
-        
         self.procedureBodyTextView.text = self.procedureBody
     }
     
@@ -244,10 +235,7 @@
         procedureBodyTextView.frame.size = procedureBodyTextView.bounds.size
     }
     
-    
-    
     // create actions
-    
     func onClickNextStep(){
         if UserDefaults.standard.integer(forKey: "stepCurrent") < self.store.mergedStepsArray.count {
             let nextStep:Int = Int(UserDefaults.standard.integer(forKey: "stepCurrent")) + 1
@@ -255,7 +243,5 @@
             self.delegate?.goToNextStep()
         }
     }
-    
-    
  }
 

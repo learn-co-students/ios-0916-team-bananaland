@@ -57,9 +57,6 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
             })
             store.showNotification = false  // only show notification when user enters the app
         }
-        
-        print("recipesSelected: \(store.recipesSelected.count)")
-        print("mergedSteps: \(store.mergedStepsArray.count)")
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
@@ -89,7 +86,6 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
     }
     
     func goToIngredients() {
-        print("goToIngredients getting called")
         let ingredientsView = IngredientsController()
         navigationController?.pushViewController(ingredientsView, animated: true)
     }
@@ -121,7 +117,7 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         
         myMenuViewInst.updateTableViewNow()
         myMenuViewInst.tableView.tableFooterView = UIView()  // this removes the grid lines between the rows
-        
+
         UserDefaults.standard.set(0, forKey: "stepCurrent")
         
         // show prompt
@@ -132,9 +128,7 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
             self.goToHome()
         }
         closeAction.isEnabled = true
-        
         alertController.addAction(closeAction)
         self.present(alertController, animated: true) { }
-        
     }
 }

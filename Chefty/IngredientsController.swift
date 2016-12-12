@@ -20,9 +20,7 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        print("we're in the view did load!")
-
+        
         // add the select recipe button to the nav bar
         let myMenuButton = UIBarButtonItem(title: "My Menu", style: .plain, target: self, action: #selector(goToMyMenu))
         navigationItem.leftBarButtonItems = [myMenuButton]
@@ -59,7 +57,6 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
                 OperationQueue.main.addOperation {
                     self.tableView.reloadData()
                 }
-
             })
         }
 
@@ -72,7 +69,6 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         tableView.sizeToFit()
         tableView.backgroundColor = UIColor(red: 215/255, green: 210/255, blue: 185/255, alpha: 1.0)
 
-
         self.view.addSubview(self.tableView)
 
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -82,9 +78,6 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         self.tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
 
         self.title = "Ingredients"
-
-        print("we're at the end of the view did load")
-
     }
 
     func goToMyMenu(){
@@ -121,9 +114,7 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
 
         guard let recipe = store.recipesSelected[section].displayName else { return 0 }
         guard let ingredients = ingredientsPerRecipe[recipe] else { return 0 }
-
-        print("rows in section \(ingredients.count)")
-
+        
         return ingredients.count
     }
 
@@ -135,9 +126,7 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         guard let ingredients = ingredientsPerRecipe[recipe] else { return cell }
         let ingredient = ingredients[indexPath.row]
         let ingredientName = ingredient.ingredientDescription
-
-        print(ingredients.count)
-
+        
         cell.selectionStyle = .none
         cell.textLabel?.text = ingredientName
         cell.textLabel?.font = UIFont(name: "GillSans-Light", size: 16.5)
@@ -149,9 +138,7 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         } else {
             cell.checkBox.image = UIImage(named: "ic_check_box_outline_blank_2x")
         }
-
-        print("creating a cell for \(ingredientName)")
-
+        
         return cell
     }
 
@@ -170,7 +157,5 @@ class IngredientsController: UIViewController, UITableViewDataSource, UITableVie
         }
 
         tableView.reloadData()
-
     }
-
 }

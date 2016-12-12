@@ -30,27 +30,20 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         
         createViewAndTableView()
         
-        //tableView.reloadData()
         self.automaticallyAdjustsScrollViewInsets = false
-        
         self.tableView.backgroundColor = UIColor(red: 215/255, green: 210/255, blue: 185/255, alpha: 1.0)
         
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
         self.title = "All Steps"
-        //self.tableView.reloadData()
     }
-    
-
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("\n")
-        //print("Count of merged Steps Array = \(store.mergedStepsArray.count)")
         return store.mergedStepsArray.count
     }
     
@@ -94,7 +87,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         myView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         myView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 64).isActive = true
         
-        
         myLabel.translatesAutoresizingMaskIntoConstraints = false
         myLabel.widthAnchor.constraint(equalTo: myView.widthAnchor, multiplier: 1.0).isActive = true
         myLabel.leftAnchor.constraint(equalTo: myView.leftAnchor).isActive = true
@@ -104,16 +96,12 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         myLabel.textColor = UIColor(red: 255/255, green: 255/255, blue: 238/255, alpha: 1.0)
         myLabel.textAlignment = .center
         
-        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.widthAnchor.constraint(equalTo: self.view.widthAnchor, multiplier: 1.0).isActive = true
         tableView.heightAnchor.constraint(equalTo: self.view.heightAnchor, multiplier: 1.0).isActive = true
         tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: myView.bottomAnchor).isActive = true
-        
-        
     }
-    
     
     func getImage(recipe: Recipe, imageView: UIImageView, view: UIView) {
         if let imageURLString = recipe.imageURLSmall {

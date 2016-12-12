@@ -43,14 +43,9 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     let clearAllButton: UIBarButtonItem = UIBarButtonItem(title: "Clear All", style: .plain , target: self, action: #selector(onClickClearAllRecipes))
     var openSingleStepButton: UIBarButtonItem = UIBarButtonItem(title: "Open Step", style: .plain , target: self, action: #selector(clickOpenStep))
     
-    
     //Initialize
     override init(frame:CGRect){
         super.init(frame: frame)
-        
-        // TODO: As of merge we commented this out. But I think we MIGHT need it, do some research. Is it being done by the datastore now?
-        
-        print("merged steps on init: \(store.mergedStepsArray.count)")
         
         if self.store.mergedStepsArray.isEmpty {
             
@@ -65,7 +60,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         }
 
         store.calculateStartTime()
-        print("self.startCookingTimeField.text = Start Cooking: \(store.startCookingTime)")
         
         // format the time
         let myFormatter = DateFormatter()
@@ -155,12 +149,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.timePicker.datePickerMode = .time
         self.timePicker.minimumDate = store.earliestPossibleServeTime  // change to earliest serve time when available
         self.timePicker.minuteInterval = 15
-        
-        print("recipesSelected: \(store.recipesSelected.count)")
-        print("mergedSteps: \(store.mergedStepsArray.count)")
-
     }
-    
     
     func doneClickTimePicker() {
         let dateFormatterInst = DateFormatter()
@@ -180,9 +169,9 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         self.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"
     }
     
-    
-    func cancelClickTimePicker() { self.servingTimeField.resignFirstResponder() }
-    
+    func cancelClickTimePicker() {
+        self.servingTimeField.resignFirstResponder()
+    }
     
     func createPickerToolBar() -> UIToolbar {
         let toolbarPicker = UIToolbar()
@@ -193,7 +182,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         toolbarPicker.setItems([cancelButton, spaceButton, doneButton], animated: false)
         return toolbarPicker
     }
-    
     
     // setup tableview
     func numberOfSections(in tableView: UITableView) -> Int { return 1 }
@@ -212,7 +200,7 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        // the tableview cells are divided up to always fill the page
+        // the tableview cells always fill the page
         let rowHeight = (tableView.bounds.height-60)/CGFloat(store.recipesSelected.count)
         return rowHeight
     }
@@ -229,17 +217,12 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     //re-call recipesSelected from API, re-sort, re-append to mergedStepsArray
     func updateTableViewNow() {
-        print("update table view getting called")
-        print("merged step count = \(store.mergedStepsArray.count)")
         UserDefaults.standard.set(0, forKey: "stepCurrent")
-        print("about to call calculate start time inside updatetableview")
         if store.mergedStepsArray.count > 0 {
             store.calculateStartTime()
             self.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"
         }
-        //print("self.startCookingTimeField.text = Start Cooking: \(store.startCookingTime)")
         self.tableView.reloadData()
-        print("end update function")
     }
     
     // serving time field selected delegate method
@@ -250,7 +233,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
         
         // present date picker
         UIView.animate(withDuration: 0.3, animations: {
-            
             self.datePickerContainerViewOffScreenConstraint.isActive = false
             self.datePickerContainerViewOnScreenConstraint.isActive = true
             self.layoutIfNeeded()
@@ -259,26 +241,15 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     }
     
     func clickIngredients() {
-        print("clickIngredients getting called")
-        self.delegate?.goToIngredients() }
+        self.delegate?.goToIngredients()
+    }
     
     func onClickClearAllRecipes() {
-        print("click clear all")
         self.delegate?.clearAllRecipes()
     }
     
     func clickOpenStep() {
-//        self.recipeSteps.removeAll()
-//        self.getStepsFromRecipesSelected {
-//            self.store.mergedStepsArray.removeAll()
-//            self.mergeRecipeSteps()
-//            for step in self.recipeSteps {
-//                self.store.mergedStepsArray.append(step)
-//            }
-//        }
-        print("merged step count = \(store.mergedStepsArray.count)")
         self.delegate?.goToSingleStep()
-        //calculateExtraTime()
     }
     
     func getBackgroundImage(recipe: Recipe, imageView: UIImageView, view: UIView) {
@@ -298,7 +269,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
             }
         }
     }
-    
 }
 
 
@@ -320,7 +290,6 @@ extension String {
         default:
             print("error")
         }
-        
         return totalMinutes
     }
     
@@ -340,7 +309,6 @@ extension String {
         default:
             print("error")
         }
-        
         return totalMinutes
     }
     

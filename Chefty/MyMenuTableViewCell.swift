@@ -38,10 +38,10 @@ class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
         imageViewInst.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         imageViewInst.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         imageViewInst.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        imageViewInst.translatesAutoresizingMaskIntoConstraints = false
         
         //layout GradientView
         gradientView = GradientView(frame: imageViewInst.frame)
-//        gradientView.layer.cornerRadius = 10.0
         gradientView.layer.masksToBounds = true
         self.contentView.addSubview(gradientView)
         
@@ -52,23 +52,18 @@ class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
         gradientView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
         
         gradientViewLeftToRight = GradientViewLeftToRight(frame: imageViewInst.frame)
-//        gradientViewLeftToRight.layer.cornerRadius = 10.0
         gradientViewLeftToRight.layer.masksToBounds = true
         self.contentView.addSubview(gradientViewLeftToRight)
-        
         gradientViewLeftToRight.translatesAutoresizingMaskIntoConstraints = false
         gradientViewLeftToRight.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
         gradientViewLeftToRight.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
         gradientViewLeftToRight.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
         gradientViewLeftToRight.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
         
-        imageViewInst.translatesAutoresizingMaskIntoConstraints = false
-        
         // recipeDesc label
         self.recipeDescField.textColor = UIColor.white
         self.recipeDescField.isUserInteractionEnabled = false
-        self.recipeDescField.font = UIFont(name: "GillSans-Light", size: 30)
-//        self.recipeDescField.font =  UIFont(name: Constants.appFont.bold.rawValue, size: CGFloat(Constants.fontSize.medium.rawValue))
+        self.recipeDescField.font = UIFont(name: Constants.appFont.light.rawValue, size: 30)
         contentView.addSubview(self.recipeDescField)
         self.recipeDescField.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10).isActive = true
         self.recipeDescField.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 10).isActive = true
@@ -94,7 +89,6 @@ class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
     }
     
     func onClickDeleteAction() {
-        print(" ** deleted an item in the my menu page ** ")
         if let currentRowString = self.deleteButton.accessibilityLabel {
             if let currentRow = Int(currentRowString) {
                 if self.store.recipesSelected.count == 1 { // only one recipe left, treat same as clear all
@@ -103,7 +97,6 @@ class MyMenuTableViewCell: UITableViewCell, UITextFieldDelegate {
                     self.store.setRecipeUnselected(recipe: self.store.recipesSelected[currentRow])
                     self.delegate?.updateTableViewNow()
                 }
-                
             }
         }
     }

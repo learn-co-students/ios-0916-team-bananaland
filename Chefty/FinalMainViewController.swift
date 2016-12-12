@@ -23,9 +23,6 @@ class FinalMainViewController: UIViewController {
         setupView()
 
         self.navigationItem.setHidesBackButton(true, animated: false)
-        
-        print("recipesSelected: \(store.recipesSelected.count)")
-        print("mergedSteps: \(store.mergedStepsArray.count)")
 
     }
     
@@ -90,9 +87,6 @@ class FinalMainViewController: UIViewController {
         
         controller.addTarget(self, action: #selector(selectionDidChange(sender:)), for: .valueChanged)
         controller.selectedIndex = 0
-//       presentingVC = appetizerVC
-//        setupRecipeView(remove: appetizerVC, add: mainDishVC)
-        
     }
     
     func selectionDidChange(sender: UIControl) {
@@ -178,7 +172,6 @@ class FinalMainViewController: UIViewController {
         default : break
             
         }
-        
     }
     
     private func setupRecipeView(remove presentingViewController: UIViewController?, add newViewController: UIViewController) {
@@ -209,7 +202,6 @@ class FinalMainViewController: UIViewController {
         if self.store.recipesSelected.isEmpty == false {
             let myMenu = MyMenuViewController()
             navigationController?.pushViewController(myMenu, animated: true)
-            //navigationController?.popToRootViewController(animated: true)
         }
     }
     

@@ -31,7 +31,6 @@ class IngredientsTableViewCell: UITableViewCell {
         
         checkBox.backgroundColor = UIColor.clear
         
-        
         //text label
         textLabel?.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         textLabel?.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 30).isActive = true
