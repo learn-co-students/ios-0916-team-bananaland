@@ -299,7 +299,3 @@ class TraditionalRecipeView: UIView {
     }
     
 }
-
-
-
-
