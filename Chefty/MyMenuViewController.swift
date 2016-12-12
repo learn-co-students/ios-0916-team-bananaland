@@ -39,7 +39,7 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         notificationManagerInst.notificationsTitleTextColor = UIColor.black
         notificationManagerInst.notificationsBodyTextColor = UIColor.darkGray
         notificationManagerInst.notificationsSeperatorColor = UIColor.gray
-        notificationManagerInst.notificationsIcon = UIImage(named: "Icon-App-76x76")
+        notificationManagerInst.notificationsIcon = UIImage(named: "Icon-App-72x72")
         
         // set the notification message
         var notificationMessage = String()
