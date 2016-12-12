@@ -31,6 +31,9 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         
         //tableView.reloadData()
         self.automaticallyAdjustsScrollViewInsets = false
+        
+        self.tableView.backgroundColor = UIColor(red: 215/255, green: 210/255, blue: 185/255, alpha: 1.0)
+        
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
