@@ -51,7 +51,7 @@
 		C0252C6A1DDD243100046AD0 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0252C691DDD243100046AD0 /* Constants.swift */; };
 		C053D7D31DFF180300AE1FE3 /* Icon-App-72x72@1x.png in Resources */ = {isa = PBXBuildFile; fileRef = C053D7D21DFF180300AE1FE3 /* Icon-App-72x72@1x.png */; };
 		C053D7D51DFF184700AE1FE3 /* iTunesArtwork@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = C053D7D41DFF184700AE1FE3 /* iTunesArtwork@3x.png */; };
-		C053D7D71DFF1D1900AE1FE3 /* launchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C053D7D61DFF1D1900AE1FE3 /* launchScreen.storyboard */; };
+		C053D7D71DFF1D1900AE1FE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C053D7D61DFF1D1900AE1FE3 /* LaunchScreen.storyboard */; };
 		C054B2A01DE1185C00F4DEB1 /* MyMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C054B29F1DE1185C00F4DEB1 /* MyMenuTableViewCell.swift */; };
 		C08F8B941DE34A940092144F /* Chefty.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C08F8B921DE34A940092144F /* Chefty.xcdatamodeld */; };
 		C08FBF881DE6329300699D9C /* GradientViewLeftToRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08FBF871DE6329300699D9C /* GradientViewLeftToRight.swift */; };
@@ -124,7 +124,7 @@
 		C0252C691DDD243100046AD0 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C053D7D21DFF180300AE1FE3 /* Icon-App-72x72@1x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-App-72x72@1x.png"; sourceTree = "<group>"; };
 		C053D7D41DFF184700AE1FE3 /* iTunesArtwork@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@3x.png"; sourceTree = "<group>"; };
-		C053D7D61DFF1D1900AE1FE3 /* launchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = launchScreen.storyboard; sourceTree = "<group>"; };
+		C053D7D61DFF1D1900AE1FE3 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C054B29F1DE1185C00F4DEB1 /* MyMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMenuTableViewCell.swift; sourceTree = "<group>"; };
 		C08F8B931DE34A940092144F /* Chefty.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Chefty.xcdatamodel; sourceTree = "<group>"; };
 		C08FBF871DE6329300699D9C /* GradientViewLeftToRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientViewLeftToRight.swift; sourceTree = "<group>"; };
@@ -185,7 +185,7 @@
 				C08F8B921DE34A940092144F /* Chefty.xcdatamodeld */,
 				A72DBEA31DE4A75F00867C86 /* Chefty-Bridging-Header.h */,
 				A7B968F01DEF0B7D003C6116 /* Main.storyboard */,
-				C053D7D61DFF1D1900AE1FE3 /* launchScreen.storyboard */,
+				C053D7D61DFF1D1900AE1FE3 /* LaunchScreen.storyboard */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -419,7 +419,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C053D7D51DFF184700AE1FE3 /* iTunesArtwork@3x.png in Resources */,
-				C053D7D71DFF1D1900AE1FE3 /* launchScreen.storyboard in Resources */,
+				C053D7D71DFF1D1900AE1FE3 /* LaunchScreen.storyboard in Resources */,
 				A7C1E1C11DDCD97300BD8A13 /* Assets.xcassets in Resources */,
 				A7B968F11DEF0B7D003C6116 /* Main.storyboard in Resources */,
 				C053D7D31DFF180300AE1FE3 /* Icon-App-72x72@1x.png in Resources */,
@@ -663,6 +663,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -687,6 +688,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
