@@ -26,28 +26,31 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         let labelFont : UIFont = UIFont(name: Constants.appFont.regular.rawValue, size: CGFloat(Constants.fontSize.xsmall.rawValue))!
         let attributesNormal = [ NSFontAttributeName : labelFont ]
         selectRecipeButton.setTitleTextAttributes(attributesNormal, for: .normal)
+        self.tableView.backgroundColor = UIColor(red: 215/255, green: 210/255, blue: 185/255, alpha: 1.0)
         
         createViewAndTableView()
         
-        tableView.reloadData()
+        //tableView.reloadData()
         self.automaticallyAdjustsScrollViewInsets = false
+        
+        self.tableView.backgroundColor = UIColor(red: 215/255, green: 210/255, blue: 185/255, alpha: 1.0)
+        
     }
     
     override func viewWillAppear(_ animated: Bool = false) {
         self.title = "All Steps"
-        self.tableView.reloadData()
+        //self.tableView.reloadData()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
+
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("\n")
+        //print("Count of merged Steps Array = \(store.mergedStepsArray.count)")
         return store.mergedStepsArray.count
     }
     
@@ -58,7 +61,6 @@ class MergedStepsViewController: UIViewController, UITableViewDataSource, UITabl
         if let stepTitle = store.mergedStepsArray[indexPath.row].stepTitle {
             cell.textLabelInst.text = "\(indexPath.row + 1). \(stepTitle)"
             cell.backgroundColor = UIColor(red: 215/255, green: 210/255, blue: 185/255, alpha: 1.0)
-            cell.selectionStyle = .none
             cell.textLabelInst.font = UIFont(name: Constants.appFont.light.rawValue, size: 21)
         }
         self.getImage(recipe: store.mergedStepsArray[indexPath.row].recipe!, imageView: cell.imageViewInst, view: cell)

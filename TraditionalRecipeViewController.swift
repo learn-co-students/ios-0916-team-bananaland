@@ -40,20 +40,14 @@ class TraditionalRecipeViewController: UIViewController {
         let attributesNormal = [ NSFontAttributeName : labelFont ]
         myMenuButton.setTitleTextAttributes(attributesNormal, for: .normal)
         
-        print(" --------- recipe selected in recipe view controller: \(self.recipe?.displayName) ------- ")
-        
         self.traditionalRecipeView.recipe = self.recipe
         setupElements()
         checkStatus()
-        
-        print(" -------- traditional recipe: \(self.traditionalRecipeView.recipe?.displayName) in viewDidLoad ------- ")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.title = "Recipe"
-        
-        print(" -------- traditional recipe: \(self.traditionalRecipeView.recipe?.displayName) in viewWillAppear in VC ------- ")
     }
     
     override func didReceiveMemoryWarning() {
@@ -61,8 +55,6 @@ class TraditionalRecipeViewController: UIViewController {
     }
     
     override func loadView(){
-        
-        //print("self.recipe?.displayName: \(self.recipe?.displayName)")
         self.traditionalRecipeView = TraditionalRecipeView(frame: CGRect.zero, recipe: recipe!)
         self.view = self.traditionalRecipeView
         
@@ -127,20 +119,20 @@ extension TraditionalRecipeViewController {
         print("Calling button tapped")
         
         //*** put merge stuff and calculate time stuff here again
-        store.getStepsFromRecipesSelected {
-            self.store.mergedStepsArray.removeAll()
-            self.store.mergeRecipeSteps()
-            for step in self.store.recipeSteps {
-                self.store.mergedStepsArray.append(step)
-            }
-        }
-        print("merged step count = \(store.mergedStepsArray.count)")
+//        store.getStepsFromRecipesSelected {
+//            self.store.mergedStepsArray.removeAll()
+//            self.store.mergeRecipeSteps()
+//            for step in self.store.recipeSteps {
+//                self.store.mergedStepsArray.append(step)
+//            }
+//        }
+//        print("merged step count = \(store.mergedStepsArray.count)")
         UserDefaults.standard.set(0, forKey: "stepCurrent")
-        print("about to call calculate start time inside updatetableview")
-        if store.mergedStepsArray.count > 0 {
-            store.calculateStartTime()
-            store.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"
-        }
+//        print("about to call calculate start time inside updatetableview")
+//        if store.mergedStepsArray.count > 0 {
+//            store.calculateStartTime()
+//            store.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"
+//        }
         
         
         

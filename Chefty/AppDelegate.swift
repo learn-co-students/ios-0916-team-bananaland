@@ -35,23 +35,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window!.backgroundColor = UIColor.white
         
-        if store.recipesSelected.count == 0 {
+        if self.store.recipesSelected.count == 0 {
             
             self.initialViewController = FinalMainViewController()
             
             let destVC = initialViewController as! FinalMainViewController
             
-               store.getRecipesFromDB {
-                    OperationQueue.main.addOperation {
-                        self.initialViewController.reloadInputViews()
-                        print("We are done loading the data.")
-                        destVC.mainDishVC.collectionView.reloadData()
+                if self.store.recipes.count < 5 {
+                    store.getRecipesFromDB {
+                        OperationQueue.main.addOperation {
+                            self.initialViewController.reloadInputViews()
+                            //print("We are done loading the data. recipes.count = \(self.store.recipes.count)")
+                            destVC.mainDishVC.collectionView.reloadData()
+                        }
                     }
                 }
             
         } else {
-            
-            // we have recipes seelcted, show them
             store.showNotification = true
             self.initialViewController = MyMenuViewController()
             
@@ -85,6 +85,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
+        for (n, recipe) in self.store.recipes.enumerated() {
+            if recipe.selected == false {
+                self.store.recipes.remove(at: n)
+            }
+        }
+        print("recipes remaining at shutdown: \(self.store.recipes.count)")
         saveContext()
     }
     
