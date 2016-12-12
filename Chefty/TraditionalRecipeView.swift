@@ -301,32 +301,6 @@ class TraditionalRecipeView: UIView {
 }
 
 
-extension TraditionalRecipeView {
-    
-    func infoClick()  {
-        
-        let storyboard: UIStoryboard = UIStoryboard (name: "Main", bundle: nil)
-        let vc: RecipePageViewController = storyboard.instantiateViewController(withIdentifier: "recipePVC") as! RecipePageViewController
-        let currentController = self.getCurrentViewController()
-        vc.steps = ingredientsArray
-        currentController?.present(vc, animated: false, completion: nil)
-        
-    }
-    
-    func getCurrentViewController() -> UIViewController? {
-        
-        if let rootController = UIApplication.shared.keyWindow?.rootViewController {
-            var currentController: UIViewController! = rootController
-            while( currentController.presentedViewController != nil ) {
-                currentController = currentController.presentedViewController
-            }
-            return currentController
-        }
-        return nil
-        
-    }
-    
-}
 
 
 
