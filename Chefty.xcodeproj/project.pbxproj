@@ -55,6 +55,8 @@
 		C054B2A01DE1185C00F4DEB1 /* MyMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C054B29F1DE1185C00F4DEB1 /* MyMenuTableViewCell.swift */; };
 		C08F8B941DE34A940092144F /* Chefty.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C08F8B921DE34A940092144F /* Chefty.xcdatamodeld */; };
 		C08FBF881DE6329300699D9C /* GradientViewLeftToRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08FBF871DE6329300699D9C /* GradientViewLeftToRight.swift */; };
+		C0A9C3A11DFFAB7000D43330 /* iTunesArtwork@5.png in Resources */ = {isa = PBXBuildFile; fileRef = C0A9C3A01DFFAB7000D43330 /* iTunesArtwork@5.png */; };
+		C0A9C3A41E005F8700D43330 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0A9C3A31E005F8700D43330 /* Images.xcassets */; };
 		C0AAB5431DDE64970055DF8B /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB5421DDE64970055DF8B /* DataStore.swift */; };
 		C0AAB5471DDE67300055DF8B /* CheftyAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB5461DDE67300055DF8B /* CheftyAPIClient.swift */; };
 		C0AAB5491DDE677C0055DF8B /* Secrets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AAB5481DDE677C0055DF8B /* Secrets.swift */; };
@@ -128,6 +130,8 @@
 		C054B29F1DE1185C00F4DEB1 /* MyMenuTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyMenuTableViewCell.swift; sourceTree = "<group>"; };
 		C08F8B931DE34A940092144F /* Chefty.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Chefty.xcdatamodel; sourceTree = "<group>"; };
 		C08FBF871DE6329300699D9C /* GradientViewLeftToRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientViewLeftToRight.swift; sourceTree = "<group>"; };
+		C0A9C3A01DFFAB7000D43330 /* iTunesArtwork@5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iTunesArtwork@5.png"; sourceTree = "<group>"; };
+		C0A9C3A31E005F8700D43330 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C0AAB5421DDE64970055DF8B /* DataStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
 		C0AAB5461DDE67300055DF8B /* CheftyAPIClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheftyAPIClient.swift; sourceTree = "<group>"; };
 		C0AAB5481DDE677C0055DF8B /* Secrets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Secrets.swift; sourceTree = "<group>"; };
@@ -228,6 +232,7 @@
 				C0252C5F1DDCF96C00046AD0 /* Models */,
 				C0252C5D1DDCF93900046AD0 /* Views */,
 				C0252C5E1DDCF95800046AD0 /* Controllers */,
+				C0A9C3A31E005F8700D43330 /* Images.xcassets */,
 				A72DBEA21DE4A74E00867C86 /* Supporting Files */,
 			);
 			path = Chefty;
@@ -304,6 +309,7 @@
 		C0252C671DDD23B600046AD0 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				C0A9C3A01DFFAB7000D43330 /* iTunesArtwork@5.png */,
 				C0252C661DDD23AD00046AD0 /* MaterialIcons-Regular.otf */,
 				C053D7D21DFF180300AE1FE3 /* Icon-App-72x72@1x.png */,
 				C053D7D41DFF184700AE1FE3 /* iTunesArtwork@3x.png */,
@@ -419,9 +425,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				C053D7D51DFF184700AE1FE3 /* iTunesArtwork@3x.png in Resources */,
+				C0A9C3A41E005F8700D43330 /* Images.xcassets in Resources */,
 				C053D7D71DFF1D1900AE1FE3 /* LaunchScreen.storyboard in Resources */,
 				A7C1E1C11DDCD97300BD8A13 /* Assets.xcassets in Resources */,
 				A7B968F11DEF0B7D003C6116 /* Main.storyboard in Resources */,
+				C0A9C3A11DFFAB7000D43330 /* iTunesArtwork@5.png in Resources */,
 				C053D7D31DFF180300AE1FE3 /* Icon-App-72x72@1x.png in Resources */,
 				C0DBD0611DDD25E800B9B9FF /* MaterialIcons-Regular.otf in Resources */,
 			);

@@ -23,7 +23,6 @@ class CheftyAPIClient {
                 if let unwrappedData = data {
                     do {
                         let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: String]]
-                        
                         for recipeDict in responseJSON {
                             // unwrap the incoming data and create recipes in core data
                             guard let unwrappedDisplayName = recipeDict["displayName"] else { fatalError() }
