@@ -12,7 +12,6 @@ protocol RecipeViewDelegate : class {
     func recipeSelected(_ recipe: Recipe, status: Bool)
 }
 
-
 class TraditionalRecipeViewController: UIViewController {
     
     var traditionalRecipeView: TraditionalRecipeView!
@@ -20,7 +19,7 @@ class TraditionalRecipeViewController: UIViewController {
     var backButton : BackButton!
     var addButton : AddButton!
     
-    var isSelected = false // TODO: Someone commented this out. In the merge, we uncommented it. What up?
+    var isSelected = false
     
     var store = DataStore.sharedInstance
     var removeButton : RemoveButtonView!
@@ -107,8 +106,6 @@ extension TraditionalRecipeViewController {
         removeButton.widthAnchor.constraint(equalToConstant: 55).isActive = true
         removeButton.translatesAutoresizingMaskIntoConstraints = false
         removeButton.addTarget(self, action: #selector(onClickDeleteAction), for: .touchUpInside)
-        
-        
     }
     
     func backButtonTapped(sender: UIButton) {
@@ -117,25 +114,7 @@ extension TraditionalRecipeViewController {
     
     func buttonTapped(sender: UIButton) {
         print("Calling button tapped")
-        
-        //*** put merge stuff and calculate time stuff here again
-//        store.getStepsFromRecipesSelected {
-//            self.store.mergedStepsArray.removeAll()
-//            self.store.mergeRecipeSteps()
-//            for step in self.store.recipeSteps {
-//                self.store.mergedStepsArray.append(step)
-//            }
-//        }
-//        print("merged step count = \(store.mergedStepsArray.count)")
         UserDefaults.standard.set(0, forKey: "stepCurrent")
-//        print("about to call calculate start time inside updatetableview")
-//        if store.mergedStepsArray.count > 0 {
-//            store.calculateStartTime()
-//            store.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"
-//        }
-        
-        
-        
         guard let selected = recipe else { return }
         
         if store.recipesSelected.count >= 4 { return }
@@ -146,31 +125,21 @@ extension TraditionalRecipeViewController {
             isSelected = false
             
             UIView.animate(withDuration: 0.3, animations: {
-                
                 self.removeButton.alpha = 0.0
                 self.addButton.alpha = 1.0
-                
             })
             
         } else {
-            print("will set recipe as selected")
-            print("recipe selected count before adding \(store.recipesSelected.count)")
+            
             store.setRecipeSelected(recipe: selected)
-            print("recipe selected count after adding \(store.recipesSelected.count)")
             isSelected = true
             
             UIView.animate(withDuration: 0.3, animations: {
-                
                 self.removeButton.alpha = 1.0
                 self.addButton.alpha = 0.0
-                
             })
-            
-            
         }
-        
     }
-    
     
     func onClickDeleteAction() {
         if let recipe = recipe {
@@ -178,8 +147,6 @@ extension TraditionalRecipeViewController {
             // show the control to set the opposite state
             self.removeButton.isHidden = true
             self.addButton.isHidden = false
-            
-            
         }
     }
     
@@ -192,11 +159,9 @@ extension TraditionalRecipeViewController {
         }
     }
     
-    
     func goToMyMenu(){
         let myMenuViewControllerInst = MyMenuViewController()
         navigationController?.pushViewController(myMenuViewControllerInst, animated: false) // show destination with nav bar
     }
-    
 }
 

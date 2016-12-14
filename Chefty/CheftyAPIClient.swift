@@ -23,7 +23,6 @@ class CheftyAPIClient {
                 if let unwrappedData = data {
                     do {
                         let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: String]]
-                        
                         for recipeDict in responseJSON {
                             // unwrap the incoming data and create recipes in core data
                             guard let unwrappedDisplayName = recipeDict["displayName"] else { fatalError() }
@@ -139,14 +138,12 @@ class CheftyAPIClient {
                                                     newStep.stepNumber = Int32(numberString)! // getting STEP NUMBER
                                                 }
                                             }
-                                            
-                                            
+                                                                                        
                                             let durationString = stepsDict["duration"] as? String
                                             guard let unwrappedDuration = durationString else { return }
                                             let durationInt = unwrappedDuration.convertDurationToMinutes()
                                             newStep.duration = Int32(durationInt)   // getting DURATION
 
-                                            
                                             let timeToStartString = stepsDict["timeToStart"] as? String
                                             guard let unwrappedTimeToStart = timeToStartString else { return }
                                             let timeToStartInt = unwrappedTimeToStart.convertTimeToStartToMinutes()
@@ -166,18 +163,14 @@ class CheftyAPIClient {
                                                             let newIngredient: Ingredient = Ingredient(context: context)
                                                             newIngredient.isChecked = false   // setting default value for isChecked
                                                             newIngredient.ingredientDescription = ingredient  // getting ingredientDescription
-
                                                             newStep.addToIngredients(newIngredient)
-
                                                         }
                                                     } else {
                                                         //print("We DO NOT have ingredient for this step.")
                                                     }
-                                                    
                                                 }
                                             }
                                         }
-                                        
                                     }
                                     completion()
                                 } catch {
@@ -191,32 +184,7 @@ class CheftyAPIClient {
                 } else {
                     completion()
                 }
-                
             }
-            
         }
     }
-    
-        
-        
-        class func fetchImage(_ url: URL, recipe: Recipe, completion: @escaping () -> Void) {
-            let store = DataStore.sharedInstance
-            let session = URLSession.shared
-            let task = session.dataTask(with: url) { (data, response, error) in
-                
-                guard let imageData = try? Data(contentsOf: url) else { fatalError() }
-                let image = UIImage(data: imageData)
-                store.images.append(image!)
-                OperationQueue.main.addOperation {
-                    completion()
-                    
-                }
-            }
-            
-            task.resume()
-        }
-        
-        
-        
-        
 }

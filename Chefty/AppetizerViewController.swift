@@ -16,8 +16,6 @@ class AppetizerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("APPETIZER VC: \(store.appetizer.count)")
-        
         // Do any additional setup after loading the view.
         let layout = CustomLayoutView()
         let frame = CGRect(x: view.bounds.minX, y: view.bounds.minY, width: view.bounds.width, height: view.bounds.height * 0.80)

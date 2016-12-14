@@ -15,11 +15,11 @@ class TraditionalRecipeView: UIView {
     var recipe: Recipe?
     var ingredientsArray: [String] = []
     var stepsArray: [String] = []
-    var combinedSteps: String = ""
-    var combinedIngredients: String = ""
+    var combinedSteps: String = String()
+    var combinedIngredients: String = String()
     var totalTime: Int = 0
     var gradientView : GradientView!
-    var totalTimeString = ""
+    var totalTimeString = String()
     
     var myScrollView = UIScrollView()
     let recipeLabel = UILabel()
@@ -27,8 +27,6 @@ class TraditionalRecipeView: UIView {
     init(frame:CGRect, recipe: Recipe){
         super.init(frame: frame)
         self.recipe = recipe
-
-        
         self.getStepsandIngredients()
     }
     
@@ -36,32 +34,23 @@ class TraditionalRecipeView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     func getStepsandIngredients() {
         
         guard let recipe = self.recipe else { return }
         
-        
         CheftyAPIClient.getStepsAndIngredients(recipe: recipe) {
             
-            
             guard let recipeStep = recipe.steps else { return }
-            
             var steps = recipeStep.allObjects as! [Step]
-            
             steps = steps.sorted(by: { $0.timeToStart < $1.timeToStart } )
             
             for step in steps {
                 guard let procedure = step.procedure else { return }
                 self.stepsArray.append(procedure)
-                
                 self.totalTime += Int(step.duration)
-                
-                
                 guard let stepIngredient = step.ingredients else { return }
-                
-                
                 let ingredientsPerStep = stepIngredient.allObjects as! [Ingredient]
+                
                 if ingredientsPerStep.isEmpty == false {
                     
                     for ingredient in ingredientsPerStep {
@@ -74,14 +63,12 @@ class TraditionalRecipeView: UIView {
             self.combinedSteps = self.stepsArray.joined(separator: "\n\n")
             self.combinedIngredients = self.ingredientsArray.joined(separator: "\n")
             
-            // after everything is complete move setup to the main thread so we see the results
+            // after everything is complete, move setup to the main thread so we see the results
             OperationQueue.main.addOperation {
                 self.setUpElements()
             }
-            
         }
     }
-    
     
     func setUpElements() {
         
@@ -92,13 +79,11 @@ class TraditionalRecipeView: UIView {
         self.addSubview(myScrollView)
         self.sendSubview(toBack: myScrollView)
         
-        
         self.myScrollView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         self.myScrollView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
         self.myScrollView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         self.myScrollView.translatesAutoresizingMaskIntoConstraints = false
         
-        //IMAGE
         // create image
         let myImageView = UIImageView()
         self.myScrollView.addSubview(myImageView)
@@ -119,7 +104,6 @@ class TraditionalRecipeView: UIView {
         bgView.heightAnchor.constraint(equalTo: myScrollView.heightAnchor, multiplier: 0.6).isActive = true
         
         // grab image from URL
-        //let imageURL = URL(string: recipe.imageURL!)
         let imageURL = URL(string: recipe.imageURL!)
         myImageView.sd_setImage(with: imageURL!)
         self.sendSubview(toBack: myImageView)
@@ -139,7 +123,7 @@ class TraditionalRecipeView: UIView {
         recipeLabel.heightAnchor.constraint(equalTo: myImageView.heightAnchor, multiplier: 0.2).isActive = true
         recipeLabel.translatesAutoresizingMaskIntoConstraints = false
         
-        //
+        // create the background view
         let bgView2 = UIView()
         bgView2.backgroundColor = UIColor.black
         self.myScrollView.addSubview(bgView2)
@@ -166,7 +150,6 @@ class TraditionalRecipeView: UIView {
         clockIcon.leftAnchor.constraint(equalTo: myScrollView.leftAnchor, constant: 20).isActive = true
         clockIcon.topAnchor.constraint(equalTo: personIcon.bottomAnchor).isActive = true
         clockIcon.widthAnchor.constraint(equalTo: myScrollView.widthAnchor, multiplier: 0.1).isActive = true
-        //clockIcon.bottomAnchor.constraint(equalTo: bgView2.bottomAnchor).isActive = true
         clockIcon.heightAnchor.constraint(equalToConstant: 30).isActive = true
         clockIcon.translatesAutoresizingMaskIntoConstraints = false
         
@@ -215,7 +198,6 @@ class TraditionalRecipeView: UIView {
         
         durationLabel.leftAnchor.constraint(equalTo: clockIcon.rightAnchor, constant: 0).isActive = true
         durationLabel.topAnchor.constraint(equalTo: servingSizeLabel.bottomAnchor).isActive = true
-        //durationLabel.bottomAnchor.constraint(equalTo: bgView2.bottomAnchor).isActive = true
         durationLabel.widthAnchor.constraint(equalTo: myScrollView.widthAnchor).isActive = true
         durationLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
         durationLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -297,5 +279,4 @@ class TraditionalRecipeView: UIView {
         stepsText.isScrollEnabled = false
         stepsText.isUserInteractionEnabled = false
     }
-    
 }

@@ -21,10 +21,7 @@ class MainDishViewController: UIViewController, RecipeViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //recipeView.delegate = self
         setupCollectionView()
-        print("MAIN \(store.main.count)")
     }
     
     override func viewWillAppear(_ animated: Bool) {

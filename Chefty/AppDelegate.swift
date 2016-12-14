@@ -45,22 +45,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     store.getRecipesFromDB {
                         OperationQueue.main.addOperation {
                             self.initialViewController.reloadInputViews()
-                            //print("We are done loading the data. recipes.count = \(self.store.recipes.count)")
                             destVC.mainDishVC.collectionView.reloadData()
                         }
                     }
                 }
-            
         } else {
             store.showNotification = true
             self.initialViewController = MyMenuViewController()
-            
         }
     
         let navigationController = UINavigationController(rootViewController: self.initialViewController)
         self.window!.rootViewController = navigationController
         self.window!.makeKeyAndVisible()
-        
+
         return true
     }
     
@@ -90,7 +87,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.store.recipes.remove(at: n)
             }
         }
-        print("recipes remaining at shutdown: \(self.store.recipes.count)")
         saveContext()
     }
     
