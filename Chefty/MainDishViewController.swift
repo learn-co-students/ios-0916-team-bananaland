@@ -29,6 +29,7 @@ class MainDishViewController: UIViewController, RecipeViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.collectionView.reloadData()
     }
    
 }
@@ -62,10 +63,14 @@ extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDat
         cell.recipe = store.main[indexPath.row]
         cell.recipeLabel.text = store.main[indexPath.row].displayName
         cell.imageView.sd_setImage(with: url!)
+        
+        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        let recipeCell = cell as! RecipeCollectionViewCell
         
         let interval = Double(indexPath.row)
         if (collectionView.frame.intersects(cell.frame)) {
@@ -85,6 +90,15 @@ extension MainDishViewController : UICollectionViewDelegate, UICollectionViewDat
             cell.alpha = 1.0
             cell.center.y -= 20
         })
+        
+        if store.recipesSelected.contains(recipeCell.recipe!) {
+            
+            recipeCell.layer.borderColor = UIColor(red: 132/255.0, green: 32/255.0, blue: 43/255.0, alpha: 1.0).cgColor
+            recipeCell.layer.borderWidth = 3.0
+            recipeCell.alpha = 0.7
+        }
+        
+        
         
     }
     

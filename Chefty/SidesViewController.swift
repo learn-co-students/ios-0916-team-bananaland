@@ -28,7 +28,7 @@ class SidesViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        reloadInputViews()
+        self.collectionView.reloadData()
     }
     
 }
@@ -54,6 +54,8 @@ extension SidesViewController : UICollectionViewDelegate, UICollectionViewDataSo
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         
+        let recipeCell = cell as! RecipeCollectionViewCell
+        
         let interval = Double(indexPath.row)
         
         if (collectionView.frame.intersects(cell.frame)) {
@@ -66,7 +68,6 @@ extension SidesViewController : UICollectionViewDelegate, UICollectionViewDataSo
             })
         }
         
-        
         cell.alpha = 0.0
         cell.center.y = cell.center.y + 20
         
@@ -74,6 +75,13 @@ extension SidesViewController : UICollectionViewDelegate, UICollectionViewDataSo
             cell.alpha = 1.0
             cell.center.y -= 20
         })
+        
+        if store.recipesSelected.contains(recipeCell.recipe!) {
+            
+            recipeCell.layer.borderColor = UIColor(red: 132/255.0, green: 32/255.0, blue: 43/255.0, alpha: 1.0).cgColor
+            recipeCell.layer.borderWidth = 3.0
+            recipeCell.alpha = 0.7
+        }
         
     }
     
