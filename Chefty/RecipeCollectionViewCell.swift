@@ -69,7 +69,7 @@ class RecipeCollectionViewCell: UICollectionViewCell {
         recipeLabel.translatesAutoresizingMaskIntoConstraints = false
         recipeLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor).isActive = true
         recipeLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor).isActive = true
-        recipeLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
+        recipeLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -4).isActive = true
         
     }
     

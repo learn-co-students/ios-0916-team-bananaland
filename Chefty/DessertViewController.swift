@@ -78,9 +78,12 @@ extension DessertViewController : UICollectionViewDelegate, UICollectionViewData
         
         if store.recipesSelected.contains(recipeCell.recipe!) {
             
-            recipeCell.layer.borderColor = UIColor(red: 132/255.0, green: 32/255.0, blue: 43/255.0, alpha: 1.0).cgColor
-            recipeCell.layer.borderWidth = 3.0
-            recipeCell.alpha = 0.7
+            recipeCell.layer.borderColor = UIColor.blue.cgColor
+            recipeCell.layer.borderWidth = 5.0
+            recipeCell.alpha = 1.0
+            
+        } else {
+            recipeCell.layer.borderWidth = 0.0
         }
     }
     
