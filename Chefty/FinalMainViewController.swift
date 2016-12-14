@@ -23,7 +23,14 @@ class FinalMainViewController: UIViewController {
         // Do any additional setup after loading the view.
         setupView()
         self.navigationItem.setHidesBackButton(true, animated: false)
-        
+       
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if store.recipesSelected.count == 0 {
+            selectedRecipeIcon.alpha = 0.6
+        } else { selectedRecipeIcon.alpha = 1.0 }
     }
     
     override func viewDidLayoutSubviews() {
@@ -32,10 +39,11 @@ class FinalMainViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.reloadInputViews()
         if store.recipesSelected.count == 0 {
             selectedRecipeIcon.alpha = 0.6
         } else { selectedRecipeIcon.alpha = 1.0 }
-        self.reloadInputViews()
+        
     }
     
     private func setupView() {
