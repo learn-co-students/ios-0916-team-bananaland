@@ -16,18 +16,26 @@ class FinalMainViewController: UIViewController {
     var presentingVC : UIViewController!
     var store = DataStore.sharedInstance
     var previousSelectedSegment = 1
+    var selectedRecipeIcon : CookButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         setupView()
-
         self.navigationItem.setHidesBackButton(true, animated: false)
-
+        
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if store.recipesSelected.count == 0 {
+            selectedRecipeIcon.alpha = 0.6
+        } else { selectedRecipeIcon.alpha = 1.0 }
+        self.reloadInputViews()
     }
     
     private func setupView() {
@@ -43,7 +51,7 @@ class FinalMainViewController: UIViewController {
         self.extendedLayoutIncludesOpaqueBars = true
         
         //Setup navigation Buttons
-        let selectedRecipeIcon = CookButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        selectedRecipeIcon = CookButton(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         let selectedRecipeButton = UIBarButtonItem()
         selectedRecipeButton.customView = selectedRecipeIcon
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.cookButtonTapped(sender:)))
