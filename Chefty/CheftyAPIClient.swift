@@ -14,7 +14,7 @@ class CheftyAPIClient {
     
     class func getRecipiesFromDB(completion: @escaping () -> Void) {
         let store = DataStore.sharedInstance
-        let urlString = "\(Secrets.cheftyAPIURLheroku)"  // TODO: include the key
+        let urlString = "\(Secrets.cheftyAPImetadata)/key/\(Secrets.cheftyKey)"
         let url = URL(string: urlString)
         
         
