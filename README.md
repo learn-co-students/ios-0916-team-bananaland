@@ -15,6 +15,6 @@ Simply select your recipes from the Appetizer, Main Dish, Side Dish, or Dessert 
 
 Plus, customize your meal prep by choosing a target serving time, and Chefty will let you know when to start cooking as well as an estimated schedule for completing each recipe step.
 
-Let's start cooking!
+[See the app in the app store](https://itunes.apple.com/us/app/chefty/id1184573680?mt=8) and let's start cooking!
 
 ![Alt text](/screenshots/01.png?raw=true "Main Page")
