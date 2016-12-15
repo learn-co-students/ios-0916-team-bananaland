@@ -1,10 +1,9 @@
 Chefty
 
-Team Members:
-Arvin San Miguel
-Paul Tangen
-Jacqueline Schweiger
-Joanna Huang
+
+Team Members: Joanna Huang, Arvin San Miguel, Jacqueline Schweiger, and Paul Tangen
+
+
 
 Chefty is multi-course cooking - simplified.
 
