@@ -14,7 +14,7 @@ class CheftyAPIClient {
     
     class func getRecipiesFromDB(completion: @escaping () -> Void) {
         let store = DataStore.sharedInstance
-        let urlString = "\(Secrets.cheftyAPImetadata)/key/\(Secrets.cheftyKey)"
+        let urlString = "\(Secrets.cheftyAPIURL)/getRecipes.php?key=\(Secrets.cheftyKey)"
         let url = URL(string: urlString)
         
         
@@ -23,22 +23,18 @@ class CheftyAPIClient {
             let task = session.dataTask(with: unwrappedUrl) { (data, response, error) in
                 if let unwrappedData = data {
                     do {
-                        let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: Any]]
+                        let responseJSON = try JSONSerialization.jsonObject(with: unwrappedData, options: []) as! [[String: String]]
                         for recipeDict in responseJSON {
                             // unwrap the incoming data and create recipes in core data
-                            guard let unwrappedDisplayName = recipeDict["displayName"] as? String else { fatalError() }
-                            guard let unwrappedShortName = recipeDict["shortName"] as? String else { fatalError() }
-                            guard let unwrappedImageFileName = recipeDict["imageFileName"] as? String else { fatalError() }
-                            guard let unwrappedImageFileNameSmall = recipeDict["imageFileNameSmall"] as? String else { fatalError() }
-                            guard let unwrappedServings = recipeDict["servings"] as? String else { fatalError() }
-                            guard let unwrappedRecipeType = recipeDict["type"] as? String else { fatalError() }
-                            guard let unwrappedSortValue = recipeDict["sortValue"] as? String else { fatalError() }
+                            guard let unwrappedDisplayName = recipeDict["displayName"] else { fatalError() }
+                            guard let unwrappedRecipeID = recipeDict["id"] else { fatalError() }
+                            guard let unwrappedImageURL = recipeDict["imageURL"] else { fatalError() }
+                            guard let unwrappedImageURLSmall = recipeDict["imageURLSmall"] else { fatalError() }
+                            guard let unwrappedServings = recipeDict["servings"] else { fatalError() }
+                            guard let unwrappedRecipeType = recipeDict["type"] else { fatalError() }
+                            guard let unwrappedSortValue = recipeDict["sortValue"] else { fatalError() }
                             
-                            // append the url and directory for the images
-                            let unwrappedImageURL = "\(Secrets.cheftyImageDir)\(unwrappedImageFileName)"
-                            let unwrappedImageURLSmall = "\(Secrets.cheftyImageDir)\(unwrappedImageFileNameSmall)"
-                            
-                            self.createRecipe(displayName: unwrappedDisplayName, recipeID: unwrappedShortName, imageURL: unwrappedImageURL, imageURLSmall: unwrappedImageURLSmall, servings: unwrappedServings, type: unwrappedRecipeType, sortValue: unwrappedSortValue)
+                            self.createRecipe(displayName: unwrappedDisplayName, recipeID: unwrappedRecipeID, imageURL: unwrappedImageURL, imageURLSmall: unwrappedImageURLSmall, servings: unwrappedServings, type: unwrappedRecipeType, sortValue: unwrappedSortValue)
                         }
                         
                         store.populateHomeArrays()

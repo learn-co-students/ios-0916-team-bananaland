@@ -68,21 +68,20 @@ class MyMenuViewController: UIViewController, MyMenuViewDelegate {
         let textStyle = NSMutableParagraphStyle()
         let textFontAttributes = [NSFontAttributeName: UIFont(name: "GillSans-Bold", size: 25)!, NSForegroundColorAttributeName: color, NSParagraphStyleAttributeName: textStyle]
         self.navigationController?.navigationBar.titleTextAttributes = textFontAttributes
-        
-        // adjust the button label if the step value is 0
-        var stepValueForButton:Int = 1
-        if UserDefaults.standard.integer(forKey: "stepCurrent") == 0 {
-            stepValueForButton = 1
-        } else {
-            stepValueForButton = UserDefaults.standard.integer(forKey: "stepCurrent")
-        }
-        self.myMenuViewInst.openSingleStepButton.title = "Open Step \(stepValueForButton)"
     }
 
     override func didReceiveMemoryWarning() { super.didReceiveMemoryWarning() }
     
     override func loadView(){
         self.view = myMenuViewInst
+        
+        // adjust the button label if the step value is 0
+        if UserDefaults.standard.integer(forKey: "stepCurrent") == 0 {
+            self.myMenuViewInst.openSingleStepButton.title = "Open Step 1"
+        } else {
+            let stepCurrentValue = UserDefaults.standard.integer(forKey: "stepCurrent")
+            self.myMenuViewInst.openSingleStepButton.title = "Open Step \(stepCurrentValue)"
+        }
     }
     
     func goToIngredients() {

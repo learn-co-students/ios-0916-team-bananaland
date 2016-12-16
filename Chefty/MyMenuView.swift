@@ -217,7 +217,6 @@ class MyMenuView: UIView, UITableViewDelegate, UITableViewDataSource, MyMenuTabl
     
     //re-call recipesSelected from API, re-sort, re-append to mergedStepsArray
     func updateTableViewNow() {
-        UserDefaults.standard.set(0, forKey: "stepCurrent")
         if store.mergedStepsArray.count > 0 {
             store.calculateStartTime()
             self.startCookingTimeField.text = "Start Cooking: \(store.startCookingTime)"

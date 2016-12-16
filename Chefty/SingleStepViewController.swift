@@ -36,7 +36,6 @@ class SingleStepViewController: UIViewController, SingleStepDelegate {
     override func loadView(){
         self.singleStepViewInst = SingleStepView(frame: CGRect.zero)
         self.view = self.singleStepViewInst
-       
     }
 
     override func didReceiveMemoryWarning(){

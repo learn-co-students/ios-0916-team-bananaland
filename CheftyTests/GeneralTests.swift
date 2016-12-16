@@ -93,7 +93,6 @@ class APITests: XCTestCase {
             
         }
         waitForExpectations(timeout: 10, handler: nil)
-        print(stepCount)
         XCTAssert(stepCount == 15) // apple-pie stepCount = 15
         
         if let recipeForTesting = recipeForTesting {
